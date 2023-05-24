@@ -1,0 +1,231 @@
+package com.iemr.common.data.users;
+
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.google.gson.annotations.Expose;
+import com.iemr.common.data.notification.Notification;
+import com.iemr.common.utils.mapper.OutputMapper;
+
+import lombok.Data;
+
+@Entity
+@Table(name = "m_role")
+@Data
+public class Role
+{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Expose
+	private Integer RoleID;
+	@Expose
+	private String RoleName;
+	@Expose
+	private String RoleDesc;
+	@Transient
+	@Expose
+	private Integer roleID;
+	@Transient
+	@Expose
+	private String roleName;
+	@Transient
+	@Expose
+	private String roleDesc;
+	@Expose
+	private Boolean Deleted;
+	@Expose
+	private String CreatedBy;
+	@Expose
+    @Transient
+    private Boolean inbound;
+   
+    @Expose
+    @Transient
+    private Boolean outbound;
+	private Timestamp CreatedDate;
+	private String ModifiedBy;
+	private Timestamp LastModDate;
+	@OneToMany(mappedBy = "m_Role")
+	@Transient
+	private Set<UserServiceRoleMapping> m_UserServiceRoleMapping;
+	@OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+	@Transient
+	private Set<Notification> notifications;
+	@Expose
+	@OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
+	@Transient
+	private List<ServiceRoleScreenMapping> serviceRoleScreenMappings;
+
+	@Transient
+	private OutputMapper outputMapper = new OutputMapper();
+
+	@Expose
+	@Transient
+	private Integer workingLocationID;
+
+	@Expose
+	@Transient
+	private String agentID;
+
+	// protected Role() {
+	// }
+	//
+	public Role createRole(Integer roleID, String roleName, String roleDesc, Boolean deleted, String createdBy,
+			Timestamp createdDate, String modifiedBy, Timestamp lastModDate,
+			Set<UserServiceRoleMapping> m_UserServiceRoleMapping)
+	{
+		this.RoleID = roleID;
+		this.RoleName = roleName;
+		this.RoleDesc = roleDesc;
+		this.roleID = roleID;
+		this.roleName = roleName;
+		this.roleDesc = roleDesc;
+
+		this.Deleted = deleted;
+		this.CreatedBy = createdBy;
+		this.CreatedDate = createdDate;
+		this.ModifiedBy = modifiedBy;
+		this.LastModDate = lastModDate;
+		this.m_UserServiceRoleMapping = m_UserServiceRoleMapping;
+		return this;
+	}
+
+//	public Integer getRoleID()
+//	{
+//		return this.RoleID;
+//	}
+//
+//	public void setRoleID(int roleID)
+//	{
+//		this.RoleID = Integer.valueOf(roleID);
+//	}
+//
+//	public String getRoleName()
+//	{
+//		return this.RoleName;
+//	}
+//
+//	public void setRoleName(String roleName)
+//	{
+//		this.RoleName = roleName;
+//	}
+//
+//	public String getRoleDesc()
+//	{
+//		return this.RoleDesc;
+//	}
+//
+//	public void setRoleDesc(String roleDesc)
+//	{
+//		this.RoleDesc = roleDesc;
+//	}
+
+	public boolean isDeleted()
+	{
+		return this.Deleted.booleanValue();
+	}
+
+	public void setDeleted(boolean deleted)
+	{
+		this.Deleted = Boolean.valueOf(deleted);
+	}
+
+	public String getCreatedBy()
+	{
+		return this.CreatedBy;
+	}
+
+	public void setCreatedBy(String createdBy)
+	{
+		this.CreatedBy = createdBy;
+	}
+
+	public Timestamp getCreatedDate()
+	{
+		return this.CreatedDate;
+	}
+
+	public void setCreatedDate(Timestamp createdDate)
+	{
+		this.CreatedDate = createdDate;
+	}
+
+	public String getModifiedBy()
+	{
+		return this.ModifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy)
+	{
+		this.ModifiedBy = modifiedBy;
+	}
+
+	public Timestamp getLastModDate()
+	{
+		return this.LastModDate;
+	}
+
+	public void setLastModDate(Timestamp lastModDate)
+	{
+		this.LastModDate = lastModDate;
+	}
+
+	// public Set<UserServiceRoleMapping> getM_UserServiceRoleMapping()
+	// {
+	// return this.m_UserServiceRoleMapping;
+	// }
+	//
+	// public void setM_UserServiceRoleMapping(Set<UserServiceRoleMapping> m_UserServiceRoleMapping)
+	// {
+	// this.m_UserServiceRoleMapping = m_UserServiceRoleMapping;
+	// }
+
+	public void setServiceRoleScreenMappings(List<ServiceRoleScreenMapping> serviceRoleScreenMappings)
+	{
+		this.serviceRoleScreenMappings = serviceRoleScreenMappings;
+	}
+
+	@Override
+	public String toString()
+	{
+		return OutputMapper.gson().toJson(this);
+	}
+
+	public static Role initializeRole(Integer roleID, String roleName)
+	{
+		Role role = new Role();
+		role.RoleID = roleID;
+		role.RoleName = roleName;
+		role.roleID = roleID;
+		role.roleName = roleName;
+		return role;
+	}
+
+	public void setWorkingLocationID(Integer workingLocationID)
+	{
+		this.workingLocationID = workingLocationID;
+	}
+
+	public void setAgentID(String agentID)
+	{
+		this.agentID = agentID;
+	}
+	public void setInbound(Boolean inbound)
+	{
+	this.inbound = inbound;
+	}
+	public void setOutbound(Boolean outbound)
+	{
+	this.outbound = outbound;
+	}
+}

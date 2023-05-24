@@ -1,0 +1,127 @@
+package com.iemr.common.controller.scheme;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.iemr.common.data.scheme.Scheme;
+import com.iemr.common.service.scheme.SchemeServiceImpl;
+import com.iemr.common.utils.mapper.InputMapper;
+import com.iemr.common.utils.response.OutputResponse;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
+@RequestMapping(value = "/beneficiary")
+@RestController
+public class SchemeController
+{
+	InputMapper inputMapper = new InputMapper();
+	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+	@Autowired
+	private SchemeServiceImpl schemeServiceImpl;
+
+	InputMapper mapper = new InputMapper();
+
+	@CrossOrigin
+	@ApiOperation(value = "stores scheme data", consumes = "application/json", produces = "application/json")
+	@RequestMapping(
+			value = "/save/schemeDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE,
+			consumes = MediaType.APPLICATION_JSON_VALUE, headers = "Authorization")
+	public String saveSchemeDetails(
+			@ApiParam(
+					value = "{\"providerServiceMapID\": \"integer-provider service map id\", "
+							+ "\"schemeName\": \"Name of Scheme\", " + "\"schemeDesc\": \"Description of Scheme\", "
+							+ "\"createdBy\": \"User name of the supervisor creating scheme\", "
+							+ "\"kmFileManager\":{\"fileName\":\"String: name of file\", " + "\"fileExtension\":\"String: file extension\", "
+							+ "\"providerServiceMapID\":\"Integer: service provider map ID\", "
+							+ "\"userID\":\"Integer: user ID of the supervisor\", "
+							+ "\"fileContent\":\"String: base64encoded binary file content\", "
+							+ "\"createdBy\":\"String: username of supervisor\"}}") @RequestBody String request)
+	{
+
+		// logger.info("saveSchemeDetails request " + request);
+		OutputResponse output = new OutputResponse();
+		try
+		{
+			Scheme scheme = inputMapper.gson().fromJson(request, Scheme.class);
+			Scheme schemeNew;
+			schemeNew = schemeServiceImpl.save(scheme);
+			output.setResponse(schemeNew.toString());
+		} catch (Exception e)
+		{
+			logger.error("saveSchemeDetails failed with error " + e.getMessage(), e);
+			output.setError(e);
+		}
+		logger.info("saveSchemeDetails response: " + output);
+		return output.toString();
+	}
+
+	@CrossOrigin
+	@RequestMapping(
+			value = "/get/schemeList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE,
+			consumes = MediaType.APPLICATION_JSON_VALUE, headers = "Authorization")
+	public String getSchemeList(@ApiParam(value = "{\"providerServiceMapID\":\"Integer\"}") @RequestBody String createRequest)
+	{
+		logger.info("getSchemeList request " + createRequest);
+		OutputResponse output = new OutputResponse();
+		try
+		{
+			Scheme m_scheme = mapper.gson().fromJson(createRequest, Scheme.class);
+			List<Scheme> schemes = null;
+			schemes = schemeServiceImpl.getSchemeList(m_scheme.getProviderServiceMapID());
+			if (schemes != null)
+			{
+				output.setResponse(schemes.toString());
+			} else
+			{
+				output.setError(5000, "No schemes available");
+			}
+
+		} catch (Exception e)
+		{
+			logger.error("getSchemeList failed with error " + e.getMessage(), e);
+			output.setError(e);
+		}
+		logger.info("getSchemeList response: " + output);
+		return output.toString();
+	}
+
+	@CrossOrigin
+	@RequestMapping(value = "/scheme/deleteScheme", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE, headers = "Authorization")
+	public String deleteScheme(@ApiParam(value = "{\"schemeID\":\"Integer\",\"deleted\":\"Boolean\"}") @RequestBody String createRequest)
+	{
+		logger.info("delete scheme request " + createRequest);
+		OutputResponse output = new OutputResponse();
+		try
+		{
+			Scheme m_scheme = mapper.gson().fromJson(createRequest, Scheme.class);
+			Scheme scheme = null;
+			scheme = schemeServiceImpl.getSchemeByID(m_scheme.getSchemeID());
+			if (scheme != null)
+			{
+				scheme.setDeleted(m_scheme.getDeleted());
+				output.setResponse(schemeServiceImpl.deletedata(scheme));
+			} else
+			{
+				output.setError(5000, "No schemes available");
+			}
+
+		} catch (Exception e)
+		{
+			logger.error("getSchemeList failed with error " + e.getMessage(), e);
+			output.setError(e);
+		}
+		logger.info("getSchemeList response: " + output);
+		return output.toString();
+	}
+}

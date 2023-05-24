@@ -1,0 +1,96 @@
+package com.iemr.common.data.brd;
+
+import java.math.BigInteger;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+
+import lombok.Data;
+
+@Data
+@JsonInclude(Include.ALWAYS)
+public class BRDIntegrationData {
+	
+	private Timestamp dateTime;
+	private BigInteger beneficiaryId;
+	private BigInteger beneficiaryRegId;
+	private BigInteger bencallId;
+	private String receivedRoleName;
+	private String gender;
+	private Integer age;
+	private String martialStatus;
+	private String state;
+	private String district;
+	private String block;
+	private String village;
+	//private String address;
+	private String pincode;
+	private String callGroupType;
+	
+	private String callType;
+	
+	private BigInteger prescriptionId;
+	private String drugName;
+	private String diseasesummary;
+	private String selectedDiagnosis;
+	private String categoryName;
+	private String subCategoryName;
+	
+	public static List<BRDIntegrationData> getBRDDetails(ArrayList<Object[]> obj) {
+		List<BRDIntegrationData> list = new ArrayList<BRDIntegrationData>();
+		if (obj != null && obj.size() > 0) {
+			for (Object[] obj1 : obj) {
+				BRDIntegrationData tmpOBJ = new BRDIntegrationData((Timestamp) obj1[0], (BigInteger) obj1[1],
+						(BigInteger) obj1[2], (BigInteger) obj1[3], (String) obj1[4], (String) obj1[5],
+						(Integer) obj1[6], (String) obj1[7], (String) obj1[8], (String) obj1[9], (String) obj1[10],
+						(String) obj1[11], (String) obj1[12], (String) obj1[13], (String) obj1[14],(BigInteger) obj1[15],
+						(String) obj1[16], (String) obj1[17], (String) obj1[18], (String) obj1[19],(String) obj1[20]);
+				list.add(tmpOBJ);
+			}
+		} else {
+			return null;
+		}
+		return list;
+	}
+
+	public BRDIntegrationData(Timestamp dateTime, BigInteger beneficiaryId, BigInteger beneficiaryRegId,
+			BigInteger bencallId, String receivedRoleName, String gender, Integer age, String martialStatus,
+			String state, String district, String block, String village,
+			/* String address, */ String pincode,
+			String callGroupType, String callType,
+			BigInteger prescriptionId, String drugName,String diseasesummary, String selectedDiagnosis, String categoryName,String subCategoryName) {
+		super();
+	
+		this.dateTime = dateTime;
+		this.beneficiaryId = beneficiaryId;
+		this.beneficiaryRegId = beneficiaryRegId;
+		this.bencallId = bencallId;
+		this.receivedRoleName = receivedRoleName;
+		this.gender = gender;
+		this.age = age;
+		this.martialStatus = martialStatus;
+		this.state = state;
+		this.district = district;
+		this.block = block;
+		this.village = village;
+		//this.address = address;
+		this.pincode = pincode;
+		this.callGroupType = callGroupType;
+		this.callType = callType;
+		
+		this.prescriptionId = prescriptionId;
+		this.drugName = drugName;
+		this.diseasesummary = diseasesummary;
+		this.selectedDiagnosis = selectedDiagnosis;
+		this.categoryName = categoryName;
+		this.subCategoryName = subCategoryName;
+	}
+	
+	
+
+
+}

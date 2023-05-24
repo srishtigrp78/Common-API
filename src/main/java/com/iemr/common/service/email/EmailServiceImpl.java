@@ -1,0 +1,517 @@
+package com.iemr.common.service.email;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Properties;
+
+import javax.mail.internet.MimeMessage;
+import javax.mail.util.ByteArrayDataSource;
+
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
+
+import com.iemr.common.data.email.EmailNotification;
+import com.iemr.common.data.email.EmailTemplate;
+import com.iemr.common.data.email.MDSR_CDREmail;
+import com.iemr.common.data.email.StockAlertData;
+import com.iemr.common.data.feedback.FeedbackDetails;
+import com.iemr.common.model.beneficiary.BeneficiaryModel;
+import com.iemr.common.model.email.EmailRequest;
+import com.iemr.common.model.excel.ExcelHelper;
+import com.iemr.common.model.feedback.AuthorityEmailID;
+import com.iemr.common.repository.email.EmailRepository;
+import com.iemr.common.repository.email.MDSR_CDREmailRepository;
+import com.iemr.common.repository.email.StockAlertDataRepo;
+import com.iemr.common.repository.feedback.FeedbackRepository;
+import com.iemr.common.service.beneficiary.IEMRSearchUserService;
+import com.iemr.common.utils.config.ConfigProperties;
+import com.iemr.common.utils.http.HttpUtils;
+import com.iemr.common.utils.mapper.InputMapper;
+
+@Service
+public class EmailServiceImpl implements EmailService {
+
+	private InputMapper inputMapper = new InputMapper();
+	@Autowired
+	private JavaMailSender javaMailSender;
+	@Value("${spring.mail.username}")
+	private String sender;
+	@Value("${spring.mail.password}")
+	private String password;
+	@Value("${mail-subject}")
+	private String subject;
+	@Value("${spring.mail.host}")
+	private String host;
+	@Value("${spring.mail.port}")
+	private String port;
+	@Autowired
+	HttpUtils httpUtils;
+
+	Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+	private static Boolean publishingEmail = false;
+
+	private static final String EMAIL_GATEWAY_URL = ConfigProperties.getPropertyByName("email-gateway-url");
+
+	private EmailRepository emailRepository;
+
+	@Autowired
+	private StockAlertDataRepo stockAlertDataRepo;
+
+	/**
+	 * @param emailRepository the emailRepository to set
+	 */
+	@Autowired
+	public void setEmailRepository(EmailRepository emailRepository) {
+		this.emailRepository = emailRepository;
+	}
+
+	private FeedbackRepository feedbackRepository;
+
+	/**
+	 * @param feedbackRepository the feedbackRepository to set
+	 */
+	@Autowired
+	public void setFeedbackRepository(FeedbackRepository feedbackRepository) {
+		this.feedbackRepository = feedbackRepository;
+	}
+
+	@Autowired
+	IEMRSearchUserService searchBeneficiary;
+
+	@Autowired
+	MDSR_CDREmailRepository mDSR_CDREmailRepository;
+
+	@Override
+	public String SendEmail(String request, String authToken) throws Exception {
+
+		EmailNotification notification = inputMapper.gson().fromJson(request, EmailNotification.class);
+
+		FeedbackDetails feedbackDetail = feedbackRepository.getFeedback(notification.getFeedbackID());
+
+		EmailTemplate emailTemplate = emailRepository.getEmailTemplate();
+
+		EmailNotification emailNotification = new EmailNotification();
+
+		emailNotification.setEmailTemplateID(emailTemplate.getEmailTemplateID());
+		emailNotification.setBenCallID(feedbackDetail.getBenCallID());
+		emailNotification.setProviderServiceMapID(feedbackDetail.getServiceID());
+		emailNotification.setEmailStatus(EmailNotification.NOT_SENT);
+		emailNotification.setCreatedBy(feedbackDetail.getCreatedBy());
+		emailNotification.setEmailTriggerDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
+		emailNotification.setBeneficiaryRegID(feedbackDetail.getBeneficiaryRegID());
+		emailNotification.setReceivingUserID(feedbackDetail.getUserID());
+		emailNotification.setEmailID(notification.getEmailID());
+
+		String emailToSend = "";
+
+		BeneficiaryModel beneficiary = null;
+		if (feedbackDetail != null && feedbackDetail.getBeneficiaryRegID() != null) {
+			List<BeneficiaryModel> beneficiaries = searchBeneficiary
+					.userExitsCheckWithId(feedbackDetail.getBeneficiaryRegID(), authToken, notification.getIs1097());
+			if (beneficiaries.size() == 1)
+				beneficiary = beneficiaries.get(0);
+		}
+		String benName = null, subDistrictName = null, complaintAgainst = null, feedbackdescription = null;
+		if (beneficiary != null) {
+			benName = beneficiary.getFirstName() + " " + beneficiary.getLastName();
+			subDistrictName = beneficiary.getI_bendemographics().getBlockName();
+		}
+
+		if (feedbackDetail != null) {
+			complaintAgainst = feedbackDetail.getFeedbackAgainst();
+			feedbackdescription = feedbackDetail.getFeedback();
+		}
+
+		emailToSend = emailTemplate.getEmailTemplate().replace("BENEFICIARY_NAME", benName)
+				.replace("COMPLAINT_AGAINST", complaintAgainst).replace("FEEDBACK_DESCERIPTION", feedbackdescription);
+
+		if (subDistrictName != null) {
+
+			emailToSend = emailToSend.replace("SUB_DISTRICT_NAME", subDistrictName);
+		} else {
+			emailToSend = emailToSend.replace("from SUB_DISTRICT_NAME", "");
+		}
+		emailNotification.setEmail(emailToSend);
+
+		emailRepository.save(emailNotification);
+
+		return emailNotification.toString();
+	}
+
+	/*
+	 * DU20091017 For sending email by passing request ID and email Type
+	 */
+	@Override
+	public String sendEmailGeneral(String emailRequest, String authToken) throws Exception {
+
+		EmailRequest emailReq = InputMapper.gson().fromJson(emailRequest, EmailRequest.class);
+
+		String emailResponse = null;
+		switch (emailReq.getEmailType()) {
+		case "MDSR-CDR Email":
+			emailResponse = mDSRCDREmail(emailReq.getRequestID(), emailReq.getEmailType(), emailReq.getEmailID(),
+					authToken);
+
+		}
+
+		return emailResponse;
+	}
+
+	/*
+	 * DU20091017 send MDSR_CDR(IMR-MMR) email to Nodal officer
+	 */
+	public String mDSRCDREmail(String requestID, String emailType, String emailID, String authToken) {
+
+		MDSR_CDREmail mDSR_CDRBenDetails = mDSR_CDREmailRepository.getMSDR_CDRBenDetails(requestID);
+
+		EmailTemplate emailTemplate = emailRepository.getEmailTemplateByEmailType(emailType);
+
+		EmailNotification emailNotification = new EmailNotification();
+
+		emailNotification.setEmailTemplateID(emailTemplate.getEmailTemplateID());
+		emailNotification.setBenCallID((long) mDSR_CDRBenDetails.getBenCallID());
+		emailNotification.setProviderServiceMapID(mDSR_CDRBenDetails.getProviderServiceMapID());
+		emailNotification.setEmailStatus(EmailNotification.NOT_SENT);
+		emailNotification.setCreatedBy(mDSR_CDRBenDetails.getCreatedBy());
+		emailNotification.setEmailTriggerDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
+		emailNotification.setBeneficiaryRegID((long) mDSR_CDRBenDetails.getBeneficiaryRegID());
+		emailNotification.setReceivingUserID(mDSR_CDRBenDetails.getUserID());
+		emailNotification.setEmailID(emailID);
+
+//		if (mDSR_CDRBenDetails.getBeneficiaryRegID() != null) {
+//			List<BeneficiaryModel> beneficiaries = searchBeneficiary
+//					.userExitsCheckWithId(mDSR_CDRBenDetails.getBeneficiaryRegID(), authToken, notification.getIs1097());
+//			if (beneficiaries.size() == 1)
+//				beneficiary = beneficiaries.get(0);
+//		}
+
+		ArrayList<Object[]> benDemographicsDetails = mDSR_CDREmailRepository.getDemographicDetails(
+				mDSR_CDRBenDetails.getVictimDistrict(), mDSR_CDRBenDetails.getVictimTaluk(),
+				mDSR_CDRBenDetails.getVictimVillage(), mDSR_CDRBenDetails.getInformerDistrictid(),
+				mDSR_CDRBenDetails.getInformerTalukid(), mDSR_CDRBenDetails.getInformerVillageid(),
+				mDSR_CDRBenDetails.getTransitTypeID(), mDSR_CDRBenDetails.getBaseCommunityID());
+
+		String stageOfDeath = null;
+
+		if (mDSR_CDRBenDetails.getDuringDelivery() != null
+				&& mDSR_CDRBenDetails.getDuringDelivery().equalsIgnoreCase("yes"))
+			stageOfDeath = "During Delievry";
+
+		if (mDSR_CDRBenDetails.getDuringPregnancy() != null
+				&& mDSR_CDRBenDetails.getDuringPregnancy().equalsIgnoreCase("yes"))
+			if (stageOfDeath != null)
+				stageOfDeath = stageOfDeath + " & " + "During Pregnancy";
+			else
+				stageOfDeath = "During Pregnency";
+
+		if (mDSR_CDRBenDetails.getWithin42daysOfDelivery() != null
+				&& mDSR_CDRBenDetails.getWithin42daysOfDelivery().equalsIgnoreCase("yes"))
+			if (stageOfDeath != null)
+				stageOfDeath = stageOfDeath + " & " + "With In 42 Days of Delivery";
+			else
+				stageOfDeath = "With In 42 Days of Delivery";
+
+		if (mDSR_CDRBenDetails.getAbove42daysOfDelivery() != null
+				&& mDSR_CDRBenDetails.getAbove42daysOfDelivery().equalsIgnoreCase("yes"))
+			if (stageOfDeath != null)
+				stageOfDeath = stageOfDeath + " & " + "Above 42 Days of Delivery";
+			else
+				stageOfDeath = "Above 42 Days of Delivery";
+
+		String emailToSend = "";
+
+		emailToSend = emailTemplate.getEmailTemplate()
+				.replace("$$DeathID$$",
+						mDSR_CDRBenDetails.getRequestID() == null ? "" : mDSR_CDRBenDetails.getRequestID())
+				.replace("$$RegDate$$",
+						mDSR_CDRBenDetails.getCreatedDate() == null ? ""
+								: mDSR_CDRBenDetails.getCreatedDate().toString())
+				.replace("$$regType$$",
+						mDSR_CDRBenDetails.getTypeOfInfromation() == null ? ""
+								: mDSR_CDRBenDetails.getTypeOfInfromation())
+				.replace("$$ICategory$$",
+						mDSR_CDRBenDetails.getInformerCategory() == null ? ""
+								: mDSR_CDRBenDetails.getInformerCategory())
+				.replace("$$IName$$",
+						mDSR_CDRBenDetails.getInformerName() == null ? "" : mDSR_CDRBenDetails.getInformerName())
+				.replace("$$IMobile$$",
+						mDSR_CDRBenDetails.getInformerMobileNumber() == null ? ""
+								: mDSR_CDRBenDetails.getInformerMobileNumber())
+				.replace("$$IDist$$",
+						benDemographicsDetails.get(0)[0] == null ? ""
+								: String.valueOf(benDemographicsDetails.get(0)[0]))
+				.replace("$$IBlock$$",
+						benDemographicsDetails.get(0)[2] == null ? ""
+								: String.valueOf(benDemographicsDetails.get(0)[2]))
+				.replace("$$IVillage$$",
+						benDemographicsDetails.get(0)[4] == null ? ""
+								: String.valueOf(benDemographicsDetails.get(0)[4]))
+				.replace("$$IAddress$$",
+						mDSR_CDRBenDetails.getInformerAddress() == null ? "" : mDSR_CDRBenDetails.getInformerAddress())
+				.replace("$$IIDProof$$",
+						mDSR_CDRBenDetails.getIdentityType() == null ? "" : mDSR_CDRBenDetails.getIdentityType())
+				.replace("$$IIDNo.$$",
+						mDSR_CDRBenDetails.getInformerIdNo() == null ? "" : mDSR_CDRBenDetails.getInformerIdNo())
+				.replace("$$VName$$",
+						mDSR_CDRBenDetails.getVictimName() == null ? "" : mDSR_CDRBenDetails.getVictimName())
+				.replace("$$VHName$$",
+						mDSR_CDRBenDetails.getVictimGuardian() == null ? "" : mDSR_CDRBenDetails.getVictimGuardian())
+				.replace("$$VAge$$",
+						mDSR_CDRBenDetails.getVictimAge() == null ? "" : mDSR_CDRBenDetails.getVictimAge().toString())
+				.replace("$$VDist$$",
+						benDemographicsDetails.get(0)[1] == null ? ""
+								: String.valueOf(benDemographicsDetails.get(0)[1]))
+				.replace("$$VBlock$$",
+						benDemographicsDetails.get(0)[3] == null ? ""
+								: String.valueOf(benDemographicsDetails.get(0)[3]))
+				.replace("$$VVillage$$",
+						benDemographicsDetails.get(0)[5] == null ? ""
+								: String.valueOf(benDemographicsDetails.get(0)[5]))
+				.replace("$$VRnumber$$",
+						mDSR_CDRBenDetails.getRelativeMobileNumber() == null ? ""
+								: mDSR_CDRBenDetails.getRelativeMobileNumber().toString())
+				.replace("$$StageOfDeath$$", stageOfDeath)
+				.replace("$$deliveryType$$",
+						mDSR_CDRBenDetails.getTypeOfDelivery() == null ? "" : mDSR_CDRBenDetails.getTypeOfDelivery())
+				.replace("$$deathReason$$",
+						mDSR_CDRBenDetails.getReasonOfDeath() == null ? "" : mDSR_CDRBenDetails.getReasonOfDeath())
+				.replace("$$NoOfDelivery$$",
+						mDSR_CDRBenDetails.getNoofDelivery() == null ? ""
+								: mDSR_CDRBenDetails.getNoofDelivery().toString())
+				.replace("$$facilityBased$$",
+						mDSR_CDRBenDetails.getFacilityName() == null ? "" : mDSR_CDRBenDetails.getFacilityName())
+				.replace("$$duringTransit$$",
+						mDSR_CDRBenDetails.getTransitType() == null ? "" : mDSR_CDRBenDetails.getTransitType())
+				.replace("$$communityBased$$",
+						mDSR_CDRBenDetails.getBaseCommunity() == null ? "" : mDSR_CDRBenDetails.getBaseCommunity())
+				.replace("$$ENTER$$", "\n");
+
+		emailNotification.setEmail(emailToSend);
+
+		emailRepository.save(emailNotification);
+
+		return emailNotification.toString();
+//		return "Success";
+	}
+
+	@Override
+	public String getAuthorityEmailID(String request) throws Exception {
+		AuthorityEmailID authorityEmailID = inputMapper.gson().fromJson(request, AuthorityEmailID.class);
+
+		List emaiList = emailRepository.getAuthorityEmailID(authorityEmailID.getDistrictID());
+
+		return emaiList.toString();
+	}
+
+//	@Async
+//	@Override
+//	public void publishEmail() {
+//
+//		if (!EmailServiceImpl.publishingEmail) {
+//			try {
+//				EmailServiceImpl.publishingEmail = true;
+//				Boolean doSendEmail = ConfigProperties.getBoolean("send-email");
+//				String sendEmailURL = ConfigProperties.getPropertyByName("send-email-url");
+//				String sendEmailAPI = EmailServiceImpl.EMAIL_GATEWAY_URL + "/" + sendEmailURL;
+//				String senderName = ConfigProperties.getPropertyByName("email-username");
+//				String senderPassword = ConfigProperties.getPropertyByName("email-password");
+//				String senderNumber = ConfigProperties.getPropertyByName("email-sender-number");
+//				sendEmailAPI = sendEmailAPI.replace("USERNAME", senderName).replace("PASSWORD", senderPassword)
+//						.replace("SENDER_NUMBER", senderNumber);
+//				List<EmailNotification> emailNotificationToSend = emailRepository
+//						.findPendingEmailNotifications(EmailNotification.NOT_SENT);
+//
+//				for (EmailNotification email : emailNotificationToSend) {
+//					String emailPublishURL = sendEmailAPI;
+//
+//					try {
+//
+//						emailPublishURL = emailPublishURL
+//								.replace("EMAIL_TEXT", URLEncoder.encode(email.getEmail(), "UTF-8"))
+//								.replace("RECEIVER_ID", email.getEmailID());
+//						email.setEmailStatus(EmailNotification.IN_PROGRESS);
+//						email = emailRepository.save(email);
+//						logger.info("Calling API to send Email " + emailPublishURL);
+//						ResponseEntity<String> response = httpUtils.getV1(emailPublishURL);
+//						if (response.getStatusCodeValue() == 200) {
+//							String emailResponse = response.getBody();
+//							switch (emailResponse) {
+//							case "0x200 - Invalid Username or Password":
+//							case "0x201 - Account suspended due to one of several defined reasons":
+//							case "0x202 - Invalid Source Address/Sender ID. As per GSM standard, the sender ID should "
+//									+ "be within 11 characters":
+//							case "0x203 - Message length exceeded (more than 160 characters) if concat is set to 0":
+//							case "0x204 - Message length exceeded (more than 459 characters) in concat is set to 1":
+//							case "0x205 - DRL URL is not set":
+//							case "0x206 - Only the subscribed service type can be accessed – "
+//									+ "make sure of the service type you are trying to connect with":
+//							case "0x207 - Invalid Source IP – kindly check if the IP is responding":
+//							case "0x208 - Account deactivated/expired":
+//							case "0x209 - Invalid message length (less than 160 characters) if concat is set to 1":
+//							case "0x210 - Invalid Parameter values":
+//							case "0x211 - Invalid Message Length (more than 280 characters)":
+//							case "0x212 - Invalid Message Length":
+//							case "0x213 - Invalid Destination Number":
+//								throw new Exception(emailResponse);
+//							default:
+////								logger.info("Email Sent successfully by calling API " + emailPublishURL);
+//								email.setTransactionError(null);
+//								email.setTransactionID(emailResponse);
+//								email.setIsTransactionError(false);
+//								email.setEmailSentDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
+//								email.setEmailStatus(EmailNotification.SENT);
+//								email = emailRepository.save(email);
+//								break;
+//							}
+//						} else {
+//							throw new Exception(response.getStatusCodeValue() + " and error "
+//									+ response.getStatusCode().toString());
+//						}
+//					} catch (Exception e) {
+//						logger.error("Failed to send Email: " + email.toString() + " with error " + e.getMessage(), e);
+//						email.setTransactionError(e.getMessage());
+//						email.setIsTransactionError(true);
+//						email.setTransactionID(null);
+//						email.setEmailStatus(EmailNotification.NOT_SENT);
+//						email = emailRepository.save(email);
+//					}
+//
+//				}
+//			} catch (Exception e) {
+//				logger.error("publishEmail failed with error " + e.getMessage());
+//			} finally {
+//				EmailServiceImpl.publishingEmail = false;
+//			}
+//		}
+//
+//	}
+
+	@Async
+	@Override
+	public void publishEmail() {
+
+		try {
+
+			// fetch record from new view
+			List<StockAlertData> stockAlertDataList = stockAlertDataRepo.checkThresholdLimit();
+			HashMap<String, List<StockAlertData>> dataMap = new HashMap<>();
+			List<StockAlertData> dataList;
+
+			if (stockAlertDataList != null && stockAlertDataList.size() > 0) {
+				for (StockAlertData stockAlertData : stockAlertDataList) {
+					if (dataMap.containsKey(stockAlertData.getEmailid())) {
+						List<StockAlertData> tempDataList = dataMap.get(stockAlertData.getEmailid());
+						tempDataList.add(stockAlertData);
+						dataMap.replace(stockAlertData.getEmailid(), tempDataList);
+
+					} else {
+						dataList = new ArrayList<>();
+						dataList.add(stockAlertData);
+						if(stockAlertData !=null && stockAlertData.getEmailid() !=null)
+						dataMap.put(stockAlertData.getEmailid(), dataList);
+					}
+				}
+			} else {
+				logger.info("No Alert emails to be sent");
+			}
+            int sendMail=0;
+			for (Entry<String, List<StockAlertData>> entry : dataMap.entrySet()) {
+				logger.info(entry.getKey() + ": key");
+				logger.info(entry.getValue().toString() + ": value");
+				try {
+				byte[] bytes = ExcelHelper.InventoryDataToExcel(entry.getValue());
+				ByteArrayDataSource byteArrayOutputStream = new ByteArrayDataSource(bytes, "application/vnd.ms-excel");
+				sendMail=sendEmailWithAttachment(entry.getKey(),byteArrayOutputStream);
+				if(sendMail ==1)
+					logger.info("Email successfully sent to "+entry.getKey());
+				else
+					logger.info("Error while sending email to "+entry.getKey());
+				}catch(Exception e)
+				{
+					logger.info(e.getLocalizedMessage());
+				}
+			}
+		} catch (Exception e) {
+			logger.error("publishEmail failed with error " + e.getMessage());
+		}
+
+	}
+
+//			for (EmailNotification email : emailNotificationToSend) {
+//				try {
+//					email.setEmailStatus(EmailNotification.IN_PROGRESS);
+//					email = emailRepository.save(email);
+//					logger.info("Sending inventory stock email to " + email.getEmailID());
+//					if (sendEmail(email.getEmailID(), email.getEmail()) == 1) {
+//						logger.info("Inventory stock Email sent successfully to " + email.getEmailID());
+//						email.setEmailStatus(EmailNotification.SENT);
+//						email.setTransactionError(null);
+//						email.setIsTransactionError(false);
+//						email.setEmailSentDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
+//						email = emailRepository.save(email);
+//					}
+//				} catch (Exception e) {
+//					email.setTransactionError(e.getLocalizedMessage());
+//					email.setEmailStatus(EmailNotification.NOT_SENT);
+//					email.setIsTransactionError(true);
+//					email.setTransactionID(null);
+//					email = emailRepository.save(email);
+//					logger.error("publishEmail failed with error " + e.getMessage());
+//				}
+//			}
+//
+//		} catch (Exception e) {
+//			logger.error("publishEmail failed with error " + e.getMessage());
+//		}
+//
+//	}
+
+	int sendEmailWithAttachment(String recipient, ByteArrayDataSource attachment) throws Exception {
+		try {
+			// Creating a mime message
+			 JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+	            mailSender.setHost(host);
+	            mailSender.setPort(Integer.parseInt(port));
+	            StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
+	    		encryptor.setAlgorithm("PBEWithMD5AndDES");
+	    		encryptor.setPassword("dev-env-secret");
+	    		String decryptSender = encryptor.decrypt(sender);
+	    		String decryptPass = encryptor.decrypt(password);
+	    		
+	           mailSender.setUsername(decryptSender);
+	            mailSender.setPassword(decryptPass);
+	           Properties props = mailSender.getJavaMailProperties();
+	            props.put("mail.smtp.auth", "true");
+	            props.put("mail.smtp.starttls.enable", "true");
+			MimeMessage mimeMessage = mailSender.createMimeMessage();
+			MimeMessageHelper mimeMessageHelper;
+			mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+			mimeMessageHelper.setFrom(sender);
+			mimeMessageHelper.setTo(recipient);
+			 mimeMessageHelper.setText("Sample");
+			mimeMessageHelper.setSubject(subject);
+			mimeMessageHelper.addAttachment("InventoryStockAlert.xlsx", attachment);
+
+			// Sending the mail
+			mailSender.send(mimeMessage);
+			return 1;
+		}
+
+		catch (Exception e) {
+			throw new Exception("Error while Sending Mail to "+recipient+" : " + e.getLocalizedMessage());
+		}
+	}
+}

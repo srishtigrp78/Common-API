@@ -1,0 +1,77 @@
+package com.iemr.common.controller.questionconfig;
+
+import javax.ws.rs.core.MediaType;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.iemr.common.service.questionconfig.QuestionTypeService;
+import com.iemr.common.utils.response.OutputResponse;
+
+import io.swagger.annotations.ApiParam;
+
+@RestController
+@RequestMapping("questionTypeController")
+public class QuestionTypeController {
+
+	final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+	/**
+	 * Question Type Repository
+	 */
+	@Autowired
+	private QuestionTypeService questionTypeService;
+
+	/**
+	 * Inject Question Type Repository
+	 */
+	public void setQuestionTypeService(QuestionTypeService questionTypeService) {
+
+		this.questionTypeService = questionTypeService;
+	}
+
+	/**
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@CrossOrigin()
+	@RequestMapping(value = "/put/questionType", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	public String createQuestionType(@ApiParam(value="{\\\"questionType\\\":\\\"String\\\",\\\"questionTypeDesc\\\":\\\"String\\\"}\"")@RequestBody String request) {
+		OutputResponse response = new OutputResponse();
+		try {
+			response.setResponse(questionTypeService.createQuestionType(request));
+		} catch (Exception e) {
+			logger.error("put-questionTyp failed with error " + e.getMessage(), e);
+			response.setError(e);
+		}
+
+		return response.toString();
+	}
+
+	/**
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@CrossOrigin()
+	@RequestMapping(value = "/get/questionTypeList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
+	public String questionTypeList() {
+		OutputResponse response = new OutputResponse();
+		try {
+			response.setResponse(questionTypeService.getQuestionTypeList());
+		} catch (Exception e) {
+			logger.error("get-questionTyp failed with error " + e.getMessage(), e);
+			response.setError(e);
+		}
+
+		return response.toString();
+	}
+
+}
