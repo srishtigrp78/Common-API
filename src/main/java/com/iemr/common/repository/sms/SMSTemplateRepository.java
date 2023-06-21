@@ -34,4 +34,8 @@ public abstract interface SMSTemplateRepository extends CrudRepository<SMSTempla
 	@Modifying
 	@Query("update SMSTemplate set deleted = :deleted where smsTemplateID = :smsTemplateID")
 	public int updateSMSTemplate(@Param("smsTemplateID") Integer smsTemplateID, @Param("deleted") Boolean deleted);
+	
+	@Query("select smsTemplate.dltTemplateId from SMSTemplate smsTemplate where smsTemplate.smsTemplateID = :smsTemplateID and smsTemplate.deleted <> true")
+	public String findDLTTemplateID(@Param("smsTemplateID") Integer smsTemplateID );
+
 }
