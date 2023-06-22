@@ -55,6 +55,8 @@ public class SMSTemplate
 	String smsTemplateName;
 	@Column(name = "SMSTemplate")
 	String smsTemplate;
+	@Column(name = "dltTemplateId")
+	String dltTemplateId;
 	@Column(name = "SMSSenderName")
 	String smsSenderID;
 	@Column(name = "SMSTypeID")
