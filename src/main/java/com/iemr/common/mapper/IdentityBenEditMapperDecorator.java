@@ -238,6 +238,8 @@ public abstract class IdentityBenEditMapperDecorator implements IdentityBenEditM
 			identityEditDTO.setVanID(beneficiary.getVanID());
 		if (beneficiary.getParkingPlaceID() != null)
 			identityEditDTO.setParkingPlaceId(beneficiary.getParkingPlaceID());
+		
+		identityEditDTO.setMonthlyFamilyIncome(beneficiary.getI_bendemographics().getMonthlyFamilyIncome());
 
 		return identityEditDTO;
 	}
