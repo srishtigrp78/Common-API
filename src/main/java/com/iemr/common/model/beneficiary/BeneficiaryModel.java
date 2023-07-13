@@ -261,6 +261,9 @@ public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 
 	@Expose
 	private Boolean beneficiaryConsent;
+	
+	@Expose
+	private Boolean emergencyRegistration = false;
 
 	public static Timestamp getTimestampData(Timestamp timestamp) {
 		return timestamp;
