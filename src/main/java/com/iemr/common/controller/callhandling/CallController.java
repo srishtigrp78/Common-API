@@ -199,7 +199,7 @@ public class CallController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Out bound call list")
+	@ApiOperation(value = "Outbound call list")
 	@RequestMapping(value = "/outboundCallList", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String outboundCallList(@ApiParam(value = "{\"providerServiceMapID\":\" called service ID integer\", "
 			+ "\"assignedUserID\":\"Optional - Integer ID of user that is assigned to\", "
@@ -220,7 +220,7 @@ public class CallController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Out bound call count")
+	@ApiOperation(value = "Outbound call count")
 	@RequestMapping(value = "/outboundCallCount", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String outboundCallCount(@ApiParam(value = "{\"providerServiceMapID\":\"called service ID integer\", "
 			+ "\"preferredLanguageName\":\"Optional - String name of the language selected by user\", "

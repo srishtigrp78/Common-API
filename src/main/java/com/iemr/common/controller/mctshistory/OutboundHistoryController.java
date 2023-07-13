@@ -46,7 +46,7 @@ public class OutboundHistoryController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get mcts call history")
+	@ApiOperation(value = "Get MCTS call history")
 	@RequestMapping(value = "/getMctsCallHistory", method = RequestMethod.POST, headers = "Authorization")
 	public String getCallHistory(@ApiParam("{\"beneficiaryRegID\":\"Long\"}") @RequestBody String request) {
 
@@ -62,7 +62,7 @@ public class OutboundHistoryController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get mcts call response")
+	@ApiOperation(value = "Get MCTS call response")
 	@RequestMapping(value = "/getMctsCallResponse", method = RequestMethod.POST, headers = "Authorization")
 	public String getMctsCallResponse(@ApiParam("{\"callDetailID\":\"Long\"}") @RequestBody String request) {
 

@@ -49,7 +49,7 @@ public class HoneywellController {
 	private HoneywellService honeywellService;
 
 	@CrossOrigin
-	@ApiOperation(value = "Real time district distribution")
+	@ApiOperation(value = "Get real time district wise call report")
 	@RequestMapping(value = "/realtimeDistrictDistribution", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getRealtimeDistrictWiseCallReport() {
 		OutputResponse response = new OutputResponse();

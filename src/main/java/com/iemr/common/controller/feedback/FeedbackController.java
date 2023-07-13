@@ -238,7 +238,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get all feedback by id")
+	@ApiOperation(value = "Get all feedback")
 	@RequestMapping(value = "/getAllFeedbackById", method = RequestMethod.POST, headers = "Authorization")
 	public String getAllFeedbackById(@RequestBody String feedbackrequest) {
 		OutputResponse response = new OutputResponse();
@@ -254,7 +254,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get all feedback by id1")
+	@ApiOperation(value = "Get all feedback by id")
 	@RequestMapping(value = "/getAllFeedbackById1", method = RequestMethod.POST, headers = "Authorization")
 	public String getAllfeedback(@RequestBody FeedbackResponse tfeedbackresponce) {
 		Map<String, Object> resMap = null;

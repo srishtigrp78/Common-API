@@ -142,7 +142,7 @@ public class CTIController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get login key")
+	@ApiOperation(value = "get login key")
 	@RequestMapping(value = "/getLoginKey", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getLoginKey(
 			@ApiParam("{\"username\":\"String: user name\", \"password\":\"String: password\"}") @RequestBody String request,

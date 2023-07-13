@@ -149,7 +149,7 @@ public class InstituteController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get designations")
+	@ApiOperation(value = "Get designation")
 	@RequestMapping(value = {
 			"/getDesignations" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getDesignations() {

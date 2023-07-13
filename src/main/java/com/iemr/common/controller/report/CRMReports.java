@@ -58,7 +58,7 @@ public class CRMReports {
 	Report1097Mapper mapper;
 
 	@CrossOrigin()
-	@ApiOperation(value = "QA report type master Data", consumes = "application/json", produces = "application/json")
+	@ApiOperation(value = "QA report type master data", consumes = "application/json", produces = "application/json")
 	@RequestMapping(value = "/getReportTypes/{providerServiceMapID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public String patientAppChiefComplaintsMasterData(
 			@PathVariable("providerServiceMapID") Integer providerServiceMapID) throws Exception {
