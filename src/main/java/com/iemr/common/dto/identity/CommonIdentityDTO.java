@@ -88,6 +88,7 @@ public class CommonIdentityDTO {
 	private Integer titleId;
 	private String title;
 	private Integer zoneId;
+	private String monthlyFamilyIncome;
 
 	// address
 	private Address currentAddress;

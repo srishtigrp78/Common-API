@@ -41,9 +41,13 @@ import com.iemr.common.model.userbeneficiary.MaritalStatusModel;
 import com.iemr.common.model.userbeneficiary.SexualOrientationModel;
 import com.iemr.common.model.userbeneficiary.StatusModel;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 	private static final Integer DAYS_IN_YEAR = 365;
 	private static final Integer DAYS_IN_MONTH = 30;
@@ -263,7 +267,11 @@ public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 	private Boolean beneficiaryConsent;
 	
 	@Expose
-	private Boolean emergencyRegistration = false;
+	private String monthlyFamilyIncome;
+	@Expose
+	private Boolean emergencyRegistration=false;
+	
+	
 
 	public static Timestamp getTimestampData(Timestamp timestamp) {
 		return timestamp;
