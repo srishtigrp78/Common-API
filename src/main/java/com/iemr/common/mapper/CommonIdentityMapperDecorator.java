@@ -185,7 +185,11 @@ public abstract class CommonIdentityMapperDecorator implements CommonIdentityMap
 		commonIdentityDTO.setParkingPlaceId(beneficiary.getParkingPlaceID());
 
 		commonIdentityDTO.setBeneficiaryConsent(beneficiary.getBeneficiaryConsent());
-		commonIdentityDTO.setMonthlyFamilyIncome(beneficiary.getI_bendemographics().getMonthlyFamilyIncome());
+		String monthlyFamilyIncome = beneficiary.getI_bendemographics().getMonthlyFamilyIncome();
+		if(monthlyFamilyIncome != null) {
+			commonIdentityDTO.setMonthlyFamilyIncome(beneficiary.getI_bendemographics().getMonthlyFamilyIncome());
+		}
+		
 		// End
 		return commonIdentityDTO;
 	}
