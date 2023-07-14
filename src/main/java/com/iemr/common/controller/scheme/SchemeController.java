@@ -69,8 +69,6 @@ public class SchemeController
 							+ "\"fileContent\":\"String: base64encoded binary file content\", "
 							+ "\"createdBy\":\"String: username of supervisor\"}}") @RequestBody String request)
 	{
-
-		// logger.info("saveSchemeDetails request " + request);
 		OutputResponse output = new OutputResponse();
 		try
 		{

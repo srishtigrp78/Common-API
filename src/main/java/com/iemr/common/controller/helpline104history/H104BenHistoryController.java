@@ -53,7 +53,7 @@ public class H104BenHistoryController {
 	
 	@CrossOrigin
 	@ApiOperation(
-			value = "retrives cashesheet history",
+			value = "Retrieve beneficiary case record",
 			consumes = "application/json",
 			produces = "application/json")
 	@RequestMapping(value = "/get104BenMedHistory", method = RequestMethod.POST, headers = "Authorization")
