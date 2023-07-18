@@ -54,6 +54,7 @@ public class AESUtil {
     private static final Logger logger = LoggerFactory.getLogger(AESUtil.class);
     private static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";
     private static final String SECRET_KEY_ALGORITHM = "PBKDF2WithHmacSHA512";
+	
     private static final String KEY_ALGORITHM = "AES";
 
     private final int IV_SIZE = 128;
