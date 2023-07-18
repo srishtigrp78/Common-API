@@ -62,7 +62,8 @@ import com.iemr.common.utils.validator.Validator;
  *
  */
 @Service
-public class RegisterBenificiaryServiceImpl implements RegisterBenificiaryService {
+public class RegisterBenificiaryServiceImpl implements RegisterBenificiaryService
+{
 
 	@Autowired
 	CommonIdentityMapper identityMapper;
@@ -74,7 +75,7 @@ public class RegisterBenificiaryServiceImpl implements RegisterBenificiaryServic
 
 	@Autowired
 	Validator validator;
-
+	
 	@Autowired
 	OutboundHistoryRepository outboundHistoryRepository;
 
@@ -112,7 +113,8 @@ public class RegisterBenificiaryServiceImpl implements RegisterBenificiaryServic
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 	@Override
-	public Beneficiary save(Beneficiary benificiaryDetails) {
+	public Beneficiary save(Beneficiary benificiaryDetails)
+	{
 
 		logger.info("benificiaryDetails: " + benificiaryDetails);
 		// CommonIdentityDTO identityDTO =
@@ -148,37 +150,35 @@ public class RegisterBenificiaryServiceImpl implements RegisterBenificiaryServic
 	}
 
 	@Async
-	private void updateBeneficiaryID(String beneficiaryID, Long beneficiaryRegID) {
-		try {
+	private void updateBeneficiaryID(String beneficiaryID, Long beneficiaryRegID)
+	{
+		try
+		{
 			// benificiaryRepository.addBeneficiaryID(beneficiaryID, beneficiaryRegID);
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			logger.error("updateBeneficiaryID failed with error " + e.getMessage(), e);
 		}
 	}
 
 	@Async
 	@Override
-	public Integer updateBenificiary(BeneficiaryModel benificiaryDetails, String auth) throws IEMRException {
+	public Integer updateBenificiary(BeneficiaryModel benificiaryDetails, String auth) throws IEMRException
+	{
 		Integer updatedRows = 0;
 
 		// try
 		// {
-		//// updatedRows =
-		// benificiaryRepository.updateDetailsbyID(benificiaryDetails.getTitleId(),
+		//// updatedRows = benificiaryRepository.updateDetailsbyID(benificiaryDetails.getTitleId(),
 		//// benificiaryDetails.getFirstName(), benificiaryDetails.getMiddleName(),
 		//// benificiaryDetails.getLastName(), benificiaryDetails.getStatusID(),
 		//// benificiaryDetails.getGenderID(), benificiaryDetails.getMaritalStatusID(),
-		//// benificiaryDetails.getdOB(), benificiaryDetails.getFatherName(),
-		// benificiaryDetails.getSpouseName(),
-		//// benificiaryDetails.getGovtIdentityNo(),
-		// benificiaryDetails.getGovtIdentityTypeID(),
-		//// benificiaryDetails.getRegisteredServiceID(),
-		// benificiaryDetails.isDeleted(),
-		//// benificiaryDetails.getBeneficiaryRegID(),
-		// benificiaryDetails.getSexualOrientationId(),
+		//// benificiaryDetails.getdOB(), benificiaryDetails.getFatherName(), benificiaryDetails.getSpouseName(),
+		//// benificiaryDetails.getGovtIdentityNo(), benificiaryDetails.getGovtIdentityTypeID(),
+		//// benificiaryDetails.getRegisteredServiceID(), benificiaryDetails.isDeleted(),
+		//// benificiaryDetails.getBeneficiaryRegID(), benificiaryDetails.getSexualOrientationId(),
 		//// benificiaryDetails.getIsHIVPos(), benificiaryDetails.getPlaceOfWork(),
-		//// benificiaryDetails.getRemarks(),
-		// benificiaryDetails.getSourceOfInformation());
+		//// benificiaryDetails.getRemarks(), benificiaryDetails.getSourceOfInformation());
 		// if (benificiaryDetails.getI_bendemographics() != null)
 		// {
 		// updatedRows = updateDemographics(benificiaryDetails.getI_bendemographics());
@@ -191,15 +191,12 @@ public class RegisterBenificiaryServiceImpl implements RegisterBenificiaryServic
 		//// logger.debug(benPhoneMap.toString());
 		//// if (benPhoneMap.getBenPhMapID() != null)
 		//// {
-		//// benPhoneMapRepository.update(benPhoneMap.getBenPhMapID(),
-		// benPhoneMap.getBenificiaryRegID(),
+		//// benPhoneMapRepository.update(benPhoneMap.getBenPhMapID(), benPhoneMap.getBenificiaryRegID(),
 		//// benPhoneMap.getParentBenRegID(), benPhoneMap.getBenRelationshipID(),
-		//// benPhoneMap.getPhoneNo(), benPhoneMap.getPhoneTypeID(),
-		// benPhoneMap.getDeleted());
+		//// benPhoneMap.getPhoneNo(), benPhoneMap.getPhoneTypeID(), benPhoneMap.getDeleted());
 		//// } else
 		//// {
-		//// benPhoneMapRepository.save(new Gson().fromJson(benPhoneMap.toString(),
-		// BenPhoneMap.class));
+		//// benPhoneMapRepository.save(new Gson().fromJson(benPhoneMap.toString(), BenPhoneMap.class));
 		//// }
 		//// }
 		// }
@@ -210,22 +207,24 @@ public class RegisterBenificiaryServiceImpl implements RegisterBenificiaryServic
 
 		IdentityEditDTO identityEditDTO = identityBenEditMapper.BenToIdentityEditMapper(benificiaryDetails);
 		if (benificiaryDetails.getBeneficiaryIdentities() != null
-				&& benificiaryDetails.getBeneficiaryIdentities().size() > 0) {
+				&& benificiaryDetails.getBeneficiaryIdentities().size() > 0)
+		{
 			identityEditDTO.setIdentities(Identity.createIdentity(benificiaryDetails.getBeneficiaryIdentities(),
 					benificiaryDetails.getCreatedBy()));
 		}
 		identityEditDTO.setDob(benificiaryDetails.getDOB());
 		// String jsoninput=new Gson().toJson(identityEditDTO);
-		updatedRows = identityBeneficiaryService.editIdentityEditDTO(identityEditDTO, auth,
-				benificiaryDetails.getIs1097());
+		updatedRows =
+				identityBeneficiaryService.editIdentityEditDTO(identityEditDTO, auth, benificiaryDetails.getIs1097());
 		// updateBeneficiaryPreferredLanguage(identityEditDTO, auth);
-
+		
 		// updateMCTSRecord(benificiaryDetails);
-
+		
 		return updatedRows;
 	}
 
-	private int updateDemographics(BeneficiaryDemographicsModel i_BenDemographics) {
+	private int updateDemographics(BeneficiaryDemographicsModel i_BenDemographics)
+	{
 		int updatedRows = 0;
 		System.out.println(i_BenDemographics);
 		// if
@@ -255,7 +254,8 @@ public class RegisterBenificiaryServiceImpl implements RegisterBenificiaryServic
 	}
 
 	@Override
-	public String save(BeneficiaryModel beneficiaryModel, HttpServletRequest servletRequest) throws Exception {
+	public String save(BeneficiaryModel beneficiaryModel, HttpServletRequest servletRequest) throws Exception
+	{
 
 //		logger.info("benificiaryDetails: " + beneficiaryModel);
 
@@ -265,38 +265,38 @@ public class RegisterBenificiaryServiceImpl implements RegisterBenificiaryServic
 				.setBenFamilyDTOs(identityMapper.benPhoneMapListToBenFamilyDTOList(beneficiaryModel.getBenPhoneMaps()));
 		String request = InputMapper.getInstance().gson().toJson(identityDTO).toString();
 
-		if (beneficiaryModel.getIs1097() == null)
-			beneficiaryModel.setIs1097(false);
-
 		String identityResponse = identityBeneficiaryService.getIdentityResponse(request,
 				servletRequest.getHeader("authorization"), beneficiaryModel.getIs1097());
 		JSONObject responseObj = new JSONObject(identityResponse);
 		BeneficiaryModel beneficiary = new BeneficiaryModel();
-		if (responseObj.has("response")) {
+		if (responseObj.has("response"))
+		{
 			OutputResponse response = InputMapper.getInstance()
 					.fromJson(responseObj.getJSONObject("response").toString(), OutputResponse.class);
-			if (response.isSuccess()) {
-				BeneficiariesDTO createdBen = InputMapper.getInstance().fromJson(response.getData(),
-						BeneficiariesDTO.class);
+			if (response.isSuccess())
+			{
+				BeneficiariesDTO createdBen =
+						InputMapper.getInstance().fromJson(response.getData(), BeneficiariesDTO.class);
 				beneficiaryModel.setBeneficiaryRegID(Long.parseLong(createdBen.getBenRegId().toString()));
 				beneficiaryModel.setBeneficiaryID(createdBen.getBenId().toString());
 				beneficiary = beneficiaryModel;
-			} else {
-				return response.toString();
+			}
+			else
+			{
+				return response.toString();		
 			}
 		}
 		return OutputMapper.gsonWithoutExposeRestriction().toJson(beneficiary);
 	}
-
 	@Override
-	public Integer updateCommunityorEducation(BeneficiaryModel benificiaryDetails, String auth) throws IEMRException {
+	public Integer updateCommunityorEducation(BeneficiaryModel benificiaryDetails, String auth) throws IEMRException{
 		IdentityEditDTO identityEditDTO = new IdentityEditDTO();
-		identityEditDTO.setBeneficiaryRegId(new BigInteger(benificiaryDetails.getBeneficiaryRegID() + ""));
-		if (benificiaryDetails.getI_bendemographics() != null) {
+		identityEditDTO.setBeneficiaryRegId(new BigInteger(benificiaryDetails.getBeneficiaryRegID()+""));
+		if(benificiaryDetails.getI_bendemographics()!=null){
 			identityEditDTO.setCommunityId(benificiaryDetails.getI_bendemographics().getCommunityID());
 			identityEditDTO.setEducationId(benificiaryDetails.getI_bendemographics().getEducationID());
 		}
-
+		
 ////		identityBenEditMapper.BenToIdentityEditMapper(benificiaryDetails);
 //		if (benificiaryDetails.getBeneficiaryIdentities() != null
 //				&& benificiaryDetails.getBeneficiaryIdentities().size() > 0)
@@ -305,75 +305,88 @@ public class RegisterBenificiaryServiceImpl implements RegisterBenificiaryServic
 //					benificiaryDetails.getCreatedBy()));
 //		}
 //		identityEditDTO.setDob(benificiaryDetails.getDOB());
-
-		Integer updatedRows = 0;
-		updatedRows = identityBeneficiaryService.editIdentityEditDTOCommunityorEducation(identityEditDTO, auth,
-				benificiaryDetails.getIs1097());
+		
+		Integer updatedRows=0;
+		updatedRows =
+				identityBeneficiaryService.editIdentityEditDTOCommunityorEducation(identityEditDTO, auth, benificiaryDetails.getIs1097());
 		// updateBeneficiaryPreferredLanguage(identityEditDTO, auth);
 		return updatedRows;
 	}
+	
 
-	private void updateMCTSRecord(BeneficiaryModel beneficiaryModel) {
+	private void updateMCTSRecord(BeneficiaryModel beneficiaryModel)
+	{
 		List<MctsOutboundCallDetail> mctsOutboundCallDetails = new ArrayList<MctsOutboundCallDetail>();
-
+		
 		try {
-
-			mctsOutboundCallDetails = outboundHistoryRepository.checkBenExist(beneficiaryModel.getBeneficiaryRegID());
-
-			MctsOutboundCallDetail callDetail = mctsOutboundCallDetails.get(0);
-
-			if (callDetail != null && callDetail.getIsMother() != null) {
-
+			
+			mctsOutboundCallDetails= outboundHistoryRepository.checkBenExist(beneficiaryModel.getBeneficiaryRegID());
+			
+			MctsOutboundCallDetail callDetail= mctsOutboundCallDetails.get(0);
+			
+			if(callDetail !=null && callDetail.getIsMother()!=null)
+			{
+				
 				String firstName = beneficiaryModel.getFirstName();
 				String lastName = beneficiaryModel.getLastName();
-				String name = "";
-				if (lastName != null && !lastName.equalsIgnoreCase("")) {
-					name = firstName + " " + lastName;
-				} else {
-					name = firstName;
+				String name= "";
+				if(lastName!=null && !lastName.equalsIgnoreCase(""))
+				{
+					name= firstName +" "+ lastName;
 				}
-
+				else
+				{
+					name= firstName;
+				}
+				
 				Integer age = beneficiaryModel.getAge();
-
-				String districtName = outboundHistoryRepository
-						.getDistrictName(beneficiaryModel.getI_bendemographics().getDistrictID());
-				String talukaName = outboundHistoryRepository
-						.getBlockName(beneficiaryModel.getI_bendemographics().getBlockID());
-				String villageName = outboundHistoryRepository
-						.getVillageName(beneficiaryModel.getI_bendemographics().getDistrictBranchID());
-
-				String gender = null;
-				if (beneficiaryModel.getGenderID() == 1) {
-					gender = "Male";
-				} else if (beneficiaryModel.getGenderID() == 2) {
-					gender = "Female";
-				} else {
-					gender = "Transgender";
+				
+				String districtName= outboundHistoryRepository.getDistrictName(beneficiaryModel.getI_bendemographics().getDistrictID());
+				String talukaName= outboundHistoryRepository.getBlockName(beneficiaryModel.getI_bendemographics().getBlockID());
+				String villageName= outboundHistoryRepository.getVillageName(beneficiaryModel.getI_bendemographics().getDistrictBranchID());
+				
+				String gender=null;
+				if(beneficiaryModel.getGenderID()==1)
+				{
+					gender ="Male"; 
 				}
-
+				else if(beneficiaryModel.getGenderID()==2)
+				{
+					gender ="Female";
+				}
+				else
+				{
+					gender="Transgender";
+				}
+				
 				Timestamp lastModDate = Timestamp.valueOf(LocalDateTime.now());
-				if (callDetail.getIsMother() == true) {
-					int updateRow = outboundHistoryRepository.updateMotherData(name, age, districtName, talukaName,
-							villageName, lastModDate, beneficiaryModel.getBeneficiaryRegID());
-				} else {
-					int updateRow = outboundHistoryRepository.updateChildData(name, gender, districtName, talukaName,
-							villageName, lastModDate, beneficiaryModel.getBeneficiaryRegID());
+				if(callDetail.getIsMother()==true)
+				{
+					int updateRow= outboundHistoryRepository.updateMotherData(name, age, districtName, talukaName, villageName, 
+							lastModDate, beneficiaryModel.getBeneficiaryRegID());
+				}
+				else
+				{
+					int updateRow= outboundHistoryRepository.updateChildData(name, gender, districtName, talukaName, villageName, 
+							lastModDate, beneficiaryModel.getBeneficiaryRegID());
 
 				}
 			}
 		} catch (Exception e) {
 
 		}
-
+				
+		
 	}
 
 	@Override
-	public String generateBeneficiaryIDs(String request, HttpServletRequest servletRequest) throws Exception {
+	public String generateBeneficiaryIDs(String request, HttpServletRequest servletRequest) throws Exception
+	{
 
 		logger.info("request: " + request.toString());
 		List<BeneficiaryGenModel> listBen = identityBeneficiaryService.generateBeneficiaryIDs(request,
 				servletRequest.getHeader("authorization"));
-
+		
 		return listBen.toString();
 	}
 }
