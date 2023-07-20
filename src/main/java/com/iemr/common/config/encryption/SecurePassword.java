@@ -45,7 +45,7 @@ public class SecurePassword {
 	}
 
 	private byte[] getSalt() throws NoSuchAlgorithmException {
-		SecureRandom sr = SecureRandom.getInstance("SHA512PRNG");
+		SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
 		byte[] salt = new byte[16];
 		sr.nextBytes(salt);
 		return salt;
