@@ -39,7 +39,7 @@ public class SecurePassword {
 		byte[] salt = getSalt();
 
 		PBEKeySpec spec = new PBEKeySpec(chars, salt, iterations, 512);
-		SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+		SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 		byte[] hash = skf.generateSecret(spec).getEncoded();
 		return iterations + ":" + toHex(salt) + ":" + toHex(hash);
 	}
@@ -70,7 +70,7 @@ public class SecurePassword {
 		byte[] hash = fromHex(parts[2]);
 
 		PBEKeySpec spec = new PBEKeySpec(originalPassword.toCharArray(), salt, iterations, hash.length * 8);
-		SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+		SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 		byte[] testHash = skf.generateSecret(spec).getEncoded();
 
 		int diff = hash.length ^ testHash.length;
