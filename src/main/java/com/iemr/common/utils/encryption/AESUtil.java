@@ -55,8 +55,8 @@ public class AESUtil {
 
 
     private static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";
-//    private static final String CIPHER_ALGORITHM = "AES/CBC/ISO10126Padding";
     private static final String SECRET_KEY_ALGORITHM = "PBKDF2WithHmacSHA1";
+
 
     private static final String KEY_ALGORITHM = "AES";
 
