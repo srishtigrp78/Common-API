@@ -206,7 +206,7 @@ public class NHM_DashboardServiceImpl implements NHM_DashboardService {
 		String fromDate = null;
 		
 		LocalDateTime date = null;
-		date = LocalDateTime.now();
+		date = LocalDateTime.now().minusDays(1);
 		String[] dateArr = date.toString().split("T");
 		endDate = dateArr[0].concat(" 23:59:59");
 		fromDate = dateArr[0].concat(" 00:00:01");
@@ -251,7 +251,7 @@ public class NHM_DashboardServiceImpl implements NHM_DashboardService {
 		String fromDate = null;
 		
 		LocalDateTime date = null;
-		date = LocalDateTime.now(); 
+		date = LocalDateTime.now().minusDays(1); 
 		String[] dateArr = date.toString().split("T");
 		endDate = dateArr[0].concat(" 23:59:59");
 		fromDate = dateArr[0].concat(" 00:00:01");
