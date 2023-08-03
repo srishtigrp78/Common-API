@@ -138,7 +138,7 @@ public class RegisterBenificiaryServiceImpl implements RegisterBenificiaryServic
 //		logger.info("benificiaryDetails: " + beneficiaryModel);
 
 		CommonIdentityDTO identityDTO = identityMapper.beneficiaryModelCommonIdentityDTO(beneficiaryModel);
-		identityDTO.setEmergencyRegistration(beneficiaryModel.getEmergencyRegistration());
+		identityDTO.setEmergencyRegistration(beneficiaryModel.isEmergencyRegistration());
 		identityDTO
 				.setBenFamilyDTOs(identityMapper.benPhoneMapListToBenFamilyDTOList(beneficiaryModel.getBenPhoneMaps()));
 		String request = InputMapper.getInstance().gson().toJson(identityDTO).toString();

@@ -269,7 +269,7 @@ public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 	@Expose
 	private String monthlyFamilyIncome;
 	@Expose
-	private Boolean emergencyRegistration=false;
+	private boolean emergencyRegistration;
 	
 	
 
