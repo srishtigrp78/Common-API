@@ -162,6 +162,8 @@ public class IdentityEditDTO {
 	private Integer vanID;
 	@Expose
 	private Integer parkingPlaceId;
+	
 
 	// END OF new column added for data sync
+	private boolean emergencyRegistration;
 }
