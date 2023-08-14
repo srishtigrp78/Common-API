@@ -163,4 +163,64 @@ public class AESUtil {
         random.nextBytes(randomBytes);
         return randomBytes;
     }
+    
+    public String decryptExistingPwd(String passPhrase, String cipherText) {
+        try {
+        	String salt = cipherText.substring(0, saltLength);
+            int ivLength = IV_SIZE / 4;
+            String iv = cipherText.substring(saltLength, saltLength + ivLength);
+            String ct = cipherText.substring(saltLength + ivLength);
+            return decryptExistingPwd(salt, iv, passPhrase, ct);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public String decryptExistingPwd(String salt, String iv, String passPhrase, String cipherText) {
+        try {
+        	SecretKey key = generateKeyForExistingUser(salt, passPhrase);
+            byte[] encrypted;
+            if (dataType.equals(DataType.HEX)) {
+                encrypted = fromHex(cipherText);
+            } else {
+                encrypted = fromBase64(cipherText);
+            }
+            byte[] decrypted = doFinal(Cipher.DECRYPT_MODE, key, iv, encrypted);
+            return new String(Objects.requireNonNull(decrypted), StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    private SecretKey generateKeyForExistingUser(String salt, String passPhrase) {
+        try {
+            SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            KeySpec keySpec = new PBEKeySpec(passPhrase.toCharArray(), fromHex(salt), iterationCount, keySize);
+            return new SecretKeySpec(secretKeyFactory.generateSecret(keySpec).getEncoded(), KEY_ALGORITHM);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+        	logger.info(e.getMessage());
+        }
+        return null;
+    }
+    
+    public String decryptExistingPwdNew(String passPhrase, String password) {
+    	
+    	try {
+    		String[] parts = password.split(":");
+    		int iterations = Integer.parseInt(parts[0]);
+    		String salt = parts[1];
+    		String hash = parts[2];
+    		SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+    		PBEKeySpec keySpec = new PBEKeySpec(passPhrase.toCharArray(), fromHex(salt), iterationCount, hash.length() * 4);
+    		SecretKey key = secretKeyFactory.generateSecret(keySpec);
+    		
+    		byte[] decryptedHash = key.getEncoded();
+    		return toHex(decryptedHash);
+    	} catch (Exception e) {
+    		throw new RuntimeException("Error decrypting password : " + e.getLocalizedMessage());
+    	}
+    }
+    
+   
+
 }

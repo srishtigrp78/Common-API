@@ -21,6 +21,8 @@
 */
 package com.iemr.common.controller.users;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -36,6 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -334,33 +337,33 @@ public class IEMRAdminController {
 		return response.toString();
 	}
 
-	@CrossOrigin()
-	@ApiOperation(value = "User authentication V1")
-	@RequestMapping(value = "/userAuthenticateV1", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
-	public String userAuthenticateV1(
-			@ApiParam(value = "\"{\\\"userName\\\":\\\"String\\\",\\\"password\\\":\\\"String\\\"}\"") @RequestBody LoginRequestModel loginRequest,
-			HttpServletRequest request) {
-		OutputResponse response = new OutputResponse();
-		logger.info("userAuthenticate request ");
-		try {
-
-			String remoteAddress = request.getHeader("X-FORWARDED-FOR");
-			if (remoteAddress == null || remoteAddress.trim().length() == 0) {
-				remoteAddress = request.getRemoteAddr();
-			}
-			LoginResponseModel resp = iemrAdminUserServiceImpl.userAuthenticateV1(loginRequest, remoteAddress,
-					request.getRemoteHost());
-			JSONObject responseObj = new JSONObject(OutputMapper.gsonWithoutExposeRestriction().toJson(resp));
-			responseObj = iemrAdminUserServiceImpl.generateKeyAndValidateIP(responseObj, remoteAddress,
-					request.getRemoteHost());
-			response.setResponse(responseObj.toString());
-		} catch (Exception e) {
-			logger.error("userAuthenticate failed with error " + e.getMessage(), e);
-			response.setError(e);
-		}
-		logger.info("userAuthenticate response " + response.toString());
-		return response.toString();
-	}
+//	@CrossOrigin()
+//	@ApiOperation(value = "User authentication V1")
+//	@RequestMapping(value = "/userAuthenticateV1", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
+//	public String userAuthenticateV1(
+//			@ApiParam(value = "\"{\\\"userName\\\":\\\"String\\\",\\\"password\\\":\\\"String\\\"}\"") @RequestBody LoginRequestModel loginRequest,
+//			HttpServletRequest request) {
+//		OutputResponse response = new OutputResponse();
+//		logger.info("userAuthenticate request ");
+//		try {
+//
+//			String remoteAddress = request.getHeader("X-FORWARDED-FOR");
+//			if (remoteAddress == null || remoteAddress.trim().length() == 0) {
+//				remoteAddress = request.getRemoteAddr();
+//			}
+//			LoginResponseModel resp = iemrAdminUserServiceImpl.userAuthenticateV1(loginRequest, remoteAddress,
+//					request.getRemoteHost());
+//			JSONObject responseObj = new JSONObject(OutputMapper.gsonWithoutExposeRestriction().toJson(resp));
+//			responseObj = iemrAdminUserServiceImpl.generateKeyAndValidateIP(responseObj, remoteAddress,
+//					request.getRemoteHost());
+//			response.setResponse(responseObj.toString());
+//		} catch (Exception e) {
+//			logger.error("userAuthenticate failed with error " + e.getMessage(), e);
+//			response.setError(e);
+//		}
+//		logger.info("userAuthenticate response " + response.toString());
+//		return response.toString();
+//	}
 
 	@CrossOrigin()
 	@ApiOperation(value = "Get login response")
@@ -472,15 +475,24 @@ public class IEMRAdminController {
 				throw new IEMRException("Change password failed with error as user is not available");
 			}
 			try {
-				if (!securePassword.validatePassword(changePassword.getPassword(), mUsers.get(0).getPassword())) {
-					throw new IEMRException("Change password failed with error as old password is incorrect");
+				int validatePassword;
+				validatePassword = securePassword.validatePassword(changePassword.getPassword(),
+						mUsers.get(0).getPassword());
+				if (validatePassword == 1) {
+					User mUser = mUsers.get(0);
+					noOfRowUpdated = iemrAdminUserServiceImpl.setForgetPassword(mUser, changePassword.getNewPassword(),
+							changePassword.getTransactionId(), changePassword.getIsAdmin());
+
+				} else if (validatePassword == 2) {
+					User mUser = mUsers.get(0);
+					noOfRowUpdated = iemrAdminUserServiceImpl.setForgetPassword(mUser, changePassword.getNewPassword(),
+							changePassword.getTransactionId(), changePassword.getIsAdmin());
+
 				}
 			} catch (Exception e) {
-				throw new IEMRException("Change password failed with error as old password is incorrect");
+				throw new IEMRException(e.getMessage());
 			}
-			User mUser = mUsers.get(0);
-			noOfRowUpdated = iemrAdminUserServiceImpl.setForgetPassword(mUser, changePassword.getNewPassword(),
-					changePassword.getTransactionId(), changePassword.getIsAdmin());
+
 			if (noOfRowUpdated > 0) {
 				changeReqResult = "Password SuccessFully Change";
 			} else {
@@ -858,5 +870,7 @@ public class IEMRAdminController {
 		logger.info("validateSecurityQuestionAndAnswer API response" + response.toString());
 		return response.toString();
 	}
+
+	
 
 }
