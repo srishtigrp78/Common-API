@@ -27,7 +27,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 
-
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
@@ -36,7 +35,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurePassword {
 	public String generateStrongPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
-		int iterations = 1000;
+		int iterations = 1001;
 		char[] chars = password.toCharArray();
 		byte[] salt = getSalt();
 
@@ -48,8 +47,6 @@ public class SecurePassword {
 
 	private byte[] getSalt() throws NoSuchAlgorithmException {
 		SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-	//	SecureRandom sr = SecureRandom.getInstanceStrong();
-		// SecureRandom sr = SecureRandom.getInstance("SHA512PRNG");
 		byte[] salt = new byte[16];
 		sr.nextBytes(salt);
 		return salt;
@@ -66,9 +63,68 @@ public class SecurePassword {
 		return hex;
 	}
 
-	
+	public int validatePassword(String originalPassword, String storedPassword)
+			throws NoSuchAlgorithmException, InvalidKeySpecException {
+		int validCount = 0;
+		String[] parts = storedPassword.split(":");
+		int iterations = Integer.parseInt(parts[0]);
+		byte[] salt = fromHex(parts[1]);
+		byte[] hash = fromHex(parts[2]);
+		if (iterations == 1000) {
+			PBEKeySpec spec = new PBEKeySpec(originalPassword.toCharArray(), salt, 1000, hash.length * 8);
+			SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+			byte[] testHash = skf.generateSecret(spec).getEncoded();
+			int diff = hash.length ^ testHash.length;
+			for (int i = 0; (i < hash.length) && (i < testHash.length); i++) {
+				diff |= hash[i] ^ testHash[i];
+			}
+			if (diff == 0) {
+				// return 1 if using SHA1 algorithm to execute save and login Operation
+				validCount = 1;
+				return validCount;
+			} else {
+				PBEKeySpec spec1 = new PBEKeySpec(originalPassword.toCharArray(), salt, iterations, hash.length * 8);
+				SecretKeyFactory skf1 = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+				byte[] testHash1 = skf1.generateSecret(spec1).getEncoded();
 
-	public boolean validatePassword(String originalPassword, String storedPassword)
+				int diff1 = hash.length ^ testHash1.length;
+				for (int i = 0; (i < hash.length) && (i < testHash1.length); i++) {
+					diff1 |= hash[i] ^ testHash1[i];
+				}
+				if (diff1 == 0) {
+					// return 2 if using SHA512 algorithm to execute login Operation
+					validCount = 2;
+					return validCount;
+				} else {
+					// return 0 if wrong password
+					validCount = 0;
+					return validCount;
+				}
+			}
+		}
+		if (iterations == 1001) {
+
+			PBEKeySpec spec = new PBEKeySpec(originalPassword.toCharArray(), salt, iterations, hash.length * 8);
+			SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+			byte[] testHash = skf.generateSecret(spec).getEncoded();
+
+			int diff = hash.length ^ testHash.length;
+			for (int i = 0; (i < hash.length) && (i < testHash.length); i++) {
+				diff |= hash[i] ^ testHash[i];
+			}
+			if (diff == 0) {
+				// return 3 if using SHA512 algorithm to execute login Operation
+				validCount = 3;
+				return validCount;
+			} else {
+				validCount = 0;
+				return validCount;
+			}
+		}
+		return validCount;
+	}
+
+	public boolean validatePasswordExisting(String originalPassword, String storedPassword)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
 		String[] parts = storedPassword.split(":");
 		int iterations = Integer.parseInt(parts[0]);
@@ -76,7 +132,7 @@ public class SecurePassword {
 		byte[] hash = fromHex(parts[2]);
 
 		PBEKeySpec spec = new PBEKeySpec(originalPassword.toCharArray(), salt, iterations, hash.length * 8);
-		SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+		SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 		byte[] testHash = skf.generateSecret(spec).getEncoded();
 
 		int diff = hash.length ^ testHash.length;
