@@ -296,7 +296,9 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 		}
 		
 		if(benCalls.getCallTypeID() == null) {
+
 			benCalls.setCallTypeID(9999);
+
 		}
 
 		// changes from null to new object, in controller obj.toString() is getting used
