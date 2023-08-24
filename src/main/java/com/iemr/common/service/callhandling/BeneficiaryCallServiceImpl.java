@@ -294,6 +294,10 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 		} else if (benCalls.getAgentIPAddress() == null) {
 			benCalls.setAgentIPAddress(agentIPAddress);
 		}
+		
+		if(benCalls.getCallTypeID() == null) {
+			benCalls.setCallTypeID(0);
+		}
 
 		// changes from null to new object, in controller obj.toString() is getting used
 		BeneficiaryCall savedCalls = new BeneficiaryCall();
