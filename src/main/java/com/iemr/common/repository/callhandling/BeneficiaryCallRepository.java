@@ -183,4 +183,7 @@ public interface BeneficiaryCallRepository extends CrudRepository<BeneficiaryCal
 	public ArrayList<BeneficiaryCall> getExistingBCByCallIDAndAgentID(@Param("callID") String callID,
 			@Param("agentID") String agentID);
 
+	@Query(value="select CallTypeID from db_iemr.m_callType where CallType='default null callType' order by CreatedDate DESC LIMIT 1",nativeQuery=true)
+	public Integer getCallTypeId();
+
 }
