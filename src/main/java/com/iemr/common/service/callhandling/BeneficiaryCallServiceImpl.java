@@ -297,7 +297,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 		
 		if(benCalls.getCallTypeID() == null) {
 
-			benCalls.setCallTypeID(9999);
+			benCalls.setCallTypeID(beneficiaryCallRepository.getCallTypeId());
 
 		}
 
