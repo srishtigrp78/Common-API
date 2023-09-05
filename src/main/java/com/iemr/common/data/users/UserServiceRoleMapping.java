@@ -107,6 +107,10 @@ public class UserServiceRoleMapping
 	@Expose
 	@Column(name = "isOutbound")
 	private Boolean outbound;
+	
+	@Expose
+	@Column(name = "isSanjeevani")
+	private Boolean isSanjeevani;
 
 
 	// @Expose
@@ -297,7 +301,7 @@ public class UserServiceRoleMapping
 
 	public static UserServiceRoleMapping initializeUserRoleMappingObjs(Long USRMappingID, Long UserID, Integer roleID,
 			Role m_Role, Integer providerServiceMapID, ProviderServiceMapping m_ProviderServiceMapping,
-			String agentID,Boolean inbound, Boolean outbound, String agentPassword, Integer workingLocationID,
+			String agentID,Boolean inbound, Boolean outbound, Boolean isSanjeevani, String agentPassword, Integer workingLocationID,
 			ProviderServiceAddressMapping providerServiceAddressMapping)
 	{
 		UserServiceRoleMapping userRoleMapping = new UserServiceRoleMapping();
@@ -312,6 +316,7 @@ public class UserServiceRoleMapping
 		userRoleMapping.agentID = agentID;
 		userRoleMapping.inbound = inbound;
 		userRoleMapping.outbound = outbound;
+		userRoleMapping.isSanjeevani = isSanjeevani;
 		userRoleMapping.agentPassword = agentPassword;
 		userRoleMapping.workingLocationID = workingLocationID;
 		userRoleMapping.m_Role.setWorkingLocationID(workingLocationID);
