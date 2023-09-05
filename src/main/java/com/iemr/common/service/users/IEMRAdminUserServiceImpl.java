@@ -470,8 +470,8 @@ public class IEMRAdminUserServiceImpl implements IEMRAdminUserService {
 								.initializeUserRoleMappingObjs((Long) object[0], (Long) object[1], (Integer) object[2],
 										(Role) object[3], (Integer) object[4],
 										getUserProviderServiceRoleMapping((Integer) object[4]), (String) object[5],
-										(Boolean) object[6], (Boolean) object[7], (String) object[8],
-										(Integer) object[9], (ProviderServiceAddressMapping) object[10]);
+										(Boolean) object[6], (Boolean) object[7], (Boolean) object[8], (String) object[9],
+										(Integer) object[10], (ProviderServiceAddressMapping) object[11]);
 						userRoles.add(userServiceRoleMapping);
 					}
 				}
@@ -667,8 +667,8 @@ public class IEMRAdminUserServiceImpl implements IEMRAdminUserService {
 				UserServiceRoleMapping userServiceRoleMapping = UserServiceRoleMapping.initializeUserRoleMappingObjs(
 						(Long) object[0], (Long) object[1], (Integer) object[2], (Role) object[3], (Integer) object[4],
 						getUserProviderServiceRoleMapping((Integer) object[4]), (String) object[5], (Boolean) object[6],
-						(Boolean) object[7], (String) object[8], (Integer) object[9],
-						(ProviderServiceAddressMapping) object[10]);
+						(Boolean) object[7], (Boolean) object[8], (String) object[9], (Integer) object[10], 
+						(ProviderServiceAddressMapping) object[11]);
 				List<ServiceRoleScreenMapping> serviceRoleScreenMappings = getActiveScreenMappings(
 						userServiceRoleMapping.getProviderServiceMapID(), userServiceRoleMapping.getRoleID());
 				userServiceRoleMapping.getM_Role().setServiceRoleScreenMappings(serviceRoleScreenMappings);
