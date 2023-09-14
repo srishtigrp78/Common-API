@@ -226,6 +226,7 @@ public class IEMRAdminController {
 
 	private void createUserMapping(User mUser, JSONObject resMap, JSONObject serviceRoleMultiMap,
 			JSONObject serviceRoleMap, JSONArray serviceRoleList, JSONObject previlegeObj) {
+		System.out.println(mUser);
 		String fName = mUser.getFirstName();
 		String lName = mUser.getLastName();
 		String mName = mUser.getMiddleName();
@@ -264,8 +265,11 @@ public class IEMRAdminController {
 				previlegeObj.getJSONObject(serv).put("agentID", m_UserServiceRoleMapping.getAgentID());
 				previlegeObj.getJSONObject(serv).put("agentPassword", m_UserServiceRoleMapping.getAgentPassword());
 			}
-			JSONArray roles = previlegeObj.getJSONObject(serv).getJSONArray("roles");
-			roles.put(new JSONObject(m_UserServiceRoleMapping.getM_Role().toString()));
+            JSONArray roles = previlegeObj.getJSONObject(serv).getJSONArray("roles");
+//            roles.put(new JSONObject(m_UserServiceRoleMapping.getM_Role().toString()));
+            JSONObject roleObject = new JSONObject(m_UserServiceRoleMapping.getM_Role().toString());
+            roleObject.put("isSanjeevani", m_UserServiceRoleMapping.getIsSanjeevani());
+            roles.put(roleObject);
 		}
 		Iterator<String> keySet = serviceRoleMultiMap.keys();
 		while (keySet.hasNext()) {

@@ -97,6 +97,10 @@ public class Role
 	@Expose
 	@Transient
 	private String agentID;
+	
+	@Expose
+	@Transient
+	private Boolean isSanjeevani;
 
 	// protected Role() {
 	// }

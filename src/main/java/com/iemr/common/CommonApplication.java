@@ -27,6 +27,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.client.RestTemplate;
 
 import com.iemr.common.utils.IEMRApplBeans;
 
@@ -39,6 +40,11 @@ public class CommonApplication extends SpringBootServletInitializer {
 		return new IEMRApplBeans();
 	}
 
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+    
 	public static void main(String[] args) {
 		SpringApplication.run(CommonApplication.class, args);
 	}
