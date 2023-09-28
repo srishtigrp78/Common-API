@@ -171,11 +171,8 @@ public class BiometricServiceImpl implements BiometricService {
 				// Print the XML content to the console
 				String xml = XMLToString(doc);
 				
-				String captureUrl = "http://127.0.0.1:port/rd/capture";
 				String capturingURL = captureUrl.replace("port", portNumber);
 				URL url = new URL(capturingURL);
-
-				System.out.println(capturingURL);
 
 				String httpMethod = "CAPTURE";
 				HttpClient httpClient = HttpClients.createDefault();
