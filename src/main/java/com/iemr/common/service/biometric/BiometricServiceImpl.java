@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URL;
+import java.util.Base64;
 import java.util.stream.Collectors;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -80,12 +81,7 @@ public class BiometricServiceImpl implements BiometricService {
 			}
 			String xmlResponse = getDeviceInfo(portNumber, env);
 			if(xmlResponse != null) {
-				JSONObject xmlJSONObj = XML.toJSONObject(xmlResponse);
-				String pidData = xmlJSONObj.get("PidData").toString();
-				JSONObject obj = new JSONObject(pidData);
-				String content = obj.get("Data").toString();
-				JSONObject obj1 = new JSONObject(content);
-				pidRes = obj1.get("content").toString();
+				pidRes = Base64.getEncoder().encodeToString(xmlResponse.getBytes());
 			}
 		} catch (Exception e) {
 			logger.error("Error while getting biometric data: " + e.getMessage());
@@ -142,7 +138,7 @@ public class BiometricServiceImpl implements BiometricService {
 				// Create the <Opts> element and its attributes
 				Element optsElement = doc.createElement("Opts");
 				optsElement.setAttribute("fCount", "1");
-				optsElement.setAttribute("fType", "0");
+				optsElement.setAttribute("fType", "2");
 				optsElement.setAttribute("iCount", "0");
 				optsElement.setAttribute("pCount", "0");
 				optsElement.setAttribute("pgCount", "2");
@@ -150,6 +146,7 @@ public class BiometricServiceImpl implements BiometricService {
 				optsElement.setAttribute("pidVer", "2.0");
 				optsElement.setAttribute("timeout", "10000");
 				optsElement.setAttribute("pTimeout", "20000");
+				optsElement.setAttribute("wadh", "E0jzJ/P8UopUHAieZn8CKqS4WPMi5ZSYXgfnlfkWjrc=");
 				optsElement.setAttribute("posh", "UNKNOWN");
 				optsElement.setAttribute("env", env);
 				pidOptionsElement.appendChild(optsElement);

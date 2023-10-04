@@ -30,7 +30,7 @@ public class BiometricController {
 	private BiometricService biometricService;
 	@CrossOrigin
 	@RequestMapping(value = { "/getBiometricData/{pid}" }, method = { RequestMethod.GET }, headers = "Authorization")
-	public OutputResponse saveBenNurseDataCAC(@PathVariable("pid") String pid,
+	public String saveBenNurseDataCAC(@PathVariable("pid") String pid,
 			@RequestHeader(value = "Authorization") String Authorization) {
 		OutputResponse response = new OutputResponse();
 		try {
@@ -39,6 +39,6 @@ public class BiometricController {
 		}catch (Exception e) {
 			logger.error("Error while fetching Biometric data : "+e.getMessage());
 		}
-		return response;
+		return response.toString();
 	}
 }
