@@ -226,6 +226,7 @@ public class IEMRAdminController {
 
 	private void createUserMapping(User mUser, JSONObject resMap, JSONObject serviceRoleMultiMap,
 			JSONObject serviceRoleMap, JSONArray serviceRoleList, JSONObject previlegeObj) {
+		System.out.println(mUser);
 		String fName = mUser.getFirstName();
 		String lName = mUser.getLastName();
 		String mName = mUser.getMiddleName();
@@ -264,8 +265,11 @@ public class IEMRAdminController {
 				previlegeObj.getJSONObject(serv).put("agentID", m_UserServiceRoleMapping.getAgentID());
 				previlegeObj.getJSONObject(serv).put("agentPassword", m_UserServiceRoleMapping.getAgentPassword());
 			}
-			JSONArray roles = previlegeObj.getJSONObject(serv).getJSONArray("roles");
-			roles.put(new JSONObject(m_UserServiceRoleMapping.getM_Role().toString()));
+            JSONArray roles = previlegeObj.getJSONObject(serv).getJSONArray("roles");
+//            roles.put(new JSONObject(m_UserServiceRoleMapping.getM_Role().toString()));
+            JSONObject roleObject = new JSONObject(m_UserServiceRoleMapping.getM_Role().toString());
+            roleObject.put("isSanjeevani", m_UserServiceRoleMapping.getIsSanjeevani());
+            roles.put(roleObject);
 		}
 		Iterator<String> keySet = serviceRoleMultiMap.keys();
 		while (keySet.hasNext()) {
@@ -871,6 +875,60 @@ public class IEMRAdminController {
 		return response.toString();
 	}
 
-	
+	@CrossOrigin()
+	@ApiOperation(value = "User authentication")
+	@RequestMapping(value = "/bhavya/userAuthenticate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
+	public String userAuthenticateBhavya(
+			@ApiParam(value = "\"{\\\"userName\\\":\\\"String\\\",\\\"password\\\":\\\"String\\\"}\"") @RequestBody LoginRequestModel m_User,
+			HttpServletRequest request) {
+		OutputResponse response = new OutputResponse();
+		logger.info("userAuthenticate request - " + m_User + " " + m_User.getUserName() + " " + m_User.getPassword());
+		try {
+			//String decryptPassword = aesUtil.decrypt("Piramal12Piramal", m_User.getPassword());
+			//logger.info("decryptPassword : " + m_User.getPassword());
+			List<User> mUser = iemrAdminUserServiceImpl.userAuthenticate(m_User.getUserName(), m_User.getPassword());
+			JSONObject resMap = new JSONObject();
+			JSONObject serviceRoleMultiMap = new JSONObject();
+			JSONObject serviceRoleMap = new JSONObject();
+			JSONArray serviceRoleList = new JSONArray();
+			JSONObject previlegeObj = new JSONObject();
+			if (m_User.getUserName() != null && (m_User.getDoLogout() == null || m_User.getDoLogout() == false)) {
+				String tokenFromRedis = getConcurrentCheckSessionObjectAgainstUser(
+						m_User.getUserName().trim().toLowerCase());
+				if (tokenFromRedis != null) {
+					throw new IEMRException(
+							"You are already logged in,please confirm to logout from other device and login again");
+				}
+			} else if (m_User.getUserName() != null && m_User.getDoLogout() != null && m_User.getDoLogout() == true) {
+				deleteSessionObject(m_User.getUserName().trim().toLowerCase());
+			}
+			if (mUser.size() == 1) {
+				createUserMapping(mUser.get(0), resMap, serviceRoleMultiMap, serviceRoleMap, serviceRoleList,
+						previlegeObj);
+			} else {
+				resMap.put("isAuthenticated", /* Boolean.valueOf(false) */false);
+			}
+			JSONObject responseObj = new JSONObject(resMap.toString());
+			JSONArray previlageObjs = new JSONArray();
+			Iterator<?> services = previlegeObj.keys();
+			while (services.hasNext()) {
+				String service = (String) services.next();
+				previlageObjs.put(previlegeObj.getJSONObject(service));
+			}
+			responseObj.put("previlegeObj", previlageObjs);
+			String remoteAddress = request.getHeader("X-FORWARDED-FOR");
+			if (remoteAddress == null || remoteAddress.trim().length() == 0) {
+				remoteAddress = request.getRemoteAddr();
+			}
+			responseObj = iemrAdminUserServiceImpl.generateKeyAndValidateIP(responseObj, remoteAddress,
+					request.getRemoteHost());
+			response.setResponse(responseObj.toString());
+		} catch (Exception e) {
+			logger.error("userAuthenticate failed with error " + e.getMessage(), e);
+			response.setError(e);
+		}
+		logger.info("userAuthenticate response " + response.toString());
+		return response.toString();
+	}
 
 }
