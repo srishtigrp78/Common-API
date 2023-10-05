@@ -1,26 +1,14 @@
 package com.iemr.common.service.esanjeevani;
 
 import java.math.BigInteger;
-
-import java.security.MessageDigest
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+import java.security.MessageDigest;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-import javax.servlet.http.HttpUtils;
-
-import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -38,14 +24,12 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.iemr.common.model.esanjeevani.ESanjeevaniPatientAddress;
 import com.iemr.common.model.esanjeevani.ESanjeevaniPatientContactDetail;
 import com.iemr.common.model.esanjeevani.ESanjeevaniPatientRegistration;
 import com.iemr.common.model.esanjeevani.ESanjeevaniProviderAuth;
 import com.iemr.common.repo.esanjeevani.ESanjeevaniRepo;
-import com.iemr.common.utils.config.ConfigProperties;
 
 @Service
 public class ESanjeevaniServiceImpl implements ESanjeevaniService {
