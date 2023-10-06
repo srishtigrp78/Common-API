@@ -39,13 +39,13 @@ public class ScheduleForCallCentre implements Job {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 	@Autowired
-	private CallCentreDataSync czentirxDataSync;
+	private CallCentreDataSync callCentreDataSync;
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException
 	{
 		logger.info("Started job for sync " + arg0.getClass().getName());
-		czentirxDataSync.ctiDataSync();
+		callCentreDataSync.ctiDataSync();
 		logger.info("Completed job for sync " + arg0.getClass().getName());
 	}
 }
