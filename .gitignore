@@ -27,3 +27,6 @@ logs/
 swaasaPathcoughSoundAssessment1234567890121678177840715.wav
 replay_pid89928.log
 hs_err_pid89928.log
+
+# Properties
+src/main/environment/common_local.properties
