@@ -1,3 +1,24 @@
+/*
+* AMRIT – Accessible Medical Records via Integrated Technology 
+* Integrated EHR (Electronic Health Records) Solution 
+*
+* Copyright (C) "Piramal Swasthya Management and Research Institute" 
+*
+* This file is part of AMRIT.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see https://www.gnu.org/licenses/.
+*/
 package com.iemr.common.controller.door_to_door_app;
 
 import org.slf4j.Logger;
@@ -27,7 +48,7 @@ public class DoorToDoorAppController {
 	private DoorToDoorService doorToDoorService;
 
 	@CrossOrigin
-	@ApiOperation(value = "getUserDetails", consumes = "application/json", produces = "application/json")
+	@ApiOperation(value = "Get user details", consumes = "application/json", produces = "application/json")
 	@RequestMapping(value = { "/getUserDetails" }, method = { RequestMethod.POST })
 	public String getUserDetails(@RequestBody String requestObj) {
 		OutputResponse response = new OutputResponse();
@@ -40,7 +61,6 @@ public class DoorToDoorAppController {
 			else
 				response.setError(5000, "user details not found");
 		} catch (Exception e) {
-			// TODO: handle exception
 			logger.error(e.toString());
 			response.setError(5000, "Unable to get user data, exception occured. " + e.toString());
 		}
@@ -49,7 +69,7 @@ public class DoorToDoorAppController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "get NCD TB HRP suspected status", consumes = "application/json", produces = "application/json")
+	@ApiOperation(value = "Get NCD TB HRP suspected status", consumes = "application/json", produces = "application/json")
 	@RequestMapping(value = { "/getSuspectedData_HRP_TB_NCD" }, method = { RequestMethod.POST })
 	public String getSuspectedData_HRP_TB_NCD(@RequestBody String requestObj) {
 		OutputResponse response = new OutputResponse();
@@ -62,7 +82,6 @@ public class DoorToDoorAppController {
 			else
 				response.setError(5000, "Error in getting suspected information");
 		} catch (Exception e) {
-			// TODO: handle exception
 			logger.error(e.toString());
 			response.setError(5000, "Error in getting suspected information, exception occured. " + e.toString());
 		}

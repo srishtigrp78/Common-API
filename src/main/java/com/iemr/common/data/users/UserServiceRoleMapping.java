@@ -1,3 +1,24 @@
+/*
+* AMRIT – Accessible Medical Records via Integrated Technology 
+* Integrated EHR (Electronic Health Records) Solution 
+*
+* Copyright (C) "Piramal Swasthya Management and Research Institute" 
+*
+* This file is part of AMRIT.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see https://www.gnu.org/licenses/.
+*/
 package com.iemr.common.data.users;
 
 import java.sql.Timestamp;
@@ -86,6 +107,10 @@ public class UserServiceRoleMapping
 	@Expose
 	@Column(name = "isOutbound")
 	private Boolean outbound;
+	
+	@Expose
+	@Column(name = "isSanjeevani")
+	private Boolean isSanjeevani;
 
 
 	// @Expose
@@ -276,7 +301,7 @@ public class UserServiceRoleMapping
 
 	public static UserServiceRoleMapping initializeUserRoleMappingObjs(Long USRMappingID, Long UserID, Integer roleID,
 			Role m_Role, Integer providerServiceMapID, ProviderServiceMapping m_ProviderServiceMapping,
-			String agentID,Boolean inbound, Boolean outbound, String agentPassword, Integer workingLocationID,
+			String agentID,Boolean inbound, Boolean outbound, Boolean isSanjeevani, String agentPassword, Integer workingLocationID,
 			ProviderServiceAddressMapping providerServiceAddressMapping)
 	{
 		UserServiceRoleMapping userRoleMapping = new UserServiceRoleMapping();
@@ -291,6 +316,7 @@ public class UserServiceRoleMapping
 		userRoleMapping.agentID = agentID;
 		userRoleMapping.inbound = inbound;
 		userRoleMapping.outbound = outbound;
+		userRoleMapping.isSanjeevani = isSanjeevani;
 		userRoleMapping.agentPassword = agentPassword;
 		userRoleMapping.workingLocationID = workingLocationID;
 		userRoleMapping.m_Role.setWorkingLocationID(workingLocationID);

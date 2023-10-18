@@ -1,3 +1,24 @@
+/*
+* AMRIT – Accessible Medical Records via Integrated Technology 
+* Integrated EHR (Electronic Health Records) Solution 
+*
+* Copyright (C) "Piramal Swasthya Management and Research Institute" 
+*
+* This file is part of AMRIT.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see https://www.gnu.org/licenses/.
+*/
 package com.iemr.common.controller.otp;
 
 import javax.ws.rs.core.MediaType;
@@ -17,15 +38,8 @@ import com.iemr.common.service.otp.OTPHandler;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-
-/***
- * 
- * @author NE298657
- * @date DD/MM/YYYY - 10/08/2020
- * 
- * @implSpec handle OTP flow request and response
- */
 
 @RestController
 @RequestMapping(value = "/otp")
@@ -35,16 +49,10 @@ public class OTPGateway {
 	@Autowired
 	private OTPHandler otpHandler;
 
-	/***
-	 * 
-	 * @param requestOBJ
-	 * @apiNote send OTP for authentication
-	 * @return
-	 * 
-	 */
 	@CrossOrigin()
+	@ApiOperation(value = "Send OTP")
 	@RequestMapping(value = "/sendOTP", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String sendOTP(@ApiParam(value="{\"mobNo\":\"String\"}") @RequestBody String requestOBJ) {
+	public String sendOTP(@ApiParam(value = "{\"mobNo\":\"String\"}") @RequestBody String requestOBJ) {
 
 		OutputResponse response = new OutputResponse();
 
@@ -64,15 +72,11 @@ public class OTPGateway {
 		return response.toString();
 	}
 
-	/***
-	 * 
-	 * @param requestOBJ
-	 * @apiNote validate OTP for authorization, and on success generate AuthKey
-	 * @return
-	 */
 	@CrossOrigin()
+	@ApiOperation(value = "Validate OTP")
 	@RequestMapping(value = "/validateOTP", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String validateOTP(@ApiParam(value="{\"mobNo\":\"String\",\"otp\":\"Integer\"}") @RequestBody String requestOBJ) {
+	public String validateOTP(
+			@ApiParam(value = "{\"mobNo\":\"String\",\"otp\":\"Integer\"}") @RequestBody String requestOBJ) {
 
 		OutputResponse response = new OutputResponse();
 
@@ -93,8 +97,9 @@ public class OTPGateway {
 	}
 
 	@CrossOrigin()
+	@ApiOperation(value = "Resend OTP")
 	@RequestMapping(value = "/resendOTP", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String resendOTP(@ApiParam(value="{\"mobNo\":\"String\"}") @RequestBody String requestOBJ) {
+	public String resendOTP(@ApiParam(value = "{\"mobNo\":\"String\"}") @RequestBody String requestOBJ) {
 
 		OutputResponse response = new OutputResponse();
 

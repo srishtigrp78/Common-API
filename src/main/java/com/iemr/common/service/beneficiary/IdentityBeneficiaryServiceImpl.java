@@ -1,3 +1,24 @@
+/*
+* AMRIT – Accessible Medical Records via Integrated Technology 
+* Integrated EHR (Electronic Health Records) Solution 
+*
+* Copyright (C) "Piramal Swasthya Management and Research Institute" 
+*
+* This file is part of AMRIT.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see https://www.gnu.org/licenses/.
+*/
 package com.iemr.common.service.beneficiary;
 
 import java.util.ArrayList;
@@ -65,23 +86,26 @@ public class IdentityBeneficiaryServiceImpl implements IdentityBeneficiaryServic
 		result = httpUtils.post(ConfigProperties.getPropertyByName("identity-api-url-getByBenRegIdList").replace(
 				IDENTITY_BASE_URL, (is1097 ? identity1097BaseURL : identityBaseURL)), benIdList.toString(), header);
 		OutputResponse identityResponse = inputMapper.gson().fromJson(result, OutputResponse.class);
-		if (identityResponse.getStatusCode() == OutputResponse.USERID_FAILURE) {
+		if (identityResponse != null && identityResponse.getStatusCode() == OutputResponse.USERID_FAILURE) {
 			throw new IEMRException(identityResponse.getErrorMessage());
 		}
-		JsonObject responseObj = (JsonObject) parser.parse(result);
-		// JsonArray data = (JsonArray) parser.parse(
-		JsonObject data1 = (JsonObject) responseObj.get("response");
-		String s = data1.get("data").getAsString();
-		JsonArray responseArray = parser.parse(s).getAsJsonArray();
+		if (null != result) {
+			JsonObject responseObj = (JsonObject) parser.parse(result);
+			// JsonArray data = (JsonArray) parser.parse(
+			JsonObject data1 = (JsonObject) responseObj.get("response");
+			String s = data1.get("data").getAsString();
+			JsonArray responseArray = parser.parse(s).getAsJsonArray();
 
-		// String data="s";
-		// JsonArray responseArray = (JsonArray) parser.parse(data);
+			// String data="s";
+			// JsonArray responseArray = (JsonArray) parser.parse(data);
 
-		for (JsonElement jsonElement : responseArray) {
+			for (JsonElement jsonElement : responseArray) {
 
-			BeneficiariesDTO callRequest = inputMapper.gson().fromJson(jsonElement.toString(), BeneficiariesDTO.class);
-			listBenDetailForOutboundDTO.add(callRequest);
+				BeneficiariesDTO callRequest = inputMapper.gson().fromJson(jsonElement.toString(),
+						BeneficiariesDTO.class);
+				listBenDetailForOutboundDTO.add(callRequest);
 
+			}
 		}
 		return listBenDetailForOutboundDTO;
 	}

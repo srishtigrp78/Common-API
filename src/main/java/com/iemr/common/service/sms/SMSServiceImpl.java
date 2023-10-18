@@ -1,3 +1,24 @@
+/*
+* AMRIT – Accessible Medical Records via Integrated Technology 
+* Integrated EHR (Electronic Health Records) Solution 
+*
+* Copyright (C) "Piramal Swasthya Management and Research Institute" 
+*
+* This file is part of AMRIT.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see https://www.gnu.org/licenses/.
+*/
 package com.iemr.common.service.sms;
 
 import java.lang.reflect.InvocationTargetException;
@@ -7,6 +28,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -19,9 +41,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import com.iemr.common.data.feedback.FeedbackDetails;
 import com.iemr.common.data.feedback.FeedbackRequest;
@@ -57,6 +84,7 @@ import com.iemr.common.model.sms.SMSParameterModel;
 import com.iemr.common.model.sms.SMSRequest;
 import com.iemr.common.model.sms.SMSTemplateResponse;
 import com.iemr.common.model.sms.SMSTypeModel;
+import com.iemr.common.model.sms.SmsAPIRequestModel;
 import com.iemr.common.model.sms.UpdateSMSRequest;
 import com.iemr.common.repository.callhandling.TCRequestModelRepo;
 import com.iemr.common.repository.feedback.FeedbackRepository;
@@ -610,7 +638,7 @@ public class SMSServiceImpl implements SMSService {
 					variableValue = getFeedbackData(className, methodName, request, authToken);
 					break;
 				case "Prescription":
-					variableValue = getPrescriptionData(className, methodName, request);
+					variableValue = getPrescriptionData(className, methodName, request, beneficiary);
 					break;
 				case "Blood on Call":
 					variableValue = getBloodOnCallData(className, methodName, request, beneficiary);
@@ -677,7 +705,7 @@ public class SMSServiceImpl implements SMSService {
 		if (request.getBenPhoneNo() != null) {
 			sms.setPhoneNo(request.getBenPhoneNo());
 		}
-		
+
 //		if(smsTemplate.getSmsTypeID() == 24)
 //		{
 //			if(TMsms!="" && TMsms!=null)
@@ -874,18 +902,21 @@ public class SMSServiceImpl implements SMSService {
 	@Async
 	@Override
 	public void publishSMS() {
+		RestTemplate restTemplateLogin = new RestTemplate();
 		if (!SMSServiceImpl.publishingSMS) {
 			try {
-				
 				SMSServiceImpl.publishingSMS = true;
 				Boolean doSendSMS = ConfigProperties.getBoolean("send-sms");
 				String sendSMSURL = ConfigProperties.getPropertyByName("send-message-url");
-				String sendSMSAPI = SMSServiceImpl.SMS_GATEWAY_URL + "/" + sendSMSURL;
-				String senderName = cryptoUtil.decrypt(ConfigProperties.getPropertyByName("sms-username"));
-				String senderPassword = cryptoUtil.decrypt(ConfigProperties.getPropertyByName("sms-password"));
-				String senderNumber = ConfigProperties.getPropertyByName("sms-sender-number");
-				sendSMSAPI = sendSMSAPI.replace("USERNAME", senderName).replace("PASSWORD", senderPassword)
-						.replace("SENDER_NUMBER", senderNumber);
+//				String sendSMSAPI = SMSServiceImpl.SMS_GATEWAY_URL + "/" + sendSMSURL;
+				String senderName = ConfigProperties.getPropertyByName("sms-username");
+				String senderPassword = ConfigProperties.getPropertyByName("sms-password");
+//				String senderNumber = ConfigProperties.getPropertyByName("sms-sender-number");
+				String sourceAddress = ConfigProperties.getPropertyByName("source-address");
+				String smsMessageType = ConfigProperties.getPropertyByName("sms-message-type");
+				String smsEntityID = ConfigProperties.getPropertyByName("sms-entityid");
+//				sendSMSAPI = sendSMSAPI.replace("USERNAME", senderName).replace("PASSWORD", senderPassword)
+//						.replace("SENDER_NUMBER", senderNumber);
 				java.util.Date date = new java.util.Date();
 				java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 				String text = sqlDate.toString();
@@ -900,59 +931,55 @@ public class SMSServiceImpl implements SMSService {
 
 				StringBuffer phoneNo = new StringBuffer();
 				for (SMSNotification sms : smsNotificationsToSend) {
-					String smsPublishURL = sendSMSAPI;
+//					String smsPublishURL = sendSMSAPI;
 
 					try {
-
-						// smsPublishURL = smsPublishURL.replace("SMS_TEXT",
-						// URLEncoder.encode(sms.getSms(), "UTF-8"))
 
 						if (sms.getPhoneNo() != null && sms.getPhoneNo().length() > 10)
 							phoneNo = new StringBuffer(sms.getPhoneNo().substring(sms.getPhoneNo().length() - 10));
 						else
 							phoneNo = new StringBuffer(sms.getPhoneNo());
 
-						smsPublishURL = smsPublishURL.replace("SMS_TEXT", sms.getSms()).replace("RECEIVER_NUMBER",
-								phoneNo);
+						// for fetching dltTemplateId
+						String dltTemplateId = smsTemplateRepository.findDLTTemplateID(sms.getSmsTemplateID());
+						if(dltTemplateId == null)
+							throw new Exception("No dltTemplateId template ID mapped");
+
+						SmsAPIRequestModel smsAPICredentials104 = new SmsAPIRequestModel(senderName, phoneNo,
+								sms.getSms(), sourceAddress, smsMessageType, dltTemplateId, smsEntityID);
+
+						MultiValueMap<String, String> headersLogin = new LinkedMultiValueMap<String, String>();
+						headersLogin.add("Content-Type", "application/json");
+						String auth=senderName + ":" + senderPassword;
+						headersLogin.add("Authorization", "Basic "+Base64.getEncoder().encodeToString(auth.getBytes()));
+						// smsPublishURL = smsPublishURL.replace("SMS_TEXT",
+						// URLEncoder.encode(sms.getSms(), "UTF-8"))
+
+						logger.info("SMS API login request OBj " + smsAPICredentials104.toString());
+
 						sms.setSmsStatus(SMSNotification.IN_PROGRESS);
 						sms = smsNotification.save(sms);
-//						logger.info("Calling API to send SMS " + smsPublishURL);
-						ResponseEntity<String> response = httpUtils.getV1(smsPublishURL);
-						if (response.getStatusCodeValue() == 200) {
-							String smsResponse = response.getBody();
+
+						HttpEntity<Object> requestLogin = new HttpEntity<Object>(smsAPICredentials104, headersLogin);
+						ResponseEntity<String> responseLogin = restTemplateLogin.exchange(sendSMSURL, HttpMethod.POST,
+								requestLogin, String.class);
+						if (responseLogin.getStatusCodeValue() == 200 & responseLogin.hasBody()) {
+							String smsResponse = responseLogin.getBody();
 							JSONObject obj = new JSONObject(smsResponse);
-							String jobID = obj.getString("JobId");
-							switch (smsResponse) {
-							case "0x200 - Invalid Username or Password":
-							case "0x201 - Account suspended due to one of several defined reasons":
-							case "0x202 - Invalid Source Address/Sender ID. As per GSM standard, the sender ID should "
-									+ "be within 11 characters":
-							case "0x203 - Message length exceeded (more than 160 characters) if concat is set to 0":
-							case "0x204 - Message length exceeded (more than 459 characters) in concat is set to 1":
-							case "0x205 - DRL URL is not set":
-							case "0x206 - Only the subscribed service type can be accessed – "
-									+ "make sure of the service type you are trying to connect with":
-							case "0x207 - Invalid Source IP – kindly check if the IP is responding":
-							case "0x208 - Account deactivated/expired":
-							case "0x209 - Invalid message length (less than 160 characters) if concat is set to 1":
-							case "0x210 - Invalid Parameter values":
-							case "0x211 - Invalid Message Length (more than 280 characters)":
-							case "0x212 - Invalid Message Length":
-							case "0x213 - Invalid Destination Number":
-								throw new Exception(smsResponse);
-							default:
-//								logger.info("SMS Sent successfully by calling API " + smsPublishURL);
-								sms.setTransactionError(null);
-								sms.setTransactionID(jobID);
-								sms.setIsTransactionError(false);
-								sms.setSmsSentDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
-								sms.setSmsStatus(SMSNotification.SENT);
-								sms = smsNotification.save(sms);
-								break;
-							}
+							String messageRequestId = null;
+                            if(obj !=null)
+                            messageRequestId = obj.getString("messageRequestId");
+//							String messageRequestId = obj.getString("MessageRequestId");
+//							logger.info("SMS Sent successfully by calling API " + smsPublishURL);
+							sms.setTransactionError(null);
+							sms.setTransactionID(messageRequestId);
+							sms.setIsTransactionError(false);
+							sms.setSmsSentDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
+							sms.setSmsStatus(SMSNotification.SENT);
+							sms = smsNotification.save(sms);
 						} else {
-							throw new Exception(response.getStatusCodeValue() + " and error "
-									+ response.getStatusCode().toString());
+							throw new Exception(responseLogin.getStatusCodeValue() + " and error "
+									+ responseLogin.getStatusCode().toString());
 						}
 					} catch (Exception e) {
 						logger.error("Failed to send sms on phone no/benRegID: " + sms.getPhoneNo() + "/"
@@ -963,6 +990,63 @@ public class SMSServiceImpl implements SMSService {
 						sms.setSmsStatus(SMSNotification.NOT_SENT);
 						sms = smsNotification.save(sms);
 					}
+
+//						if (sms.getPhoneNo() != null && sms.getPhoneNo().length() > 10)
+//							phoneNo = new StringBuffer(sms.getPhoneNo().substring(sms.getPhoneNo().length() - 10));
+//						else
+//							phoneNo = new StringBuffer(sms.getPhoneNo());
+
+//						smsPublishURL = smsPublishURL.replace("SMS_TEXT", sms.getSms()).replace("RECEIVER_NUMBER",
+//								phoneNo);
+//						sms.setSmsStatus(SMSNotification.IN_PROGRESS);
+//						sms = smsNotification.save(sms);
+//						logger.info("Calling API to send SMS " + smsPublishURL);
+//						ResponseEntity<String> response = httpUtils.getV1(smsPublishURL);
+//						if (response.getStatusCodeValue() == 200) {
+//							String smsResponse = response.getBody();
+//							JSONObject obj = new JSONObject(smsResponse);
+//							String jobID = obj.getString("JobId");
+//							switch (smsResponse) {
+//							case "0x200 - Invalid Username or Password":
+//							case "0x201 - Account suspended due to one of several defined reasons":
+//							case "0x202 - Invalid Source Address/Sender ID. As per GSM standard, the sender ID should "
+//									+ "be within 11 characters":
+//							case "0x203 - Message length exceeded (more than 160 characters) if concat is set to 0":
+//							case "0x204 - Message length exceeded (more than 459 characters) in concat is set to 1":
+//							case "0x205 - DRL URL is not set":
+//							case "0x206 - Only the subscribed service type can be accessed – "
+//									+ "make sure of the service type you are trying to connect with":
+//							case "0x207 - Invalid Source IP – kindly check if the IP is responding":
+//							case "0x208 - Account deactivated/expired":
+//							case "0x209 - Invalid message length (less than 160 characters) if concat is set to 1":
+//							case "0x210 - Invalid Parameter values":
+//							case "0x211 - Invalid Message Length (more than 280 characters)":
+//							case "0x212 - Invalid Message Length":
+//							case "0x213 - Invalid Destination Number":
+//								throw new Exception(smsResponse);
+//							default:
+////								logger.info("SMS Sent successfully by calling API " + smsPublishURL);
+//								sms.setTransactionError(null);
+//								sms.setTransactionID(jobID);
+//								sms.setIsTransactionError(false);
+//								sms.setSmsSentDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
+//								sms.setSmsStatus(SMSNotification.SENT);
+//								sms = smsNotification.save(sms);
+//								break;
+//							}
+//						} else {
+//							throw new Exception(response.getStatusCodeValue() + " and error "
+//									+ response.getStatusCode().toString());
+//						}
+//					} catch (Exception e) {
+//						logger.error("Failed to send sms on phone no/benRegID: " + sms.getPhoneNo() + "/"
+//								+ sms.getBeneficiaryRegID() + " with error " + e.getMessage(), e);
+//						sms.setTransactionError(e.getMessage());
+//						sms.setIsTransactionError(true);
+//						sms.setTransactionID(null);
+//						sms.setSmsStatus(SMSNotification.NOT_SENT);
+//						sms = smsNotification.save(sms);
+//					}
 
 				}
 			} catch (Exception e) {
@@ -981,12 +1065,22 @@ public class SMSServiceImpl implements SMSService {
 		return OutputMapper.gsonWithoutExposeRestriction().toJson(smsTemplateResponse);
 	}
 
-	private String getPrescriptionData(String className, String methodName, SMSRequest request)
-			throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, ClassNotFoundException {
+	private String getPrescriptionData(String className, String methodName, SMSRequest request,
+			BeneficiaryModel beneficiary) throws NoSuchMethodException, SecurityException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException, ClassNotFoundException {
 		PrescribedDrug prescribedDrug = prescribedDrugRepository.findOne(request.getPrescribedDrugID());
 		String variableValue = "";
 		switch (methodName.toLowerCase()) {
+		case "name":
+			String fname = beneficiary.getFirstName() != null ? beneficiary.getFirstName() + " " : "";
+			String mname = beneficiary.getMiddleName() != null ? beneficiary.getMiddleName() + " " : "";
+			String lname = beneficiary.getLastName() != null ? beneficiary.getLastName() + " " : "";
+			variableValue = fname + mname + lname;
+			break;
+		case "callerid":
+			String beneficiaryID = beneficiary.getBeneficiaryID() != null ? beneficiary.getBeneficiaryID() + " " : "";
+			variableValue = beneficiaryID;
+			break;
 		case "prescriptionid":
 			String prescriptionid = prescribedDrug.getPrescriptionID() != null
 					? prescribedDrug.getPrescriptionID() + " "
@@ -1009,19 +1103,33 @@ public class SMSServiceImpl implements SMSService {
 			String dosage = prescribedDrug.getDosage() != null ? prescribedDrug.getDosage() + " " : "";
 			variableValue = dosage;
 			break;
-		case "dosageinstruction":
+//		case "dosageinstruction":
+//			String drugForm = prescribedDrug.getM_104drugmapping().getRemarks() != null
+//					? prescribedDrug.getM_104drugmapping().getRemarks() + " "
+//					: "";
+//			variableValue = drugForm;
+//			break;
+		case "usage":
 			String drugForm = prescribedDrug.getM_104drugmapping().getRemarks() != null
 					? prescribedDrug.getM_104drugmapping().getRemarks() + " "
 					: "";
 			variableValue = drugForm;
 			break;
-		case "frequency":
+//		case "frequency":
+//			String frequency = prescribedDrug.getFrequency() != null ? prescribedDrug.getFrequency() + " " : "";
+//			variableValue = frequency;
+//			break;
+		case "timeToConsume":
 			String frequency = prescribedDrug.getFrequency() != null ? prescribedDrug.getFrequency() + " " : "";
 			variableValue = frequency;
 			break;
 		case "noofdays":
 			String quantity = prescribedDrug.getNoOfDays() != null ? prescribedDrug.getNoOfDays() + " " : "";
 			variableValue = quantity;
+			break;
+		case "by":
+			String createdBy = prescribedDrug.getCreatedBy() != null ? prescribedDrug.getCreatedBy() + " " : "";
+			variableValue = createdBy;
 			break;
 		default:
 			break;
@@ -1444,9 +1552,9 @@ public class SMSServiceImpl implements SMSService {
 		}
 		return variableValue;
 	}
-	
+
 	public String getUptsuData(String className, String methodName, SMSRequest request) throws NoSuchMethodException,
-	SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+			SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		String variableValue = null;
 		Method method = null;
 		switch (methodName) {
@@ -1495,6 +1603,5 @@ public class SMSServiceImpl implements SMSService {
 		}
 		return variableValue;
 	}
-	
-	
+
 }

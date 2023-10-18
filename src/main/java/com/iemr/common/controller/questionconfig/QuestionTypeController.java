@@ -1,3 +1,24 @@
+/*
+* AMRIT – Accessible Medical Records via Integrated Technology 
+* Integrated EHR (Electronic Health Records) Solution 
+*
+* Copyright (C) "Piramal Swasthya Management and Research Institute" 
+*
+* This file is part of AMRIT.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see https://www.gnu.org/licenses/.
+*/
 package com.iemr.common.controller.questionconfig;
 
 import javax.ws.rs.core.MediaType;
@@ -14,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.iemr.common.service.questionconfig.QuestionTypeService;
 import com.iemr.common.utils.response.OutputResponse;
 
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @RestController
@@ -36,14 +58,11 @@ public class QuestionTypeController {
 		this.questionTypeService = questionTypeService;
 	}
 
-	/**
-	 * 
-	 * @param request
-	 * @return
-	 */
 	@CrossOrigin()
+	@ApiOperation(value = "Create question type")
 	@RequestMapping(value = "/put/questionType", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String createQuestionType(@ApiParam(value="{\\\"questionType\\\":\\\"String\\\",\\\"questionTypeDesc\\\":\\\"String\\\"}\"")@RequestBody String request) {
+	public String createQuestionType(
+			@ApiParam(value = "{\\\"questionType\\\":\\\"String\\\",\\\"questionTypeDesc\\\":\\\"String\\\"}\"") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		try {
 			response.setResponse(questionTypeService.createQuestionType(request));
@@ -55,12 +74,8 @@ public class QuestionTypeController {
 		return response.toString();
 	}
 
-	/**
-	 * 
-	 * @param request
-	 * @return
-	 */
 	@CrossOrigin()
+	@ApiOperation(value = "Get question type list")
 	@RequestMapping(value = "/get/questionTypeList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 	public String questionTypeList() {
 		OutputResponse response = new OutputResponse();

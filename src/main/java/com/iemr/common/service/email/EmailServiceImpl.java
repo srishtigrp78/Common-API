@@ -1,3 +1,24 @@
+/*
+* AMRIT – Accessible Medical Records via Integrated Technology 
+* Integrated EHR (Electronic Health Records) Solution 
+*
+* Copyright (C) "Piramal Swasthya Management and Research Institute" 
+*
+* This file is part of AMRIT.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see https://www.gnu.org/licenses/.
+*/
 package com.iemr.common.service.email;
 
 import java.sql.Timestamp;
@@ -423,27 +444,27 @@ public class EmailServiceImpl implements EmailService {
 					} else {
 						dataList = new ArrayList<>();
 						dataList.add(stockAlertData);
-						if(stockAlertData !=null && stockAlertData.getEmailid() !=null)
-						dataMap.put(stockAlertData.getEmailid(), dataList);
+						if (stockAlertData != null && stockAlertData.getEmailid() != null)
+							dataMap.put(stockAlertData.getEmailid(), dataList);
 					}
 				}
 			} else {
 				logger.info("No Alert emails to be sent");
 			}
-            int sendMail=0;
+			int sendMail = 0;
 			for (Entry<String, List<StockAlertData>> entry : dataMap.entrySet()) {
 				logger.info(entry.getKey() + ": key");
 				logger.info(entry.getValue().toString() + ": value");
 				try {
-				byte[] bytes = ExcelHelper.InventoryDataToExcel(entry.getValue());
-				ByteArrayDataSource byteArrayOutputStream = new ByteArrayDataSource(bytes, "application/vnd.ms-excel");
-				sendMail=sendEmailWithAttachment(entry.getKey(),byteArrayOutputStream);
-				if(sendMail ==1)
-					logger.info("Email successfully sent to "+entry.getKey());
-				else
-					logger.info("Error while sending email to "+entry.getKey());
-				}catch(Exception e)
-				{
+					byte[] bytes = ExcelHelper.InventoryDataToExcel(entry.getValue());
+					ByteArrayDataSource byteArrayOutputStream = new ByteArrayDataSource(bytes,
+							"application/vnd.ms-excel");
+					sendMail = sendEmailWithAttachment(entry.getKey(), byteArrayOutputStream);
+					if (sendMail == 1)
+						logger.info("Email successfully sent to " + entry.getKey());
+					else
+						logger.info("Error while sending email to " + entry.getKey());
+				} catch (Exception e) {
 					logger.info(e.getLocalizedMessage());
 				}
 			}
@@ -485,24 +506,24 @@ public class EmailServiceImpl implements EmailService {
 	int sendEmailWithAttachment(String recipient, ByteArrayDataSource attachment) throws Exception {
 		try {
 			// Creating a mime message
-			 JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-	            mailSender.setHost(host);
-	            mailSender.setPort(Integer.parseInt(port));
-	            
-	    		String decryptSender = cryptoUtil.decrypt(sender);
-	    		String decryptPass = cryptoUtil.decrypt(password);
-	    		
-	           mailSender.setUsername(decryptSender);
-	            mailSender.setPassword(decryptPass);
-	           Properties props = mailSender.getJavaMailProperties();
-	            props.put("mail.smtp.auth", "true");
-	            props.put("mail.smtp.starttls.enable", "true");
+			JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+			mailSender.setHost(host);
+			mailSender.setPort(Integer.parseInt(port));
+
+			String decryptSender = sender;
+			String decryptPass = password;
+
+			mailSender.setUsername(decryptSender);
+			mailSender.setPassword(decryptPass);
+			Properties props = mailSender.getJavaMailProperties();
+			props.put("mail.smtp.auth", "true");
+			props.put("mail.smtp.starttls.enable", "true");
 			MimeMessage mimeMessage = mailSender.createMimeMessage();
 			MimeMessageHelper mimeMessageHelper;
 			mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 			mimeMessageHelper.setFrom(sender);
 			mimeMessageHelper.setTo(recipient);
-			 mimeMessageHelper.setText("Sample");
+			mimeMessageHelper.setText("Sample");
 			mimeMessageHelper.setSubject(subject);
 			mimeMessageHelper.addAttachment("InventoryStockAlert.xlsx", attachment);
 
@@ -512,7 +533,7 @@ public class EmailServiceImpl implements EmailService {
 		}
 
 		catch (Exception e) {
-			throw new Exception("Error while Sending Mail to "+recipient+" : " + e.getLocalizedMessage());
+			throw new Exception("Error while Sending Mail to " + recipient + " : " + e.getLocalizedMessage());
 		}
 	}
 }

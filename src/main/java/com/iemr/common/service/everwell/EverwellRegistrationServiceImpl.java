@@ -1,3 +1,24 @@
+/*
+* AMRIT – Accessible Medical Records via Integrated Technology 
+* Integrated EHR (Electronic Health Records) Solution 
+*
+* Copyright (C) "Piramal Swasthya Management and Research Institute" 
+*
+* This file is part of AMRIT.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see https://www.gnu.org/licenses/.
+*/
 package com.iemr.common.service.everwell;
 
 //import static org.mockito.Mockito.mock;
@@ -126,14 +147,13 @@ public class EverwellRegistrationServiceImpl implements EverwellRegistrationServ
 		try {
 
 			// 1097 user authentication
-		
-			String amritUser = cryptoUtil.decrypt(amritUserName);
-			String amritPass = cryptoUtil.decrypt(amritPassword);
+			String amritUser = amritUserName;
+			String amritPass = amritPassword;
 			LoginRequestModel loginCredentials1097 = new LoginRequestModel(amritUser, amritPass);
 
 			MultiValueMap<String, String> headersLogin = new LinkedMultiValueMap<String, String>();
 			headersLogin.add("Content-Type", "application/json");
-			//headersLogin.add("AUTHORIZATION", "");
+			// headersLogin.add("AUTHORIZATION", "");
 
 			logger.info("AMRIT login request OBj " + loginCredentials1097.toString());
 

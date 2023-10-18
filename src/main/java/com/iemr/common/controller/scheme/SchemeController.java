@@ -1,3 +1,24 @@
+/*
+* AMRIT – Accessible Medical Records via Integrated Technology 
+* Integrated EHR (Electronic Health Records) Solution 
+*
+* Copyright (C) "Piramal Swasthya Management and Research Institute" 
+*
+* This file is part of AMRIT.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see https://www.gnu.org/licenses/.
+*/
 package com.iemr.common.controller.scheme;
 
 import java.util.List;
@@ -22,8 +43,7 @@ import io.swagger.annotations.ApiParam;
 
 @RequestMapping(value = "/beneficiary")
 @RestController
-public class SchemeController
-{
+public class SchemeController {
 	InputMapper inputMapper = new InputMapper();
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -33,32 +53,24 @@ public class SchemeController
 	InputMapper mapper = new InputMapper();
 
 	@CrossOrigin
-	@ApiOperation(value = "stores scheme data", consumes = "application/json", produces = "application/json")
-	@RequestMapping(
-			value = "/save/schemeDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE,
-			consumes = MediaType.APPLICATION_JSON_VALUE, headers = "Authorization")
-	public String saveSchemeDetails(
-			@ApiParam(
-					value = "{\"providerServiceMapID\": \"integer-provider service map id\", "
-							+ "\"schemeName\": \"Name of Scheme\", " + "\"schemeDesc\": \"Description of Scheme\", "
-							+ "\"createdBy\": \"User name of the supervisor creating scheme\", "
-							+ "\"kmFileManager\":{\"fileName\":\"String: name of file\", " + "\"fileExtension\":\"String: file extension\", "
-							+ "\"providerServiceMapID\":\"Integer: service provider map ID\", "
-							+ "\"userID\":\"Integer: user ID of the supervisor\", "
-							+ "\"fileContent\":\"String: base64encoded binary file content\", "
-							+ "\"createdBy\":\"String: username of supervisor\"}}") @RequestBody String request)
-	{
-
-		// logger.info("saveSchemeDetails request " + request);
+	@ApiOperation(value = "Save scheme details", consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "/save/schemeDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE, headers = "Authorization")
+	public String saveSchemeDetails(@ApiParam(value = "{\"providerServiceMapID\": \"integer-provider service map id\", "
+			+ "\"schemeName\": \"Name of Scheme\", " + "\"schemeDesc\": \"Description of Scheme\", "
+			+ "\"createdBy\": \"User name of the supervisor creating scheme\", "
+			+ "\"kmFileManager\":{\"fileName\":\"String: name of file\", "
+			+ "\"fileExtension\":\"String: file extension\", "
+			+ "\"providerServiceMapID\":\"Integer: service provider map ID\", "
+			+ "\"userID\":\"Integer: user ID of the supervisor\", "
+			+ "\"fileContent\":\"String: base64encoded binary file content\", "
+			+ "\"createdBy\":\"String: username of supervisor\"}}") @RequestBody String request) {
 		OutputResponse output = new OutputResponse();
-		try
-		{
+		try {
 			Scheme scheme = inputMapper.gson().fromJson(request, Scheme.class);
 			Scheme schemeNew;
 			schemeNew = schemeServiceImpl.save(scheme);
 			output.setResponse(schemeNew.toString());
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			logger.error("saveSchemeDetails failed with error " + e.getMessage(), e);
 			output.setError(e);
 		}
@@ -67,28 +79,23 @@ public class SchemeController
 	}
 
 	@CrossOrigin
-	@RequestMapping(
-			value = "/get/schemeList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE,
-			consumes = MediaType.APPLICATION_JSON_VALUE, headers = "Authorization")
-	public String getSchemeList(@ApiParam(value = "{\"providerServiceMapID\":\"Integer\"}") @RequestBody String createRequest)
-	{
+	@ApiOperation(value = "Get scheme list")
+	@RequestMapping(value = "/get/schemeList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE, headers = "Authorization")
+	public String getSchemeList(
+			@ApiParam(value = "{\"providerServiceMapID\":\"Integer\"}") @RequestBody String createRequest) {
 		logger.info("getSchemeList request " + createRequest);
 		OutputResponse output = new OutputResponse();
-		try
-		{
+		try {
 			Scheme m_scheme = mapper.gson().fromJson(createRequest, Scheme.class);
 			List<Scheme> schemes = null;
 			schemes = schemeServiceImpl.getSchemeList(m_scheme.getProviderServiceMapID());
-			if (schemes != null)
-			{
+			if (schemes != null) {
 				output.setResponse(schemes.toString());
-			} else
-			{
+			} else {
 				output.setError(5000, "No schemes available");
 			}
 
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			logger.error("getSchemeList failed with error " + e.getMessage(), e);
 			output.setError(e);
 		}
@@ -97,27 +104,24 @@ public class SchemeController
 	}
 
 	@CrossOrigin
-	@RequestMapping(value = "/scheme/deleteScheme", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE, headers = "Authorization")
-	public String deleteScheme(@ApiParam(value = "{\"schemeID\":\"Integer\",\"deleted\":\"Boolean\"}") @RequestBody String createRequest)
-	{
+	@ApiOperation(value = "Delete scheme")
+	@RequestMapping(value = "/scheme/deleteScheme", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE, headers = "Authorization")
+	public String deleteScheme(
+			@ApiParam(value = "{\"schemeID\":\"Integer\",\"deleted\":\"Boolean\"}") @RequestBody String createRequest) {
 		logger.info("delete scheme request " + createRequest);
 		OutputResponse output = new OutputResponse();
-		try
-		{
+		try {
 			Scheme m_scheme = mapper.gson().fromJson(createRequest, Scheme.class);
 			Scheme scheme = null;
 			scheme = schemeServiceImpl.getSchemeByID(m_scheme.getSchemeID());
-			if (scheme != null)
-			{
+			if (scheme != null) {
 				scheme.setDeleted(m_scheme.getDeleted());
 				output.setResponse(schemeServiceImpl.deletedata(scheme));
-			} else
-			{
+			} else {
 				output.setError(5000, "No schemes available");
 			}
 
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			logger.error("getSchemeList failed with error " + e.getMessage(), e);
 			output.setError(e);
 		}

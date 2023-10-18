@@ -1,3 +1,24 @@
+/*
+* AMRIT – Accessible Medical Records via Integrated Technology 
+* Integrated EHR (Electronic Health Records) Solution 
+*
+* Copyright (C) "Piramal Swasthya Management and Research Institute" 
+*
+* This file is part of AMRIT.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see https://www.gnu.org/licenses/.
+*/
 package com.iemr.common.controller.directory;
 
 import java.util.List;
@@ -58,16 +79,14 @@ public class DirectoryController
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 	@CrossOrigin()
+	@ApiOperation(value = "Get directory")
 	@RequestMapping(value = "/getDirectory", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON,
 			headers = "Authorization")
 	public String getDirectory()
 	{
 		OutputResponse response = new OutputResponse();
-		// logger.info("getDirectory request " + directoryRequest);
 		try
 		{
-			// Directory directory =
-			// inputMapper.gson().fromJson(directoryRequest, Directory.class);
 			JSONObject responseObj = new JSONObject();
 			responseObj.put("directory", directoryService.getDirectories());
 			response.setResponse(responseObj.toString());
@@ -81,6 +100,7 @@ public class DirectoryController
 	}
 
 	@CrossOrigin()
+	@ApiOperation(value = "Get directory V1")
 	@RequestMapping(value = "/getDirectoryV1", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON,
 			headers = "Authorization")
 	public String getDirectoryV1(
@@ -92,8 +112,6 @@ public class DirectoryController
 		{
 			Directory directory = inputMapper.gson().fromJson(directoryRequest, Directory.class);
 			JSONObject responseObj = new JSONObject();
-			// responseObj.put("directory",
-			// directoryService.getDirectories(directory.getProviderServiceMapID()));
 			response.setResponse("{\"directory\":"
 					+ directoryService.getDirectories(directory.getProviderServiceMapID()).toString() + "}");
 		} catch (Exception e)
@@ -117,8 +135,6 @@ public class DirectoryController
 		{
 			JSONObject responseObj = new JSONObject();
 			SubDirectory subDirectoryQuery = inputMapper.gson().fromJson(subDirectoryRequest, SubDirectory.class);
-			// responseObj.put("subDirectory",
-			// subDirectoryService.getSubDirectories(subDirectoryQuery.getInstituteDirectoryID()).toString());
 			response.setResponse("{subDirectory:"
 					+ subDirectoryService.getSubDirectories(subDirectoryQuery.getInstituteDirectoryID()) + "}");
 		} catch (Exception e)
