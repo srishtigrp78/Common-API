@@ -185,5 +185,10 @@ public interface BeneficiaryCallRepository extends CrudRepository<BeneficiaryCal
 
 	@Query(value="select CallTypeID from db_iemr.m_callType where CallType='default null callType' order by CreatedDate DESC LIMIT 1",nativeQuery=true)
 	public Integer getCallTypeId();
+	
+	@Transactional
+	@Modifying
+	@Query("update BeneficiaryCall set beneficiaryRegID = :beneficiaryRegID where benCallID = :benCallID AND beneficiaryRegID=:beneficiaryRegID")
+	public int updateBeneficiaryRegIDInCall(@Param("benCallID") Long benCallID, @Param("beneficiaryRegID") Long beneficiaryRegID); 
 
 }
