@@ -1,3 +1,9 @@
+#IDE
+.idea
+
+# Ignore the Eclipse metadata
+.metadata
+
 # Ignore the target directory
 target/
 
@@ -30,4 +36,3 @@ hs_err_pid89928.log
 
 # Properties
 src/main/environment/common_local.properties
-

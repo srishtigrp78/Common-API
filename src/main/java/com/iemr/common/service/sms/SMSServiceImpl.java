@@ -114,10 +114,10 @@ public class SMSServiceImpl implements SMSService {
 	private String prescription;
 	@Autowired
 	SMSMapper smsMapper;
-	
+
 	@Autowired
 	private CryptoUtil cryptoUtil;
-	
+
 	@Autowired
 	SMSTemplateRepository smsTemplateRepository;
 
@@ -942,7 +942,7 @@ public class SMSServiceImpl implements SMSService {
 
 						// for fetching dltTemplateId
 						String dltTemplateId = smsTemplateRepository.findDLTTemplateID(sms.getSmsTemplateID());
-						if(dltTemplateId == null)
+						if (dltTemplateId == null)
 							throw new Exception("No dltTemplateId template ID mapped");
 
 						SmsAPIRequestModel smsAPICredentials104 = new SmsAPIRequestModel(senderName, phoneNo,
@@ -950,8 +950,9 @@ public class SMSServiceImpl implements SMSService {
 
 						MultiValueMap<String, String> headersLogin = new LinkedMultiValueMap<String, String>();
 						headersLogin.add("Content-Type", "application/json");
-						String auth=senderName + ":" + senderPassword;
-						headersLogin.add("Authorization", "Basic "+Base64.getEncoder().encodeToString(auth.getBytes()));
+						String auth = senderName + ":" + senderPassword;
+						headersLogin.add("Authorization",
+								"Basic " + Base64.getEncoder().encodeToString(auth.getBytes()));
 						// smsPublishURL = smsPublishURL.replace("SMS_TEXT",
 						// URLEncoder.encode(sms.getSms(), "UTF-8"))
 
@@ -967,8 +968,8 @@ public class SMSServiceImpl implements SMSService {
 							String smsResponse = responseLogin.getBody();
 							JSONObject obj = new JSONObject(smsResponse);
 							String messageRequestId = null;
-                            if(obj !=null)
-                            messageRequestId = obj.getString("messageRequestId");
+							if (obj != null)
+								messageRequestId = obj.getString("messageRequestId");
 //							String messageRequestId = obj.getString("MessageRequestId");
 //							logger.info("SMS Sent successfully by calling API " + smsPublishURL);
 							sms.setTransactionError(null);

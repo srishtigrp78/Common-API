@@ -301,6 +301,12 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 
 		}
 
+		if (benCalls.getCallTypeID() == null) {
+
+			benCalls.setCallTypeID(beneficiaryCallRepository.getCallTypeId());
+
+		}
+
 		// changes from null to new object, in controller obj.toString() is getting used
 		BeneficiaryCall savedCalls = new BeneficiaryCall();
 
@@ -391,6 +397,10 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 				benificiaryCall.getCallTypeID(), benificiaryCall.getDispositionStatusID(),
 				benificiaryCall.getEmergencyType(), benificiaryCall.getExternalReferral(),
 				benificiaryCall.getInstTypeId(), benificiaryCall.getInstName());
+
+		if (benificiaryCall.getBeneficiaryRegID() != null)
+			beneficiaryCallRepository.updateBeneficiaryRegIDInCall(benificiaryCall.getBenCallID(),
+					benificiaryCall.getBeneficiaryRegID());
 		if (followupRequired.isFollowupRequired) {
 			OutboundCallRequest outboundCallRequest = inputMapper.gson().fromJson(request, OutboundCallRequest.class);
 			outboundCallRequestRepository.save(outboundCallRequest);
@@ -410,7 +420,6 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 				updateCallDisposition(benificiaryCall, benificiaryCall.getAgentIPAddress());
 
 				Thread.sleep(1000);
-				
 				disconnectCallInCTI(benificiaryCall);
 			}
 		}

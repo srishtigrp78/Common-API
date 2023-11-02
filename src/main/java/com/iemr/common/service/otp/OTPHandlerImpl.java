@@ -39,24 +39,12 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.primitives.Ints;
 import com.iemr.common.data.otp.OTPRequestParsor;
 import com.iemr.common.service.users.IEMRAdminUserServiceImpl;
-import com.iemr.common.utils.CryptoUtil;
 import com.iemr.common.utils.config.ConfigProperties;
 import com.iemr.common.utils.http.HttpUtils;
 
-/***
- * 
- * @author NE298657
- * @date DD/MM/YYYY - 10/08/2020
- * 
- * @implSpec handle OTP flow business rule
- */
-
 @Service
 public class OTPHandlerImpl implements OTPHandler {
-	
-	@Autowired
-	private CryptoUtil cryptoUtil;
-	
+
 	@Autowired
 	HttpUtils httpUtils;
 	@Autowired
