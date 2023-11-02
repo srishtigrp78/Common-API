@@ -294,6 +294,12 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 		} else if (benCalls.getAgentIPAddress() == null) {
 			benCalls.setAgentIPAddress(agentIPAddress);
 		}
+		
+		if(benCalls.getCallTypeID() == null) {
+
+			benCalls.setCallTypeID(beneficiaryCallRepository.getCallTypeId());
+
+		}
 
 		if (benCalls.getCallTypeID() == null) {
 
@@ -414,7 +420,6 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 				updateCallDisposition(benificiaryCall, benificiaryCall.getAgentIPAddress());
 
 				Thread.sleep(1000);
-
 				disconnectCallInCTI(benificiaryCall);
 			}
 		}

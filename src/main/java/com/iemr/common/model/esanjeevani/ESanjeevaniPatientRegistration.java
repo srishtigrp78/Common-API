@@ -1,9 +1,6 @@
 package com.iemr.common.model.esanjeevani;
 
 import java.util.ArrayList;
-import java.util.Date;
-
-import org.springframework.stereotype.Component;
 
 import lombok.Data;
 
@@ -22,7 +19,7 @@ public class ESanjeevaniPatientRegistration {
 	private String genderDisplay;
 	private boolean isBlock;
 	private String source;
-    
+
 	private ArrayList<ESanjeevaniPatientAddress> lstPatientAddress;
 	private ArrayList<ESanjeevaniPatientContactDetail> lstPatientContactDetail;
 

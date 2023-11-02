@@ -1,5 +1,9 @@
 #IDE
 .idea
+
+# Ignore the Eclipse metadata
+.metadata
+
 # Ignore the target directory
 target/
 
