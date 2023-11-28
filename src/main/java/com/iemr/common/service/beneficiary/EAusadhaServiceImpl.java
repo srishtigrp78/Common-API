@@ -25,6 +25,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.iemr.common.data.eausadha.ItemMaster;
 import com.iemr.common.data.eausadha.ItemStockEntry;
@@ -62,6 +63,8 @@ public class EAusadhaServiceImpl implements EAusadhaService {
 
 		Map<String, String> resMap = new HashMap<>();
 		Map<String, String> resultMap = new HashMap<>();
+		Map<String, Object> resultSet = new HashMap<>();
+		Map<String, Object> responseMap = new HashMap<>();
 
 		Integer institutionId = facilityRepo.fetchInstitutionId(eAusadhaDTO.getFacilityId());
 		if(eAusadhaDTO.getInwardDate() != null) {
@@ -91,9 +94,9 @@ public class EAusadhaServiceImpl implements EAusadhaService {
 
 			for (Object obj : responseArray) {
 				JSONObject responseOBJ = new JSONObject(obj);
-				drugId = responseOBJ.getJSONObject("data").getString("drugId");
-				batchNumber = responseOBJ.getJSONObject("data").getString("batchNumber");
-				drugName = responseOBJ.getJSONObject("data").getString("drugName");
+				drugId = responseOBJ.getJSONObject("data").getString("Drug_id");
+				batchNumber = responseOBJ.getJSONObject("data").getString("Batch_number");
+				drugName = responseOBJ.getJSONObject("data").getString("Drug_name");
 
 				ItemMaster itemCode = itemMasterRepo.findByItemCode(drugId);
 				if (itemCode != null && null != itemCode.getItemID()) {
@@ -112,13 +115,16 @@ public class EAusadhaServiceImpl implements EAusadhaService {
 
 			}
 			if (lengthOfArray == successCount) {
-				resultMap.put("Stock entered Successfully", " ");
+		//		resultMap.put("response", "Stock entered Successfully");
 			} else {
-				resultMap.put("Below stock is not Entered in the System", failedStockList.toString());
+				resultMap.put("response", "Stock entered Successfully");
+				resultSet.put("failedStocks", failedStockList);
+				responseMap.put("data", resultMap);
+				responseMap.put("failedStocks", new Gson().toJson(resultSet.get("failedStocks")));
 			}
 
 		}
-		return resultMap.toString();
+		return new Gson().toJson(responseMap);
 
 	}
 
@@ -126,10 +132,10 @@ public class EAusadhaServiceImpl implements EAusadhaService {
 		ItemStockEntry newItem = new ItemStockEntry();
 		JSONObject jsonObject = responseOBJ.getJSONObject("data");
 		newItem.setFacilityID(jsonObject.getInt("instituteid"));
-		newItem.setItemID(jsonObject.getInt("drugId"));
-		newItem.setBatchNo(jsonObject.getString("batchNumber"));
-		newItem.setQuantityInHand(jsonObject.getInt("quantityInPack"));
-		Date date = new Date(jsonObject.getString("expiryDate"));
+		newItem.setItemID(jsonObject.getInt("Drug_id"));
+		newItem.setBatchNo(jsonObject.getString("Batch_number"));
+		newItem.setQuantityInHand(jsonObject.getInt("Quantity_In_Units"));
+		Date date = new Date(jsonObject.getString("Exp_date"));
 		newItem.setExpiryDate(date);
 		itemStockEntryRepo.save(newItem);
 	}
