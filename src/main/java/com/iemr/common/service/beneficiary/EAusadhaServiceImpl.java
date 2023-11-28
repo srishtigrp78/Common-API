@@ -1,5 +1,7 @@
 package com.iemr.common.service.beneficiary;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -56,11 +58,18 @@ public class EAusadhaServiceImpl implements EAusadhaService {
 		String drugName = null;
 		Integer lengthOfArray = null;
 		Integer successCount = null;
+		String inwardDate=null;
 
 		Map<String, String> resMap = new HashMap<>();
 		Map<String, String> resultMap = new HashMap<>();
 
-		Facility institutionId = facilityRepo.fetchInstitutionId(eAusadhaDTO.getFacilityId());
+		Integer institutionId = facilityRepo.fetchInstitutionId(eAusadhaDTO.getFacilityId());
+		if(eAusadhaDTO.getInwardDate() != null) {
+			LocalDateTime localDateTime = eAusadhaDTO.getInwardDate().toLocalDateTime();
+			SimpleDateFormat inwardDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			inwardDate = inwardDateFormat.format(eAusadhaDTO.getInwardDate());
+			
+		}
 
 		RestTemplate restTemplate = new RestTemplate();
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
@@ -68,7 +77,7 @@ public class EAusadhaServiceImpl implements EAusadhaService {
 		headers.add("AUTHORIZATION", authorization);
 		// create a map to hold both inwardDate and institutionId
 		Map<String, Object> request = new HashMap<>();
-		request.put("InwardDate", eAusadhaDTO.getInwardDate());
+		request.put("InwardDate", inwardDate);
 		request.put("InstituteId", institutionId);
 
 		HttpEntity<Map<String, Object>> requestObj = new HttpEntity<>(request, headers);

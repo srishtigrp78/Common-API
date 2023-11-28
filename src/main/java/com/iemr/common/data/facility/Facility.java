@@ -74,7 +74,7 @@ public class Facility {
 
 	@Column(name = "eaushada_facilityid")
 	@Expose
-	private Integer eAusadhaFacilityId;
+	private String eAusadhaFacilityId;
 	
 	@Column(name = "Deleted", insertable = false, updatable = true)
 	@Expose
