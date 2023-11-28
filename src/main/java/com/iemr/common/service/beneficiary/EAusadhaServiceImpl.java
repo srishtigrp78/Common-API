@@ -50,7 +50,7 @@ public class EAusadhaServiceImpl implements EAusadhaService {
 
 	@Override
 	public String createEAusadha(EAusadhaDTO eAusadhaDTO, String Authorization) throws Exception {
-		Set<String> listOfDrugIds = new HashSet<>();
+		List<Map<String, String>> failedStockList = new ArrayList<>();
 		String drugId = null;
 		String batchNumber = null;
 		String drugName = null;
@@ -94,14 +94,18 @@ public class EAusadhaServiceImpl implements EAusadhaService {
 						saveItemStockEntry(responseOBJ);
 					}
 				} else {
-					listOfDrugIds.add(drugName);
+		//			listOfDrugIds.add(drugName);
+					Map<String, String> failedStockItem = new HashMap<>();
+					failedStockItem.put("DrugName", drugName);
+					failedStockItem.put("BatchNo", batchNumber);
+					failedStockList.add(failedStockItem);
 				}
 
 			}
 			if (lengthOfArray == successCount) {
 				resultMap.put("Stock entered Successfully", " ");
 			} else {
-				resultMap.put("Below stock is not Entered in the System", listOfDrugIds.toString());
+				resultMap.put("Below stock is not Entered in the System", failedStockList.toString());
 			}
 
 		}
