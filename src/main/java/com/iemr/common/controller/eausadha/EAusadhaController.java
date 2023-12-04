@@ -31,11 +31,12 @@ public class EAusadhaController {
 	public String createEAusadha(@RequestBody EAusadhaDTO eAusadhaDTO, @RequestHeader(value = "Authorization") String Authorization) {
 		OutputResponse response = new OutputResponse();
 		try {
+			logger.info("get eausadha request:" + eAusadhaDTO);
 			String res = eAusadhaService.createEAusadha(eAusadhaDTO, Authorization);
 				response.setResponse(res);
 			
 		} catch (Exception e) {
-			response.setError(5000, "Error while entering the Stocks " + e.toString());
+			response.setError(5000, "Error while entering the Stocks." );
 		}
 
 		return response.toString();

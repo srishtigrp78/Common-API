@@ -49,7 +49,7 @@ public class ItemStockEntry {
 	private Integer quantityInHand;
 	
 	@Expose
-	@Column(name="TotalCostPrice")
+	@Column(name="UnitCostPrice")
 	private Double totalCostPrice;
 	
 	@Expose
@@ -97,5 +97,17 @@ public class ItemStockEntry {
 	@Expose
 	@Column(name="LastModDate", insertable = false, updatable = false)
 	private Date lastModDate;
+	
+	@Expose
+	@Column(name="SyncFacilityID")
+	private Integer syncFacilityID;
+	
+	@Expose
+	@Column(name="VanSerialNo")
+	private Integer vanSerialNo;
+	
+	@Expose
+	@Column(name="VanID")
+	private Integer vanId;
 
 }

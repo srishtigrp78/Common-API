@@ -1,9 +1,10 @@
 package com.iemr.common.service.beneficiary;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -50,6 +53,8 @@ public class EAusadhaServiceImpl implements EAusadhaService {
 
 	@Value("${authorization}")
 	private String authorization;
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 	@Override
 	public String createEAusadha(EAusadhaDTO eAusadhaDTO, String Authorization) throws Exception {
@@ -58,15 +63,13 @@ public class EAusadhaServiceImpl implements EAusadhaService {
 		String batchNumber = null;
 		String drugName = null;
 		Integer lengthOfArray = null;
-		Integer successCount = null;
 		String inwardDate=null;
 
 		Map<String, String> resMap = new HashMap<>();
 		Map<String, String> resultMap = new HashMap<>();
-		Map<String, Object> resultSet = new HashMap<>();
 		Map<String, Object> responseMap = new HashMap<>();
 
-		Integer institutionId = facilityRepo.fetchInstitutionId(eAusadhaDTO.getFacilityId());
+		String institutionId = facilityRepo.fetchInstitutionId(eAusadhaDTO.getFacilityId());
 		if(eAusadhaDTO.getInwardDate() != null) {
 			LocalDateTime localDateTime = eAusadhaDTO.getInwardDate().toLocalDateTime();
 			SimpleDateFormat inwardDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -84,29 +87,38 @@ public class EAusadhaServiceImpl implements EAusadhaService {
 		request.put("InstituteId", institutionId);
 
 		HttpEntity<Map<String, Object>> requestObj = new HttpEntity<>(request, headers);
+		
+		logger.info("calling eausadha api:" + request);
 
 		ResponseEntity<String> response = restTemplate.exchange(eAusadhaUrl, HttpMethod.POST, requestObj, String.class);
+		logger.info("getting eausadha response:" + response);
 
 		if (response.getStatusCode() == HttpStatus.OK && response.hasBody()) {
 			String responseStr = response.getBody();
 			JSONArray responseArray = new JSONArray(responseStr);
 			lengthOfArray = responseArray.length();
+			Integer successCount = 0;
+			
 
-			for (Object obj : responseArray) {
-				JSONObject responseOBJ = new JSONObject(obj);
-				drugId = responseOBJ.getJSONObject("data").getString("Drug_id");
-				batchNumber = responseOBJ.getJSONObject("data").getString("Batch_number");
-				drugName = responseOBJ.getJSONObject("data").getString("Drug_name");
+			for (int i = 0; i<lengthOfArray; i++) {
+			  JSONObject obj = responseArray.getJSONObject(i);
+				drugId = obj.getString("Drug_id");
+				batchNumber = obj.getString("Batch_number");
+				drugName = obj.getString("Drug_name");
 
 				ItemMaster itemCode = itemMasterRepo.findByItemCode(drugId);
+				Integer facilityId = eAusadhaDTO.getFacilityId();
 				if (itemCode != null && null != itemCode.getItemID()) {
 					Integer itemId = itemCode.getItemID();
-					ItemStockEntry itemStock = itemStockEntryRepo.findByItemIDAndBatchNo(itemId, batchNumber);
+					ItemStockEntry itemStock = itemStockEntryRepo.getItemStocks(itemId, batchNumber);
 					if (itemStock == null && ObjectUtils.isEmpty(itemStock)) {
-						saveItemStockEntry(responseOBJ);
+						ItemStockEntry itemStockEntry = saveItemStockEntry(obj, facilityId, itemId);
+						if(itemStockEntry != null && itemStockEntry.getItemStockEntryID() != null) {
+							itemStockEntryRepo.updateVanSerialNo(itemStockEntry.getItemStockEntryID());
+						}
+						successCount++;
 					}
 				} else {
-		//			listOfDrugIds.add(drugName);
 					Map<String, String> failedStockItem = new HashMap<>();
 					failedStockItem.put("DrugName", drugName);
 					failedStockItem.put("BatchNo", batchNumber);
@@ -114,30 +126,35 @@ public class EAusadhaServiceImpl implements EAusadhaService {
 				}
 
 			}
-			if (lengthOfArray == successCount) {
-		//		resultMap.put("response", "Stock entered Successfully");
+			if (0 == successCount) {
+				throw new Exception("Error while entering the stocks");
 			} else {
 				resultMap.put("response", "Stock entered Successfully");
-				resultSet.put("failedStocks", failedStockList);
-				responseMap.put("data", resultMap);
-				responseMap.put("failedStocks", new Gson().toJson(resultSet.get("failedStocks")));
+				responseMap.put("response", resultMap);
+				responseMap.put("failedStocks", failedStockList);
 			}
 
-		}
+		} else
+			throw new Exception("Error while getting stock response" + response.toString());
 		return new Gson().toJson(responseMap);
 
 	}
 
-	private void saveItemStockEntry(JSONObject responseOBJ) {
+	private ItemStockEntry saveItemStockEntry(JSONObject responseOBJ, Integer faciityId, Integer itemId) {
 		ItemStockEntry newItem = new ItemStockEntry();
-		JSONObject jsonObject = responseOBJ.getJSONObject("data");
-		newItem.setFacilityID(jsonObject.getInt("instituteid"));
-		newItem.setItemID(jsonObject.getInt("Drug_id"));
-		newItem.setBatchNo(jsonObject.getString("Batch_number"));
-		newItem.setQuantityInHand(jsonObject.getInt("Quantity_In_Units"));
-		Date date = new Date(jsonObject.getString("Exp_date"));
+		newItem.setFacilityID(faciityId);
+		newItem.setItemID(itemId);
+		newItem.setBatchNo(responseOBJ.getString("Batch_number"));
+		newItem.setQuantityInHand(responseOBJ.getInt("Quantity_In_Units"));
+		newItem.setQuantity(responseOBJ.getInt("Quantity_In_Units"));
+		newItem.setSyncFacilityID(faciityId);
+		newItem.setEntryType("eAusadhaStockEntry");
+		newItem.setEntryTypeID(1000);
+		Date date = Date.valueOf(responseOBJ.getString("Exp_date"));
 		newItem.setExpiryDate(date);
+		newItem.setCreatedBy("user");
 		itemStockEntryRepo.save(newItem);
+		return newItem;
 	}
 
 }

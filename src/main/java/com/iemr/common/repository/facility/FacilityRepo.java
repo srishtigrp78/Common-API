@@ -13,6 +13,6 @@ import com.iemr.common.data.facility.Facility;
 public interface FacilityRepo extends CrudRepository<Facility, Integer> {
 	
 	@Query(" SELECT eAusadhaFacilityId FROM Facility WHERE facilityId=:facilityId ")
-	Facility fetchInstitutionId(@Param("facilityId") Integer facilityId);
+	String fetchInstitutionId(@Param("facilityId") Integer facilityId);
 
 }
