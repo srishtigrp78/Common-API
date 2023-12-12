@@ -106,7 +106,8 @@ public class EAusadhaServiceImpl implements EAusadhaService {
 				batchNumber = obj.getString("Batch_number");
 				drugName = obj.getString("Drug_name");
 
-				ItemMaster itemCode = itemMasterRepo.findByItemCode(drugId);
+				List<ItemMaster> itemCodeList = itemMasterRepo.findByItemCode(drugId);
+				ItemMaster itemCode = itemCodeList.get(0);
 				Integer facilityId = eAusadhaDTO.getFacilityId();
 				if (itemCode != null && null != itemCode.getItemID()) {
 					Integer itemId = itemCode.getItemID();
