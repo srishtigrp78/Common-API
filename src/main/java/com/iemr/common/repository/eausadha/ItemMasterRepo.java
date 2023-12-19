@@ -1,6 +1,8 @@
 package com.iemr.common.repository.eausadha;
 
+
 import java.util.List;
+
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RestResource;
@@ -12,6 +14,8 @@ import com.iemr.common.data.eausadha.ItemMaster;
 @RestResource(exported = false)
 public interface ItemMasterRepo extends CrudRepository<ItemMaster, Integer> {
 	
+
 	List<ItemMaster> findByItemCode(String drugId);
+
 
 }

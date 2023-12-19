@@ -24,11 +24,13 @@ package com.iemr.common.repository.report;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.iemr.common.data.callhandling.BeneficiaryCall;
 import com.iemr.common.data.report.CallDetailsReport;
@@ -41,4 +43,14 @@ public interface CallReportRepo extends CrudRepository<BeneficiaryCall, Integer>
 			+ "where (report.cZcallDuration is null or report.recordingPath is null) and report.agentID is not null and report.phoneNo!='undefined' and report.phoneNo is not null "
 			+ "and report.createdDate >= :startDate and report.createdDate <= :endDate ")
 	public List<BeneficiaryCall> getAllBenCallIDetails(@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate);//start date and end date as param for x days.
+
+	@Query("SELECT COUNT(*) FROM BeneficiaryCall call WHERE call.callID = :sessionID and call.phoneNo = :phoneNo")
+	public int getBenCallDetailsBySessionIDAndPhone(@Param("sessionID") String sessionID,@Param("phoneNo") String phoneNo);
+	
+	@Transactional
+	@Modifying
+	@Query("update BeneficiaryCall set isOutbound= :isOutbound where callID = :callID and phoneNo= :phoneNo")
+	public int updateIsOutboundForCall(@Param("isOutbound") boolean isOutbound, @Param("callID") String callID, @Param("phoneNo") String phoneNo );
 }
+
+

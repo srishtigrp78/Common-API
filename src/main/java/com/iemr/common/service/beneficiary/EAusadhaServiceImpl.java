@@ -51,8 +51,12 @@ public class EAusadhaServiceImpl implements EAusadhaService {
 	@Value("${eAusadhaUrl}")
 	private String eAusadhaUrl;
 
+
 	@Value("${eausadhaAuthorization}")
 	private String authorization;
+
+
+	
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -63,17 +67,21 @@ public class EAusadhaServiceImpl implements EAusadhaService {
 		String batchNumber = null;
 		String drugName = null;
 		Integer lengthOfArray = null;
+
 		String inwardDate = null;
+
 
 		Map<String, String> resMap = new HashMap<>();
 		Map<String, String> resultMap = new HashMap<>();
 		Map<String, Object> responseMap = new HashMap<>();
 
 		String institutionId = facilityRepo.fetchInstitutionId(eAusadhaDTO.getFacilityId());
+
 		if (eAusadhaDTO.getInwardDate() != null) {
 			LocalDateTime localDateTime = eAusadhaDTO.getInwardDate().toLocalDateTime();
 			SimpleDateFormat inwardDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			inwardDate = inwardDateFormat.format(eAusadhaDTO.getInwardDate());
+
 
 		}
 
@@ -99,24 +107,30 @@ public class EAusadhaServiceImpl implements EAusadhaService {
 			lengthOfArray = responseArray.length();
 			Integer successCount = 0;
 
+
 			for (int i = 0; i < lengthOfArray; i++) {
 				JSONObject obj = responseArray.getJSONObject(i);
+
 				drugId = obj.getString("Drug_id");
 				batchNumber = obj.getString("Batch_number");
 				drugName = obj.getString("Drug_name");
+
 
 				List<ItemMaster> itemCodeList = itemMasterRepo.findByItemCode(drugId);
 				ItemMaster itemCode=null;
 				if (!itemCodeList.isEmpty()) {
 					 itemCode = itemCodeList.get(0);
 				}
+
 				Integer facilityId = eAusadhaDTO.getFacilityId();
 				if (itemCode != null && null != itemCode.getItemID()) {
 					Integer itemId = itemCode.getItemID();
 					ItemStockEntry itemStock = itemStockEntryRepo.getItemStocks(itemId, batchNumber);
 					if (itemStock == null && ObjectUtils.isEmpty(itemStock)) {
 						ItemStockEntry itemStockEntry = saveItemStockEntry(obj, facilityId, itemId);
+
 						if (itemStockEntry != null && itemStockEntry.getItemStockEntryID() != null) {
+
 							itemStockEntryRepo.updateVanSerialNo(itemStockEntry.getItemStockEntryID());
 						}
 						successCount++;
