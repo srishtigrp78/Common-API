@@ -38,8 +38,10 @@ import com.iemr.common.service.scheme.SchemeServiceImpl;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+
+
 
 @RequestMapping(value = "/beneficiary")
 @RestController
@@ -53,9 +55,9 @@ public class SchemeController {
 	InputMapper mapper = new InputMapper();
 
 	@CrossOrigin
-	@ApiOperation(value = "Save scheme details", consumes = "application/json", produces = "application/json")
+	@Operation(summary = "Save scheme details")
 	@RequestMapping(value = "/save/schemeDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE, headers = "Authorization")
-	public String saveSchemeDetails(@ApiParam(value = "{\"providerServiceMapID\": \"integer-provider service map id\", "
+	public String saveSchemeDetails(@Param(value = "{\"providerServiceMapID\": \"integer-provider service map id\", "
 			+ "\"schemeName\": \"Name of Scheme\", " + "\"schemeDesc\": \"Description of Scheme\", "
 			+ "\"createdBy\": \"User name of the supervisor creating scheme\", "
 			+ "\"kmFileManager\":{\"fileName\":\"String: name of file\", "
@@ -79,10 +81,10 @@ public class SchemeController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get scheme list")
+	@Operation(summary = "Get scheme list")
 	@RequestMapping(value = "/get/schemeList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE, headers = "Authorization")
 	public String getSchemeList(
-			@ApiParam(value = "{\"providerServiceMapID\":\"Integer\"}") @RequestBody String createRequest) {
+			@Param(value = "{\"providerServiceMapID\":\"Integer\"}") @RequestBody String createRequest) {
 		logger.info("getSchemeList request " + createRequest);
 		OutputResponse output = new OutputResponse();
 		try {
@@ -104,10 +106,10 @@ public class SchemeController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Delete scheme")
+	@Operation(summary = "Delete scheme")
 	@RequestMapping(value = "/scheme/deleteScheme", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE, headers = "Authorization")
 	public String deleteScheme(
-			@ApiParam(value = "{\"schemeID\":\"Integer\",\"deleted\":\"Boolean\"}") @RequestBody String createRequest) {
+			@Param(value = "{\"schemeID\":\"Integer\",\"deleted\":\"Boolean\"}") @RequestBody String createRequest) {
 		logger.info("delete scheme request " + createRequest);
 		OutputResponse output = new OutputResponse();
 		try {

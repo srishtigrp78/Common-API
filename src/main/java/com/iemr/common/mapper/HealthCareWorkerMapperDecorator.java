@@ -37,7 +37,7 @@ public abstract class HealthCareWorkerMapperDecorator implements HealthCareWorke
 		HealthCareWorkerModel model = null;
 		if (workerID != null)
 		{
-			model = getModelByWorker(healthCareWorkerRepository.findOne(workerID));
+			model = getModelByWorker(healthCareWorkerRepository.findByHealthCareWorkerID(workerID));
 		}
 		return model;
 	}

@@ -38,8 +38,10 @@ import com.iemr.common.service.kmfilemanager.KMFileManagerService;
 import com.iemr.common.service.scheme.SchemeServiceImpl;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+
+
 
 @RequestMapping({ "/kmfilemanager" })
 @RestController
@@ -56,10 +58,10 @@ public class KMFileManagerController {
 	private SchemeServiceImpl schemeServiceImpl;
 
 	@CrossOrigin
-	@ApiOperation(value = "Add file")
+	@Operation(summary = "Add file")
 	@RequestMapping(value = "/addFile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String addFile(
-			@ApiParam(value = "{\"fileName\":\"String: name of file\", \"fileExtension:\"String: file extension\", "
+			@Param(value = "{\"fileName\":\"String: name of file\", \"fileExtension:\"String: file extension\", "
 					+ "\"providerServiceMapID\":\"Integer: service provider map ID\", "
 					+ "userID:\"Integer: user ID of the supervisor\", "
 					+ "\"validFrom\":\"Epoch date time: Document validity start time\", "
@@ -82,9 +84,9 @@ public class KMFileManagerController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get KM file download URL")
+	@Operation(summary = "Get KM file download URL")
 	@RequestMapping(value = "/getKMFileDownloadURL", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String getKMFileDownloadURL(@ApiParam(value = "{}") @RequestBody String request) {
+	public String getKMFileDownloadURL(@Param(value = "{}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		logger.info("add file request is " + request);
 		try {

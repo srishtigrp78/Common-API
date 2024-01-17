@@ -36,4 +36,6 @@ public interface HealthCareWorkerRepository extends CrudRepository<HealthCareWor
 {
 	@Query("select healthCareWorker from HealthCareWorker healthCareWorker order by healthCareWorkerType asc")
 	List<HealthCareWorker> findAllOrderByHealthCareWorkerTypeAsc();
+	
+	HealthCareWorker findByHealthCareWorkerID(Short workerID);
 }

@@ -35,7 +35,7 @@ public abstract class StatusMapperDecorator implements StatusMapper
 	public StatusModel statusToModelByID(Integer statusID)
 	{
 		StatusModel status = new StatusModel();
-		status = statusToModel(statusRepository.findOne(statusID));
+		status = statusToModel(statusRepository.findByStatusID(statusID));
 		return status;
 	};
 

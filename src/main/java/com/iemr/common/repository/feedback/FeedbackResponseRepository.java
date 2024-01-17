@@ -54,4 +54,6 @@ public interface FeedbackResponseRepository extends CrudRepository<FeedbackRespo
 	@Query("update FeedbackResponse set kmFileManagerID = :kmFileManagerID where feedbackResponseID=:feedbackResponseID")
 	Integer updateFileID(@Param("kmFileManagerID") Integer kmFileManagerID,
 			@Param("feedbackResponseID") Long feedbackResponseID);
+	
+	FeedbackResponse findByFeedbackResponseID(Long feedbackResponseID);
 }

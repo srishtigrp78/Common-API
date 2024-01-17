@@ -23,7 +23,6 @@ package com.iemr.common.controller.sms;
 
 import java.util.Arrays;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MediaType;
 
 import org.slf4j.Logger;
@@ -45,8 +44,9 @@ import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.mapper.OutputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/sms")
@@ -59,10 +59,10 @@ public class SMSController {
 	InputMapper inputMapper = new InputMapper();
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get SMS templates")
+	@Operation(summary = "Get SMS templates")
 	@RequestMapping(value = "/getSMSTemplates", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getSMSTemplates(
-			@ApiParam(value = "\"{\\\"providerServiceMapID\\\":\\\"Integer\\\"}\"") @RequestBody SMSRequest request,
+			@Param(value = "\"{\\\"providerServiceMapID\\\":\\\"Integer\\\"}\"") @RequestBody SMSRequest request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getSMSTemplates received request");
@@ -78,11 +78,11 @@ public class SMSController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get full SMS template")
+	@Operation(summary = "Get full SMS template")
 	@RequestMapping(value = "/getFullSMSTemplate", method = {
 			RequestMethod.POST }, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getFullSMSTemplate(
-			@ApiParam(value = "\"{\\\"providerServiceMapID\\\":\\\"Integer\\\",\\\"smsTemplateID\\\":\\\"Integer\\\"}\"") @RequestBody SMSRequest request,
+			@Param(value = "\"{\\\"providerServiceMapID\\\":\\\"Integer\\\",\\\"smsTemplateID\\\":\\\"Integer\\\"}\"") @RequestBody SMSRequest request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getFullSMSTemplate received request");
@@ -98,10 +98,10 @@ public class SMSController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Save SMS template")
+	@Operation(summary = "Save SMS template")
 	@RequestMapping(value = "/saveSMSTemplate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String saveSMSTemplate(
-			@ApiParam(value = "\"{\\\"createdBy\\\":\\\"String\\\",\\\"providerServiceMapID\\\":\\\"String\\\",\\\"smsParameterMaps\\\":\\\"String\\\",\\\"smsTemplate\\\":\\\"String\\\",\\\"smsTemplateName\\\":\\\"String\\\",\\\"smsTypeID\\\":\\\"Integer\\\"}\"") @RequestBody CreateSMSRequest request,
+			@Param(value = "\"{\\\"createdBy\\\":\\\"String\\\",\\\"providerServiceMapID\\\":\\\"String\\\",\\\"smsParameterMaps\\\":\\\"String\\\",\\\"smsTemplate\\\":\\\"String\\\",\\\"smsTemplateName\\\":\\\"String\\\",\\\"smsTypeID\\\":\\\"Integer\\\"}\"") @RequestBody CreateSMSRequest request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("saveSMSTemplate received request");
@@ -117,10 +117,10 @@ public class SMSController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Update SMS template")
+	@Operation(summary = "Update SMS template")
 	@RequestMapping(value = "/updateSMSTemplate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String updateSMSTemplate(
-			@ApiParam(value = "\"{\\\"smsTemplateID\\\":\\\"String\\\",\\\"smsTemplateName\\\":\\\"String\\\",\\\"smsTemplate\\\":\\\"String\\\","
+			@Param(value = "\"{\\\"smsTemplateID\\\":\\\"String\\\",\\\"smsTemplateName\\\":\\\"String\\\",\\\"smsTemplate\\\":\\\"String\\\","
 					+ "\\\"providerServiceMapID\\\":\\\"Integer\\\",\\\"smsType\\\":{\\\"smsTypeID\\\":\\\"Integer\\\",\\\"smsType\\\":\\\"String\\\","
 					+ "\\\"description\\\":\\\"String\\\",\\\"serviceID\\\":\\\"Integer\\\",\\\"deleted\\\":\\\"Boolean\\\"},"
 					+ "\\\"deleted\\\":\\\"Boolean\\\",\\\"createdBy\\\":\\\"String\\\","
@@ -141,10 +141,10 @@ public class SMSController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get SMS types")
+	@Operation(summary = "Get SMS types")
 	@RequestMapping(value = "/getSMSTypes", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getSMSTypes(
-			@ApiParam(value = "\"{\\\"serviceID\\\":\\\"Integer\\\"}\"") @RequestBody SMSTypeModel request,
+			@Param(value = "\"{\\\"serviceID\\\":\\\"Integer\\\"}\"") @RequestBody SMSTypeModel request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getSMSTypes received request");
@@ -161,10 +161,10 @@ public class SMSController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get SMS parameters")
+	@Operation(summary = "Get SMS parameters")
 	@RequestMapping(value = "/getSMSParameters", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getSMSParameters(
-			@ApiParam(value = "\"{\\\"serviceID\\\":\\\"Integer\\\"}\"") @RequestBody SMSParameterModel request,
+			@Param(value = "\"{\\\"serviceID\\\":\\\"Integer\\\"}\"") @RequestBody SMSParameterModel request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getSMSParameters received request");
@@ -181,10 +181,10 @@ public class SMSController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Send SMS")
+	@Operation(summary = "Send SMS")
 	@RequestMapping(value = "/sendSMS", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String sendSMS(
-			@ApiParam(value = "\"{\\\"providerServiceMapID\\\":\\\"Integer\\\",\\\"smsTemplateTypeID\\\":\\\"Integer\\\","
+			@Param(value = "\"{\\\"providerServiceMapID\\\":\\\"Integer\\\",\\\"smsTemplateTypeID\\\":\\\"Integer\\\","
 					+ "\\\"smsTemplateID\\\":\\\"Integer\\\",\\\"beneficiaryRegID\\\":\\\"Long\\\",\\\"stateID\\\":\\\"Integer\\\","
 					+ "\\\"districtID\\\":\\\"Integer\\\",\\\"blockID\\\":\\\"Integer\\\",\\\"is1097\\\":\\\"Boolean\\\","
 					+ "\\\"userID\\\":\\\"Long\\\",\\\"InstituteID\\\":\\\"Integer\\\",\\\"feedbackID\\\":\\\"Long\\\","

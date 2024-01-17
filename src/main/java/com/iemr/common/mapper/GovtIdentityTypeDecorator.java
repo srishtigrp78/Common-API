@@ -41,7 +41,7 @@ public abstract class GovtIdentityTypeDecorator implements GovtIdentityTypeMappe
 		GovtIdentityTypeModel govtIdentityTypeModel = null;
 		if (govtIdentityTypeModelID != null)
 		{
-			govtIdentityTypeModel = getGovtIdentity(govtIdentityTypeRepository.findOne(govtIdentityTypeModelID));
+			govtIdentityTypeModel = getGovtIdentity(govtIdentityTypeRepository.findByGovtIdentityTypeID(govtIdentityTypeModelID));
 		}
 		return govtIdentityTypeModel;
 	}
@@ -64,7 +64,7 @@ public abstract class GovtIdentityTypeDecorator implements GovtIdentityTypeMappe
 					identityModel.setCreatedBy(identityDTO.getCreatedBy());
 					identityModel.setDeleted(identityDTO.getDeleted());
 					identityModel.setGovtIdentityType(
-							getGovtIdentity(govtIdentityTypeRepository.findOne(identityDTO.getIdentityNameId())));
+							getGovtIdentity(govtIdentityTypeRepository.findById(identityDTO.getIdentityNameId()).orElse(null)));
 					identityModels.add(identityModel);
 				}
 			}

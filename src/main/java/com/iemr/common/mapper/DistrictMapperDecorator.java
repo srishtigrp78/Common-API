@@ -33,7 +33,7 @@ public abstract class DistrictMapperDecorator implements DistrictMapper
 	
 	public DistrictModel districtToModelByID(Integer districtID){
 		DistrictModel district = new DistrictModel();
-		district = districtToModel(locationDistrictRepository.findOne(districtID));
+		district = districtToModel(locationDistrictRepository.findByDistrictID(districtID));
 		return district;
 	}
 	

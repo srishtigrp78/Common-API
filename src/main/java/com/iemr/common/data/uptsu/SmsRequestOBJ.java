@@ -21,8 +21,6 @@
 */
 package com.iemr.common.data.uptsu;
 
-import java.sql.Timestamp;
-
 import lombok.Data;
 @Data
 public class SmsRequestOBJ {

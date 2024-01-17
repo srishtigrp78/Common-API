@@ -36,8 +36,10 @@ import com.iemr.common.service.snomedct.SnomedService;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+
+
 
 @RequestMapping(value = "/snomed")
 @RestController
@@ -52,9 +54,9 @@ public class SnomedController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Retrives snomed CT record", consumes = "application/json", produces = "application/json")
-	@RequestMapping(value = "/getSnomedCTRecord", method = RequestMethod.POST, headers = "Authorization")
-	public String getSnomedCTRecord(@ApiParam(value = "{\"term\":\"String\"}") @RequestBody String request) {
+	@Operation(summary = "Retrives snomed CT record")
+	@RequestMapping(value = "/getSnomedCTRecord", method = RequestMethod.POST, headers = "Authorization", consumes = "application/json", produces = "application/json")
+	public String getSnomedCTRecord(@Param(value = "{\"term\":\"String\"}") @RequestBody String request) {
 		OutputResponse output = new OutputResponse();
 		try {
 
@@ -78,9 +80,9 @@ public class SnomedController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Retrives snomed CT record list", consumes = "application/json", produces = "application/json")
-	@RequestMapping(value = "/getSnomedCTRecordList", method = RequestMethod.POST, headers = "Authorization")
-	public String getSnomedCTRecordList(@ApiParam(value = "{\"term\":\"String\"}") @RequestBody String request) {
+	@Operation(summary = "Retrives snomed CT record list")
+	@RequestMapping(value = "/getSnomedCTRecordList", method = RequestMethod.POST, headers = "Authorization", consumes = "application/json", produces = "application/json")
+	public String getSnomedCTRecordList(@Param(value = "{\"term\":\"String\"}") @RequestBody String request) {
 		OutputResponse output = new OutputResponse();
 		try {
 

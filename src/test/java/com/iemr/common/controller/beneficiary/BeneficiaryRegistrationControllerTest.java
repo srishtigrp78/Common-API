@@ -22,13 +22,12 @@
 package com.iemr.common.controller.beneficiary;
 
 import static org.assertj.core.api.Assertions.fail;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.springframework.test.context.event.annotation.BeforeTestClass;
 
 import com.iemr.common.data.beneficiary.Beneficiary;
 import com.iemr.common.model.beneficiary.BeneficiaryModel;
@@ -77,7 +76,7 @@ public class BeneficiaryRegistrationControllerTest {
 	private static BeneficiaryModel benNeg;
 	static String benData = "{i_bendemographics:{},benPhoneMaps:[{}]}";
 
-	@Before
+	@BeforeTestClass
 	public void makeBenefciaryRegistration() {
 //		try {
 //			registerBenificiaryService = mock(RegisterBenificiaryServiceImpl.class);

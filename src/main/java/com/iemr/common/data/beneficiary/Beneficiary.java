@@ -27,8 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.persistence.Transient;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.data.callhandling.BeneficiaryCall;
@@ -40,6 +38,7 @@ import com.iemr.common.data.userbeneficiarydata.Status;
 import com.iemr.common.data.userbeneficiarydata.Title;
 import com.iemr.common.utils.mapper.InputMapper;
 
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Data

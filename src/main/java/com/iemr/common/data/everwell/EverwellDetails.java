@@ -21,26 +21,18 @@
 */
 package com.iemr.common.data.everwell;
 
-import java.math.BigInteger;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import com.google.gson.annotations.Expose;
-import com.iemr.common.data.callhandling.OutboundCallRequest;
-import com.iemr.common.data.everwell.Note;
-import com.iemr.common.data.service.SubService;
-import com.iemr.common.data.users.User;
-import com.iemr.common.model.beneficiary.BeneficiaryModel;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Entity

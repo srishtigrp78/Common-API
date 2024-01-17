@@ -21,16 +21,10 @@
 */
 package com.iemr.common.data.cti;
 
-import java.util.List;
-
 import javax.persistence.Transient;
 
 import com.google.gson.JsonArray;
 import com.google.gson.annotations.Expose;
-import com.iemr.common.data.beneficiary.BenRelationshipType;
-import com.iemr.common.data.beneficiary.BeneficiaryRegistrationData;
-import com.iemr.common.data.beneficiary.GovtIdentityType;
-import com.iemr.common.data.beneficiary.BeneficiaryOccupation;
 import com.iemr.common.utils.mapper.OutputMapper;
 
 import lombok.Data;

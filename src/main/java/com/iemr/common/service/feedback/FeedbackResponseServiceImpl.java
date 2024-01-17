@@ -61,7 +61,7 @@ public class FeedbackResponseServiceImpl implements FeedbackResponseService {
 
 	@Override
 	public FeedbackResponse getFeedbackResponse(Long feedbackResponseID) {
-		return feedbackResponseRepository.findOne(feedbackResponseID);
+		return feedbackResponseRepository.findByFeedbackResponseID(feedbackResponseID);
 	}
 
 	@Override

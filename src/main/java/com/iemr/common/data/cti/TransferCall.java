@@ -21,13 +21,9 @@
 */
 package com.iemr.common.data.cti;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import com.google.gson.annotations.Expose;
-import com.iemr.common.data.callhandling.CallType;
 import com.iemr.common.utils.mapper.OutputMapper;
 
 import lombok.Data;
@@ -103,30 +99,7 @@ public class TransferCall
 		return OutputMapper.gson().toJson(this);
 	}
 
-	// public String getTransfer_to()
-	// {
-	// return transfer_to;
-	// }
-	//
-	// public String getTransfer_from()
-	// {
-	// return transfer_from;
-	// }
-	//
-	// public String getTransfer_campaign_info()
-	// {
-	// return transfer_campaign_info;
-	// }
-	//
-	// public String getSkill_transfer_flag()
-	// {
-	// return skill_transfer_flag;
-	// }
-	//
-	// public String getTransaction_id()
-	// {
-	// return transaction_id;
-	// }
+	
 
 	public String getAgentid()
 	{

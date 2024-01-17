@@ -21,7 +21,6 @@
 */
 package com.iemr.common.controller.honeywell;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MediaType;
 
 import org.slf4j.Logger;
@@ -37,7 +36,8 @@ import com.iemr.common.service.honeywell.HoneywellService;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
 
 @CrossOrigin
 @RequestMapping({ "/honeywell" })
@@ -49,7 +49,7 @@ public class HoneywellController {
 	private HoneywellService honeywellService;
 
 	@CrossOrigin
-	@ApiOperation(value = "Get real time district wise call report")
+	@Operation(summary = "Get real time district wise call report")
 	@RequestMapping(value = "/realtimeDistrictDistribution", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getRealtimeDistrictWiseCallReport() {
 		OutputResponse response = new OutputResponse();
@@ -63,7 +63,7 @@ public class HoneywellController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "District wise call distribution")
+	@Operation(summary = "District wise call distribution")
 	@RequestMapping(value = "/districtWiseCallDistribution", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getDistrictWiseCallReport(@RequestBody String request, HttpServletRequest httpRequest) {
 		OutputResponse response = new OutputResponse();
@@ -78,7 +78,7 @@ public class HoneywellController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Urban and rural calls")
+	@Operation(summary = "Urban and rural calls")
 	@RequestMapping(value = "/urban_rural_calls", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getUrbanRuralCallReport(@RequestBody String request, HttpServletRequest httpRequest) {
 		OutputResponse response = new OutputResponse();

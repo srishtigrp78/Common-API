@@ -30,7 +30,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -56,6 +55,8 @@ import com.iemr.common.utils.exception.IEMRException;
 import com.iemr.common.utils.mapper.OutputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 import com.iemr.common.utils.validator.Validator;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * @author WA875423

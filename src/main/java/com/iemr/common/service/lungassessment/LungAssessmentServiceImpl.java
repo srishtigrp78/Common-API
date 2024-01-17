@@ -26,7 +26,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 
-import javax.xml.ws.http.HTTPException;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +43,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -126,7 +127,7 @@ public class LungAssessmentServiceImpl implements LungAssessmentService {
 
 			logger.info("Lung assessment authentication response: " + lungAssessmentToken);
 
-		} catch (HTTPException e) {
+		} catch (HttpClientErrorException e) {
 			logger.error("Lung assessment authentication error : " + e.getMessage(), e);
 			throw new RuntimeException("get authentication failed with error", e);
 		} catch (Exception e) {

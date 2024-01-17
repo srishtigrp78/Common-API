@@ -36,7 +36,8 @@ import com.iemr.common.model.user.LoginRequestModelEverwell;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+
 
 @RestController
 @RequestMapping(value = "/everwell")
@@ -45,7 +46,7 @@ public class EverwellController {
 	Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get data")
+	@Operation(summary = "Get data")
 	@RequestMapping(value = "/getjson", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getdata() {
 		OutputResponse response = new OutputResponse();
@@ -74,7 +75,7 @@ public class EverwellController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Add support action")
+	@Operation(summary = "Add support action")
 	@RequestMapping(value = {
 			"/addSupportAction/{id}" }, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String addSupportAction(@PathVariable("id") Long id, @RequestBody String request) {
@@ -95,7 +96,7 @@ public class EverwellController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Edit manual doses")
+	@Operation(summary = "Edit manual doses")
 	@RequestMapping(value = {
 			"/editManualDoses/{id}" }, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String editManualDoses(@PathVariable("id") Long id, @RequestBody String request) {
@@ -112,7 +113,7 @@ public class EverwellController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Everwell login")
+	@Operation(summary = "Everwell login")
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String everwellLogin(@RequestBody LoginRequestModelEverwell login) {
 

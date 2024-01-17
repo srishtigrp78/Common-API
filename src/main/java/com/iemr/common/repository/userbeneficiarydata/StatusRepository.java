@@ -36,4 +36,6 @@ import com.iemr.common.data.userbeneficiarydata.Status;
 public abstract interface StatusRepository extends CrudRepository<Status, Integer> {
 	@Query("select statusID, status from Status where deleted = false")
 	public abstract Set<Objects[]> findAciveStatus();
+	
+	Status findByStatusID(Integer statusID);
 }

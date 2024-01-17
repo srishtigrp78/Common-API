@@ -49,7 +49,7 @@ public interface FeedbackRepository extends CrudRepository<FeedbackDetails, Long
 
 	@Query("select feedbackID, severityID, feedbackTypeID, feedbackStatusID, feedback, createdBy, serviceAvailDate, "
 			+ "feedbackAgainst from FeedbackDetails where feedbackID = :id order by feedbackID desc")
-	public ArrayList<Objects[]> findByFeedbackID(@Param("id") Long id);
+	public ArrayList<Objects[]> findByFeedbackId(@Param("id") Long id);
 
 	@Query("SELECT tf.feedbackID, tf.institutionID, tf.designationID, tf.severityID, "
 			+ "tf.feedbackStatusID, tf.feedback, tf.serviceID, tf.userID, tf.sMSPhoneNo, "
@@ -322,5 +322,7 @@ public interface FeedbackRepository extends CrudRepository<FeedbackDetails, Long
 	Integer updateFeedbackDetail(@Param("feedbackID") Long feedbackID,
 			@Param("feedbackStatusID") Integer feedbackStatusID, @Param("emailStatusID") Integer emailStatusID,
 			@Param("feedback") String feedback);
+	
+	FeedbackDetails findByFeedbackID(Long feedbackID);
 
 }

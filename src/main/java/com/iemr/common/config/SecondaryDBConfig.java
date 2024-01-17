@@ -21,9 +21,9 @@
 */
 package com.iemr.common.config;
 
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
 
+
+import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolConfiguration;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.slf4j.Logger;
@@ -40,6 +40,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.iemr.common.utils.config.ConfigProperties;
+
+import jakarta.persistence.EntityManagerFactory;
 
 @Configuration
 @EnableTransactionManagement
@@ -83,7 +85,7 @@ public class SecondaryDBConfig {
 	@Bean(name = "secondaryTransactionManager")
 	public PlatformTransactionManager barTransactionManager(
 			@Qualifier("secondaryEntityManagerFactory") EntityManagerFactory secondaryEntityManagerFactory) {
-		return new JpaTransactionManager(secondaryEntityManagerFactory);
+		return new JpaTransactionManager((jakarta.persistence.EntityManagerFactory) secondaryEntityManagerFactory);
 	}
 	
 }

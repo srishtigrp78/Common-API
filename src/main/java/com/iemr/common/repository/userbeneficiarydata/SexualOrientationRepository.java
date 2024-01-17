@@ -38,4 +38,6 @@ public abstract interface SexualOrientationRepository extends CrudRepository<Sex
 	public abstract Set<Objects[]> findAciveOrientations();
 
 	public SexualOrientation findBysexualOrientationId(Short sexualOrientationId);
+	
+	SexualOrientation findBySexualOrientationId(Short sexualOrientationId);
 }

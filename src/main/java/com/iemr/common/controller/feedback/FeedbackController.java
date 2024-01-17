@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+
 import javax.ws.rs.core.MediaType;
 
 import org.slf4j.Logger;
@@ -54,8 +54,9 @@ import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.mapper.OutputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RequestMapping(value = "/feedback")
 @RestController
@@ -94,7 +95,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Beneficiary request")
+	@Operation(summary = "Beneficiary request")
 	@RequestMapping(value = "/beneficiaryRequests", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String feedbackRequest(@RequestBody String request) {
 		OutputResponse response = new OutputResponse();
@@ -111,7 +112,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get feedback from feedback id")
+	@Operation(summary = "Get feedback from feedback id")
 	@RequestMapping(value = "/getfeedback/{feedbackID}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getFeedbackByPost(@PathVariable("feedbackID") Long feedbackID) {
 		OutputResponse response = new OutputResponse();
@@ -127,7 +128,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Create feedback")
+	@Operation(summary = "Create feedback")
 	@RequestMapping(value = "/createFeedback", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String createFeedback(@RequestBody String feedbackDetails) {
 
@@ -143,7 +144,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Feedback list")
+	@Operation(summary = "Feedback list")
 	@RequestMapping(value = "/feedbacksList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String feedbacksList(@RequestBody String request) {
 
@@ -161,7 +162,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get feedback")
+	@Operation(summary = "Get feedback")
 	@RequestMapping(value = "/getFeedback", method = RequestMethod.POST, headers = "Authorization")
 	public String getFeedback(@RequestBody String feedbackRequest) {
 		OutputResponse response = new OutputResponse();
@@ -176,7 +177,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Update feedback")
+	@Operation(summary = "Update feedback")
 	@RequestMapping(value = "/updatefeedback", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String updateFeedback(@RequestBody String feedbackDetails) {
 		OutputResponse response = new OutputResponse();
@@ -190,7 +191,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Create a new beneficiary")
+	@Operation(summary = "Create a new beneficiary")
 	@RequestMapping(value = "/updateFeedbackStatus", method = RequestMethod.POST, headers = "Authorization")
 	public String updateFeedbackStatus(@RequestBody String feedbackDetails) {
 		OutputResponse response = new OutputResponse();
@@ -206,7 +207,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Search feedback")
+	@Operation(summary = "Search feedback")
 	@RequestMapping(value = "/searchFeedback", method = RequestMethod.POST, headers = "Authorization")
 	public String searchFeedback(@RequestBody String feedbackDetails) {
 		OutputResponse response = new OutputResponse();
@@ -222,7 +223,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Search feedback1")
+	@Operation(summary = "Search feedback1")
 	@RequestMapping(value = "/searchFeedback1", method = RequestMethod.POST, headers = "Authorization")
 	public String searchFeedback1(@RequestBody String feedbackDetails) {
 		OutputResponse response = new OutputResponse();
@@ -238,7 +239,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get all feedback")
+	@Operation(summary = "Get all feedback")
 	@RequestMapping(value = "/getAllFeedbackById", method = RequestMethod.POST, headers = "Authorization")
 	public String getAllFeedbackById(@RequestBody String feedbackrequest) {
 		OutputResponse response = new OutputResponse();
@@ -254,7 +255,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get all feedback by id")
+	@Operation(summary = "Get all feedback by id")
 	@RequestMapping(value = "/getAllFeedbackById1", method = RequestMethod.POST, headers = "Authorization")
 	public String getAllfeedback(@RequestBody FeedbackResponse tfeedbackresponce) {
 		Map<String, Object> resMap = null;
@@ -281,7 +282,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get feedback status")
+	@Operation(summary = "Get feedback status")
 	@RequestMapping(value = "/getFeedbackStatus", method = RequestMethod.POST, headers = "Authorization")
 	public String getFeedbackStatusTypes(@RequestBody String request) {
 		OutputResponse response = new OutputResponse();
@@ -294,7 +295,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get email status")
+	@Operation(summary = "Get email status")
 	@RequestMapping(value = "/getEmailStatus", method = RequestMethod.POST, headers = "Authorization")
 	public String getEmailStatus(@RequestBody String request) {
 		OutputResponse response = new OutputResponse();
@@ -307,7 +308,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get feedback request by id")
+	@Operation(summary = "Get feedback request by id")
 	@RequestMapping(value = "/getFeedbackRequestById", method = RequestMethod.POST, headers = "Authorization")
 	public String getFeedbackRequestById(@RequestBody String feedbackrequest) {
 		OutputResponse response = new OutputResponse();
@@ -323,7 +324,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get feedback response by id")
+	@Operation(summary = "Get feedback response by id")
 	@RequestMapping(value = "/getFeedbackResponseById", method = RequestMethod.POST, headers = "Authorization")
 	public String getFeedbackResponseById(@RequestBody String feedbackrequest) {
 		OutputResponse response = new OutputResponse();
@@ -339,7 +340,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get feedback list")
+	@Operation(summary = "Get feedback list")
 	@RequestMapping(value = "/getFeedbacksList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getFeedbacksList(@RequestBody FeedbackListRequestModel feedbackDetails,
 			HttpServletRequest httpRequest) {
@@ -359,7 +360,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Update response")
+	@Operation(summary = "Update response")
 	@RequestMapping(value = "/updateResponse", method = RequestMethod.POST, headers = "Authorization")
 	public String updateResponse(@RequestBody String feedbackresponce) {
 		OutputResponse response = new OutputResponse();
@@ -376,7 +377,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Request feedback")
+	@Operation(summary = "Request feedback")
 	@RequestMapping(value = "/requestFeedback", method = RequestMethod.POST, headers = "Authorization")
 	public String requestFeedback(@RequestBody String feedbackRequest) {
 		OutputResponse response = new OutputResponse();
@@ -400,10 +401,10 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get severity")
+	@Operation(summary = "Get severity")
 	@RequestMapping(value = "/getSeverity", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getFeedbackSeverity(
-			@ApiParam(value = "{providerServiceMapID : Integer}") @RequestBody String severityRequest) {
+			@Param(value = "{providerServiceMapID : Integer}") @RequestBody String severityRequest) {
 
 		OutputResponse response = new OutputResponse();
 		try {
@@ -418,10 +419,10 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get feedback type")
+	@Operation(summary = "Get feedback type")
 	@RequestMapping(value = "/getFeedbackType", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getFeedbackType(
-			@ApiParam(value = "{providerServiceMapID : Integer}") @RequestBody String severityRequest) {
+			@Param(value = "{providerServiceMapID : Integer}") @RequestBody String severityRequest) {
 
 		OutputResponse response = new OutputResponse();
 		try {
@@ -436,7 +437,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get grievances by created date")
+	@Operation(summary = "Get grievances by created date")
 	@RequestMapping(value = "/getGrievancesByCreatedDate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getGrievancesByCreatedDate(@RequestBody FeedbackListRequestModel feedbackDetails,
 			HttpServletRequest httpRequest) {
@@ -453,7 +454,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get grievances by updated date")
+	@Operation(summary = "Get grievances by updated date")
 	@RequestMapping(value = "/getGrievancesByUpdatedDate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getGrievancesByUpdatedDate(@RequestBody FeedbackListRequestModel feedbackDetails,
 			HttpServletRequest httpRequest) {
@@ -470,7 +471,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Save feedback request")
+	@Operation(summary = "Save feedback request")
 	@RequestMapping(value = "/saveFeedbackRequest", method = RequestMethod.POST, headers = "Authorization")
 	public String createFeedbackRequest(@RequestBody String feedbackRequest) {
 		OutputResponse response = new OutputResponse();
@@ -485,7 +486,7 @@ public class FeedbackController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get feedback logs")
+	@Operation(summary = "Get feedback logs")
 	@RequestMapping(value = "/getFeedbackLogs", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getFeedbackLogs(@RequestBody String request) {
 		OutputResponse response = new OutputResponse();

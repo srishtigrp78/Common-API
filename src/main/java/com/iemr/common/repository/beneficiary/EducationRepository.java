@@ -37,4 +37,6 @@ public abstract interface EducationRepository extends CrudRepository<Beneficiary
 {
 	@Query("select educationID, educationType from BeneficiaryEducation where deleted = false order by educationType asc")
 	public abstract Set<Objects[]> findActiveEducations();
+	
+	BeneficiaryEducation findByEducationID(Long educationID);
 }

@@ -37,5 +37,7 @@ public interface BeneficiaryOccupationRepository extends CrudRepository<Benefici
 	@Query("select occupationID, occupationType from BeneficiaryOccupation where deleted = false "
 			+ "order by occupationType asc")
 	Set<Objects[]> getActiveOccupations();
+	
+	BeneficiaryOccupation findByOccupationID(Long occupationID);
 
 }

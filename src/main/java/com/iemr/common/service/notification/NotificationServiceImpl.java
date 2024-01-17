@@ -366,7 +366,7 @@ public class NotificationServiceImpl implements NotificationService
 		ArrayList<NotificationType> savedNotificationTypes = new ArrayList<NotificationType>();
 		NotificationType[] notificationTypeRequest = inputMapper.gson().fromJson(request, NotificationType[].class);
 		savedNotificationTypes =
-				(ArrayList<NotificationType>) notificationTypeRepository.save(Arrays.asList(notificationTypeRequest));
+				(ArrayList<NotificationType>) notificationTypeRepository.saveAll(Arrays.asList(notificationTypeRequest));
 		return savedNotificationTypes.toString();
 	}
 

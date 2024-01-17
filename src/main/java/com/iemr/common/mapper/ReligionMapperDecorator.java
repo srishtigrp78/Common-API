@@ -34,7 +34,7 @@ public abstract class ReligionMapperDecorator implements ReligionMapper
 	@Override
 	public ReligionModel relegionToModelByID(Integer relegionID)
 	{
-		ReligionModel relegion = relegionToUserDemographics(religionRepository.findOne(relegionID));
+		ReligionModel relegion = relegionToUserDemographics(religionRepository.findByReligionID(relegionID));
 		return relegion;
 	}
 }

@@ -614,7 +614,7 @@ public class IEMRAdminUserServiceImpl implements IEMRAdminUserService {
 					throw new IEMRException("User does not exist or is not active");
 				}
 
-				Iterable<UserSecurityQMapping> obj = iEMRUserSecurityQuesAnsRepository.save(m_UserSecurityQMapping);
+				Iterable<UserSecurityQMapping> obj = iEMRUserSecurityQuesAnsRepository.saveAll(m_UserSecurityQMapping);
 
 				if (obj.iterator().hasNext()) {
 					x = iEMRUserRepositoryCustom.updateSetUserStatusActive(obj.iterator().next().getUserID());
@@ -1062,7 +1062,7 @@ public class IEMRAdminUserServiceImpl implements IEMRAdminUserService {
 	@Override
 	public M_Role getrolewrapuptime(Integer roleID) {
 		// TODO Auto-generated method stub
-		return roleRepo.findOne(roleID);
+		return roleRepo.findByRoleID(roleID);
 	}
 
 	@Override

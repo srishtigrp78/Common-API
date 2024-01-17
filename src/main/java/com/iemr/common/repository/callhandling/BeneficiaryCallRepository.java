@@ -189,6 +189,8 @@ public interface BeneficiaryCallRepository extends CrudRepository<BeneficiaryCal
 	@Transactional
 	@Modifying
 	@Query("update BeneficiaryCall set beneficiaryRegID = :beneficiaryRegID where benCallID = :benCallID AND beneficiaryRegID=:beneficiaryRegID")
-	public int updateBeneficiaryRegIDInCall(@Param("benCallID") Long benCallID, @Param("beneficiaryRegID") Long beneficiaryRegID); 
+	public int updateBeneficiaryRegIDInCall(@Param("benCallID") Long benCallID, @Param("beneficiaryRegID") Long beneficiaryRegID);
+	
+	BeneficiaryCall findByBenCallID(Long benCallID);
 
 }

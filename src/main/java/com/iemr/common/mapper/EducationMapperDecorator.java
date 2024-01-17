@@ -34,7 +34,7 @@ public abstract class EducationMapperDecorator implements EducationMapper
 
 	public BeneficiaryEducationModel educationToModelByID(Long educationID){
 		BeneficiaryEducationModel educationModel = new BeneficiaryEducationModel();
-		educationModel =educationToModel(educationRepository.findOne(educationID));
+		educationModel =educationToModel(educationRepository.findByEducationID(educationID));
 		return educationModel;
 	}
 }

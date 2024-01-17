@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.iemr.common.service.brd.BRDIntegrationService;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("/brd")
@@ -48,7 +48,7 @@ public class BRDIntegrationController {
 	@Autowired
 	private BRDIntegrationService integrationService;
 
-	@ApiOperation(value = "Get integration data")
+	@Operation(summary = "Get integration data")
 	@RequestMapping(value = "/getIntegrationData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	@CrossOrigin()
 	public String getDetails(@RequestBody String request) {

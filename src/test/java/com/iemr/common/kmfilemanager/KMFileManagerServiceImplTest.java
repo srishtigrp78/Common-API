@@ -21,24 +21,24 @@
 */
 package com.iemr.common.kmfilemanager;
 
-import org.junit.Test;
+
 
 public class KMFileManagerServiceImplTest
 {
 
-	@Test
+	//@Test
 	public void testGetKMFileLists()
 	{
 		// fail("Not yet implemented");
 	}
 
-	@Test
+	//@Test
 	public void testUpdateKMFileManager()
 	{
 		// fail("Not yet implemented");
 	}
 
-	@Test
+	//@Test
 	public void testAddKMFile()
 	{
 		// fail("Not yet implemented");

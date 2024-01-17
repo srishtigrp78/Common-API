@@ -40,9 +40,9 @@ import com.iemr.common.data.mctshistory.MctsOutboundCallDetail;
 @RestResource(exported = false)
 public interface OutboundHistoryRepository extends CrudRepository<MctsOutboundCallDetail, Long> {
 
-	@Query("select cd from MctsOutboundCallDetail cd join cd.callType where cd.beneficiaryRegID = :beneficiaryRegID "
+	@Query(value="select cd from MctsOutboundCallDetail cd join cd.callType where cd.beneficiaryRegID = :beneficiaryRegID "
 			+ "and (cd.isMother =1 or cd.isMother =0) "
-			+ " order by cd.createdDate desc ")
+			+ " order by cd.createdDate desc ", nativeQuery = true)
 	public ArrayList<MctsOutboundCallDetail> getCallHistory(@Param("beneficiaryRegID") Long beneficiaryRegID);
 	
 	@Query("select cd from MctsOutboundCallDetail cd where cd.beneficiaryRegID = :beneficiaryRegID "
@@ -75,7 +75,7 @@ public interface OutboundHistoryRepository extends CrudRepository<MctsOutboundCa
 	 * @param districtID
 	 * @return
 	 */
-	@Query("select district.districtName from Districts district where district.districtID = :districtID and district.deleted = 0 ")
+	@Query(value="select district.districtName from Districts district where district.districtID = :districtID and district.deleted = 0 ", nativeQuery = true)
 	public String getDistrictName(@Param("districtID") Integer districtID);
 	
 	/**
@@ -83,7 +83,7 @@ public interface OutboundHistoryRepository extends CrudRepository<MctsOutboundCa
 	 * @param blockID
 	 * @return
 	 */
-	@Query("select districtBlock.blockName from DistrictBlock districtBlock where districtBlock.blockID = :blockID and districtBlock.deleted = 0 ")
+	@Query(value="select districtBlock.blockName from DistrictBlock districtBlock where districtBlock.blockID = :blockID and districtBlock.deleted = 0 ", nativeQuery = true)
 	public String getBlockName(@Param("blockID") Integer blockID);
 	
 	/**
@@ -91,7 +91,7 @@ public interface OutboundHistoryRepository extends CrudRepository<MctsOutboundCa
 	 * @param districtBranchID
 	 * @return
 	 */
-	@Query("select village.villageName from DistrictBranchMapping village where village.districtBranchID = :districtBranchID and village.deleted = 0 ")
+	@Query(value="select village.villageName from DistrictBranchMapping village where village.districtBranchID = :districtBranchID and village.deleted = 0 ", nativeQuery = true)
 	public String getVillageName(@Param("districtBranchID") Integer districtBranchID);
 	
 	/**

@@ -36,8 +36,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.iemr.common.utils.exception.IEMRException;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+
+
 
 @RequestMapping(value = "/covid")
 @RestController
@@ -54,7 +56,7 @@ public class CovidVaccinationController {
 	 */
 
 	@CrossOrigin
-	@ApiOperation(value = "Master Data for Vaccination Type & Dose Taken", produces = "application/json")
+	@Operation(summary = "Master Data for Vaccination Type & Dose Taken")
 	@RequestMapping(value = {
 			"/master/VaccinationTypeAndDoseTaken" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 
@@ -79,11 +81,11 @@ public class CovidVaccinationController {
 	 * @return Covid vaccination details of a beneficiary
 	 */
 	@CrossOrigin
-	@ApiOperation(value = "Getting beneficiary covid vaccination details", produces = "application/json")
+	@Operation(summary = "Getting beneficiary covid vaccination details")
 
 	@RequestMapping(value = { "/getCovidVaccinationDetails" }, method = { RequestMethod.POST })
 	public String getCovidVaccinationDetails(
-			@ApiParam(value = "{\"beneficiaryRegID\":\"Long\"}") @RequestBody CovidVaccinationStatus covidVaccinationStatus,
+			@Param(value = "{\"beneficiaryRegID\":\"Long\"}") @RequestBody CovidVaccinationStatus covidVaccinationStatus,
 			@RequestHeader(value = "Authorization") String Authorization) {
 
 		OutputResponse response = new OutputResponse();
@@ -123,10 +125,10 @@ public class CovidVaccinationController {
 	 */
 
 	@CrossOrigin
-	@ApiOperation(value = "Save beneficiary covid vaccination details", produces = "application/json")
+	@Operation(summary = "Save beneficiary covid vaccination details")
 	@RequestMapping(value = { "/saveCovidVaccinationDetails" }, method = { RequestMethod.POST })
 	public String saveCovidVaccinationDetails(
-			@ApiParam(value = "{\"covidVSID\": \"Long\",\"beneficiaryRegID\":\"Long\","
+			@Param(value = "{\"covidVSID\": \"Long\",\"beneficiaryRegID\":\"Long\","
 					+ "\"CovidVaccineTypeID\":\"Integer\","
 					+ "\"ProviderServiceMapID\":\"Integer\",\"CreatedBy\":\"String\","
 					+ "\"ModifiedBy\":\"String\",\"VanID\":\"Integer\"}") @RequestBody String request,

@@ -31,8 +31,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.iemr.common.service.mctshistory.OutboundHistoryService;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+
+
 
 @RestController
 @RequestMapping(value = "/mctsOutboundHistoryController")
@@ -46,9 +48,9 @@ public class OutboundHistoryController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get MCTS call history")
+	@Operation(summary = "Get MCTS call history")
 	@RequestMapping(value = "/getMctsCallHistory", method = RequestMethod.POST, headers = "Authorization")
-	public String getCallHistory(@ApiParam("{\"beneficiaryRegID\":\"Long\"}") @RequestBody String request) {
+	public String getCallHistory(@Param("{\"beneficiaryRegID\":\"Long\"}") @RequestBody String request) {
 
 		OutputResponse response = new OutputResponse();
 		try {
@@ -62,9 +64,9 @@ public class OutboundHistoryController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get MCTS call response")
+	@Operation(summary = "Get MCTS call response")
 	@RequestMapping(value = "/getMctsCallResponse", method = RequestMethod.POST, headers = "Authorization")
-	public String getMctsCallResponse(@ApiParam("{\"callDetailID\":\"Long\"}") @RequestBody String request) {
+	public String getMctsCallResponse(@Param("{\"callDetailID\":\"Long\"}") @RequestBody String request) {
 
 		OutputResponse response = new OutputResponse();
 		try {

@@ -34,7 +34,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.iemr.common.service.userbeneficiarydata.LanguageService;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+
 
 @RequestMapping({ "/beneficiary" })
 @RestController
@@ -50,7 +51,7 @@ public class LanguageController
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "List of all languages")
+	@Operation(summary = "List of all languages")
 	@RequestMapping(value = "/getLanguageList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON,
 			headers = "Authorization")
 	public String getLanguageList()

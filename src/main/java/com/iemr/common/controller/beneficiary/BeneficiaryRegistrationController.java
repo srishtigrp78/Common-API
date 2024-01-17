@@ -23,7 +23,7 @@ package com.iemr.common.controller.beneficiary;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+
 import javax.ws.rs.core.MediaType;
 
 import org.json.JSONArray;
@@ -64,8 +64,9 @@ import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.mapper.OutputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RequestMapping({ "/beneficiary" })
 @RestController
@@ -175,12 +176,12 @@ public class BeneficiaryRegistrationController {
 	@Autowired
 	private CallReportsService callReportsService;
 
-	@ApiOperation(value = "Create a new beneficiary")
+	@Operation(summary = "Create a new beneficiary")
 	@CrossOrigin()
 	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json", headers = "Authorization")
 
 	public String createBeneficiary(
-			@ApiParam(value = "{\"providerServiceMapID\":\"Integer\",\"firstName\":\"String\",\"lastName\":\"String\",\"dOB\":\"Timestamp\","
+			@Param(value = "{\"providerServiceMapID\":\"Integer\",\"firstName\":\"String\",\"lastName\":\"String\",\"dOB\":\"Timestamp\","
 					+ "\"ageUnits\":\"String\",\"fatherName\":\"String\",\"spouseName\":\"String\",\"govtIdentityNo\":\"String\","
 					+ "\"govtIdentityTypeID\":\"Integer\",\"emergencyRegistration\":\"Boolean\",\"createdBy\":\"String\","
 					+ "\"titleId\":\"Short\",\"statusID\":\"Short\",\"registeredServiceID\":\"Short\",\"maritalStatusID\":\"Short\","
@@ -206,10 +207,10 @@ public class BeneficiaryRegistrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Provide the list of beneficiaries based on beneficiary id")
+	@Operation(summary = "Provide the list of beneficiaries based on beneficiary id")
 	@RequestMapping(value = "/searchUserByID", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String searchUserByID(
-			@ApiParam("{\"beneficiaryRegID\":\"Long\", \"beneficiaryID\":\"Long\", \"HealthID\":\"String\", \"HealthIDNo\":\"String\"} ") @RequestBody String request,
+			@Param(value ="{\"beneficiaryRegID\":\"Long\", \"beneficiaryID\":\"Long\", \"HealthID\":\"String\", \"HealthIDNo\":\"String\"} ") @RequestBody String request,
 			HttpServletRequest httpRequest) {
 		OutputResponse response = new OutputResponse();
 
@@ -251,11 +252,11 @@ public class BeneficiaryRegistrationController {
 		return response.toString();
 	}
 
-	@ApiOperation(value = "Provide the list of beneficiaries based on phone number")
+	@Operation(summary = "Provide the list of beneficiaries based on phone number")
 	@CrossOrigin()
 	@RequestMapping(value = "/searchUserByPhone", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String searchUserByPhone(
-			@ApiParam("{\"phoneNo\":\"String\",\"pageNo\":\"Integer\",\"rowsPerPage\":\"Integer\"}") @RequestBody String request,
+			@Param(value ="{\"phoneNo\":\"String\",\"pageNo\":\"Integer\",\"rowsPerPage\":\"Integer\"}") @RequestBody String request,
 			HttpServletRequest httpRequest) {
 		OutputResponse response = new OutputResponse();
 		String auth = httpRequest.getHeader(AUTHORIZATION);
@@ -280,10 +281,10 @@ public class BeneficiaryRegistrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Provide the list of beneficiaries based on search criteria")
+	@Operation(summary = "Provide the list of beneficiaries based on search criteria")
 	@RequestMapping(value = "/searchBeneficiary", method = RequestMethod.POST, headers = "Authorization")
 	public String searchBeneficiary(
-			@ApiParam("{\"firstName\":\"String\",\"lastName\":\"String\",\"genderID\":\"Integer\",\"beneficiaryID\":\"String\","
+			@Param(value ="{\"firstName\":\"String\",\"lastName\":\"String\",\"genderID\":\"Integer\",\"beneficiaryID\":\"String\","
 					+ "\"i_bendemographics\":{\"stateID\":\"Integer\",\"districtID\":\"Integer\",\"districtBranchID\":\"Integer\"}}") @RequestBody BeneficiaryModel request,
 			HttpServletRequest httpRequest) {
 		logger.info("searchBeneficiary request " + request);
@@ -303,7 +304,7 @@ public class BeneficiaryRegistrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Provide all common data list needed for beneficiary registration")
+	@Operation(summary = "Provide all common data list needed for beneficiary registration")
 	@RequestMapping(value = "/getRegistrationData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getRegistrationData() {
 		OutputResponse response = new OutputResponse();
@@ -334,10 +335,10 @@ public class BeneficiaryRegistrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Provide all common data V1 list needed for beneficiary registration")
+	@Operation(summary = "Provide all common data V1 list needed for beneficiary registration")
 	@RequestMapping(value = "/getRegistrationDataV1", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getRegistrationDataV1(
-			@ApiParam(value = "{\"providerServiceMapID\":\"Integer\"}") @RequestBody String request) {
+			@Param(value ="{\"providerServiceMapID\":\"Integer\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		logger.info("Received get user registration data request");
 		try {
@@ -368,10 +369,10 @@ public class BeneficiaryRegistrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Update beneficiary details")
+	@Operation(summary = "Update beneficiary details")
 	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String updateBenefciary(
-			@ApiParam("{\"beneficiaryRegID\":\"Long\",\"firstName\":\"String\",\"lastName\":\"String\","
+			@Param(value ="{\"beneficiaryRegID\":\"Long\",\"firstName\":\"String\",\"lastName\":\"String\","
 					+ "\"dOB\":\"Timestamp\",\"ageUnits\":\"String\",\"fatherName\":\"String\",\"spouseName\":\"String\","
 					+ "\"govtIdentityNo\":\"String\",\"govtIdentityTypeID\":\"Integer\",\"emergencyRegistration\":\"Boolean\","
 					+ "\"createdBy\":\"String\",\"titleId\":\"Short\",\"statusID\":\"Short\",\"registeredServiceID\":\"Short\","
@@ -413,9 +414,9 @@ public class BeneficiaryRegistrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Fetch beneficiary details by phone no")
+	@Operation(summary = "Fetch beneficiary details by phone no")
 	@RequestMapping(value = "/getBeneficiariesByPhoneNo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String getBeneficiariesByPhone(@ApiParam("{\"phoneNo\":\"String\"}") @RequestBody String request,
+	public String getBeneficiariesByPhone(@Param(value ="{\"phoneNo\":\"String\"}") @RequestBody String request,
 			HttpServletRequest httpRequest) {
 		OutputResponse response = new OutputResponse();
 		String auth = httpRequest.getHeader(AUTHORIZATION);
@@ -433,10 +434,10 @@ public class BeneficiaryRegistrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Update beneficiary community or education")
+	@Operation(summary = "Update beneficiary community or education")
 	@RequestMapping(value = "/updateCommunityorEducation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String updateBenefciaryCommunityorEducation(
-			@ApiParam("{\"beneficiaryRegID\":\"Long\",\"i_bendemographics\":{\"communityID\":\"Integer\","
+			@Param(value ="{\"beneficiaryRegID\":\"Long\",\"i_bendemographics\":{\"communityID\":\"Integer\","
 					+ "\"educationID\":\"Integer\"}}") @RequestBody String benificiaryRequest,
 			HttpServletRequest httpRequest) {
 		OutputResponse response = new OutputResponse();
@@ -465,11 +466,11 @@ public class BeneficiaryRegistrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Generate beneficiary id")
+	@Operation(summary = "Generate beneficiary id")
 	@RequestMapping(value = "/generateBeneficiaryIDs", headers = "Authorization", method = {
 			RequestMethod.POST }, produces = { "application/json" })
 	public String getBeneficiaryIDs(
-			@ApiParam("{\"benIDRequired\":\"Integer\",\"vanID\":\"Integer\"}") @RequestBody String request,
+			@Param("{\"benIDRequired\":\"Integer\",\"vanID\":\"Integer\"}") @RequestBody String request,
 			HttpServletRequest httpRequest) {
 		logger.info("generateBeneficiaryIDs request " + request);
 		OutputResponse response = new OutputResponse();

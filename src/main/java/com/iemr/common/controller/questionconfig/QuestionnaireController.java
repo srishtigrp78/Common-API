@@ -34,7 +34,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.iemr.common.service.questionconfig.QuestionnaireService;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+
 
 @RestController
 @RequestMapping("/questionnaireController")
@@ -56,7 +57,7 @@ public class QuestionnaireController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Create questionnaire")
+	@Operation(summary = "Create questionnaire")
 	@RequestMapping(value = "/put/questionnaire", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String createQuestionnaire(@RequestBody String request) {
 		OutputResponse response = new OutputResponse();
@@ -71,7 +72,7 @@ public class QuestionnaireController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get questionnaire list")
+	@Operation(summary = "Get questionnaire list")
 	@RequestMapping(value = "/get/questionnaireList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String questionTypeList() {
 		OutputResponse response = new OutputResponse();

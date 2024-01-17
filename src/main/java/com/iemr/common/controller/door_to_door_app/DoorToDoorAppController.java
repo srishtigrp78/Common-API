@@ -35,7 +35,8 @@ import com.iemr.common.service.door_to_door_app.DoorToDoorService;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+
 
 @CrossOrigin
 @RestController
@@ -48,8 +49,8 @@ public class DoorToDoorAppController {
 	private DoorToDoorService doorToDoorService;
 
 	@CrossOrigin
-	@ApiOperation(value = "Get user details", consumes = "application/json", produces = "application/json")
-	@RequestMapping(value = { "/getUserDetails" }, method = { RequestMethod.POST })
+	@Operation(summary = "Get user details")
+	@RequestMapping(value = { "/getUserDetails" }, method = { RequestMethod.POST }, consumes = "application/json", produces = "application/json")
 	public String getUserDetails(@RequestBody String requestObj) {
 		OutputResponse response = new OutputResponse();
 		try {
@@ -69,8 +70,8 @@ public class DoorToDoorAppController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get NCD TB HRP suspected status", consumes = "application/json", produces = "application/json")
-	@RequestMapping(value = { "/getSuspectedData_HRP_TB_NCD" }, method = { RequestMethod.POST })
+	@Operation(summary = "Get NCD TB HRP suspected status")
+	@RequestMapping(value = { "/getSuspectedData_HRP_TB_NCD" }, method = { RequestMethod.POST }, consumes = "application/json", produces = "application/json")
 	public String getSuspectedData_HRP_TB_NCD(@RequestBody String requestObj) {
 		OutputResponse response = new OutputResponse();
 		try {

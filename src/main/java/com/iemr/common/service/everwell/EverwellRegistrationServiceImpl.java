@@ -291,7 +291,7 @@ public class EverwellRegistrationServiceImpl implements EverwellRegistrationServ
 							obj.setRetryNeeded(true);
 						}
 						// saving the data in t_everwellAPI table
-						everwellBenRegListAS = (List<EverwellDetails>) everwellFetchAndSync.save(everwellBenRegList);
+						everwellBenRegListAS = (List<EverwellDetails>) everwellFetchAndSync.saveAll(everwellBenRegList);
 
 						if (everwellBenRegListAS != null) {
 
@@ -413,7 +413,7 @@ public class EverwellRegistrationServiceImpl implements EverwellRegistrationServ
 		}
 		// updating the beneficiary data in t_everwellAPI
 		ArrayList<EverwellDetails> everwellBenRegAF = (ArrayList<EverwellDetails>) everwellFetchAndSync
-				.save(userDetailsRegister);
+				.saveAll(userDetailsRegister);
 		if (everwellBenRegAF != null) {
 			everwellRegistration = "Success";
 		}

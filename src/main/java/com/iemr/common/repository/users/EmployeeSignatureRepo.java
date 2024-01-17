@@ -40,11 +40,5 @@ public interface EmployeeSignatureRepo extends CrudRepository<EmployeeSignature,
 
 	Long countByUserIDAndSignatureNotNull(Long userID);
 
-//	@Transactional
-//	@Modifying
-//	@Query("update EmployeeSignature es set es.fileName=:fileName,es.fileType=:fileType "
-//			+ " es.signature=:signature, es.modifiedBy=:modifiedBy where es.userSignatureID=:userSignatureID ")
-//	void updateFile( @Param("userSignatureID")Long usrsignID, @Param("fileName") String fileName, @Param("fileType") String fileType,
-//			@Param("signature") byte[] signature, @Param("modifiedBy") String modifiedBy);
 
 }

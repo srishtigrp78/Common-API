@@ -93,7 +93,7 @@ public class NHM_AgentRealTimeDatacServiceImpl implements NHM_AgentRealTimeDataS
 		}
 		if(null != arrayList && !ObjectUtils.isEmpty(arrayList)) {
 			agentRealTimeDataRepo.deleteAll();
-			agentRealTimeDataRepo.save(arrayList);
+			agentRealTimeDataRepo.saveAll(arrayList);
 		}
 		return resp;
 	}

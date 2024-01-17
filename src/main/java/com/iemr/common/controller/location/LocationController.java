@@ -42,7 +42,8 @@ import com.iemr.common.data.location.States;
 import com.iemr.common.service.location.LocationService;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+
 
 @RequestMapping({ "/location" })
 @RestController
@@ -51,7 +52,7 @@ public class LocationController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 	@CrossOrigin
-	@ApiOperation(value = "Get states")
+	@Operation(summary = "Get states")
 	@RequestMapping(value = "/states/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getStates(@PathVariable("id") Integer id) {
 		OutputResponse response = new OutputResponse();
@@ -67,7 +68,7 @@ public class LocationController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get districts")
+	@Operation(summary = "Get districts")
 	@RequestMapping(value = "/districts/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getDistricts(@PathVariable("id") int id) {
 		OutputResponse response = new OutputResponse();
@@ -83,7 +84,7 @@ public class LocationController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Fetch state and district by id")
+	@Operation(summary = "Fetch state and district by id")
 	@RequestMapping(value = "/statesDistricts/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getStatetDistricts(@PathVariable("id") int id) {
 		OutputResponse response = new OutputResponse();
@@ -100,7 +101,7 @@ public class LocationController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get district blocks")
+	@Operation(summary = "Get district blocks")
 	@RequestMapping(value = "/taluks/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getDistrictBlocks(@PathVariable("id") int id) {
 		OutputResponse response = new OutputResponse();
@@ -116,7 +117,7 @@ public class LocationController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get city")
+	@Operation(summary = "Get city")
 	@RequestMapping(value = "/city/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getCity(@PathVariable("id") int id) {
 		OutputResponse response = new OutputResponse();
@@ -133,7 +134,7 @@ public class LocationController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get villages")
+	@Operation(summary = "Get villages")
 	@RequestMapping(value = "/village/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getVillages(@PathVariable("id") int id) {
 		OutputResponse response = new OutputResponse();
@@ -154,7 +155,7 @@ public class LocationController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get countries")
+	@Operation(summary = "Get countries")
 	@RequestMapping(value = "/getCountries", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getCountries() {
 		OutputResponse response = new OutputResponse();

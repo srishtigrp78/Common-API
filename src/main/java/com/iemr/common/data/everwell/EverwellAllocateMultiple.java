@@ -20,13 +20,10 @@
 * along with this program.  If not, see https://www.gnu.org/licenses/.
 */
 package com.iemr.common.data.everwell;
-import java.math.BigInteger;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.iemr.common.data.callhandling.OutboundCallRequest;
-import com.iemr.common.utils.mapper.OutputMapper;
 
 import lombok.Data;
 
