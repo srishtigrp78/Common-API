@@ -396,7 +396,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 				new Timestamp(Calendar.getInstance().getTimeInMillis()), benificiaryCall.getCallClosureType(),
 				benificiaryCall.getCallTypeID(), benificiaryCall.getDispositionStatusID(),
 				benificiaryCall.getEmergencyType(), benificiaryCall.getExternalReferral(),
-				benificiaryCall.getInstTypeId(), benificiaryCall.getInstName());
+				benificiaryCall.getInstTypeId(), benificiaryCall.getInstName(),benificiaryCall.getIsOutbound());
 
 		if (benificiaryCall.getBeneficiaryRegID() != null)
 			beneficiaryCallRepository.updateBeneficiaryRegIDInCall(benificiaryCall.getBenCallID(),
@@ -449,7 +449,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 				new Timestamp(Calendar.getInstance().getTimeInMillis()), benificiaryCall.getCallClosureType(),
 				benificiaryCall.getCallTypeID(), benificiaryCall.getDispositionStatusID(),
 				benificiaryCall.getEmergencyType(), benificiaryCall.getExternalReferral(),
-				benificiaryCall.getInstTypeId(), benificiaryCall.getInstName());
+				benificiaryCall.getInstTypeId(), benificiaryCall.getInstName(),benificiaryCall.getIsOutbound());
 		if (followupRequired.isFollowupRequired) {
 			OutboundCallRequest outboundCallRequest = inputMapper.gson().fromJson(request, OutboundCallRequest.class);
 			outboundCallRequestRepository.save(outboundCallRequest);
