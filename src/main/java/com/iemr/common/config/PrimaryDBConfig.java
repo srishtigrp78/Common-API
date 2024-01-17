@@ -51,6 +51,7 @@ public class PrimaryDBConfig {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
+
 	@Primary
 	@Bean(name = "dataSource")
 	@ConfigurationProperties(prefix = "spring.datasource")
