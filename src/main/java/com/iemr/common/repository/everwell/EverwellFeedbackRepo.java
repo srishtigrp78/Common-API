@@ -38,38 +38,42 @@ import com.iemr.common.data.everwell.EverwellFeedback;
 @RestResource(exported = false)
 public interface EverwellFeedbackRepo extends CrudRepository<EverwellFeedback, Long> {
 
-	@Query("select req from EverwellFeedback req  where req.dateOfAction is not null and req.actionTaken is not null and "
-			+ "req.category is not null and req.subCategory is not null and req.comments is not null and req.isManualDoseProcessed is false and req.Id =:patientID")
-	ArrayList<EverwellFeedback> findRecordsForManualDose(@Param("patientID") Long patientID);
+//	@Query("select req from EverwellFeedback req  where req.dateOfAction is not null and req.actionTaken is not null and "
+//			+ "req.category is not null and req.subCategory is not null and req.comments is not null and req.isManualDoseProcessed is false and req.Id=:patientID")
+//	ArrayList<EverwellFeedback> findRecordsForManualDose(@Param("patientID") Long patientID);
 
-	@Query("select req from EverwellFeedback req  where req.dateOfAction is not null and req.actionTaken is not null and "
-			+ "req.category is not null and req.subCategory is not null and req.comments is not null and req.isMissedDoseProcessed is false and req.Id =:patientID")
-	ArrayList<EverwellFeedback> findRecordsForMissedDose(@Param("patientID") Long patientID);
+//	@Query("select req from EverwellFeedback req  where req.dateOfAction is not null and req.actionTaken is not null and "
+//			+ "req.category is not null and req.subCategory is not null and req.comments is not null and req.isMissedDoseProcessed is false and req.Id =:patientID")
+//	ArrayList<EverwellFeedback> findRecordsForMissedDose(@Param("patientID") Long patientID);
 
-	@Query("select req from EverwellFeedback req  where req.dateOfAction is not null and req.actionTaken is not null and "
-			+ "req.category is not null and req.subCategory is not null and req.comments is not null and req.isSupportActionProcessed is false and req.Id =:patientID")
-	ArrayList<EverwellFeedback> findRecordsForAddSupportAction(@Param("patientID") Long patientID);
+//	@Query("select req from EverwellFeedback req  where req.dateOfAction is not null and req.actionTaken is not null and "
+//			+ "req.category is not null and req.subCategory is not null and req.comments is not null and req.isSupportActionProcessed is false and req.Id =:patientID")
+//	ArrayList<EverwellFeedback> findRecordsForAddSupportAction(@Param("patientID") Long patientID);
 
-	@Query("select req from EverwellFeedback req  where req.dateOfAction is not null and req.actionTaken is not null and "
-			+ "req.category is not null and req.subCategory is not null and req.comments is not null and req.isMobileNumberProcessed is false and "
-			+ "req.secondaryPhoneNo is not null and req.Id =:patientID")
-	ArrayList<EverwellFeedback> findRecordsForEditSecondaryPhoneN0(@Param("patientID") Long patientID);
+//	@Query("select req from EverwellFeedback req  where req.dateOfAction is not null and req.actionTaken is not null and "
+//			+ "req.category is not null and req.subCategory is not null and req.comments is not null and req.isMobileNumberProcessed is false and "
+//			+ "req.secondaryPhoneNo is not null and req.Id =:patientID")
+//	ArrayList<EverwellFeedback> findRecordsForEditSecondaryPhoneN0(@Param("patientID") Long patientID);
 
-	@Query("SELECT req FROM EverwellFeedback req  WHERE req.dateOfAction is not null AND req.actionTaken is not null AND "
-			+ "req.category is not null AND req.subCategory is not null AND req.comments is not null AND req.isMobileNumberProcessed is false OR "
-			+ "req.isManualDoseProcessed is false OR req.isMissedDoseProcessed is false OR req.isSupportActionProcessed is false "
-			+ "AND req.secondaryPhoneNo is not null AND req.Id =:patientID")
-	ArrayList<EverwellFeedback> findRecordsForDataSync(@Param("patientID") Long patientID);
+//	@Query("SELECT req FROM EverwellFeedback req  WHERE req.dateOfAction is not null AND req.actionTaken is not null AND "
+//			+ "req.category is not null AND req.subCategory is not null AND req.comments is not null AND req.isMobileNumberProcessed is false OR "
+//			+ "req.isManualDoseProcessed is false OR req.isMissedDoseProcessed is false OR req.isSupportActionProcessed is false "
+//			+ "AND req.secondaryPhoneNo is not null AND req.Id =:patientID")
+//	ArrayList<EverwellFeedback> findRecordsForDataSync(@Param("patientID") Long patientID);
 
-	@Query("SELECT req FROM EverwellFeedback req WHERE req.createdDate >= :previous AND req.createdDate <= :current AND "
+	@Query(value="SELECT req FROM EverwellFeedback req WHERE req.createdDate >= :previous AND req.createdDate <= :current AND "
 			+ " (req.processed= 'N' OR req.processed= 'U') AND req.deleted is false "
-			+ " group by everwellid,dateofaction ")
+			+ " group by everwellid,dateofaction ", nativeQuery = true)
 	ArrayList<EverwellFeedback> findRecordsForDataSyncFromFeedback(@Param("current") Timestamp current,
 			@Param("previous") Timestamp previous);
 
 	// Shubham Shekhar,24-12-2020,Everwell Phase3
-	@Query("SELECT req FROM EverwellFeedback req WHERE req.Id = :Id AND date(req.dateOfAction) = date(:dateOfAction) AND "
-			+ " req.deleted is false order by req.efid desc ")
+//	@Query("SELECT req FROM EverwellFeedback req WHERE req.Id = :Id AND date(req.dateOfAction) = date(:dateOfAction) AND "
+//			+ " req.deleted is false order by req.efid desc ")
+//	ArrayList<EverwellFeedback> getExistingRecords(@Param("Id") Long Id, @Param("dateOfAction") Timestamp dateOfAction);
+	
+	@Query(value = "SELECT req FROM EverwellFeedback req WHERE req.Id = :Id AND date(req.dateOfAction) = date(:dateOfAction) AND "
+			+ " req.deleted is false order by req.efid desc ", nativeQuery = true)
 	ArrayList<EverwellFeedback> getExistingRecords(@Param("Id") Long Id, @Param("dateOfAction") Timestamp dateOfAction);
 
 	@Transactional

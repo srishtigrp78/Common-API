@@ -23,8 +23,6 @@ package com.iemr.common.data.beneficiary;
 
 import java.util.List;
 
-import javax.persistence.Transient;
-
 import com.google.gson.annotations.Expose;
 import com.iemr.common.data.callhandling.CallType;
 import com.iemr.common.data.directory.Directory;
@@ -37,6 +35,7 @@ import com.iemr.common.data.userbeneficiarydata.Status;
 import com.iemr.common.data.userbeneficiarydata.Title;
 import com.iemr.common.utils.mapper.OutputMapper;
 
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Data

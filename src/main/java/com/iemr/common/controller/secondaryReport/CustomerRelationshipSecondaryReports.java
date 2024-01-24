@@ -21,7 +21,6 @@
 */
 package com.iemr.common.controller.secondaryReport;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +42,9 @@ import com.iemr.common.data.report.CallQualityReport;
 import com.iemr.common.service.reportSecondary.SecondaryReportService;
 import com.iemr.common.utils.mapper.InputMapper;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
 
 @CrossOrigin
 @RequestMapping({ "/crmReports" })
@@ -55,10 +55,10 @@ public class CustomerRelationshipSecondaryReports {
 	private SecondaryReportService secondaryReportService;
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get quality report")
+	@Operation(summary = "Get quality report")
 	@RequestMapping(value = "/getQualityReport", method = RequestMethod.POST, headers = "Authorization")
 	public ResponseEntity<Object> getQualityReport(
-			@ApiParam(value = "\"{\\\"startDate\\\":\\\"Timestamp\\\",\\\"endDate\\\":\\\"Timestamp\\\","
+			@Param(value = "\"{\\\"startDate\\\":\\\"Timestamp\\\",\\\"endDate\\\":\\\"Timestamp\\\","
 					+ "\\\"providerServiceMapID\\\":\\\"Integer\\\",\\\"agentID\\\":\\\"Integer\\\","
 					+ "\\\"roleName\\\":\\\"String\\\",\\\"reportTypeID\\\":\\\"Integer\\\",\\\"reportType\\\":\\\"String\\\"}\"") @RequestBody String jsonRequest)
 
@@ -81,10 +81,10 @@ public class CustomerRelationshipSecondaryReports {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get complaint detail report")
+	@Operation(summary = "Get complaint detail report")
 	@RequestMapping(value = "/getComplaintDetailReport", method = RequestMethod.POST, headers = "Authorization")
 	public ResponseEntity<Object> getComplaintDetailReport(
-			@ApiParam(value = "\"{\\\"startDate\\\":\\\"Timestamp\\\",\\\"endDate\\\":\\\"Timestamp\\\","
+			@Param(value = "\"{\\\"startDate\\\":\\\"Timestamp\\\",\\\"endDate\\\":\\\"Timestamp\\\","
 					+ "\\\"providerServiceMapID\\\":\\\"Integer\\\",\\\"agentID\\\":\\\"Integer\\\","
 					+ "\\\"roleName\\\":\\\"String\\\",\\\"reportTypeID\\\":\\\"Integer\\\",\\\"reportType\\\":\\\"String\\\"}\"") @RequestBody String jsonRequest)
 
@@ -108,10 +108,10 @@ public class CustomerRelationshipSecondaryReports {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get call summary report")
+	@Operation(summary = "Get call summary report")
 	@RequestMapping(value = "/getCallSummaryReport", method = RequestMethod.POST, headers = "Authorization")
 	public ResponseEntity<Object> getCallSummaryReport(
-			@ApiParam(value = "\"{\\\"startDate\\\":\\\"Timestamp\\\",\\\"endDate\\\":\\\"Timestamp\\\","
+			@Param(value = "\"{\\\"startDate\\\":\\\"Timestamp\\\",\\\"endDate\\\":\\\"Timestamp\\\","
 					+ "\\\"providerServiceMapID\\\":\\\"Integer\\\",\\\"agentID\\\":\\\"Integer\\\",\\\"roleName\\\":\\\"String\\\","
 					+ "\\\"callTypeID\\\":\\\"Integer\\\","
 					+ "\\\"callTypeName\\\":\\\"String\\\"}\"") @RequestBody String jsonRequest)
@@ -137,10 +137,10 @@ public class CustomerRelationshipSecondaryReports {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get all by sexual orientation")
+	@Operation(summary = "Get all by sexual orientation")
 	@RequestMapping(value = "/getAllBySexualOrientation", method = RequestMethod.POST, headers = "Authorization")
 	public ResponseEntity<Object> getAllBySexualOrientation(
-			@ApiParam(value = "\"{\\\"startTimestamp\\\":\\\"Timestamp\\\",\\\"endTimestamp\\\":\\\"Timestamp\\\","
+			@Param(value = "\"{\\\"startTimestamp\\\":\\\"Timestamp\\\",\\\"endTimestamp\\\":\\\"Timestamp\\\","
 					+ "\\\"state\\\":\\\"String\\\",\\\"district\\\":\\\"String\\\","
 					+ "\\\"beneficiarySexualOrientation\\\":\\\"String\\\",\\\"providerServiceMapID\\\":\\\"Integer\\\" }\"") @RequestBody String jsonRequest) {
 		String filename = getFileName(jsonRequest, "Sexual_Orientation_Report");
@@ -164,10 +164,10 @@ public class CustomerRelationshipSecondaryReports {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get district wise call report")
+	@Operation(summary = "Get district wise call report")
 	@RequestMapping(value = "/getDistrictWiseCallReport", method = RequestMethod.POST, headers = "Authorization")
 	public ResponseEntity<Object> getDistrictWiseCallReport(
-			@ApiParam(value = "\"{\\\"startDate\\\":\\\"Timestamp\\\",\\\"endDate\\\":\\\"Timestamp\\\","
+			@Param(value = "\"{\\\"startDate\\\":\\\"Timestamp\\\",\\\"endDate\\\":\\\"Timestamp\\\","
 					+ "\\\"providerServiceMapID\\\":\\\"Integer\\\",\\\"districtID\\\":\\\"Integer\\\",\\\"district\\\":\\\"String\\\",\\\"subdistrictID\\\":\\\"Integer\\\",\\\"villageID\\\":\\\"Integer\\\","
 					+ "\\\"locationID\\\":\\\"Integer\\\",\\\"roleID\\\":\\\"Integer\\\"}\"") @RequestBody String jsonRequest) {
 		String filename = getFileName(jsonRequest, "District_Wise_Call_Volume_Report");
@@ -190,10 +190,10 @@ public class CustomerRelationshipSecondaryReports {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get unblocked user report")
+	@Operation(summary = "Get unblocked user report")
 	@RequestMapping(value = "/getUnblockedUserReport", method = RequestMethod.POST, headers = "Authorization")
 	public ResponseEntity<Object> getUnblockedUserReport(
-			@ApiParam(value = "\"{\\\"blockStartDate\\\":\\\"Timestamp\\\",\\\"blockEndDate\\\":\\\"Timestamp\\\","
+			@Param(value = "\"{\\\"blockStartDate\\\":\\\"Timestamp\\\",\\\"blockEndDate\\\":\\\"Timestamp\\\","
 					+ "\\\"providerServiceMapID\\\":\\\"Integer\\\"}\"") @RequestBody String jsonRequest,
 			HttpServletRequest httpRequest) {
 		String filename = getFileName(jsonRequest, "Unblock_User_Report");
@@ -215,10 +215,10 @@ public class CustomerRelationshipSecondaryReports {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get call quality report")
+	@Operation(summary = "Get call quality report")
 	@RequestMapping(value = "/getCallQualityReport", method = RequestMethod.POST, headers = "Authorization")
 	public ResponseEntity<Object> getCallQualityReport(
-			@ApiParam(value = "\"{\\\"startDate\\\":\\\"Timestamp\\\",\\\"endDate\\\":\\\"Timestamp\\\","
+			@Param(value = "\"{\\\"startDate\\\":\\\"Timestamp\\\",\\\"endDate\\\":\\\"Timestamp\\\","
 					+ "\\\"providerServiceMapID\\\":\\\"Integer\\\",\\\"searchCriteria\\\":\\\"String\\\","
 					+ "\\\"workingLocationID\\\":\\\"Integer\\\",\\\"filename\\\":\\\"String\\\"}\"") @RequestBody String jsonRequest,
 			HttpServletRequest httpRequest) {
@@ -243,10 +243,10 @@ public class CustomerRelationshipSecondaryReports {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get counts by preferred language")
+	@Operation(summary = "Get counts by preferred language")
 	@RequestMapping(value = "/getCountsByPreferredLanguage", method = RequestMethod.POST, headers = "Authorization")
 	public ResponseEntity<Object> getCountsByPreferredLanguage(
-			@ApiParam(value = "\"{\\\"startTimestamp\\\":\\\"Timestamp\\\",\\\"endTimestamp\\\":\\\"Timestamp\\\","
+			@Param(value = "\"{\\\"startTimestamp\\\":\\\"Timestamp\\\",\\\"endTimestamp\\\":\\\"Timestamp\\\","
 					+ "\\\"beneficiaryPreferredLanguage\\\":\\\"String\\\",\\\"providerServiceMapID\\\":\\\"Integer\\\","
 					+ "\\\"state\\\":\\\"String\\\",\\\"district\\\":\\\"String\\\"}\"") @RequestBody String jsonRequest,
 			HttpServletRequest httpRequest) {
@@ -271,10 +271,10 @@ public class CustomerRelationshipSecondaryReports {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get caller by age group")
+	@Operation(summary = "Get caller by age group")
 	@RequestMapping(value = "/getAllByAgeGroup", method = RequestMethod.POST, headers = "Authorization")
 	public ResponseEntity<Object> getAllByAgeGroup(
-			@ApiParam(value = "\"{\\\"providerServiceMapID\\\":\\\"Integer\\\",\\\"maxAge\\\":\\\"Integer\\\",\\\"minAge\\\":\\\"Integer\\\",\\\"startTimestamp\\\":\\\"Timestamp\\\","
+			@Param(value = "\"{\\\"providerServiceMapID\\\":\\\"Integer\\\",\\\"maxAge\\\":\\\"Integer\\\",\\\"minAge\\\":\\\"Integer\\\",\\\"startTimestamp\\\":\\\"Timestamp\\\","
 					+ "\\\"endTimestamp\\\":\\\"Timestamp\\\",\\\"state\\\":\\\"String\\\",\\\"district\\\":\\\"String\\\"}\"") @RequestBody String jsonRequest,
 			HttpServletRequest httpRequest) {
 
@@ -297,10 +297,10 @@ public class CustomerRelationshipSecondaryReports {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get all reports by date")
+	@Operation(summary = "Get all reports by date")
 	@RequestMapping(value = "/getAllReportsByDate", method = RequestMethod.POST, headers = "Authorization")
 	public ResponseEntity<Object> getAllReportsByDate(
-			@ApiParam(value = "\"{\\\"providerServiceMapID\\\":\\\"Integer\\\","
+			@Param(value = "\"{\\\"providerServiceMapID\\\":\\\"Integer\\\","
 					+ "\\\"beneficiaryCallType\\\":\\\"String\\\",\\\"beneficiaryCallSubType\\\":\\\"String\\\","
 					+ "\\\"startTimestamp\\\":\\\"Timestamp\\\",\\\"endTimestamp\\\":\\\"Timestamp\\\","
 					+ "\\\"state\\\":\\\"String\\\",\\\"district\\\":\\\"String\\\",\\\"gender\\\":\\\"String\\\","
@@ -325,10 +325,10 @@ public class CustomerRelationshipSecondaryReports {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get all by gender")
+	@Operation(summary = "Get all by gender")
 	@RequestMapping(value = "/getAllByGender", method = RequestMethod.POST, headers = "Authorization")
 	public ResponseEntity<Object> getAllByGender(
-			@ApiParam(value = "\"{\\\"startTimestamp\\\":\\\"Timestamp\\\",\\\"endTimestamp\\\":\\\"Timestamp\\\","
+			@Param(value = "\"{\\\"startTimestamp\\\":\\\"Timestamp\\\",\\\"endTimestamp\\\":\\\"Timestamp\\\","
 					+ "\\\"gender\\\":\\\"String\\\",\\\"providerServiceMapID\\\":\\\"Integer\\\","
 					+ "\\\"state\\\":\\\"String\\\",\\\"district\\\":\\\"String\\\"}\"") @RequestBody String jsonRequest) {
 		String filename = getFileName(jsonRequest, "Gender_Distribution_Report");

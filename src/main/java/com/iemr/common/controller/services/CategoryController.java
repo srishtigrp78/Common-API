@@ -41,7 +41,8 @@ import com.iemr.common.service.category.CategoryService;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+
 
 @RestController
 @RequestMapping(value = "/category")
@@ -50,7 +51,7 @@ public class CategoryController {
 	final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get all categries")
+	@Operation(summary = "Get all categries")
 	@RequestMapping(value = "/categories", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getAllCategries(
 			@Param("{\"providerServiceMapID\":\"Integer\", " + "\"subServiceID\":\"subServiceID\", "

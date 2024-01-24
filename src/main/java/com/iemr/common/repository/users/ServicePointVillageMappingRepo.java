@@ -34,8 +34,8 @@ import com.iemr.common.data.users.Servicepointvillagemap;
 @Repository
 @RestResource(exported = false)
 public interface ServicePointVillageMappingRepo extends CrudRepository<Servicepointvillagemap, Integer>{
-	@Query("SELECT d.districtBranchID,d.villageName from Servicepointvillagemap s "
+	@Query(value="SELECT d.districtBranchID,d.villageName from Servicepointvillagemap s "
 			+ " INNER JOIN s.districtBranchMapping d"
-			+ " WHERE s.servicePointID = :servicePointID and s.deleted != 1 ")
+			+ " WHERE s.servicePointID = :servicePointID and s.deleted != 1 ", nativeQuery = true)
 	public List<Object[]> getServicePointVillages(@Param("servicePointID") Integer servicePointID);
 }

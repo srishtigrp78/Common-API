@@ -41,10 +41,12 @@ import com.iemr.common.data.carestream.CreateOrderData;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
 
-@PropertySource("classpath:myapp.properties")
+
+
+@PropertySource("classpath:application.properties")
 @RestController
 @RequestMapping(value = "/carestream")
 public class CareStreamCreateOrderController {
@@ -60,10 +62,10 @@ public class CareStreamCreateOrderController {
 	private int carestreamSocketPort;
 
 	@CrossOrigin()
-	@ApiOperation(value = "Create order")
+	@Operation(summary = "Create order")
 	@RequestMapping(value = "/createOrder", headers = "Authorization", method = { RequestMethod.POST }, produces = {
 			"application/json" })
-	public String createOrder(@ApiParam("{\"firstName\":\"String\",\"middleName\":\"String\",\"LastName\":\"String\","
+	public String createOrder(@Param("{\"firstName\":\"String\",\"middleName\":\"String\",\"LastName\":\"String\","
 			+ "\"gender\":\"String\",\"dob\":\"String\",\"patientID\":\"String\",\"acc\":\"String\"}") @RequestBody String createOrder)
 			throws UnknownHostException, IOException {
 		OutputResponse response = new OutputResponse();
@@ -122,10 +124,10 @@ public class CareStreamCreateOrderController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Update order")
+	@Operation(summary = "Update order")
 	@RequestMapping(value = "/UpdateOrder", headers = "Authorization", method = { RequestMethod.POST }, produces = {
 			"application/json" })
-	public String updateOrder(@ApiParam("{\"firstName\":\"String\",\"middleName\":\"String\",\"LastName\":\"String\","
+	public String updateOrder(@Param("{\"firstName\":\"String\",\"middleName\":\"String\",\"LastName\":\"String\","
 			+ "\"gender\":\"String\",\"dob\":\"String\",\"patientID\":\"String\",\"acc\":\"String\"}") @RequestBody String UpdateOrder)
 			throws UnknownHostException, IOException {
 		OutputResponse response = new OutputResponse();
@@ -184,10 +186,10 @@ public class CareStreamCreateOrderController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Delete order")
+	@Operation(summary = "Delete order")
 	@RequestMapping(value = "/deleteOrder", headers = "Authorization", method = { RequestMethod.POST }, produces = {
 			"application/json" })
-	public String deleteOrder(@ApiParam("{\"firstName\":\"String\",\"middleName\":\"String\",\"LastName\":\"String\","
+	public String deleteOrder(@Param("{\"firstName\":\"String\",\"middleName\":\"String\",\"LastName\":\"String\","
 			+ "\"gender\":\"String\",\"dob\":\"String\",\"patientID\":\"String\",\"acc\":\"String\"}") @RequestBody String deleteOrder)
 			throws UnknownHostException, IOException {
 		OutputResponse response = new OutputResponse();

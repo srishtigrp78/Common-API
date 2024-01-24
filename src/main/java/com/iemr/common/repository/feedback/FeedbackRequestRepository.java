@@ -65,5 +65,7 @@ public interface FeedbackRequestRepository extends CrudRepository<FeedbackReques
 			+ "where feedbackRequestID = :feedbackRequestID")
 	Integer updateEmailStatus(@Param("emailStatusID") Integer emailStatusID,
 			@Param("feedbackRequestID") Long feedbackRequestID);
+	
+	FeedbackRequest findByFeedbackRequestID(Long feedbackRequestID);
 
 }

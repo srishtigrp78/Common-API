@@ -56,10 +56,10 @@ import com.iemr.common.utils.mapper.InputMapper;
 @Service
 public class SecondaryReportServiceImpl implements SecondaryReportService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
-	@Autowired
+	@Autowired(required=false)
 	public CallReportSecondaryRepo callReportRepoSecondary;
 	
-	@Autowired
+	@Autowired(required=false)
 	private CRMCallReportRepo crmCallReportRepository;
 
 	@Override

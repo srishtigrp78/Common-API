@@ -21,7 +21,6 @@
 */
 package com.iemr.common.data.report;
 
-import java.math.BigInteger;
 import java.sql.Timestamp;
 
 import com.google.gson.GsonBuilder;

@@ -23,10 +23,6 @@ package com.iemr.common.data.telemedicine;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-
-import com.google.gson.annotations.Expose;
-
 public class PrescribedDrugDetail {
 	//private Long id;
 	private Long beneficiaryRegID;

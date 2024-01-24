@@ -36,7 +36,7 @@ public abstract class LanguageMapperDecorator implements LanguageMapper
 		LanguageModel language = null;
 		if (languageID != null)
 		{
-			language = languageToModel(langRepo.findOne(languageID));
+			language = languageToModel(langRepo.findByLanguageID(languageID));
 		}
 		return language;
 	}

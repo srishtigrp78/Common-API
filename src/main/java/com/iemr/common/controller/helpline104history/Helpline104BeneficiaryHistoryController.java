@@ -39,8 +39,10 @@ import com.iemr.common.service.helpline104history.H104BenHistoryServiceImpl;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+
+
 
 @RequestMapping(value = "/beneficiary")
 @RestController
@@ -52,12 +54,10 @@ public class Helpline104BeneficiaryHistoryController {
 	private H104BenHistoryServiceImpl smpleBenHistoryServiceImpl;
 	
 	@CrossOrigin
-	@ApiOperation(
-			value = "Retrieve beneficiary case record",
-			consumes = "application/json",
+	@Operation(summary= "Retrieve beneficiary case record")
+	@RequestMapping(value = "/get104BenMedHistory", method = RequestMethod.POST, headers = "Authorization", consumes = "application/json",
 			produces = "application/json")
-	@RequestMapping(value = "/get104BenMedHistory", method = RequestMethod.POST, headers = "Authorization")
-	public String getBenCaseSheet(@ApiParam(
+	public String getBenCaseSheet(@Param(
 			value = "{\"beneficiaryRegID\":\"long\"}") @RequestBody String request) {
 		OutputResponse output= new OutputResponse();
 		try {

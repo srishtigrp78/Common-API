@@ -35,8 +35,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.iemr.common.service.questionconfig.QuestionTypeService;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+
+
 
 @RestController
 @RequestMapping("questionTypeController")
@@ -59,10 +61,10 @@ public class QuestionTypeController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Create question type")
+	@Operation(summary = "Create question type")
 	@RequestMapping(value = "/put/questionType", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String createQuestionType(
-			@ApiParam(value = "{\\\"questionType\\\":\\\"String\\\",\\\"questionTypeDesc\\\":\\\"String\\\"}\"") @RequestBody String request) {
+			@Param(value = "{\\\"questionType\\\":\\\"String\\\",\\\"questionTypeDesc\\\":\\\"String\\\"}\"") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		try {
 			response.setResponse(questionTypeService.createQuestionType(request));
@@ -75,7 +77,7 @@ public class QuestionTypeController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get question type list")
+	@Operation(summary = "Get question type list")
 	@RequestMapping(value = "/get/questionTypeList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 	public String questionTypeList() {
 		OutputResponse response = new OutputResponse();

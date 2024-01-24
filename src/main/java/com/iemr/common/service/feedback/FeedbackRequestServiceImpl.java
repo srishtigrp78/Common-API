@@ -45,7 +45,7 @@ public class FeedbackRequestServiceImpl implements FeedbackRequestService
 	@Override
 	public FeedbackRequest getFeedbackReuest(Long feedbackRequestID)
 	{
-		return feedbackRequestRepository.findOne(feedbackRequestID);
+		return feedbackRequestRepository.findByFeedbackRequestID(feedbackRequestID);
 	}
 
 	@Override

@@ -44,8 +44,10 @@ import com.iemr.common.service.directory.SubDirectoryService;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+
+
 
 @RequestMapping(value = "/directory")
 @RestController
@@ -79,7 +81,7 @@ public class DirectoryController
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get directory")
+	@Operation(summary = "Get directory")
 	@RequestMapping(value = "/getDirectory", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON,
 			headers = "Authorization")
 	public String getDirectory()
@@ -100,11 +102,11 @@ public class DirectoryController
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get directory V1")
+	@Operation(summary = "Get directory V1")
 	@RequestMapping(value = "/getDirectoryV1", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON,
 			headers = "Authorization")
 	public String getDirectoryV1(
-			@ApiParam(value = "{\"providerServiceMapID\":\"Integer\"}") @RequestBody String directoryRequest)
+			@Param(value = "{\"providerServiceMapID\":\"Integer\"}") @RequestBody String directoryRequest)
 	{
 		OutputResponse response = new OutputResponse();
 		logger.info("getDirectory request " + directoryRequest);
@@ -124,10 +126,10 @@ public class DirectoryController
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "This API is used for getting subdirectories for a given institute directory")
+	@Operation(summary = "This API is used for getting subdirectories for a given institute directory")
 	@RequestMapping(value = "/getSubDirectory", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON,
 			consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String getSubDirectory(@ApiParam("{\"instituteDirectoryID\":\"Integer\"}") @RequestBody String subDirectoryRequest)
+	public String getSubDirectory(@Param("{\"instituteDirectoryID\":\"Integer\"}") @RequestBody String subDirectoryRequest)
 	{
 		OutputResponse response = new OutputResponse();
 		logger.info("getSubDirectory request " + subDirectoryRequest);
@@ -147,11 +149,11 @@ public class DirectoryController
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "This API is used for getting institutes for a given directory, subdirectory and location")
+	@Operation(summary = "This API is used for getting institutes for a given directory, subdirectory and location")
 	@RequestMapping(value = "/getInstitutesDirectories", method = RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String
-			getInstitutesDirectories(@ApiParam(value = "{\"instituteDirectoryID\":\"Integer - directory ID\", "
+			getInstitutesDirectories(@Param(value = "{\"instituteDirectoryID\":\"Integer - directory ID\", "
 					+ "\"instituteSubDirectoryID\":\"Integer - sub directory ID\", "
 					+ "\"stateID\":\"Integer - State ID\", \"districtID\":\"Integer - district ID\", "
 					+ "\"blockID\":\"Optional - Integer - Block ID\"}") @RequestBody String request)

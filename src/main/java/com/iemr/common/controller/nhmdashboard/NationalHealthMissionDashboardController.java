@@ -39,7 +39,8 @@ import com.iemr.common.service.nhm_dashboard.NHM_DashboardService;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+
 
 @RequestMapping(value = "/nhm_dashboard")
 @RestController
@@ -50,7 +51,7 @@ public class NationalHealthMissionDashboardController {
 	private NHM_DashboardService nHM_DashboardService;
 
 	@CrossOrigin()
-	@ApiOperation(value = "Push abandoned calls from call centre")
+	@Operation(summary = "Push abandoned calls from call centre")
 	@RequestMapping(value = "/push/abandon_calls", method = RequestMethod.POST, headers = "Authorization")
 	public String pushAbandonCallsFromC_Zentrix(@RequestBody AbandonCallSummary abandonCallSummary) {
 		OutputResponse output = new OutputResponse();
@@ -65,7 +66,7 @@ public class NationalHealthMissionDashboardController {
 		return output.toString();
 	}
 
-	@ApiOperation(value = "Get abandoned call information")
+	@Operation(summary = "Get abandoned call information")
 	@CrossOrigin()
 	@RequestMapping(value = "/get/abandon_calls", method = RequestMethod.GET, headers = "Authorization")
 	public String getAbandonCalls() {
@@ -81,7 +82,7 @@ public class NationalHealthMissionDashboardController {
 		return output.toString();
 	}
 
-	@ApiOperation(value = "Get agent wise staff & idle time")
+	@Operation(summary = "Get agent wise staff & idle time")
 	@CrossOrigin()
 	@RequestMapping(value = "/get/agentsummaryreport", method = RequestMethod.GET, headers = "Authorization")
 	public String getAgentSummaryReport() {
@@ -97,7 +98,7 @@ public class NationalHealthMissionDashboardController {
 		return output.toString();
 	}
 
-	@ApiOperation(value = "Get detailed call report")
+	@Operation(summary = "Get detailed call report")
 	@CrossOrigin()
 	@RequestMapping(value = "/get/detailedCallReport", method = RequestMethod.GET, headers = "Authorization")
 	public String getDetailedCallReport() {

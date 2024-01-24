@@ -39,13 +39,13 @@ public class CovidVaccinationServiceImpl implements CovidVaccinationService {
 
 	final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-	@Autowired
+	@Autowired(required=false)
 	private CovidDoseTypeRepo covidDoseTypeRepo;
 
-	@Autowired
+	@Autowired(required=false)
 	private CovidVaccineTypeRepo covidVaccineTypeRepo;
 
-	@Autowired
+	@Autowired(required=false)
 	private CovidVaccinationRepo covidVaccinationRepo;
 
 	@Override

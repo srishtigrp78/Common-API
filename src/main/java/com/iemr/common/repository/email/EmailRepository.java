@@ -40,9 +40,9 @@ public interface EmailRepository extends CrudRepository<EmailNotification, Long>
 			+ "where emailTemplate.deleted = false ")
 	EmailTemplate getEmailTemplate();
 	
-	@Query("SELECT authorityEmailID.emailID FROM AuthorityEmailID authorityEmailID "
+	@Query(value="SELECT authorityEmailID.emailID FROM AuthorityEmailID authorityEmailID "
 			+ "where authorityEmailID.districtID = :districtID and "
-			+ "authorityEmailID.deleted = false ")
+			+ "authorityEmailID.deleted = false ", nativeQuery = true)
 	List getAuthorityEmailID(@Param("districtID") Integer districtID);
 	
 	@Query("select emailNotification from EmailNotification emailNotification "

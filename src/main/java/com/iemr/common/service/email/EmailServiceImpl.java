@@ -29,8 +29,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
 
-import javax.mail.internet.MimeMessage;
-import javax.mail.util.ByteArrayDataSource;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +58,9 @@ import com.iemr.common.service.beneficiary.IEMRSearchUserService;
 import com.iemr.common.utils.config.ConfigProperties;
 import com.iemr.common.utils.http.HttpUtils;
 import com.iemr.common.utils.mapper.InputMapper;
+
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.util.ByteArrayDataSource;
 
 @Service
 public class EmailServiceImpl implements EmailService {

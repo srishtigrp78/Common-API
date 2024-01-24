@@ -21,8 +21,6 @@
 */
 package com.iemr.common.repository.users;
 
-import java.util.ArrayList;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -36,5 +34,8 @@ import com.iemr.common.data.users.M_Role;
 @RestResource(exported = false)
 public interface RoleRepo extends CrudRepository<M_Role, Integer>
 {
+	@Query(value = "SELECT r FROM M_Role r where r.RoleID=:RoleID", nativeQuery = true)
+	M_Role findByRoleID(@Param("RoleID") Integer RoleID);
+	
 	
 }

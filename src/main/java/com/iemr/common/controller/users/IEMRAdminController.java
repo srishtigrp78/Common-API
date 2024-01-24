@@ -29,7 +29,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+
 import javax.ws.rs.core.MediaType;
 
 import org.json.JSONArray;
@@ -68,8 +68,9 @@ import com.iemr.common.utils.redis.RedisSessionException;
 import com.iemr.common.utils.response.OutputResponse;
 import com.iemr.common.utils.sessionobject.SessionObject;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RequestMapping("/user")
 @RestController
@@ -103,10 +104,10 @@ public class IEMRAdminController {
 	SecurePassword securePassword;
 
 	@CrossOrigin()
-	@ApiOperation(value = "New user authentication")
+	@Operation(summary = "New user authentication")
 	@RequestMapping(value = "/userAuthenticateNew", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 	public String userAuthenticateNew(
-			@ApiParam(value = "\"{\\\"userName\\\":\\\"String\\\",\\\"password\\\":\\\"String\\\"}\"") @RequestBody String jsonRequest) {
+			@Param(value = "\"{\\\"userName\\\":\\\"String\\\",\\\"password\\\":\\\"String\\\"}\"") @RequestBody String jsonRequest) {
 		OutputResponse response = new OutputResponse();
 		try {
 			User m_user = inputMapper.gson().fromJson(jsonRequest, User.class);
@@ -118,10 +119,10 @@ public class IEMRAdminController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "User authentication")
+	@Operation(summary = "User authentication")
 	@RequestMapping(value = "/userAuthenticate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 	public String userAuthenticate(
-			@ApiParam(value = "\"{\\\"userName\\\":\\\"String\\\",\\\"password\\\":\\\"String\\\"}\"") @RequestBody LoginRequestModel m_User,
+			@Param(value = "\"{\\\"userName\\\":\\\"String\\\",\\\"password\\\":\\\"String\\\"}\"") @RequestBody LoginRequestModel m_User,
 			HttpServletRequest request) {
 		OutputResponse response = new OutputResponse();
 		logger.info("userAuthenticate request - " + m_User + " " + m_User.getUserName() + " " + m_User.getPassword());
@@ -174,10 +175,10 @@ public class IEMRAdminController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Log out user from concurrent session")
+	@Operation(summary = "Log out user from concurrent session")
 	@RequestMapping(value = "/logOutUserFromConcurrentSession", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 	public String logOutUserFromConcurrentSession(
-			@ApiParam(value = "\"{\\\"userName\\\":\\\"String\\\"}\"") @RequestBody LoginRequestModel m_User,
+			@Param(value = "\"{\\\"userName\\\":\\\"String\\\"}\"") @RequestBody LoginRequestModel m_User,
 			HttpServletRequest request) {
 		OutputResponse response = new OutputResponse();
 		logger.info("logOutUserFromConcurrentSession request - " + m_User);
@@ -288,7 +289,7 @@ public class IEMRAdminController {
 					 */)
 	@RequestMapping(value = "/superUserAuthenticate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 	public String superUserAuthenticate(
-			@ApiParam(value = "\"{\\\"userName\\\":\\\"String\\\",\\\"doLogout\\\":\\\"Boolean\\\"}\"") @RequestBody LoginRequestModel m_User,
+			@Param(value = "\"{\\\"userName\\\":\\\"String\\\",\\\"doLogout\\\":\\\"Boolean\\\"}\"") @RequestBody LoginRequestModel m_User,
 			HttpServletRequest request) {
 		OutputResponse response = new OutputResponse();
 		logger.info("userAuthenticate request ");
@@ -343,10 +344,10 @@ public class IEMRAdminController {
 	}
 
 //	@CrossOrigin()
-//	@ApiOperation(value = "User authentication V1")
+//	@Operation(summary = "User authentication V1")
 //	@RequestMapping(value = "/userAuthenticateV1", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 //	public String userAuthenticateV1(
-//			@ApiParam(value = "\"{\\\"userName\\\":\\\"String\\\",\\\"password\\\":\\\"String\\\"}\"") @RequestBody LoginRequestModel loginRequest,
+//			@Param(value = "\"{\\\"userName\\\":\\\"String\\\",\\\"password\\\":\\\"String\\\"}\"") @RequestBody LoginRequestModel loginRequest,
 //			HttpServletRequest request) {
 //		OutputResponse response = new OutputResponse();
 //		logger.info("userAuthenticate request ");
@@ -371,7 +372,7 @@ public class IEMRAdminController {
 //	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get login response")
+	@Operation(summary = "Get login response")
 	@RequestMapping(value = "/getLoginResponse", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getLoginResponse(HttpServletRequest request) {
 		OutputResponse response = new OutputResponse();
@@ -387,10 +388,10 @@ public class IEMRAdminController {
 					 * allowedHeaders = "Authorization", exposedHeaders = "Authorization", methods =
 					 * RequestMethod.POST
 					 */)
-	@ApiOperation(value = "Forget password")
+	@Operation(summary = "Forget password")
 	@RequestMapping(value = "/forgetPassword", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 	public String forgetPassword(
-			@ApiParam(value = "\"{\\\"userName\\\":\\\"String\\\"}\"") @RequestBody ChangePasswordModel m_User) {
+			@Param(value = "\"{\\\"userName\\\":\\\"String\\\"}\"") @RequestBody ChangePasswordModel m_User) {
 		OutputResponse response = new OutputResponse();
 		logger.info("forgetPassword request " + m_User);
 		try {
@@ -427,10 +428,10 @@ public class IEMRAdminController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Set forget password")
+	@Operation(summary = "Set forget password")
 	@RequestMapping(value = "/setForgetPassword", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 	public String setPassword(
-			@ApiParam(value = "\"{\"userName\":\"String\",\"password\":\"String\",\"transactionId\":\"String\"}\"") @RequestBody ChangePasswordModel m_user) {
+			@Param(value = "\"{\"userName\":\"String\",\"password\":\"String\",\"transactionId\":\"String\"}\"") @RequestBody ChangePasswordModel m_user) {
 		OutputResponse response = new OutputResponse();
 		logger.info("setForgetPassword request " + m_user);
 		try {
@@ -466,10 +467,10 @@ public class IEMRAdminController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Change password")
+	@Operation(summary = "Change password")
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST, produces = "application/json")
 	public String changePassword(
-			@ApiParam(value = "\"{\\\"userName\\\":\\\"String\\\",\\\"password\\\":\\\"String\\\",\\\"transactionId\\\":\\\"String\\\"}\"") @RequestBody ChangePasswordModel changePassword) {
+			@Param(value = "\"{\\\"userName\\\":\\\"String\\\",\\\"password\\\":\\\"String\\\",\\\"transactionId\\\":\\\"String\\\"}\"") @RequestBody ChangePasswordModel changePassword) {
 		OutputResponse response = new OutputResponse();
 		logger.info("changePassword request " + changePassword);
 		try {
@@ -513,10 +514,10 @@ public class IEMRAdminController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Save user security questions & answers")
+	@Operation(summary = "Save user security questions & answers")
 	@RequestMapping(value = "/saveUserSecurityQuesAns", method = RequestMethod.POST, produces = "application/json")
 	public String saveUserSecurityQuesAns(
-			@ApiParam(value = "\"[{\\\"userID\\\":\\\"Integer\\\",\\\"questionID\\\":\\\"Integer\\\",\\\"answers\\\":\\\"String\\\","
+			@Param(value = "\"[{\\\"userID\\\":\\\"Integer\\\",\\\"questionID\\\":\\\"Integer\\\",\\\"answers\\\":\\\"String\\\","
 					+ "\\\"mobileNumber\\\":\\\"String\\\",\\\"createdBy\\\":\\\"String\\\"}]\"") @RequestBody Iterable<UserSecurityQMapping> m_UserSecurityQMapping) {
 		OutputResponse response = new OutputResponse();
 		logger.info("saveUserSecurityQuesAns request " + m_UserSecurityQMapping);
@@ -539,7 +540,7 @@ public class IEMRAdminController {
 					 * allowedHeaders = "Authorization", exposedHeaders = "Authorization", methods =
 					 * RequestMethod.GET
 					 */)
-	@ApiOperation(value = "Get security quetions")
+	@Operation(summary = "Get security quetions")
 	@RequestMapping(value = "/getsecurityquetions", method = RequestMethod.GET)
 	public String getSecurityts() {
 		OutputResponse response = new OutputResponse();
@@ -559,10 +560,10 @@ public class IEMRAdminController {
 					 * allowedHeaders = "Authorization", exposedHeaders = "Authorization", methods =
 					 * RequestMethod.POST
 					 */)
-	@ApiOperation(value = "Get roles by provider id")
+	@Operation(summary = "Get roles by provider id")
 	@RequestMapping(value = "/getRolesByProviderID", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getRolesByProviderID(
-			@ApiParam(value = "{\"providerServiceMapID\":\"Integer - providerServiceMapID\"}") @RequestBody String request) {
+			@Param(value = "{\"providerServiceMapID\":\"Integer - providerServiceMapID\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getRolesByProviderID request ");
 		try {
@@ -579,10 +580,10 @@ public class IEMRAdminController {
 					 * allowedHeaders = "Authorization", exposedHeaders = "Authorization", methods =
 					 * RequestMethod.POST
 					 */)
-	@ApiOperation(value = "Get role screen mapping by provider id")
+	@Operation(summary = "Get role screen mapping by provider id")
 	@RequestMapping(value = "/getRoleScreenMappingByProviderID", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getRoleScreenMappingByProviderID(
-			@ApiParam(value = "{\"providerServiceMapID\":\"Integer - providerServiceMapID\"}") @RequestBody String request) {
+			@Param(value = "{\"providerServiceMapID\":\"Integer - providerServiceMapID\"}") @RequestBody String request) {
 
 		OutputResponse response = new OutputResponse();
 		logger.info("getRoleScreenMappingByProviderID");
@@ -607,10 +608,10 @@ public class IEMRAdminController {
 					 * allowedHeaders = "Authorization", exposedHeaders = "Authorization", methods =
 					 * RequestMethod.POST
 					 */)
-	@ApiOperation(value = "Get users by provider id")
+	@Operation(summary = "Get users by provider id")
 	@RequestMapping(value = "/getUsersByProviderID", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getUsersByProviderID(
-			@ApiParam(value = "{\"providerServiceMapID\":\"Integer - providerServiceMapID\", "
+			@Param(value = "{\"providerServiceMapID\":\"Integer - providerServiceMapID\", "
 					+ "\"RoleID\":\"Optional: Integer - role ID to be filtered\", "
 					+ "\"languageName\":\"Optional: String - languageName\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
@@ -629,10 +630,10 @@ public class IEMRAdminController {
 					 * allowedHeaders = "Authorization", exposedHeaders = "Authorization", methods =
 					 * RequestMethod.POST
 					 */)
-	@ApiOperation(value = "Get user service point van details")
+	@Operation(summary = "Get user service point van details")
 	@RequestMapping(value = "/getUserServicePointVanDetails", method = RequestMethod.POST, produces = "application/json", headers = "Authorization")
 	public String getUserServicePointVanDetails(
-			@ApiParam(value = "\"{\\\"userID\\\":\\\"Integer\\\",\"providerServiceMapID\":\"Integer\"}\"") @RequestBody String comingRequest) {
+			@Param(value = "\"{\\\"userID\\\":\\\"Integer\\\",\"providerServiceMapID\":\"Integer\"}\"") @RequestBody String comingRequest) {
 		OutputResponse response = new OutputResponse();
 		try {
 
@@ -650,10 +651,10 @@ public class IEMRAdminController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get service point villages")
+	@Operation(summary = "Get service point villages")
 	@RequestMapping(value = "/getServicepointVillages", method = RequestMethod.POST, produces = "application/json", headers = "Authorization")
 	public String getServicepointVillages(
-			@ApiParam(value = "\"{\\\"servicePointID\\\":\\\"Integer\\\"}\"") @RequestBody String comingRequest) {
+			@Param(value = "\"{\\\"servicePointID\\\":\\\"Integer\\\"}\"") @RequestBody String comingRequest) {
 		OutputResponse response = new OutputResponse();
 		try {
 
@@ -671,10 +672,10 @@ public class IEMRAdminController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get locations by provider id")
+	@Operation(summary = "Get locations by provider id")
 	@RequestMapping(value = "/getLocationsByProviderID", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getLocationsByProviderID(
-			@ApiParam(value = "{\"providerServiceMapID\":\"Integer - providerServiceMapID\", "
+			@Param(value = "{\"providerServiceMapID\":\"Integer - providerServiceMapID\", "
 					+ "\"roleID\":\"Integer - roleID\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getLocationsByProviderID request ");
@@ -689,7 +690,7 @@ public class IEMRAdminController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "User log out")
+	@Operation(summary = "User log out")
 	@RequestMapping(value = "/userLogout", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String userLogout(HttpServletRequest request) {
 		OutputResponse response = new OutputResponse();
@@ -737,9 +738,9 @@ public class IEMRAdminController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Force log out")
+	@Operation(summary = "Force log out")
 	@RequestMapping(value = "/forceLogout", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String forceLogout(@ApiParam(value = "{\"userName\":\"String user name to force logout\", "
+	public String forceLogout(@Param(value = "{\"userName\":\"String user name to force logout\", "
 			+ "\"providerServiceMapID\":\"Integer service provider ID\"}") @RequestBody ForceLogoutRequestModel request) {
 		OutputResponse response = new OutputResponse();
 		try {
@@ -752,10 +753,10 @@ public class IEMRAdminController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "User force log out")
+	@Operation(summary = "User force log out")
 	@RequestMapping(value = "/userForceLogout", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String userForceLogout(
-			@ApiParam(value = "\"{\\\"userName\\\":\\\"String\\\"}\"") @RequestBody ForceLogoutRequestModel request) {
+			@Param(value = "\"{\\\"userName\\\":\\\"String\\\"}\"") @RequestBody ForceLogoutRequestModel request) {
 		OutputResponse response = new OutputResponse();
 		try {
 			iemrAdminUserServiceImpl.userForceLogout(request);
@@ -767,9 +768,9 @@ public class IEMRAdminController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get agent by role id")
+	@Operation(summary = "Get agent by role id")
 	@RequestMapping(value = "/getAgentByRoleID", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String getAgentByRoleID(@ApiParam(value = "{\"providerServiceMapID\":\"Integer - providerServiceMapID\", "
+	public String getAgentByRoleID(@Param(value = "{\"providerServiceMapID\":\"Integer - providerServiceMapID\", "
 			+ "\"RoleID\":\"Optional: Integer - role ID to be filtered\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getAgentByRoleID request " + request.toString());
@@ -784,10 +785,10 @@ public class IEMRAdminController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "User authenticate by encryption")
+	@Operation(summary = "User authenticate by encryption")
 	@RequestMapping(value = "/userAuthenticateByEncryption", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 	public String userAuthenticateByEncryption(
-			@ApiParam(value = "\"{\\\"userName\\\":\\\"String\\\",\\\"password\\\":\\\"String\\\"}\"") @RequestBody String req,
+			@Param(value = "\"{\\\"userName\\\":\\\"String\\\",\\\"password\\\":\\\"String\\\"}\"") @RequestBody String req,
 			HttpServletRequest request) {
 		OutputResponse response = new OutputResponse();
 		logger.info("userAuthenticateByEncryption request ");
@@ -829,7 +830,7 @@ public class IEMRAdminController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get role wrap up time")
+	@Operation(summary = "Get role wrap up time")
 	@RequestMapping(value = "/role/{roleID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getrolewrapuptime(@PathVariable("roleID") Integer roleID) {
 
@@ -851,10 +852,10 @@ public class IEMRAdminController {
 	 * @return transaction Id for password change
 	 */
 	@CrossOrigin
-	@ApiOperation(value = "Validating security question and answers for password change", consumes = "application/json", produces = "application/json")
+	@Operation(summary = "Validating security question and answers for password change")
 	@RequestMapping(value = { "/validateSecurityQuestionAndAnswer" }, method = { RequestMethod.POST })
 	public String validateSecurityQuestionAndAnswer(
-			@ApiParam(value = "{\"SecurityQuesAns\": [{\"questionId\":\"String\",\"answer\":\"String\"}],\"userName\":\"String\"}") @RequestBody String request) {
+			@Param(value = "{\"SecurityQuesAns\": [{\"questionId\":\"String\",\"answer\":\"String\"}],\"userName\":\"String\"}") @RequestBody String request) {
 
 		OutputResponse response = new OutputResponse();
 		logger.info("validateSecurityQuestionAndAnswer API request" + request);
@@ -877,10 +878,10 @@ public class IEMRAdminController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "User authentication")
+	@Operation(summary = "User authentication")
 	@RequestMapping(value = "/bhavya/userAuthenticate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 	public String userAuthenticateBhavya(
-			@ApiParam(value = "\"{\\\"userName\\\":\\\"String\\\",\\\"password\\\":\\\"String\\\"}\"") @RequestBody LoginRequestModel m_User,
+			@Param(value = "\"{\\\"userName\\\":\\\"String\\\",\\\"password\\\":\\\"String\\\"}\"") @RequestBody LoginRequestModel m_User,
 			HttpServletRequest request) {
 		OutputResponse response = new OutputResponse();
 		logger.info("userAuthenticate request - " + m_User + " " + m_User.getUserName() + " " + m_User.getPassword());

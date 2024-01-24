@@ -30,6 +30,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.iemr.common.data.snomedct.SCTDescription;
@@ -66,7 +67,7 @@ public class SnomedServiceImpl implements SnomedService {
 		Page<SCTDescription> sctList;
 		Map<String, Object> dataMap = new HashMap<>();
 		if (sctdescription != null && sctdescription.getTerm() != null && sctdescription.getPageNo() != null) {
-			PageRequest pr = new PageRequest(sctdescription.getPageNo(), snomedCTPageSize);
+			Pageable pr = PageRequest.of(sctdescription.getPageNo(), snomedCTPageSize);
 			sctList = snomedRepository.findSnomedCTRecordList(sctdescription.getTerm(), pr);
 
 			// System.out.println(sctList.getTotalPages());

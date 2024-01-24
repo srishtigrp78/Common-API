@@ -49,4 +49,6 @@ public interface LocationDistrictRepository extends CrudRepository<Districts, In
 	@Query("select districtID from Districts d where d.districtName = :districtName")
 	public Integer getDistrictID(@Param ("districtName") String districtName);
 	
+	Districts findByDistrictID(Integer districtID);
+	
 }

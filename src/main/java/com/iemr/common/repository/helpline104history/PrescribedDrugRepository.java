@@ -92,4 +92,6 @@ public interface PrescribedDrugRepository extends CrudRepository<PrescribedDrug,
 			+ " from COVIDHistory history "
 			+ "where history.beneficiaryRegID = :beneficiaryRegID order by history.createdDate desc") 	
 	public List<COVIDHistory> getCOVIDData(@Param("beneficiaryRegID") Long beneficiaryRegID);
+	
+	PrescribedDrug findByPrescribedDrugID(Long prescribedDrugID);
 }

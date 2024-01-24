@@ -21,7 +21,6 @@
 */
 package com.iemr.common.data.cti;
 
-import com.google.gson.JsonArray;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.utils.mapper.OutputMapper;
 

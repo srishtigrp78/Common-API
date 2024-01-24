@@ -44,12 +44,12 @@ import com.iemr.common.notification.agent.DTO.SuccessObjectDTO;
 import com.iemr.common.notification.agent.DTO.UserNotificationDisplayMaxDTO;
 import com.iemr.common.notification.agent.DTO.UserNotificationDisplayMinDTO;
 import com.iemr.common.notification.util.InputMapper;
-// import com.iemr.common.notification.util.OutputMapper;
-// import com.iemr.common.notification.util.OutputResponse;
+
 import com.iemr.common.utils.response.OutputResponse;
 
-// import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+
+
 
 @CrossOrigin()
 @RequestMapping(value = "/notification")
@@ -68,7 +68,7 @@ public class UserNotificationMappingController
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE,
 			headers = "Authorization")
 	public @ResponseBody String
-			getAlertsAndNotificationCount(@ApiParam(value = "{" + "\"userID\":\"Integer\"\n"
+			getAlertsAndNotificationCount(@Param(value = "{" + "\"userID\":\"Integer\"\n"
 					+ "\"roleID\":\"Integer\"\n" + "\"providerServiceMapID\":\"Integer\"\n"
 					+ "\"workingLocationID\":\"Integer\"\n" + "}") @RequestBody String getNotificationCountFilter)
 	{
@@ -108,7 +108,7 @@ public class UserNotificationMappingController
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE,
 			headers = "Authorization")
 	public @ResponseBody String
-			getAlertsAndNotificationDetail(@ApiParam(value = "{" + "\"userID\":\"Integer\"\n"
+			getAlertsAndNotificationDetail(@Param(value = "{" + "\"userID\":\"Integer\"\n"
 					+ "\"roleID\":\"Integer\"\n" + "\"notificationTypeID\":\"Integer\"\n"
 					+ "\"providerServiceMapID\":\"Integer\"\n" + "\"workingLocationID\":\"Integer\"\n"
 					+ "}") @RequestBody String getNotificationDetailFilter)
@@ -153,7 +153,7 @@ public class UserNotificationMappingController
 	@RequestMapping(value = "/changeNotificationStatus", method = RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE,
 			headers = "Authorization")
-	public @ResponseBody String changeNotificationStatus(@ApiParam(value = "{" + "\"notficationStatus\":\"String\"\n"
+	public @ResponseBody String changeNotificationStatus(@Param(value = "{" + "\"notficationStatus\":\"String\"\n"
 			+ "\"notificationMapIDList\":\"List<Integer>\"\n" + "}") @RequestBody String changeNotificationStatusFilter)
 	{
 
@@ -206,7 +206,7 @@ public class UserNotificationMappingController
 	@CrossOrigin()
 	@RequestMapping(value = "/markDelete", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE,
 			consumes = MediaType.APPLICATION_JSON_VALUE, headers = "Authorization")
-	public @ResponseBody String markDelete(@ApiParam(value = "{" + "\"isDeleted\":\"Boolean\"\n"
+	public @ResponseBody String markDelete(@Param(value = "{" + "\"isDeleted\":\"Boolean\"\n"
 			+ "\"userNotificationMapIDList\":\"List<Integer>\"\n" + "}") @RequestBody String markDeleteFilter)
 	{
 
@@ -262,7 +262,7 @@ public class UserNotificationMappingController
 	// produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE,
 	// headers = "Authorization")
 	// public String createAlertDetails(
-	// @ApiParam(
+	// @Param(
 	// value = "{\"providerServiceMapID\": \"integer-provider service map id\", "
 	// + "\"schemeName\": \"Name of Scheme\", " + "\"schemeDesc\": \"Description of Scheme\", "
 	// + "\"createdBy\": \"User name of the supervisor creating scheme\", "
@@ -358,7 +358,7 @@ public class UserNotificationMappingController
 	// value = "/getAlertsAndNotificationCountAPI", method = RequestMethod.POST,
 	// produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE,
 	// headers = "Authorization")
-	// public String getAlertsAndNotificationCountAPI(@ApiParam(value = "{"
+	// public String getAlertsAndNotificationCountAPI(@Param(value = "{"
 	// + "\"userID\":\"Integer\""
 	// + "\"roleID\":\"Integer\""
 	// + "\"providerServiceMapID\":\"Integer\""

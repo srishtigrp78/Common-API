@@ -35,7 +35,7 @@ public abstract class OccupationMapperDecorator implements OccupationMapper
 	public BeneficiaryOccupationModel occupationToModelByID(Integer occupationID)
 	{
 		BeneficiaryOccupationModel occupation = new BeneficiaryOccupationModel();
-		occupation = occupationToModel(occupationRepository.findOne(Long.parseLong(occupationID + "")));
+		occupation = occupationToModel(occupationRepository.findByOccupationID(Long.parseLong(occupationID + "")));
 		return occupation;
 	}
 }

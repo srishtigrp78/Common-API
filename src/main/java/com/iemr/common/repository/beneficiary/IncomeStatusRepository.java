@@ -31,4 +31,6 @@ import com.iemr.common.data.beneficiary.BeneficiaryIncomeStatus;
 @RestResource(exported = false)
 public interface IncomeStatusRepository extends CrudRepository<BeneficiaryIncomeStatus, Integer>
 {
+	
+	BeneficiaryIncomeStatus findByIncomeStatusID(Integer incomeStatusID);
 }

@@ -1,6 +1,5 @@
 package com.iemr.common.repository.eausadha;
 
-import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +9,8 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 
 import com.iemr.common.data.eausadha.ItemStockEntry;
+
+import jakarta.transaction.Transactional;
 
 @Repository
 @RestResource(exported = false)

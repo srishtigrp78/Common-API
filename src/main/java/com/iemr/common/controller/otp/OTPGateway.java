@@ -38,8 +38,10 @@ import com.iemr.common.service.otp.OTPHandler;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+
+
 
 @RestController
 @RequestMapping(value = "/otp")
@@ -50,9 +52,9 @@ public class OTPGateway {
 	private OTPHandler otpHandler;
 
 	@CrossOrigin()
-	@ApiOperation(value = "Send OTP")
+	@Operation(summary = "Send OTP")
 	@RequestMapping(value = "/sendOTP", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String sendOTP(@ApiParam(value = "{\"mobNo\":\"String\"}") @RequestBody String requestOBJ) {
+	public String sendOTP(@Param(value = "{\"mobNo\":\"String\"}") @RequestBody String requestOBJ) {
 
 		OutputResponse response = new OutputResponse();
 
@@ -73,10 +75,10 @@ public class OTPGateway {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Validate OTP")
+	@Operation(summary = "Validate OTP")
 	@RequestMapping(value = "/validateOTP", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String validateOTP(
-			@ApiParam(value = "{\"mobNo\":\"String\",\"otp\":\"Integer\"}") @RequestBody String requestOBJ) {
+			@Param(value = "{\"mobNo\":\"String\",\"otp\":\"Integer\"}") @RequestBody String requestOBJ) {
 
 		OutputResponse response = new OutputResponse();
 
@@ -97,9 +99,9 @@ public class OTPGateway {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Resend OTP")
+	@Operation(summary = "Resend OTP")
 	@RequestMapping(value = "/resendOTP", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String resendOTP(@ApiParam(value = "{\"mobNo\":\"String\"}") @RequestBody String requestOBJ) {
+	public String resendOTP(@Param(value = "{\"mobNo\":\"String\"}") @RequestBody String requestOBJ) {
 
 		OutputResponse response = new OutputResponse();
 

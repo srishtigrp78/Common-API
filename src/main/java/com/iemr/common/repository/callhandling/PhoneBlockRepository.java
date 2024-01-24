@@ -110,5 +110,7 @@ public interface PhoneBlockRepository extends CrudRepository<PhoneBlock, Long> {
 	@Modifying
 	@Query("update PhoneBlock set callIDs = :benCallIDs where phoneBlockID = :phoneBlockID")
 	Integer updateCallIDs(@Param("phoneBlockID") Long phoneBlockID, @Param("benCallIDs") String benCallIDs);
+	
+	PhoneBlock findByPhoneBlockID(Long phoneBlockID);
 
 }

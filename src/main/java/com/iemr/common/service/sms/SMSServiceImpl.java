@@ -193,7 +193,7 @@ public class SMSServiceImpl implements SMSService {
 		SMSTemplate request = smsMapper.updateRequestToSMSTemplate(smsRequest);
 		int updateCount = smsTemplateRepository.updateSMSTemplate(request.getSmsTemplateID(), request.getDeleted());
 		if (updateCount > 0) {
-			smsTemplate = smsTemplateRepository.findOne(request.getSmsTemplateID());
+			smsTemplate = smsTemplateRepository.findBySmsTemplateID(request.getSmsTemplateID());
 		} else {
 			throw new Exception("Failed to update the result");
 		}
@@ -206,7 +206,7 @@ public class SMSServiceImpl implements SMSService {
 		SMSTemplate request = smsMapper.createRequestToSMSTemplate(smsRequest);
 		smsTemplate = smsTemplateRepository.save(request);
 		saveSMSParameterMaps(smsRequest, smsTemplate.getSmsTemplateID());
-		smsTemplate = smsTemplateRepository.findOne(smsTemplate.getSmsTemplateID());
+		smsTemplate = smsTemplateRepository.findBySmsTemplateID(smsTemplate.getSmsTemplateID());
 		return OutputMapper.gsonWithoutExposeRestriction().toJson(smsMapper.smsTemplateToResponse(smsTemplate));
 	}
 
@@ -261,7 +261,7 @@ public class SMSServiceImpl implements SMSService {
 			// sms = prepareSMS(smsTemplate, smsParameters, request, authToken);
 
 			// Shubham Shekhar,16-10-2020,TM Prescription SMS
-			smsTemplate = smsTemplateRepository.findOne(request.getSmsTemplateID());
+			smsTemplate = smsTemplateRepository.findBySmsTemplateID(request.getSmsTemplateID());
 			if (smsTemplate.getSmsTemplateName().equalsIgnoreCase(prescription)) {
 //			if (smsTemplate.getSmsTypeID() == request.getSmsTypeID())
 //			{
@@ -300,7 +300,7 @@ public class SMSServiceImpl implements SMSService {
 		if (request.getSmsText() != null) {
 			smsToSend = request.getSmsText();
 		} else {
-			smsTemplate = smsTemplateRepository.findOne(request.getSmsTemplateID());
+			smsTemplate = smsTemplateRepository.findBySmsTemplateID(request.getSmsTemplateID());
 			sms.setSmsTemplateID(smsTemplate.getSmsTemplateID());
 			smsToSend = smsTemplate.getSmsTemplate();
 			List<SMSParametersMap> smsParameters = smsParameterMapRepository
@@ -603,7 +603,7 @@ public class SMSServiceImpl implements SMSService {
 		if (request.getSmsText() != null) {
 			smsToSend = request.getSmsText();
 		} else {
-			smsTemplate = smsTemplateRepository.findOne(request.getSmsTemplateID());
+			smsTemplate = smsTemplateRepository.findBySmsTemplateID(request.getSmsTemplateID());
 			sms.setSmsTemplateID(smsTemplate.getSmsTemplateID());
 			smsToSend = smsTemplate.getSmsTemplate();
 			List<SMSParametersMap> smsParameters = smsParameterMapRepository
@@ -750,7 +750,7 @@ public class SMSServiceImpl implements SMSService {
 	private String getFeedbackData(String className, String methodName, SMSRequest request, String authToken)
 			throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException {
-		FeedbackDetails feedback = feedbackReporsitory.findOne(request.getFeedbackID());
+		FeedbackDetails feedback = feedbackReporsitory.findByFeedbackID(request.getFeedbackID());
 		Method method = null;
 		String parameterValue = "";
 		switch (className) {
@@ -781,7 +781,7 @@ public class SMSServiceImpl implements SMSService {
 	private String getUserData(String className, String methodName, SMSRequest request, String authToken)
 			throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException {
-		User user = userRepository.findOne(request.getUserID());
+		User user = userRepository.findByUserID(request.getUserID());
 		Method method = user.getClass().getDeclaredMethod("get" + methodName, null);
 		String variableValue = method.invoke(user, null).toString();
 		return variableValue.trim();
@@ -841,21 +841,21 @@ public class SMSServiceImpl implements SMSService {
 		Method method = null;
 
 		String variableValue = "";
-		Institute institute = instituteRepository.findOne(request.getInstituteID());
+		Institute institute = instituteRepository.findByInstitutionID(request.getInstituteID());
 		;
 		switch (methodName.toLowerCase()) {
 		case "statename":
-			States state = stateRepository.findOne(request.getStateID());
+			States state = stateRepository.findByStateID(request.getStateID());
 			method = state.getClass().getDeclaredMethod("get" + methodName, null);
 			variableValue = method.invoke(state, null).toString();
 			break;
 		case "districtname":
-			Districts district = districtRepository.findOne(request.getDistrictID());
+			Districts district = districtRepository.findByDistrictID(request.getDistrictID());
 			method = district.getClass().getDeclaredMethod("get" + methodName, null);
 			variableValue = method.invoke(district, null).toString();
 			break;
 		case "blockname":
-			DistrictBlock block = blockRepository.findOne(request.getBlockID());
+			DistrictBlock block = blockRepository.findByBlockID(request.getBlockID());
 			method = block.getClass().getDeclaredMethod("get" + methodName, null);
 			variableValue = method.invoke(block, null).toString();
 			break;
@@ -1061,7 +1061,7 @@ public class SMSServiceImpl implements SMSService {
 	@Override
 	public String getFullSMSTemplate(SMSRequest smsRequest) throws Exception {
 		SMSTemplate smsTemplate;
-		smsTemplate = smsTemplateRepository.findOne(smsRequest.getSmsTemplateID());
+		smsTemplate = smsTemplateRepository.findBySmsTemplateID(smsRequest.getSmsTemplateID());
 		FullSMSTemplateResponse smsTemplateResponse = smsMapper.smsTemplateToFullResponse(smsTemplate);
 		return OutputMapper.gsonWithoutExposeRestriction().toJson(smsTemplateResponse);
 	}
@@ -1069,7 +1069,7 @@ public class SMSServiceImpl implements SMSService {
 	private String getPrescriptionData(String className, String methodName, SMSRequest request,
 			BeneficiaryModel beneficiary) throws NoSuchMethodException, SecurityException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException, ClassNotFoundException {
-		PrescribedDrug prescribedDrug = prescribedDrugRepository.findOne(request.getPrescribedDrugID());
+		PrescribedDrug prescribedDrug = prescribedDrugRepository.findByPrescribedDrugID(request.getPrescribedDrugID());
 		String variableValue = "";
 		switch (methodName.toLowerCase()) {
 		case "name":
@@ -1364,7 +1364,7 @@ public class SMSServiceImpl implements SMSService {
 	private String getGrievanceData(String className, String methodName, SMSRequest request, String authToken,
 			BeneficiaryModel beneficiary) throws NoSuchMethodException, SecurityException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException {
-		FeedbackDetails feedback = feedbackReporsitory.findOne(request.getFeedbackID());
+		FeedbackDetails feedback = feedbackReporsitory.findByFeedbackID(request.getFeedbackID());
 		String variableValue = "";
 		switch (methodName.toLowerCase()) {
 		case "grievancecallfrom":
@@ -1501,7 +1501,7 @@ public class SMSServiceImpl implements SMSService {
 		case "imrmmrstate":
 
 			if (request.getStateID() != null) {
-				States state = stateRepository.findOne(request.getStateID());
+				States state = stateRepository.findByStateID(request.getStateID());
 				if (state.getStateName() != null)
 					variableValue = state.getStateName();
 			}

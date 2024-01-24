@@ -29,7 +29,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import com.iemr.common.data.beneficiary.BenPhoneMap;
-import com.iemr.common.dto.identity.BeneficiariesDTO;
 import com.iemr.common.model.beneficiary.BenPhoneMapModel;
 
 @Mapper(componentModel = "spring")

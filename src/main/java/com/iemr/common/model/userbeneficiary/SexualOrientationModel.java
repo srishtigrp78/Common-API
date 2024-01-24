@@ -49,7 +49,7 @@ public @Data class SexualOrientationModel
 		if (sexualOrientationId != null)
 		{
 			model = sexualOrientationMapper
-					.sexualOrientationToModel(sexualOrientationRepository.findOne(sexualOrientationId));
+					.sexualOrientationToModel(sexualOrientationRepository.findBysexualOrientationId(sexualOrientationId));
 		}
 		return model;
 	}

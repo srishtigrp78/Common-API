@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.iemr.common.utils.mapper.OutputMapper;
 import com.iemr.common.data.lonic.LonicDescription;
@@ -54,9 +55,9 @@ public class LonicServiceImpl implements LonicService {
 		Map<String, Object> dataMap = new HashMap<>();
 		Page<LonicDescription> lonicList;
 		if (lonicDescription != null && lonicDescription.getTerm() != null  && lonicDescription.getPageNo() != null) {
+			Pageable pageable = PageRequest.of(lonicDescription.getPageNo(), lonicPageSize);
 			
-			PageRequest pr = new PageRequest(lonicDescription.getPageNo(), lonicPageSize);
-			lonicList = lonicRepository.findLonicRecordList(lonicDescription.getTerm(),pr);
+			lonicList = lonicRepository.findLonicRecordList(lonicDescription.getTerm(),pageable);
 
 			dataMap.put("lonicMaster", lonicList.getContent());
 			dataMap.put("pageCount", lonicList.getTotalPages());

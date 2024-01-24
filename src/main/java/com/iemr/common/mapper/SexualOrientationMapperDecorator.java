@@ -36,7 +36,7 @@ public abstract class SexualOrientationMapperDecorator implements SexualOrientat
 		SexualOrientationModel model = null;
 		if (sexualOrientationID != null)
 		{
-			model = sexualOrientationToModel(sexualOrientationRepository.findOne(sexualOrientationID));
+			model = sexualOrientationToModel(sexualOrientationRepository.findBysexualOrientationId(sexualOrientationID));
 		}
 		return model;
 	}

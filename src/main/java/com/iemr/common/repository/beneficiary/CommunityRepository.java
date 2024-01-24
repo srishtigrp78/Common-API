@@ -42,4 +42,6 @@ public abstract interface CommunityRepository extends CrudRepository<Community, 
 	@Query("select community from Community community where community.deleted = false and "
 			+ "community.communityID = :communityID order by communityType asc")
 	public abstract Community findCommunity(@Param("communityID") Integer communityID);
+	
+	Community findByCommunityID(Integer communityID);
 }

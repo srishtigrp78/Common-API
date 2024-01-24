@@ -21,14 +21,13 @@
 */
 package com.iemr.common.config;
 
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
 
+
+import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolConfiguration;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -43,10 +42,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.iemr.common.utils.config.ConfigProperties;
 
+import jakarta.persistence.EntityManagerFactory;
+
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory", basePackages = { "com.iemr.common.repository",
-		"com.iemr.common.repo", "com.iemr.common.notification.agent", "com.iemr.common.covidVaccination" })
+		"com.iemr.common.repo", "com.iemr.common.notification.agent", "com.iemr.common.covidVaccination", "com.iemr.common.repository.everwell.*", " com.iemr.common.repository.users" })
 public class PrimaryDBConfig {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -82,13 +83,13 @@ public class PrimaryDBConfig {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder,
 			@Qualifier("dataSource") DataSource dataSource) {
 		return builder.dataSource(dataSource).packages("com.iemr.common.data", "com.iemr.common.notification",
-				"com.iemr.common.model", "com.iemr.common.covidVaccination").persistenceUnit("db_iemr").build();
+				"com.iemr.common.model", "com.iemr.common.covidVaccination", "com.iemr.common.data.everwell", "com.iemr.common.data.users").persistenceUnit("db_iemr").build();
 	}
 
 	@Primary
 	@Bean(name = "transactionManager")
 	public PlatformTransactionManager transactionManager(
 			@Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory) {
-		return new JpaTransactionManager(entityManagerFactory);
+		return new JpaTransactionManager((jakarta.persistence.EntityManagerFactory) entityManagerFactory);
 	}
 }

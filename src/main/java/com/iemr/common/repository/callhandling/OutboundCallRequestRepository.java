@@ -241,6 +241,8 @@ public interface OutboundCallRequestRepository extends CrudRepository<OutboundCa
 	public List<OutboundCallRequest> getBenRequestedOutboundCall(
 			@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("beneficiaryRegID") Long beneficiaryRegID);
+	
+	OutboundCallRequest findByOutboundCallReqID(Long outboundCallReqID);
 
 	// @Query("select request from OutboundCallRequest request where "
 	// + "request.outboundCallReqID = :outboundCallReqID")

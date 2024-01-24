@@ -35,8 +35,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.iemr.common.service.notification.NotificationService;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+
+
 
 @RequestMapping({ "/notification" })
 @RestController
@@ -51,9 +53,9 @@ public class NotificationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get notification")
+	@Operation(summary = "Get notification")
 	@RequestMapping(value = "/getNotification", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String getNotification(@ApiParam(value = "{\"providerServiceMapID\": \"integer-provider service map id\", "
+	public String getNotification(@Param(value = "{\"providerServiceMapID\": \"integer-provider service map id\", "
 			+ "\"notificationTypeID\": \"integer-notification type id\", \"userIDs\": \"[integer-user id]\", "
 			+ "\"workingLocationIDs\": \"[integer-working Location id]\", \"languageIDs\": \"[integer-language ids]\", "
 			+ "\"roleIDs\":\"[ integer array- multiple roles available for the selected service]\", "
@@ -71,10 +73,10 @@ public class NotificationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get supervisor notification")
+	@Operation(summary = "Get supervisor notification")
 	@RequestMapping(value = "/getSupervisorNotification", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getSupervisorNotification(
-			@ApiParam(value = "{\"providerServiceMapID\": \"integer-provider service map id\", \"notificationTypeID\":\"Integer\", "
+			@Param(value = "{\"providerServiceMapID\": \"integer-provider service map id\", \"notificationTypeID\":\"Integer\", "
 					+ "\"userIDs\": \"Optional - [integer-user id]\", \"workingLocationIDs\": \"Optional - [integer-working Location id]\", "
 					+ "\"languageIDs\": \"Optional - [integer-language ids]\", \"validStartDate\":\"Optional - timestamp\", "
 					+ "\"validEndDate\":\"Optional - timestamp\", \"roleIDs\":\"Optional - [Array of role ids]\"}") @RequestBody String request) {
@@ -91,10 +93,10 @@ public class NotificationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Create notification")
+	@Operation(summary = "Create notification")
 	@RequestMapping(value = "/createNotification", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String createNotification(
-			@ApiParam(value = "[{\"providerServiceMapID\": \"integer-provider service map id\", "
+			@Param(value = "[{\"providerServiceMapID\": \"integer-provider service map id\", "
 					+ "\"notificationTypeID\": \"integer-notification type id\", \"roleID\": \"integer-role id of the user role\", "
 					+ "\"userID\":\"Integer: user ID of the user to whom notification will be sent\", "
 					+ "\"workingLocationID\":\"Integer: office location to which notification will be sent\", "
@@ -119,10 +121,10 @@ public class NotificationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Update notification")
+	@Operation(summary = "Update notification")
 	@RequestMapping(value = "/updateNotification", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String updateNotification(
-			@ApiParam(value = "{\"notificationID\" : \"Integer - Notification ID of the notification that needs to be updated\", "
+			@Param(value = "{\"notificationID\" : \"Integer - Notification ID of the notification that needs to be updated\", "
 					+ "\"notification\":\"String - notification name\", \"notificationDesc\":\"String - notificationDesc\", "
 					+ "\"notificationTypeID\":\"Integer - notificationTypeID\", \"roleID\":\"Integer - roleID\", "
 					+ "\"validFrom\":\"Epoch date - validFrom\", \"validTill\":\"Epoch date - validTill\", \"deleted\":\"Boolean - deleted\", "
@@ -145,10 +147,10 @@ public class NotificationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get notification type")
+	@Operation(summary = "Get notification type")
 	@RequestMapping(value = "/getNotificationType", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getNotificationType(
-			@ApiParam(value = "{\"providerServiceMapID\" : \"Integer - providerServiceMapID\"}") @RequestBody String request) {
+			@Param(value = "{\"providerServiceMapID\" : \"Integer - providerServiceMapID\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getNotificationType request " + request);
 		try {
@@ -162,10 +164,10 @@ public class NotificationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Create notification type")
+	@Operation(summary = "Create notification type")
 	@RequestMapping(value = "/createNotificationType", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String createNotificationType(
-			@ApiParam(value = "{\"providerServiceMapID\" : \"Integer - providerServiceMapID\", "
+			@Param(value = "{\"providerServiceMapID\" : \"Integer - providerServiceMapID\", "
 					+ "\"notificationType\":\"String - notificationType name\", \"notificationTypeDesc\":\"String - notificationTypeDesc\", "
 					+ "\"createdBy\":\"String - username of the supervisor\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
@@ -181,10 +183,10 @@ public class NotificationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Update notification type")
+	@Operation(summary = "Update notification type")
 	@RequestMapping(value = "/updateNotificationType", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String updateNotificationType(
-			@ApiParam(value = "{\"notificationTypeID\" : \"Integer - notificationTypeID\", \"notificationType\":\"String - notificationType name\", "
+			@Param(value = "{\"notificationTypeID\" : \"Integer - notificationTypeID\", \"notificationType\":\"String - notificationType name\", "
 					+ "\"notificationTypeDesc\":\"String - notificationTypeDesc\", \"deleted\":\"Boolean\""
 					+ "\"modifiedBy\":\"String - username of the supervisor\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
@@ -200,10 +202,10 @@ public class NotificationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get emergency contacts")
+	@Operation(summary = "Get emergency contacts")
 	@RequestMapping(value = "/getEmergencyContacts", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getEmergencyContacts(
-			@ApiParam(value = "{\"providerServiceMapID\": \"integer-provider service map id\", "
+			@Param(value = "{\"providerServiceMapID\": \"integer-provider service map id\", "
 					+ "\"notificationTypeID\": \"integer-notification type id\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getEmergencyContacts request " + request);
@@ -218,10 +220,10 @@ public class NotificationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get supervisor emergency contacts")
+	@Operation(summary = "Get supervisor emergency contacts")
 	@RequestMapping(value = "/getSupervisorEmergencyContacts", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getSupervisorEmergencyContacts(
-			@ApiParam(value = "{\"providerServiceMapID\": \"integer-provider service map id\", \"notificationTypeID\":\"Integer\"}") @RequestBody String request) {
+			@Param(value = "{\"providerServiceMapID\": \"integer-provider service map id\", \"notificationTypeID\":\"Integer\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getSupervisorEmergencyContacts request " + request);
 		try {
@@ -235,10 +237,10 @@ public class NotificationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Create emergency contact")
+	@Operation(summary = "Create emergency contact")
 	@RequestMapping(value = "/createEmergencyContacts", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String createEmergencyContacts(
-			@ApiParam(value = "[{\"providerServiceMapID\": \"integer-provider service map id\", "
+			@Param(value = "[{\"providerServiceMapID\": \"integer-provider service map id\", "
 					+ "\"notificationTypeID\": \"integer-notification type id\", \"createdBy\": \"User name of the supervisor creating notification\", "
 					+ "\"designationID\":\"Integer - designation ID\", \"emergContactName\":\"String - emergency Contact name\", "
 					+ "\"location\":\"String - emergency Contact location\", \"emergContactNo\":\"String - emergency Contact No\", "
@@ -257,10 +259,10 @@ public class NotificationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Update emergency contacts")
+	@Operation(summary = "Update emergency contacts")
 	@RequestMapping(value = "/updateEmergencyContacts", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String updateEmergencyContacts(
-			@ApiParam(value = "{\"providerServiceMapID\": \"integer-provider service map id\", "
+			@Param(value = "{\"providerServiceMapID\": \"integer-provider service map id\", "
 					+ "\"notificationTypeID\": \"integer-notification type id\", \"createdBy\": \"User name of the supervisor creating notification\", "
 					+ "\"designationID\":\"Integer - designation ID\", \"emergContactName\":\"String - emergency Contact name\", "
 					+ "\"location\":\"String - emergency Contact location\", \"emergContactNo\":\"String - emergency Contact No\", "

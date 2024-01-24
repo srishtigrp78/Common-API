@@ -35,7 +35,7 @@ import com.iemr.common.data.users.MasterServicePoint;
 @Repository
 @RestResource(exported = false)
 public interface MasterServicePointRepo extends CrudRepository<MasterServicePoint, Integer> {
-	@Query(" SELECT msp.servicePointID, msp.servicePointName from MasterServicePoint msp WHERE msp.deleted != 1 ")
+	@Query(value=" SELECT msp.servicePointID, msp.servicePointName from MasterServicePoint msp WHERE msp.deleted != 1 ", nativeQuery = true)
 	public List<Object[]> getUserSevicePointList(@Param("parkingPlaceIdList") Set<Integer> parkingPlaceIdList);
 
 }

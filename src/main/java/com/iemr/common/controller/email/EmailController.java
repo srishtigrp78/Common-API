@@ -21,7 +21,6 @@
 */
 package com.iemr.common.controller.email;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MediaType;
 
 import org.slf4j.Logger;
@@ -37,8 +36,9 @@ import com.iemr.common.service.email.EmailService;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RequestMapping(value = "/emailController")
 @RestController
@@ -55,10 +55,10 @@ public class EmailController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Send email")
+	@Operation(summary = "Send email")
 	@RequestMapping(value = "/SendEmail", method = RequestMethod.POST, headers = "Authorization")
 	public String SendEmail(
-			@ApiParam("{\"FeedbackID\":\"Long\",\"emailID\":\"String\",\"is1097\":\"Boolean\"}") @RequestBody String request,
+			@Param("{\"FeedbackID\":\"Long\",\"emailID\":\"String\",\"is1097\":\"Boolean\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("SendEmail request " + request);
@@ -74,9 +74,9 @@ public class EmailController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get authority email id")
+	@Operation(summary = "Get authority email id")
 	@RequestMapping(value = "/getAuthorityEmailID", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String getAuthorityEmailID(@ApiParam(value = "{districtID : Integer}") @RequestBody String severityRequest) {
+	public String getAuthorityEmailID(@Param(value = "{districtID : Integer}") @RequestBody String severityRequest) {
 
 		OutputResponse response = new OutputResponse();
 		try {
@@ -89,10 +89,10 @@ public class EmailController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Send email general")
+	@Operation(summary = "Send email general")
 	@RequestMapping(value = "/sendEmailGeneral", method = RequestMethod.POST, headers = "Authorization")
 	public String sendEmailGeneral(
-			@ApiParam("{\"requestID\":\"String\",\"emailType\":\"String\",\"emailID\":\"String\"}") @RequestBody String requestID,
+			@Param("{\"requestID\":\"String\",\"emailType\":\"String\",\"emailID\":\"String\"}") @RequestBody String requestID,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		try {

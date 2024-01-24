@@ -37,7 +37,8 @@ import com.iemr.common.service.reports.CallReportsService;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+
 
 @CrossOrigin
 @RequestMapping({ "/crmReports" })
@@ -58,7 +59,7 @@ public class CustomerRelationshipReports {
 	Report1097Mapper mapper;
 
 	@CrossOrigin()
-	@ApiOperation(value = "QA report type master data", consumes = "application/json", produces = "application/json")
+	@Operation(summary = "QA report type master data")
 	@RequestMapping(value = "/getReportTypes/{providerServiceMapID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public String patientAppChiefComplaintsMasterData(
 			@PathVariable("providerServiceMapID") Integer providerServiceMapID) throws Exception {

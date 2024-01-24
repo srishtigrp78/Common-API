@@ -151,7 +151,7 @@ public interface EverwellCallHandlingRepository extends CrudRepository<EverwellD
 	public int resetOutboundCall(@Param("eapiIds") List<Long> eapiIds);
 
 	@Modifying
-	@Query("update EverwellDetails set MissedDoses = :missedDoses,Category = :category,SubCategory = :subCategory,ActionTaken = :actionTaken,AdherencePercentage = :adherencePercentage,Comments = :comments,dateOfAction = :dateOfAction where eapiId = :eapiId")
+	@Query(value= "update EverwellDetails set MissedDoses = :missedDoses,Category = :category,SubCategory = :subCategory,ActionTaken = :actionTaken,AdherencePercentage = :adherencePercentage,Comments = :comments,dateOfAction = :dateOfAction where eapiId = :eapiId", nativeQuery = true)
 	@Transactional
 	public int saveDetails(@Param("eapiId") Long eapiId, @Param("missedDoses") Integer missedDoses,
 			@Param("category") String category, @Param("subCategory") String subCategory,
@@ -229,4 +229,6 @@ public interface EverwellCallHandlingRepository extends CrudRepository<EverwellD
 			+ "AND request.beneficiaryRegId is not null ORDER BY request.eapiId DESC ")
 	public List<EverwellDetails> getAllOutboundCallsWithMobileNumber(
 			@Param("providerServiceMapId") Integer providerServiceMapId, @Param("PrimaryNumber") String PrimaryNumber);
+	
+	EverwellDetails findByEapiId(Long eapiId);
 }

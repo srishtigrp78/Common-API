@@ -24,12 +24,13 @@
  */
 package com.iemr.common.service.beneficiary;
 
-import javax.servlet.http.HttpServletRequest;
 
 import com.iemr.common.data.beneficiary.Beneficiary;
 import com.iemr.common.model.beneficiary.BeneficiaryModel;
 
 import com.iemr.common.utils.exception.IEMRException;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * @author WA875423

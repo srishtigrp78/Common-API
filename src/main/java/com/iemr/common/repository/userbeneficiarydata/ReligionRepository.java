@@ -37,4 +37,6 @@ public abstract interface ReligionRepository extends CrudRepository<Religion, In
 {
 	@Query("select religionID, religionType, religionDesc from Religion where deleted = false")
 	public abstract List<Objects[]> getActiveReligions();
+	
+	Religion findByReligionID(Integer religionID);
 }

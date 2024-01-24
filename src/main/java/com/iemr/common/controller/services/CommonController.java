@@ -38,8 +38,10 @@ import com.iemr.common.service.services.ServicesImpl;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+
+
 
 @RestController
 @RequestMapping(value = "/service")
@@ -48,10 +50,10 @@ public class CommonController {
 	final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get category")
+	@Operation(summary = "Get category")
 	@RequestMapping(value = "/category", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	// public Iterable<CategoryDetails> getCategories(){
-	public String getCategories(@ApiParam("{\"providerServiceMapID\":\"Integer\", "
+	public String getCategories(@Param("{\"providerServiceMapID\":\"Integer\", "
 			+ "\"subServiceID\":\"subServiceID\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		try {
@@ -63,9 +65,9 @@ public class CommonController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get sub categories")
+	@Operation(summary = "Get sub categories")
 	@RequestMapping(value = "/subcategory", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String getSubcategories(@ApiParam("{\"categoryID\":\"Integer\"}") @RequestBody String request) {
+	public String getSubcategories(@Param("{\"categoryID\":\"Integer\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		try {
 			response.setResponse(commonService.getSubCategories(request).toString());
@@ -77,9 +79,9 @@ public class CommonController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get sub category files")
+	@Operation(summary = "Get sub category files")
 	@RequestMapping(value = "/getSubCategoryFiles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String getSubCategoryFiles(@ApiParam("{\"categoryID\":\"Integer\", \"providerServiceMapID\":\"Integer\", "
+	public String getSubCategoryFiles(@Param("{\"categoryID\":\"Integer\", \"providerServiceMapID\":\"Integer\", "
 			+ "\"subCategoryID\":\"Integer\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		try {
@@ -92,10 +94,10 @@ public class CommonController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get sub category files with URL")
+	@Operation(summary = "Get sub category files with URL")
 	@RequestMapping(value = "/getSubCategoryFilesWithURL", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getSubCategoryFilesWithURL(
-			@ApiParam("{\"categoryID\":\"Integer\", \"providerServiceMapID\":\"Integer\", "
+			@Param("{\"categoryID\":\"Integer\", \"providerServiceMapID\":\"Integer\", "
 					+ "\"subCategoryID\":\"Integer\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		try {
@@ -108,10 +110,10 @@ public class CommonController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Category by id")
+	@Operation(summary = "Category by id")
 	@RequestMapping(value = "/categoryByID", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getcategoriesById(
-			@ApiParam(value = "\"{\\\"subServiceID\\\":\\\"String\\\",\\\"providerServiceMapID\\\":\\\"String\\\"}\"") @RequestBody String request) {
+			@Param(value = "\"{\\\"subServiceID\\\":\\\"String\\\",\\\"providerServiceMapID\\\":\\\"String\\\"}\"") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		try {
 			response.setResponse(commonService.getCategories(request).toString());
@@ -125,9 +127,9 @@ public class CommonController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Service types")
+	@Operation(summary = "Service types")
 	@RequestMapping(value = "/servicetypes", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String getservicetypes(@ApiParam("{\"providerServiceMapID\":\"Integer\"}") @RequestBody String request) {
+	public String getservicetypes(@Param("{\"providerServiceMapID\":\"Integer\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		try {
 			response.setResponse(commonService.getActiveServiceTypes(request).toString());
@@ -155,7 +157,7 @@ public class CommonController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Service list")
+	@Operation(summary = "Service list")
 	@RequestMapping(value = "/serviceList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String serviceList(@RequestBody String request) {
 		OutputResponse response = new OutputResponse();

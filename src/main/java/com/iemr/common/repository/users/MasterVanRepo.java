@@ -35,6 +35,6 @@ import com.iemr.common.data.users.MasterVan;
 @Repository
 @RestResource(exported = false)
 public interface MasterVanRepo extends CrudRepository<MasterVan, Integer> {
-	@Query("Select mv.vanID, mv.vehicalNo from MasterVan mv WHERE mv.deleted != 1 and mv.parkingPlaceID in :parkingPlaceList ")
+	@Query(value="Select mv.vanID, mv.vehicalNo from MasterVan mv WHERE mv.deleted != 1 and mv.parkingPlaceID in :parkingPlaceList ", nativeQuery = true)
 	public List<Object[]> getUserVanDatails(@Param("parkingPlaceList") Set<Integer> parkingPlaceList);
 }

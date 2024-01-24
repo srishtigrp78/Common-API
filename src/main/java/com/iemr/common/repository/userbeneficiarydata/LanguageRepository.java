@@ -39,4 +39,6 @@ public abstract interface LanguageRepository extends CrudRepository<Language, In
 	public abstract Set<Objects[]> findAciveLanguages();
 
 	public Language findLanguageByLanguageID(Integer languageID);
+	
+	Language findByLanguageID(Integer languageID);
 }

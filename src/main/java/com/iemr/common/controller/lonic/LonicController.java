@@ -35,8 +35,10 @@ import com.iemr.common.service.lonic.LonicService;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+
+
 
 @RequestMapping(value = "/lonic")
 @RestController
@@ -52,10 +54,10 @@ public class LonicController {
 	}
 
 	@CrossOrigin
-	@ApiOperation(value = "Get lonic record list", consumes = "application/json", produces = "application/json")
-	@RequestMapping(value = "/getlonicRecordList", method = RequestMethod.POST, headers = "Authorization")
+	@Operation(summary = "Get lonic record list")
+	@RequestMapping(value = "/getlonicRecordList", method = RequestMethod.POST, headers = "Authorization", consumes = "application/json", produces = "application/json")
 	public String getLonicRecordList(
-			@ApiParam("{\"term\":\"String\",\"pageNo\":\"Integer\"}") @RequestBody String request) {
+			@Param("{\"term\":\"String\",\"pageNo\":\"Integer\"}") @RequestBody String request) {
 		OutputResponse output = new OutputResponse();
 		try {
 

@@ -50,4 +50,6 @@ public interface LocationStateRepository extends CrudRepository<States, Integer>
 	// for everwell - fetching the langugae according to state.
 	@Query("select t.language from States t where t.stateName = :stateName ")
 	public String getStateLanguage(@Param("stateName") String stateName);
+	
+	States findByStateID(Integer stateID);
 }

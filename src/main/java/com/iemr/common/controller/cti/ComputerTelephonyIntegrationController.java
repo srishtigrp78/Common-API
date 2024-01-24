@@ -21,7 +21,7 @@
 */
 package com.iemr.common.controller.cti;
 
-import javax.servlet.http.HttpServletRequest;
+
 import javax.ws.rs.core.MediaType;
 
 import org.slf4j.Logger;
@@ -38,8 +38,9 @@ import com.iemr.common.service.cti.CTIService;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/cti")
@@ -55,10 +56,10 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get campaign skills")
+	@Operation(summary = "Get campaign skills")
 	@RequestMapping(value = "/getCampaignSkills", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getCampaignSkills(
-			@ApiParam("{\"campaign_name\":\"String: Name of the campaign\"}") @RequestBody String request,
+			@Param("{\"campaign_name\":\"String: Name of the campaign\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getCampaignSkills received a request " + request);
@@ -77,9 +78,9 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get agent state")
+	@Operation(summary = "Get agent state")
 	@RequestMapping(value = "/getAgentState", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String getAgentState(@ApiParam("{\"agent_id\":\"String: agent id\"}") @RequestBody String request,
+	public String getAgentState(@Param("{\"agent_id\":\"String: agent id\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getAgentState received a request " + request);
@@ -98,9 +99,9 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get agent call stats")
+	@Operation(summary = "Get agent call stats")
 	@RequestMapping(value = "/getAgentCallStats", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String getAgentCallStats(@ApiParam("{\"agent_id\":\"String: agent id\"}") @RequestBody String request,
+	public String getAgentCallStats(@Param("{\"agent_id\":\"String: agent id\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getAgentCallStats received a request " + request);
@@ -119,10 +120,10 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get campaign names")
+	@Operation(summary = "Get campaign names")
 	@RequestMapping(value = "/getCampaignNames", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getCampaignNames(
-			@ApiParam("{\"serviceName\":\"String: service name\", "
+			@Param("{\"serviceName\":\"String: service name\", "
 					+ "\"type\":\"String - inbound, outbound\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
@@ -142,10 +143,10 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get login key")
+	@Operation(summary = "Get login key")
 	@RequestMapping(value = "/getLoginKey", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getLoginKey(
-			@ApiParam("{\"username\":\"String: user name\", \"password\":\"String: password\"}") @RequestBody String request,
+			@Param("{\"username\":\"String: user name\", \"password\":\"String: password\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getLoginKey received a request " + request);
@@ -164,9 +165,9 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Do agent logout")
+	@Operation(summary = "Do agent logout")
 	@RequestMapping(value = "/doAgentLogout", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
-	public String doAgentLogout(@ApiParam("{\"agent_id\":\"String: agent id\"}") @RequestBody String request,
+	public String doAgentLogout(@Param("{\"agent_id\":\"String: agent id\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("agentLogout received a request " + request);
@@ -185,9 +186,9 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get online agents")
+	@Operation(summary = "Get online agents")
 	@RequestMapping(value = "/getOnlineAgents", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String getOnlineAgents(@ApiParam("{\"agent_id\":\"String: agent id\"}") @RequestBody String request,
+	public String getOnlineAgents(@Param("{\"agent_id\":\"String: agent id\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getOnlineAgents received a request " + request);
@@ -206,10 +207,10 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Call beneficiary")
+	@Operation(summary = "Call beneficiary")
 	@RequestMapping(value = "/callBeneficiary", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String callBeneficiary(
-			@ApiParam("{\"agent_id\":\"String: agent_id\", \"phone_num\":\"String - phone number\"}") @RequestBody String request,
+			@Param("{\"agent_id\":\"String: agent_id\", \"phone_num\":\"String - phone number\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("callBeneficiary received a request " + request);
@@ -228,10 +229,10 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Add update user data")
+	@Operation(summary = "Add update user data")
 	@RequestMapping(value = "/addUpdateUserData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String addUpdateUserData(
-			@ApiParam("{\"username\":\"String: username\", \"password\":\"String - password\", "
+			@Param("{\"username\":\"String: username\", \"password\":\"String - password\", "
 					+ "\"firstname\":\"String - firstname\", \"lastname\":\"String - lastname\", "
 					+ "\"phone\":\"String - phone\", \"email\":\"String - email\", \"role\":\"String - role\""
 					+ ", \"designation\":\"String - designation\"}") @RequestBody String request,
@@ -253,9 +254,9 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get transfer campaigns")
+	@Operation(summary = "Get transfer campaigns")
 	@RequestMapping(value = "/getTransferCampaigns", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String getTransferCampaigns(@ApiParam("{\"agent_id\":\"String: agentID\"}") @RequestBody String request,
+	public String getTransferCampaigns(@Param("{\"agent_id\":\"String: agentID\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getTransferCampaigns received a request " + request);
@@ -274,9 +275,9 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get campaign roles")
+	@Operation(summary = "Get campaign roles")
 	@RequestMapping(value = "/getCampaignRoles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String getCampaignRoles(@ApiParam("{\"campaign\":\"String: campaign name\"}") @RequestBody String request,
+	public String getCampaignRoles(@Param("{\"campaign\":\"String: campaign name\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getCampaignRoles received a request " + request);
@@ -295,10 +296,10 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Set call disposition")
+	@Operation(summary = "Set call disposition")
 	@RequestMapping(value = "/setCallDisposition", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String setCallDisposition(
-			@ApiParam("{\"agent_id\":\"String: agentID\", \"cust_disp\":\"String - call subtype\", "
+			@Param("{\"agent_id\":\"String: agentID\", \"cust_disp\":\"String - call subtype\", "
 					+ "\"category\":\"String: call type\", \"session_id\":\"String: unique call id from c-zentrix\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
@@ -318,10 +319,10 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Create voice file")
+	@Operation(summary = "Create voice file")
 	@RequestMapping(value = "/createVoiceFile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String createVoiceFile(
-			@ApiParam("{\"agent_id\":\"String: agentID\", "
+			@Param("{\"agent_id\":\"String: agentID\", "
 					+ "\"session_id\":\"String: unique call id from c-zentrix\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
@@ -341,10 +342,10 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get voice file")
+	@Operation(summary = "Get voice file")
 	@RequestMapping(value = "/getVoiceFile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getVoiceFile(
-			@ApiParam("{\"agent_id\":\"String: agentID\", "
+			@Param("{\"agent_id\":\"String: agentID\", "
 					+ "\"session_id\":\"String: unique call id from c-zentrix\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
@@ -364,9 +365,9 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Disconnect call")
+	@Operation(summary = "Disconnect call")
 	@RequestMapping(value = "/disconnectCall", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String disconnectCall(@ApiParam("{\"agent_id\":\"String: agentID\"}") @RequestBody String request,
+	public String disconnectCall(@Param("{\"agent_id\":\"String: agentID\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("disconnectCall received a request " + request);
@@ -385,9 +386,9 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Switch to inbound")
+	@Operation(summary = "Switch to inbound")
 	@RequestMapping(value = "/switchToInbound", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String switchToInbound(@ApiParam("{\"agent_id\":\"String: agentID\"}") @RequestBody String request,
+	public String switchToInbound(@Param("{\"agent_id\":\"String: agentID\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("disconnectCall received a request " + request);
@@ -406,9 +407,9 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Switch to outbound")
+	@Operation(summary = "Switch to outbound")
 	@RequestMapping(value = "/switchToOutbound", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String switchToOutbound(@ApiParam("{\"agent_id\":\"String: agentID\"}") @RequestBody String request,
+	public String switchToOutbound(@Param("{\"agent_id\":\"String: agentID\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("disconnectCall received a request " + request);
@@ -427,9 +428,9 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get agent IP address")
+	@Operation(summary = "Get agent IP address")
 	@RequestMapping(value = "/getAgentIPAddress", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String getAgentIPAddress(@ApiParam("{\"agent_id\":\"String: agentID\"}") @RequestBody String request,
+	public String getAgentIPAddress(@Param("{\"agent_id\":\"String: agentID\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getAgentIPAddress received a request " + request);
@@ -448,10 +449,10 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get available agent skills")
+	@Operation(summary = "Get available agent skills")
 	@RequestMapping(value = "/getAvailableAgentSkills", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getAvailableAgentSkills(
-			@ApiParam("{\"campaignName\":\"String: campaign name\", "
+			@Param("{\"campaignName\":\"String: campaign name\", "
 					+ "\"skill\":\"String: skill name\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
@@ -471,9 +472,9 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Transfer call")
+	@Operation(summary = "Transfer call")
 	@RequestMapping(value = "/transferCall", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String transferCall(@ApiParam("{\"transfer_from\":\"String - agent id who is transferring call\", "
+	public String transferCall(@Param("{\"transfer_from\":\"String - agent id who is transferring call\", "
 			+ "\"transfer_to\":\"String - agent ID who would be receiving call\", "
 			+ "\"transfer_campaign_info\": \"String - name of the campaign to which call will be transferred\", "
 			+ "\"skill_transfer_flag\":\"Integer - 0 for no skill or 1 for skill based\", "
@@ -497,10 +498,10 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Customer preferred language")
+	@Operation(summary = "Customer preferred language")
 	@RequestMapping(value = "/customerPreferredLanguage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String customerPreferredLanguage(
-			@ApiParam("{\"cust_ph_no\":\"phone number of customer\", "
+			@Param("{\"cust_ph_no\":\"phone number of customer\", "
 					+ "\"campaign_name\":\"campaign name for provider from provider service mapping\", "
 					+ "\"language\": \"String - language name selected by user\", "
 					+ "\"action\":\"String - select or update\"}") @RequestBody String request,
@@ -523,9 +524,9 @@ public class ComputerTelephonyIntegrationController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get IVRS path details")
+	@Operation(summary = "Get IVRS path details")
 	@RequestMapping(value = "/getIVRSPathDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String getIVRSPathDetails(@ApiParam("{\"agent_id\":\"Integer\"}") @RequestBody String request,
+	public String getIVRSPathDetails(@Param("{\"agent_id\":\"Integer\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
 		logger.info("getIVRSPathDetails received a request " + request);

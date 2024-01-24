@@ -257,7 +257,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	public List<FeedbackDetails> getFeedbackRequest(Long id) {
 
 		List<FeedbackDetails> feedbackList = new ArrayList<FeedbackDetails>();
-		ArrayList<Objects[]> lists = feedbackRepository.findByFeedbackID(id);
+		ArrayList<Objects[]> lists = feedbackRepository.findByFeedbackId(id);
 
 		for (Object[] objects : lists) {
 			if (objects != null && objects.length >= 8) {
@@ -305,7 +305,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 				feedback.setEmailStatusID(emailStatusID);
 			}
 		}
-		Iterable<FeedbackDetails> savedFeedbackResponse = feedbackRepository.save(Arrays.asList(feedbacks));
+		Iterable<FeedbackDetails> savedFeedbackResponse = feedbackRepository.saveAll(Arrays.asList(feedbacks));
 
 		/*
 		 * for (FeedbackDetails feedback : savedFeedbackResponse) { String requestID =
@@ -811,7 +811,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 						feedbackResponse.getFeedbackStatusID(), feedbackResponse.getEmailStatusID());
 			}
 		}
-		newFeedbackResponse = feedbackResponseRepository.findOne(newFeedbackResponse.getFeedbackResponseID());
+		newFeedbackResponse = feedbackResponseRepository.findByFeedbackResponseID(newFeedbackResponse.getFeedbackResponseID());
 		newFeedbackResponse.setAttachmentPath(getFilePath(newFeedbackResponse.getKmFileManager()));
 		return newFeedbackResponse.toString();
 	}

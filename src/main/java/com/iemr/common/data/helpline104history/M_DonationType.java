@@ -21,16 +21,16 @@
 */
 package com.iemr.common.data.helpline104history;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.utils.mapper.OutputMapper;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 
 @Entity

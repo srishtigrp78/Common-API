@@ -40,7 +40,7 @@ public abstract class DistrictBranchMapperDecorator implements DistrictBranchMap
 	
 	public DistrictBranchModel districtBranchToModelByID(Integer villageId){
 		DistrictBranchModel model = new DistrictBranchModel();
-		model = districtBranchToModel(districtBranchRepository.findOne(villageId));
+		model = districtBranchToModel(districtBranchRepository.findByDistrictBranchID(villageId));
 		return model;
 	}
 }

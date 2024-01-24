@@ -21,10 +21,7 @@
 */
 package com.iemr.common.data.beneficiary;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
@@ -40,6 +37,10 @@ import com.iemr.common.data.userbeneficiarydata.Language;
 import com.iemr.common.data.userbeneficiarydata.Religion;
 import com.iemr.common.utils.mapper.OutputMapper;
 
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Data

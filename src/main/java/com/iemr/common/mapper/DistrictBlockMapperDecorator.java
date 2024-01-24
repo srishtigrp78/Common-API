@@ -39,7 +39,7 @@ public abstract class DistrictBlockMapperDecorator implements DistrictBlockMappe
 	
 	public DistrictBlockModel districtBlockToModelByID(Integer blockID){
 		DistrictBlockModel result = new DistrictBlockModel();
-		result = districtBlockToModel(locationDistrictBlockRepository.findOne(blockID));
+		result = districtBlockToModel(locationDistrictBlockRepository.findByBlockID(blockID));
 		return result;
 	}
 }

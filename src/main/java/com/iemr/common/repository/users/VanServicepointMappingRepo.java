@@ -36,8 +36,8 @@ import com.iemr.common.data.users.VanServicepointMapping;
 @RestResource(exported = false)
 public interface VanServicepointMappingRepo extends CrudRepository<VanServicepointMapping, Integer> {
 
-	@Query("select s.servicePointID, s.servicePointName, v.vanSession "
+	@Query(value= "select s.servicePointID, s.servicePointName, v.vanSession "
 			+ " from VanServicepointMapping v inner join v.masterServicePoint s "
-			+ " where s.parkingPlaceID in :parkingPlaceList and v.deleted != 1 and s.deleted != 1 ")
+			+ " where s.parkingPlaceID in :parkingPlaceList and v.deleted != 1 and s.deleted != 1 ", nativeQuery = true)
 	public List<Object[]> getuserSpSessionDetails(@Param("parkingPlaceList") Set<Integer> parkingPlaceList);
 }

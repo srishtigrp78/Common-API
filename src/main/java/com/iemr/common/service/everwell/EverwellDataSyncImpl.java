@@ -181,7 +181,7 @@ public class EverwellDataSyncImpl implements EverwellDataSync {
 				}
 			}
 
-			ArrayList<EverwellFeedback> resulSet = (ArrayList<EverwellFeedback>) everwellFeedbackRepo.save(records);
+			ArrayList<EverwellFeedback> resulSet = (ArrayList<EverwellFeedback>) everwellFeedbackRepo.saveAll(records);
 
 			if (resulSet != null && resulSet.size() == records.size())
 				logger.info("Data Synced successfully. Date : " + new Timestamp(System.currentTimeMillis()));

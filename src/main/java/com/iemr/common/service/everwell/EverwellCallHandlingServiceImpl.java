@@ -385,7 +385,7 @@ public class EverwellCallHandlingServiceImpl implements EverwellCallHandlingServ
 				int updateCount = 0;
 				int updateCallCounter = 0;
 
-				EverwellDetails everwellCallStatus = everwellCallHandlingRepository.findOne(reqObj.getEapiId());
+				EverwellDetails everwellCallStatus = everwellCallHandlingRepository.findByEapiId(reqObj.getEapiId());
 
 				if (everwellCallStatus != null && everwellCallStatus.getEapiId() > 0) {
 					if (everwellCallStatus.getRetryNeeded()) {

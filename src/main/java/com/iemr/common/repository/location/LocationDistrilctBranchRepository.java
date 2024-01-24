@@ -44,4 +44,6 @@ public interface LocationDistrilctBranchRepository extends CrudRepository<Distri
 	@Query("select districtBranchID, villageName, panchayatName, habitat, pinCode from DistrictBranchMapping "
 			+ "where blockID = :id and deleted = false order by villageName asc")
 	public ArrayList<Objects[]> findAllBy(@Param("id") int id);
+	
+	DistrictBranchMapping findByDistrictBranchID(Integer villageId);
 }

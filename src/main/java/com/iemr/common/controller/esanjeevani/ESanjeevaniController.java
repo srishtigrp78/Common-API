@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.iemr.common.service.esanjeevani.ESanjeevaniService;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+
 
 @CrossOrigin
 @RestController
@@ -27,8 +28,8 @@ public class ESanjeevaniController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 	@CrossOrigin
-	@ApiOperation(value = "Register patient in E-Sanjeevani and send portal url to route", consumes = "application/json", produces = "application/json")
-	@RequestMapping(value = { "/getESanjeevaniUrl/{beneficiaryReqId}" }, method = { RequestMethod.GET })
+	@Operation(summary = "Register patient in E-Sanjeevani and send portal url to route")
+	@RequestMapping(value = { "/getESanjeevaniUrl/{beneficiaryReqId}" }, method = { RequestMethod.GET }, consumes = "application/json", produces = "application/json")
 	public String registerESanjeevaniPatient(@PathVariable Long beneficiaryReqId) {
 		OutputResponse response = new OutputResponse();
 		try {

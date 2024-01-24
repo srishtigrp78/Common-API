@@ -34,7 +34,7 @@ public abstract class IncomeStatusMapperDecorator implements IncomeStatusMapper
 	@Override
 	public BeneficiaryIncomeStatusModel incomeStatusByIDToModel(Integer incomeStatusID)
 	{
-		BeneficiaryIncomeStatusModel model = incomeStatusToModel(incomeStatusRepository.findOne(incomeStatusID));
+		BeneficiaryIncomeStatusModel model = incomeStatusToModel(incomeStatusRepository.findByIncomeStatusID(incomeStatusID));
 		return model;
 	}
 }

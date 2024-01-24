@@ -41,8 +41,10 @@ import com.iemr.common.service.institute.InstituteTypeService;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.lettuce.core.dynamic.annotation.Param;
+import io.swagger.v3.oas.annotations.Operation;
+
+
 
 @RequestMapping({ "/institute" })
 @RestController
@@ -74,7 +76,7 @@ public class InstituteController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get institutes by location")
+	@Operation(summary = "Get institutes by location")
 	@RequestMapping(value = "/getInstitutesByLocation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getInstitutesByLocation(@RequestBody String instituteRequest) {
 		JSONObject responseObj = new JSONObject();
@@ -95,7 +97,7 @@ public class InstituteController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get institute by branch")
+	@Operation(summary = "Get institute by branch")
 	@RequestMapping(value = {
 			"/getInstituteByBranch" }, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getInstituteByBranch(@RequestBody String instituteRequest) {
@@ -116,10 +118,10 @@ public class InstituteController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get institute type")
+	@Operation(summary = "Get institute type")
 	@RequestMapping(value = "/getInstituteTypes", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getInstituteTypes(
-			@ApiParam(value = "{\"providerServiceMapID\": \"Optional Integer\"}") @RequestBody String instituteTypeRequest) {
+			@Param(value = "{\"providerServiceMapID\": \"Optional Integer\"}") @RequestBody String instituteTypeRequest) {
 		OutputResponse response = new OutputResponse();
 		try {
 			logger.info("getInstituteTypes request " + instituteTypeRequest);
@@ -133,7 +135,7 @@ public class InstituteController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get institute name")
+	@Operation(summary = "Get institute name")
 	@RequestMapping(value = "/getInstituteName/{institutionTypeID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getInstituteName(@PathVariable("institutionTypeID") Integer institutionTypeID) {
 		OutputResponse response = new OutputResponse();
@@ -149,7 +151,7 @@ public class InstituteController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get designation")
+	@Operation(summary = "Get designation")
 	@RequestMapping(value = {
 			"/getDesignations" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getDesignations() {
@@ -166,7 +168,7 @@ public class InstituteController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get institute name by type and district")
+	@Operation(summary = "Get institute name by type and district")
 	@RequestMapping(value = "/getInstituteNameByTypeAndDistrict/{institutionTypeID}/{districtID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getInstituteNameByTypeAndDistrict(@PathVariable("institutionTypeID") Integer institutionTypeID,
 			@PathVariable("districtID") Integer districtID) {

@@ -26,14 +26,13 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Transient;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.dto.identity.BenFamilyDTO;
 import com.iemr.common.dto.identity.Phone;
 import com.iemr.common.utils.mapper.OutputMapper;
 
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Data

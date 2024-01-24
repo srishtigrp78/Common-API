@@ -53,7 +53,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -295,6 +294,12 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 		} else if (benCalls.getAgentIPAddress() == null) {
 			benCalls.setAgentIPAddress(agentIPAddress);
 		}
+		
+		if(benCalls.getCallTypeID() == null) {
+
+			benCalls.setCallTypeID(beneficiaryCallRepository.getCallTypeId());
+
+		}
 
 		if (benCalls.getCallTypeID() == null) {
 
@@ -302,15 +307,25 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 
 		}
 
-		if (benCalls.getCallTypeID() == null) {
-
-			benCalls.setCallTypeID(beneficiaryCallRepository.getCallTypeId());
-
-		}
-
+		// changes from null to new object, in controller obj.toString() is getting used
 		BeneficiaryCall savedCalls = new BeneficiaryCall();
 
-		
+		/// old code,06-07-2021, removing DB check for call id and introducing redis
+		/// check
+//		if (benCalls.getIsOutboundManualDial() != null && benCalls.getIsOutboundManualDial()) {
+//			if (benCalls.getCallID() != null) {
+//				BeneficiaryCall benCallDetails = beneficiaryCallRepository.getExistingCallId(benCalls.getCallID());
+//				if (benCallDetails != null && benCallDetails.getBenCallID() != null)
+//					throw new IEMRException("call ID already present in table");
+//				else
+//					savedCalls = beneficiaryCallRepository.save(benCalls);
+//
+//			}
+//		} else
+//			savedCalls = beneficiaryCallRepository.save(benCalls);
+		/// end old code
+
+		/// new code, 06-07-2021, NE298657
 		String key = null;
 		if (benCalls != null && benCalls.getCallID() != null && benCalls.getAgentID() != null) {
 			try {
@@ -324,13 +339,13 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 				} else {
 					ArrayList<BeneficiaryCall> resultSetBC = beneficiaryCallRepository
 							.getExistingBCByCallIDAndAgentID(benCalls.getCallID(), benCalls.getAgentID());
-					logger.info(
-							"start call query response for getExistingBCByCallIDAndAgentID - " + resultSetBC.size());
+					logger.info("start call query response for getExistingBCByCallIDAndAgentID - " + resultSetBC.size());					
 					if (resultSetBC != null && resultSetBC.size() > 0) {
 						savedCalls = resultSetBC.get(resultSetBC.size() - 1);
-						logger.info("Start call data if agent id is not equals to request agent id - " + savedCalls);
+					logger.info("Start call data if agent id is not equals to request agent id - " + savedCalls);
 					}
-
+//					else
+//						savedCalls = beneficiaryCallRepository.save(benCalls);
 				}
 			} catch (Exception e) {
 				if (e.getMessage().equalsIgnoreCase("Unable to fetch session object from Redis server")) {
@@ -343,9 +358,9 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 
 		} else {
 			logger.error("Error in saving start call data - call id is null");
-			throw new IEMRException("call id is null");
+		    throw new IEMRException("call id is null");
 		}
-		
+		/// end new code
 
 		return savedCalls;
 	}
@@ -356,7 +371,15 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 
 	@Override
 	public Integer closeCall(String request, String ipAddress) throws Exception {
-
+//		CallLogger callLogger = InputMapper.gson().fromJson(request, CallLogger.class);
+//		if (callLogger != null)
+//		{
+//			callLogger.setRequestOBJ(request);
+//			callLogger.setAPIName("call/closeCall");
+//			callLoggerRepo.save(callLogger);
+//		}
+//		else
+//			logger.info("create request is invalid for call");
 
 		Integer updateCounts = 0;
 		BeneficiaryCall benificiaryCall = inputMapper.gson().fromJson(request, BeneficiaryCall.class);
@@ -374,12 +397,13 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 				benificiaryCall.setInstName(sb.substring(0, sb.length() - 2));
 		}
 
-		
+		// logger.info("Closing call for benCallID "+benificiaryCall.getBenCallID()
+		// +"for request object "+ request);
 		updateCounts = beneficiaryCallRepository.closeCall(benificiaryCall.getBenCallID(), benificiaryCall.getRemarks(),
 				new Timestamp(Calendar.getInstance().getTimeInMillis()), benificiaryCall.getCallClosureType(),
 				benificiaryCall.getCallTypeID(), benificiaryCall.getDispositionStatusID(),
 				benificiaryCall.getEmergencyType(), benificiaryCall.getExternalReferral(),
-				benificiaryCall.getInstTypeId(), benificiaryCall.getInstName(), benificiaryCall.getIsOutbound());
+				benificiaryCall.getInstTypeId(), benificiaryCall.getInstName());
 
 		if (benificiaryCall.getBeneficiaryRegID() != null)
 			beneficiaryCallRepository.updateBeneficiaryRegIDInCall(benificiaryCall.getBenCallID(),
@@ -393,7 +417,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 		}
 		if (benificiaryCall.getEndCall()) {
 			// Below code is added to update call ended by user ID
-			BeneficiaryCall benificiaryCallAtClose = beneficiaryCallRepository.findByBenCallID(benificiaryCall.getBenCallID());
+			BeneficiaryCall benificiaryCallAtClose = beneficiaryCallRepository.findOne(benificiaryCall.getBenCallID());
 			logger.info("Updated close call for "
 					+ beneficiaryCallRepository.updateBeneficiaryCallEndedByUserID(
 							benificiaryCallAtClose.getCallReceivedUserID(), benificiaryCallAtClose.getCallID())
@@ -432,7 +456,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 				new Timestamp(Calendar.getInstance().getTimeInMillis()), benificiaryCall.getCallClosureType(),
 				benificiaryCall.getCallTypeID(), benificiaryCall.getDispositionStatusID(),
 				benificiaryCall.getEmergencyType(), benificiaryCall.getExternalReferral(),
-				benificiaryCall.getInstTypeId(), benificiaryCall.getInstName(), benificiaryCall.getIsOutbound());
+				benificiaryCall.getInstTypeId(), benificiaryCall.getInstName());
 		if (followupRequired.isFollowupRequired) {
 			OutboundCallRequest outboundCallRequest = inputMapper.gson().fromJson(request, OutboundCallRequest.class);
 			outboundCallRequestRepository.save(outboundCallRequest);
@@ -499,7 +523,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 							? (callToClose.getIsFeedback() ? FEEDBACK_DISCONNECT : DISCONNECT_ONLY)
 							: DISCONNECT_ONLY);
 			ctiService.disconnectCall(request.toString(), callToClose.getAgentIPAddress());
-			BeneficiaryCall callToClose1 = beneficiaryCallRepository.findByBenCallID(callToClose.getBenCallID());
+			BeneficiaryCall callToClose1 = beneficiaryCallRepository.findOne(callToClose.getBenCallID());
 			// 17-08-2020, new API shared by C-zentrix to create file and share path in 1
 			// API
 			// updateFileRecordingsPath(callToClose1.getCallID(),
@@ -644,10 +668,10 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 		}
 		if (result.size() > 0) {
 			for (PhoneBlock blockedNumber : blockedNumbers) {
-				Pageable pageable = PageRequest.of(0, blockedNumber.getNoOfNuisanceCall());
 				List<BeneficiaryCall> invalidCalls = beneficiaryCallRepository.getCallHistoryByCallID(
 						blockedNumber.getPhoneNo(), blockedNumber.getProviderServiceMapID(),
-						result.get(blockedNumber.getProviderServiceMapID()), pageable);
+						result.get(blockedNumber.getProviderServiceMapID()),
+						new PageRequest(0, blockedNumber.getNoOfNuisanceCall()));
 				String callIDs = null;
 				for (BeneficiaryCall beneficiaryCall : invalidCalls) {
 					if (callIDs == null) {
@@ -1340,7 +1364,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 		OutputResponse response = new OutputResponse();
 		OutputResponse blockResponse;
 		PhoneBlock phoneBlockRequest = inputMapper.gson().fromJson(request, PhoneBlock.class);
-		PhoneBlock phoneBlock = phoneBlockRepository.findByPhoneBlockID(phoneBlockRequest.getPhoneBlockID());
+		PhoneBlock phoneBlock = phoneBlockRepository.findOne(phoneBlockRequest.getPhoneBlockID());
 		Calendar cal = Calendar.getInstance();
 		Timestamp blockStartDate = new Timestamp(cal.getTimeInMillis());
 		cal.add(Calendar.SECOND, ConfigProperties.getInteger("block-duration-days") * SECONDS_IN_DAY);
@@ -1364,7 +1388,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 		OutputResponse unblockResponse = new OutputResponse();
 		String response = "failure";
 		PhoneBlock phoneBlockRequest = inputMapper.gson().fromJson(request, PhoneBlock.class);
-		PhoneBlock phoneBlock = phoneBlockRepository.findByPhoneBlockID(phoneBlockRequest.getPhoneBlockID());
+		PhoneBlock phoneBlock = phoneBlockRepository.findOne(phoneBlockRequest.getPhoneBlockID());
 		unblockResponse = blockUnblockPhoneNoInCTI(phoneBlock.getProviderServiceMapping().getCtiCampaignName(),
 				phoneBlock.getPhoneNo(), false);
 		if (unblockResponse.isSuccess()) {
@@ -1401,7 +1425,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 		OutboundCallRequest callRequest = inputMapper.gson().fromJson(request, OutboundCallRequest.class);
 		int updateCount = 0;
 		OutboundCallRequest outBoundCallDetails = outboundCallRequestRepository
-				.findByOutboundCallReqID(callRequest.getOutboundCallReqID());
+				.findOne(callRequest.getOutboundCallReqID());
 		// if (ConfigProperties.getInteger("max_retry_count") != 0)
 		// {
 		// max_retry_count = ConfigProperties.getInteger("max_retry_count");

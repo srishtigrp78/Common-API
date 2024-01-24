@@ -35,7 +35,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.iemr.common.service.lungassessment.LungAssessmentService;
 import com.iemr.common.utils.response.OutputResponse;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+
 
 @RequestMapping(value = "/lungAssessment")
 @RestController
@@ -47,7 +48,7 @@ public class LungAssessmentController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 	@CrossOrigin()
-	@ApiOperation(value = "Start assesment")
+	@Operation(summary = "Start assesment")
 	@RequestMapping(value = "/startAssesment", method = RequestMethod.POST, headers = "Authorization")
 	public String startAssesment(@RequestParam("file") MultipartFile file, @RequestParam("request") String request) {
 		OutputResponse output = new OutputResponse();
@@ -65,7 +66,7 @@ public class LungAssessmentController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get assesment")
+	@Operation(summary = "Get assesment")
 	@RequestMapping(value = "/getAssesment/{assessmentId}", method = RequestMethod.GET, headers = "Authorization")
 	public String getAssessment(@PathVariable("assessmentId") String assessmentId) {
 		OutputResponse output = new OutputResponse();
@@ -83,7 +84,7 @@ public class LungAssessmentController {
 	}
 
 	@CrossOrigin()
-	@ApiOperation(value = "Get assesment details")
+	@Operation(summary = "Get assesment details")
 	@RequestMapping(value = "/getAssesmentDetails/{patientId}", method = RequestMethod.GET, headers = "Authorization")
 	public String getAssessmentDetails(@PathVariable("patientId") Long patientId) {
 		OutputResponse output = new OutputResponse();

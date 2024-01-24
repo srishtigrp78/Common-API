@@ -146,7 +146,7 @@ public class NHM_DashboardServiceImpl implements NHM_DashboardService {
 	public String saveAgentSummaryReport(List<AgentSummaryReport> agentSummaryReportList) throws IEMRException {
 
 		List<AgentSummaryReport> resultSet = (List<AgentSummaryReport>) agentSummaryReportRepo
-				.save(agentSummaryReportList);
+				.saveAll(agentSummaryReportList);
 
 		return resultSet.size() + " agentSummaryReport records saved successfully";
 	}
@@ -191,7 +191,7 @@ public class NHM_DashboardServiceImpl implements NHM_DashboardService {
 			}
 
 			List<DetailedCallReport> resultSet = (List<DetailedCallReport>) detailedCallReportRepo
-					.save(detailedCallReportList);
+					.saveAll(detailedCallReportList);
 
 			return resultSet.size() + " detailedCallReport records saved successfully";
 		} else
