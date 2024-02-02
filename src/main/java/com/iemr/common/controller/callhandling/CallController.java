@@ -126,6 +126,7 @@ public class CallController {
 			if (remoteAddress == null || remoteAddress.trim().length() == 0) {
 				remoteAddress = fromRequest.getRemoteAddr();
 			}
+			logger.info("Start Call req Obj - " + request);
 			BeneficiaryCall startedCall = beneficiaryCallService.createCall(request, remoteAddress);
 			response.setResponse(startedCall.toString());
 		} catch (Exception e) {
@@ -174,6 +175,7 @@ public class CallController {
 					+ "\"agentIPAddress\":\"Optional String - agent IP address\", "
 					+ "\"agentID\":\"Optional String - agentID\", \"isSelf\":\"Optional boolean\", "
 					+ "\"isFeedback\":\"optional Boolean true if IVRS feedback to be taken\", "
+					+ "\"IsOutbound\":\"Optional Boolean - for checking outboundcall status\", "
 					+ "\"isTransfered\":\"Boolean - transfer call or not\"" + "}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();

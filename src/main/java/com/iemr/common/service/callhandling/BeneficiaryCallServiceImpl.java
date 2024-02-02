@@ -333,12 +333,17 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 				String agentID = s.getSessionObject(key);
 				if (!agentID.equalsIgnoreCase(benCalls.getAgentID())) {
 					s.setSessionObject(key, benCalls.getAgentID());
+					logger.info("Start call data to be saved in DB - " + benCalls);
 					savedCalls = beneficiaryCallRepository.save(benCalls);
+					logger.info("Start call data response after saving DB - " + savedCalls);
 				} else {
 					ArrayList<BeneficiaryCall> resultSetBC = beneficiaryCallRepository
 							.getExistingBCByCallIDAndAgentID(benCalls.getCallID(), benCalls.getAgentID());
-					if (resultSetBC != null && resultSetBC.size() > 0)
+					logger.info("start call query response for getExistingBCByCallIDAndAgentID - " + resultSetBC.size());					
+					if (resultSetBC != null && resultSetBC.size() > 0) {
 						savedCalls = resultSetBC.get(resultSetBC.size() - 1);
+					logger.info("Start call data if agent id is not equals to request agent id - " + savedCalls);
+					}
 //					else
 //						savedCalls = beneficiaryCallRepository.save(benCalls);
 				}
@@ -351,8 +356,10 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 					throw new IEMRException("unable to create ben_call_id : " + e.getMessage());
 			}
 
-		} else
-			throw new IEMRException("call id is null");
+		} else {
+			logger.error("Error in saving start call data - call id is null");
+		    throw new IEMRException("call id is null");
+		}
 		/// end new code
 
 		return savedCalls;
@@ -396,7 +403,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 				new Timestamp(Calendar.getInstance().getTimeInMillis()), benificiaryCall.getCallClosureType(),
 				benificiaryCall.getCallTypeID(), benificiaryCall.getDispositionStatusID(),
 				benificiaryCall.getEmergencyType(), benificiaryCall.getExternalReferral(),
-				benificiaryCall.getInstTypeId(), benificiaryCall.getInstName());
+				benificiaryCall.getInstTypeId(), benificiaryCall.getInstName(),benificiaryCall.getIsOutbound());
 
 		if (benificiaryCall.getBeneficiaryRegID() != null)
 			beneficiaryCallRepository.updateBeneficiaryRegIDInCall(benificiaryCall.getBenCallID(),
@@ -449,7 +456,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 				new Timestamp(Calendar.getInstance().getTimeInMillis()), benificiaryCall.getCallClosureType(),
 				benificiaryCall.getCallTypeID(), benificiaryCall.getDispositionStatusID(),
 				benificiaryCall.getEmergencyType(), benificiaryCall.getExternalReferral(),
-				benificiaryCall.getInstTypeId(), benificiaryCall.getInstName());
+				benificiaryCall.getInstTypeId(), benificiaryCall.getInstName(),benificiaryCall.getIsOutbound());
 		if (followupRequired.isFollowupRequired) {
 			OutboundCallRequest outboundCallRequest = inputMapper.gson().fromJson(request, OutboundCallRequest.class);
 			outboundCallRequestRepository.save(outboundCallRequest);
