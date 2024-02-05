@@ -24,20 +24,17 @@ package com.iemr.common.repository.notification;
 import java.util.Objects;
 import java.util.Set;
 
-//import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.iemr.common.data.notification.NotificationType;
 
 @Repository
-@RestResource(exported = false)
 public interface NotificationTypeRepository extends CrudRepository<NotificationType, Long>
 {
 	@Transactional

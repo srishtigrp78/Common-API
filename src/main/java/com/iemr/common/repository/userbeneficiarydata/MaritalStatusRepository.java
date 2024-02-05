@@ -27,13 +27,11 @@ import java.util.Set;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 
 import com.iemr.common.data.userbeneficiarydata.MaritalStatus;
 
 @Repository
-@RestResource(exported = false)
 public abstract interface MaritalStatusRepository extends CrudRepository<MaritalStatus, Integer>
 {
 	@Query("select maritalStatusID, status from MaritalStatus where deleted = false order by status asc")

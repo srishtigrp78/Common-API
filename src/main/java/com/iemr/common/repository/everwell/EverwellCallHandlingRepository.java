@@ -30,13 +30,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.iemr.common.data.everwell.EverwellDetails;
 
 @Repository
-@RestResource(exported = false)
 public interface EverwellCallHandlingRepository extends CrudRepository<EverwellDetails, Long> {
 
 	@Query("select request.preferredLanguageName, count(distinct request.beneficiaryRegId) "

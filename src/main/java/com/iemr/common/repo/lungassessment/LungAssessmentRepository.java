@@ -24,13 +24,11 @@ package com.iemr.common.repo.lungassessment;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 
 import com.iemr.common.data.lungassessment.LungAssessment;
 
 @Repository
-@RestResource(exported = false)
 public interface LungAssessmentRepository extends CrudRepository<LungAssessment, Long> {
 	public List<LungAssessment> findByAssessmentId(String assessmentId);
 

@@ -8,12 +8,10 @@ import java.util.Map;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 
 import com.iemr.common.data.door_to_door_app.V_doortodooruserdetails;
 @Repository
-@RestResource(exported = false)
 public interface ESanjeevaniRepo extends CrudRepository<V_doortodooruserdetails, Integer>{
 	
 	@Query(nativeQuery = true, value = "SELECT BenDetailsId AS benDetailsId, BenAddressId AS benAddressId,  BenContactsId AS benContactsId  FROM db_identity.i_beneficiarymapping WHERE BenRegId = :benRegID")

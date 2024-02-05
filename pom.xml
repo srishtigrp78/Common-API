@@ -56,6 +56,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -75,19 +81,26 @@
 			</exclusions>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-rest</artifactId>
-		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.json</artifactId>
+					<groupId>json</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 
 
-
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>33.0.0-jre</version>
+		</dependency>
 
 
 
@@ -131,13 +144,10 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
+			<version>2.16.1</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>21.0</version>
-		</dependency>
+
 
 
 		<dependency>
@@ -161,11 +171,21 @@
 			<artifactId>quartz-jobs</artifactId>
 		</dependency>
 
-		
+
 		<dependency>
 			<groupId>com.openkm</groupId>
 			<artifactId>sdk4j</artifactId>
 			<version>1.0</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>com.sun.jersey.contribs</artifactId>
+					<groupId>jersey-multipart</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-io</artifactId>
+					<groupId>commons-io</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -203,12 +223,7 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.7</version>
-		</dependency>
+
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -248,7 +263,7 @@
 			<artifactId>spring-plugin-core</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-		
+
 
 		<!-- end newly added dependencies -->
 
@@ -274,7 +289,7 @@
 
 
 
-		
+
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -301,6 +316,24 @@
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>5.0.0</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.apache.xmlgraphics</artifactId>
+					<groupId>batik-all</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>org.bouncycastle</artifactId>
+					<groupId>bcpkix-jdk15on</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>org.bouncycastle</artifactId>
+					<groupId>bcprov-jdk15on</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>org.apache.poi</artifactId>
+					<groupId>poi</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>

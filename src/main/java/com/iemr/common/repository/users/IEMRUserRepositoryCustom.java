@@ -27,7 +27,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,7 +34,6 @@ import com.iemr.common.data.users.User;
 import com.iemr.common.data.users.UserSecurityQMapping;
 
 @Repository
-@RestResource(exported = false)
 public interface IEMRUserRepositoryCustom extends CrudRepository<User, Long> {
 	/* Status ID is set as 1 for new and 2 for active */
 	@Query("SELECT u FROM User u WHERE LOWER(u.userName) = LOWER(:userName) and "

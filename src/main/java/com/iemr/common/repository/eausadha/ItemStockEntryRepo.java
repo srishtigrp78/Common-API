@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 
 import com.iemr.common.data.eausadha.ItemStockEntry;
@@ -13,7 +12,6 @@ import com.iemr.common.data.eausadha.ItemStockEntry;
 import jakarta.transaction.Transactional;
 
 @Repository
-@RestResource(exported = false)
 public interface ItemStockEntryRepo extends CrudRepository<ItemStockEntry, Integer> {
 	
 	@Query(nativeQuery = true, value = " SELECT * FROM db_iemr.t_itemstockentry "
