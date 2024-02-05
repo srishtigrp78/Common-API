@@ -30,13 +30,11 @@ import java.util.Set;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 
 import com.iemr.common.data.kmfilemanager.KMFileManager;
 
 @Repository
-@RestResource(exported = false)
 public interface KMFileManagerRepository extends CrudRepository<KMFileManager, Long>
 {
 	@Query("update KMFileManager " + "set fileUID = :fileUID, fileName = :fileName, fileExtension = :fileExtension, "

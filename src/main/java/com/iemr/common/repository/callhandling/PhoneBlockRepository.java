@@ -30,7 +30,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +37,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.iemr.common.data.callhandling.PhoneBlock;
 
 @Repository
-@RestResource(exported = false)
 public interface PhoneBlockRepository extends CrudRepository<PhoneBlock, Long> {
 	@Query("select phoneBlock.phoneBlockID, phoneBlock.phoneNo, phoneBlock.providerServiceMapID, "
 			+ "phoneBlock.noOfNuisanceCall, phoneBlock.isBlocked, phoneBlock.ctiCampaignName, "

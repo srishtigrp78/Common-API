@@ -28,14 +28,12 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.iemr.common.data.door_to_door_app.V_doortodooruserdetails;
 
 @Repository
-@RestResource(exported = false)
 public interface V_doortodooruserdetailsRepo extends CrudRepository<V_doortodooruserdetails, Integer> {
 
 	public ArrayList<V_doortodooruserdetails> findByUserID(Integer userID);

@@ -29,7 +29,6 @@ import java.util.Objects;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 
 import com.iemr.common.data.callhandling.CallType;
@@ -40,7 +39,6 @@ import com.iemr.common.data.report.ReportType;
 import com.iemr.common.data.report.UnBlockedPhoneReport;
 
 @Repository
-@RestResource(exported = false)
 public interface CRMCallReportRepo extends CrudRepository<CallDetailsReport, Integer> {
 	@Query("select r from CallDetailsReport r where r.callStartTime >= :startDate and r.callStartTime <= :endDate "
 			+ "and r.providerServiceMapID = :providerServiceMapID ")

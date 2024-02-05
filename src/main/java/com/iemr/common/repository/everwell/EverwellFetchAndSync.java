@@ -23,18 +23,15 @@ package com.iemr.common.repository.everwell;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 
 import com.iemr.common.data.everwell.EverwellDetails;
 
 @Repository
-@RestResource(exported = false)
 public interface EverwellFetchAndSync  extends CrudRepository<EverwellDetails, Long> {
 	
 	@Query("select  req from EverwellDetails req  where req.dateOfAction >= :previous and req.dateOfAction <= :current "

@@ -32,7 +32,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 // import javax.transaction.Transactional;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +39,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.iemr.common.data.callhandling.BeneficiaryCall;
 
 @Repository
-@RestResource(exported = false)
 public interface BeneficiaryCallRepository extends CrudRepository<BeneficiaryCall, Long> {
 	// 29-10-2020 shubham and Neeraj
 	// @Transactional(propagation = Propagation.REQUIRES_NEW)
