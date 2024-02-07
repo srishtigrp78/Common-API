@@ -61,6 +61,10 @@
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-logging</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
@@ -68,6 +72,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -78,6 +88,7 @@
 					<groupId>org.apache.tomcat.embed</groupId>
 					<artifactId>tomcat-embed-websocket</artifactId>
 				</exclusion>
+				
 			</exclusions>
 		</dependency>
 
@@ -101,6 +112,12 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>33.0.0-jre</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.json</artifactId>
+					<groupId>json</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 
@@ -118,11 +135,7 @@
 
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-		</dependency>
-
+		
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.0-api</artifactId>
@@ -147,6 +160,12 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.16.1</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.json</artifactId>
+					<groupId>json</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 
@@ -188,6 +207,10 @@
 					<artifactId>commons-io</artifactId>
 					<groupId>commons-io</groupId>
 				</exclusion>
+				<exclusion>
+					<artifactId>net.sf.dozer</artifactId>
+					<groupId>dozer</groupId>
+				</exclusion>
 			</exclusions>
 
 		</dependency>
@@ -218,22 +241,17 @@
 
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jdbc -->
-		<dependency>
+		
+		
 
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-jdbc</artifactId>
 
-		</dependency>
+		
 
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.3.0</version>
-		</dependency>
+		
 
 		<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jdbc -->
 		<dependency>
+
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jdbc</artifactId>
 		</dependency>
@@ -254,15 +272,8 @@
 		</dependency>
 
 
-		<!-- Actuator -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
 
-		</dependency>
-
-
-		<!-- Actuator -->
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
@@ -290,6 +301,11 @@
 			<artifactId>spring-plugin-core</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.4</version>
+		</dependency>
 
 
 		<!-- end newly added dependencies -->
@@ -316,6 +332,7 @@
 
 
 
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -333,6 +350,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.apache.poi</artifactId>
+					<groupId>poi-ooxml</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!-- <scope>runtime</scope> -->
 		<!-- Excel -->
@@ -340,7 +363,10 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>5.0.0</version>
+
+			<version>5.2.5</version>
+
+
 
 			<exclusions>
 				<exclusion>
@@ -359,14 +385,22 @@
 					<artifactId>org.apache.poi</artifactId>
 					<groupId>poi</groupId>
 				</exclusion>
+				<exclusion>
+					<artifactId>org.apache.santuario</artifactId>
+					<groupId>xmlsec</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>org.apache.commons</artifactId>
+					<groupId>commons-compress</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-io</artifactId>
+					<groupId>commons-io</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>5.0.0</version>
-		</dependency>
+
 
 	</dependencies>
 
@@ -390,6 +424,7 @@
 					<target>17</target>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
