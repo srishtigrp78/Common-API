@@ -34,7 +34,7 @@ import com.iemr.common.data.beneficiary.BeneficiaryOccupation;
 public interface BeneficiaryOccupationRepository extends CrudRepository<BeneficiaryOccupation, Long> {
 	@Query("select occupationID, occupationType from BeneficiaryOccupation where deleted = false "
 			+ "order by occupationType asc")
-	Set<Objects[]> getActiveOccupations();
+	Set<Object[]> getActiveOccupations();
 	
 	BeneficiaryOccupation findByOccupationID(Long occupationID);
 

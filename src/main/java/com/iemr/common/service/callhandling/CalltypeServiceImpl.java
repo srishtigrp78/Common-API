@@ -55,7 +55,7 @@ public class CalltypeServiceImpl implements CalltypeService
 	{
 		CallType provider = inputMapper.gson().fromJson(request, CallType.class);
 		List<CallType> callTypes = new ArrayList<CallType>();
-		Set<Objects[]> callTypesArray = new HashSet<Objects[]>();
+		Set<Object[]> callTypesArray = new HashSet<Object[]>();
 		if (provider.getIsInbound() != null && provider.getIsOutbound() != null)
 		{
 			callTypesArray = iEMRCalltypeRepositoryImplCustom.getCallTypes(provider.getProviderServiceMapID(),
@@ -82,7 +82,7 @@ public class CalltypeServiceImpl implements CalltypeService
 	{
 		CallType provider = inputMapper.gson().fromJson(request, CallType.class);
 		JSONArray callGroupTypes = new JSONArray();
-		Set<Objects[]> callTypesArray = new HashSet<Objects[]>();
+		Set<Object[]> callTypesArray = new HashSet<Object[]>();
 		if (provider.getIsInbound() != null && provider.getIsOutbound() != null)
 		{
 			callTypesArray = iEMRCalltypeRepositoryImplCustom.getCallTypes(provider.getProviderServiceMapID(),

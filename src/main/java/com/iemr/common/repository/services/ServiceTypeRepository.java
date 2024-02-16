@@ -37,5 +37,5 @@ public interface ServiceTypeRepository extends CrudRepository<SubService, Intege
 
 	@Query("select subServiceID, subServiceName, subServiceDesc, deleted from SubService where "
 			+ "providerServiceMapID = :providerServiceMapID")
-	public ArrayList<Objects[]> findActiveServiceTypes(@Param("providerServiceMapID") Integer providerServiceMapID);
+	public ArrayList<Object[]> findActiveServiceTypes(@Param("providerServiceMapID") Integer providerServiceMapID);
 }

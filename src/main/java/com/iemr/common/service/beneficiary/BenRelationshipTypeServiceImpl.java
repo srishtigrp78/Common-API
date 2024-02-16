@@ -45,7 +45,7 @@ public class BenRelationshipTypeServiceImpl implements BenRelationshipTypeServic
 	@Override
 	public List<BenRelationshipType> getActiveRelationshipTypes() {
 		List<BenRelationshipType> benRelationshipTypes = new ArrayList<BenRelationshipType>();
-		Set<Objects[]> resultSet = beneficiaryRelationshipTypeRepository.getActiveRelationships();
+		Set<Object[]> resultSet = beneficiaryRelationshipTypeRepository.getActiveRelationships();
 		for (Object[] object : resultSet) {
 			if (object != null && object.length >= 2) {
 				benRelationshipTypes.add(new BenRelationshipType((Integer) object[0], (String) object[1], false));

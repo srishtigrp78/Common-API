@@ -37,7 +37,7 @@ public interface FeedbackStatusRepository extends CrudRepository<FeedbackStatus,
 	@Query("select feedbackStatusID, feedbackStatus, feedbackStatusDesc from FeedbackStatus "
 			+ "where deleted=false and providerServiceMapID is null "
 			+ "order by feedbackStatus asc")
-	public ArrayList<Objects[]> findAllFeedbackStatus();
+	public ArrayList<Object[]> findAllFeedbackStatus();
 
 	@Query("select feedbackStatusID from FeedbackStatus where deleted=false and providerServiceMapID is null "
 			+ "and feedbackStatus='New' order by feedbackStatus asc")

@@ -35,7 +35,7 @@ import com.iemr.common.data.userbeneficiarydata.Community;
 public abstract interface CommunityRepository extends CrudRepository<Community, Integer>
 {
 	@Query("select communityID, communityType from Community where deleted = false order by communityType asc")
-	public abstract Set<Objects[]> findAciveCommunities();
+	public abstract Set<Object[]> findAciveCommunities();
 
 	@Query("select community from Community community where community.deleted = false and "
 			+ "community.communityID = :communityID order by communityType asc")

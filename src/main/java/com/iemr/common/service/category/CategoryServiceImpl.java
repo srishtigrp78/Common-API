@@ -53,7 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public List<CategoryDetails> getAllCategories(String request) throws Exception {
 		CategoryDetails categoryDetails = inputMapper.gson().fromJson(request, CategoryDetails.class);
 		List<CategoryDetails> categoryList = new ArrayList<CategoryDetails>();
-		// ArrayList<Objects[]> lists =
+		// ArrayList<Object[]> lists =
 		// categoryRepository.getAllCategories(categoryDetails.getSubServiceID());
 		// for (Object[] objects : lists)
 		// {
@@ -80,7 +80,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<CategoryDetails> getAllCategories() {
 		List<CategoryDetails> categoryList = new ArrayList<CategoryDetails>();
-		// ArrayList<Objects[]> lists = categoryRepository.findBy();
+		// ArrayList<Object[]> lists = categoryRepository.findBy();
 		//
 		// for (Object[] objects : lists)
 		// {

@@ -35,12 +35,12 @@ import com.iemr.common.data.location.Districts;
 public interface LocationDistrictRepository extends CrudRepository<Districts, Integer> {
 
 	@Query("select districtID, districtName from Districts where stateID = :id order by districtName asc")
-	public ArrayList<Objects[]> findBy(@Param("id") int id);
+	public ArrayList<Object[]> findBy(@Param("id") int id);
 	
 	@Query("select D.districtID, D.districtName, S.stateName, S.stateID "
 			+ "from Districts D, States S "
 			+ "where D.districtID = :id and S.stateID = D.stateID order by D.districtName asc")
-	public ArrayList<Objects[]> findStateDistrictBy(@Param("id") int id);
+	public ArrayList<Object[]> findStateDistrictBy(@Param("id") int id);
 	
 	//for everwell districtID
 	

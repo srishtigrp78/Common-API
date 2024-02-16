@@ -46,7 +46,7 @@ public interface PhoneBlockRepository extends CrudRepository<PhoneBlock, Long> {
 			+ "or (phoneBlock.blockEndDate >= :startDate and phoneBlock.blockEndDate <= :endDate )) "
 			+ "and phoneBlock.isBlocked in :blockedList and phoneBlock.phoneNo like :phoneNo "
 			+ "and phoneBlock.noOfNuisanceCall > 0 order by phoneBlock.noOfNuisanceCall desc")
-	Set<Objects[]> getPhoneBlockListByServiceProviderMapID(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getPhoneBlockListByServiceProviderMapID(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate,
 			@Param("phoneNo") String phoneNo, @Param("blockedList") List<Boolean> blockedList);
 
@@ -57,7 +57,7 @@ public interface PhoneBlockRepository extends CrudRepository<PhoneBlock, Long> {
 			+ "where phoneBlock.providerServiceMapID = :providerServiceMapID "
 			+ "and phoneBlock.isBlocked in :blockedList and phoneBlock.phoneNo like :phoneNo "
 			+ "and phoneBlock.noOfNuisanceCall > 0 order by phoneBlock.noOfNuisanceCall desc")
-	Set<Objects[]> getPhoneBlockListByServiceProviderMapID(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getPhoneBlockListByServiceProviderMapID(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("phoneNo") String phoneNo, @Param("blockedList") List<Boolean> blockedList);
 
 	@Query("select phoneBlock from PhoneBlock phoneBlock "
@@ -72,7 +72,7 @@ public interface PhoneBlockRepository extends CrudRepository<PhoneBlock, Long> {
 			+ "where  phoneBlock.blockEndDate <= :endDate and phoneBlock.isBlocked=true ")
 	// + "and phoneBlock.noOfNuisanceCall > 0 order by phoneBlock.noOfNuisanceCall
 	// desc")
-	Set<Objects[]> getPhoneBlockList(@Param("endDate") Timestamp endDate);
+	Set<Object[]> getPhoneBlockList(@Param("endDate") Timestamp endDate);
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Modifying

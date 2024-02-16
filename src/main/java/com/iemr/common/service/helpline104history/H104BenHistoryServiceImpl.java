@@ -42,7 +42,7 @@ public class H104BenHistoryServiceImpl implements H104BenHistoryService
 	private Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
 	@Override
-	public ArrayList<Objects[]> geSmpleBenHistory(Long beneficiaryId)
+	public ArrayList<Object[]> geSmpleBenHistory(Long beneficiaryId)
 	{
 
 		return smpleBenHistoryRepositoryRepository.getBenHistory(beneficiaryId);

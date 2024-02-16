@@ -36,7 +36,7 @@ public interface LocationStateRepository extends CrudRepository<States, Integer>
 {
 
 	@Query("select stateID, stateName from States where countryID = :id order by stateName asc")
-	public ArrayList<Objects[]> findBy(@Param("id") int id);
+	public ArrayList<Object[]> findBy(@Param("id") int id);
 	
 	@Query("select state from States state where state.stateID = :id")
 	public States findByStateID(@Param("id") int id);

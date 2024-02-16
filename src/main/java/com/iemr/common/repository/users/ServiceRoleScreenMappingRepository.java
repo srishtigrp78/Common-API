@@ -50,7 +50,7 @@ public interface ServiceRoleScreenMappingRepository extends CrudRepository<Servi
 			+ "where m.providerServiceMapID = :providerServiceMapID and m.roleID = :roleID and m.deleted = false "
 			+ "order by m.srsMappingID")
 
-	List<Objects[]> getActiveScreenMappings(@Param("providerServiceMapID") Integer providerServiceMapID,
+	List<Object[]> getActiveScreenMappings(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("roleID") Integer roleID);
 
 	@Query("select m.srsMappingID, m.screenID, m.screen, m.providerServiceMapID, "
@@ -60,14 +60,14 @@ public interface ServiceRoleScreenMappingRepository extends CrudRepository<Servi
 			+ "where m.providerServiceMapID = :providerServiceMapID  and m.deleted = false "
 			+ "order by m.srsMappingID")
 
-	List<Objects[]> getActiveScreenMappingsForProvider(@Param("providerServiceMapID") Integer providerServiceMapID);
+	List<Object[]> getActiveScreenMappingsForProvider(@Param("providerServiceMapID") Integer providerServiceMapID);
 
 	@Query("select m.srsMappingID, m.screenID, m.screen, m.deleted, m.createdBy "
 			+ "from ServiceRoleScreenMapping m left join m.screen ms left join m.role mr "
 			+ "where m.providerServiceMapID = :providerServiceMapID and m.roleID = :roleID and m.deleted = false "
 			+ "order by m.srsMappingID")
 
-	List<Objects[]> getRoleScreenMappings(@Param("providerServiceMapID") Integer providerServiceMapID,
+	List<Object[]> getRoleScreenMappings(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("roleID") Integer roleID);
 
 }

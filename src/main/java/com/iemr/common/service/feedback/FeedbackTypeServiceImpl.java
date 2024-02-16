@@ -48,7 +48,7 @@ public class FeedbackTypeServiceImpl implements FeedbackTypeService
 	public List<FeedbackType> getActiveFeedbackTypes()
 	{
 		List<FeedbackType> feedbackTypeList = new ArrayList<FeedbackType>();
-		Set<Objects[]> feedbackTypeResult = feedbackRepositorty.findActiveFeedbackTypes();
+		Set<Object[]> feedbackTypeResult = feedbackRepositorty.findActiveFeedbackTypes();
 		for (Object[] feedbackType : feedbackTypeResult)
 		{
 			if (feedbackType != null && feedbackType.length >= 2)

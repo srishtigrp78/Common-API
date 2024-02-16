@@ -45,7 +45,7 @@ public interface InstituteTypeRepository extends CrudRepository<InstituteType, L
 	// @Query("select institutionID, institutionName from Institute where "
 	// + "Deleted = false and districtBranchMappingID = :districtBranchMappingID and "
 	// + "districtID = :districtID and stateID = :stateID order by institutionName asc")
-	// public abstract Set<Objects[]> findAciveInstitutesByStateDistBlockID(@Param("stateID") int stateID,
+	// public abstract Set<Object[]> findAciveInstitutesByStateDistBlockID(@Param("stateID") int stateID,
 	// @Param("districtID") int districtID, @Param("districtBranchMappingID") int districtBranchMappingID);
 }
 

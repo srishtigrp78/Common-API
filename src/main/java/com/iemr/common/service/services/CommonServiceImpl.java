@@ -87,7 +87,7 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public Iterable<CategoryDetails> getCategories() {
 		List<CategoryDetails> categoriesList = new ArrayList<CategoryDetails>();
-		// ArrayList<Objects[]> lists = categoryRepository.findBy();
+		// ArrayList<Object[]> lists = categoryRepository.findBy();
 		// for (Object[] objects : lists)
 		// {
 		// if (objects != null && objects.length > 1)
@@ -105,7 +105,7 @@ public class CommonServiceImpl implements CommonService {
 	public Iterable<SubCategoryDetails> getSubCategories(String request) throws IEMRException {
 		SubCategoryDetails subCategoryDetails = inputMapper.gson().fromJson(request, SubCategoryDetails.class);
 		List<SubCategoryDetails> subCategoriesList = new ArrayList<SubCategoryDetails>();
-		ArrayList<Objects[]> lists = subCategoryRepository.findByCategoryID(subCategoryDetails.getCategoryID());
+		ArrayList<Object[]> lists = subCategoryRepository.findByCategoryID(subCategoryDetails.getCategoryID());
 		for (Object[] objects : lists) {
 			if (objects != null && objects.length > 1) {
 				String SubCatFilePath = (String) objects[2];
@@ -113,7 +113,7 @@ public class CommonServiceImpl implements CommonService {
 				String fileNameWithExtension = null;
 				if(SubCatFilePath!=null) {
 				fileUIDAsURI=getFilePath(SubCatFilePath);
-				List<Objects[]> fileNameList = kmFileManagerRepository.getFileNameByUID(SubCatFilePath);
+				List<Object[]> fileNameList = kmFileManagerRepository.getFileNameByUID(SubCatFilePath);
 				Object[] fileobjects = fileNameList.get(0);
 				fileNameWithExtension= (String)fileobjects[0]+ (String) fileobjects[1];
 				}
@@ -199,7 +199,7 @@ public class CommonServiceImpl implements CommonService {
 	public Iterable<CategoryDetails> getCategories(String request) throws IEMRException {
 		CategoryDetails categoryRequest = inputMapper.gson().fromJson(request, CategoryDetails.class);
 		List<CategoryDetails> categoriesList = new ArrayList<CategoryDetails>();
-		// ArrayList<Objects[]> lists =
+		// ArrayList<Object[]> lists =
 		// categoryRepository.getAllCategories(categoryRequest.getSubServiceID(),
 		// categoryRequest.getProviderServiceMapID());
 		// for (Object[] objects : lists)
@@ -225,7 +225,7 @@ public class CommonServiceImpl implements CommonService {
 	public Iterable<SubService> getActiveServiceTypes(String request) throws IEMRException {
 		SubService subServiceRequest = inputMapper.gson().fromJson(request, SubService.class);
 		List<SubService> subServices = new ArrayList<SubService>();
-		ArrayList<Objects[]> lists = serviceTypeRepository
+		ArrayList<Object[]> lists = serviceTypeRepository
 				.findActiveServiceTypes(subServiceRequest.getProviderServiceMapID());
 		for (Object[] objects : lists) {
 			if (objects != null && objects.length >= 4) {

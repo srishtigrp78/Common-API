@@ -37,7 +37,7 @@ public interface FeedbackSeverityRepository extends CrudRepository<FeedbackSever
 {
 	@Query("select severityID, severityTypeName from FeedbackSeverity where deleted = false "
 			+ "order by severityTypeName asc")
-	Set<Objects[]> getActiveFeedbackSeverity();
+	Set<Object[]> getActiveFeedbackSeverity();
 
 	@Query("select new FeedbackSeverity(severityID, severityTypeName) from FeedbackSeverity where "
 			+ "providerServiceMapID = :providerServiceMapID and deleted = false order by severityTypeName asc")

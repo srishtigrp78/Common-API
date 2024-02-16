@@ -42,11 +42,11 @@ public interface FeedbackRepository extends CrudRepository<FeedbackDetails, Long
 
 	@Query("select feedbackID, severityID, feedbackTypeID, feedbackStatusID, feedback, createdBy, feedbackAgainst "
 			+ "from FeedbackDetails where beneficiaryRegID = :id order by feedbackID desc")
-	public ArrayList<Objects[]> findByBeneficiaryID(@Param("id") Long id);
+	public ArrayList<Object[]> findByBeneficiaryID(@Param("id") Long id);
 
 	@Query("select feedbackID, severityID, feedbackTypeID, feedbackStatusID, feedback, createdBy, serviceAvailDate, "
 			+ "feedbackAgainst from FeedbackDetails where feedbackID = :id order by feedbackID desc")
-	public ArrayList<Objects[]> findByFeedbackId(@Param("id") Long id);
+	public ArrayList<Object[]> findByFeedbackId(@Param("id") Long id);
 
 	@Query("SELECT tf.feedbackID, tf.institutionID, tf.designationID, tf.severityID, "
 			+ "tf.feedbackStatusID, tf.feedback, tf.serviceID, tf.userID, tf.sMSPhoneNo, "
@@ -169,7 +169,7 @@ public interface FeedbackRepository extends CrudRepository<FeedbackDetails, Long
 	// + "and feedback.createdDate >= :startDate and feedback.createdDate <=
 	// :endDate "
 	// + "ORDER by feedback.feedbackID desc")
-	// List<Objects[]> getFeedbacksList(
+	// List<Object[]> getFeedbacksList(
 	// @Param("serviceID") Integer serviceID, @Param("startDate") Timestamp
 	// startDate,
 	// @Param("endDate") Timestamp endDate);
@@ -212,7 +212,7 @@ public interface FeedbackRepository extends CrudRepository<FeedbackDetails, Long
 	// :serviceID and "
 	// + "feedback.beneficiaryRegID = :beneficiaryRegID and feedback.deleted=false "
 	// + "ORDER by feedback.feedbackID desc")
-	// List<Objects[]> getFeedbacksListForBeneficiary(@Param("serviceID") Integer
+	// List<Object[]> getFeedbacksListForBeneficiary(@Param("serviceID") Integer
 	// serviceID,
 	// @Param("beneficiaryRegID") Long beneficiaryRegID);
 
@@ -253,7 +253,7 @@ public interface FeedbackRepository extends CrudRepository<FeedbackDetails, Long
 	// :serviceID and "
 	// + "feedback.feedbackID = :feedbackID and feedback.deleted=false " + "ORDER by
 	// feedback.feedbackID desc")
-	// List<Objects[]> getFeedbacksList(@Param("serviceID") Integer serviceID,
+	// List<Object[]> getFeedbacksList(@Param("serviceID") Integer serviceID,
 	// @Param("feedbackID") Long feedbackID);
 
 	@Query("SELECT feedback FROM FeedbackDetails feedback " + "where feedback.requestID = :requestID and "

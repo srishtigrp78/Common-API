@@ -39,13 +39,13 @@ public abstract interface InstituteRepository extends CrudRepository<Institute, 
 	@Query(value= "select institutionID, institutionName from Institute where "
 			+ "Deleted = false and districtBranchMappingID = :districtBranchMappingID "
 			+ "order by institutionName asc", nativeQuery = true)
-	public abstract Set<Objects[]>
+	public abstract Set<Object[]>
 			findAciveInstitutesByBranchID(@Param("districtBranchMappingID") int districtBranchMappingID);
 
 	@Query(value="select institutionID, institutionName from Institute where "
 			+ "Deleted = false and districtBranchMappingID = :districtBranchMappingID and "
 			+ "districtID = :districtID and stateID = :stateID order by institutionName asc", nativeQuery = true)
-	public abstract Set<Objects[]> findAciveInstitutesByStateDistBlockID(@Param("stateID") int stateID,
+	public abstract Set<Object[]> findAciveInstitutesByStateDistBlockID(@Param("stateID") int stateID,
 			@Param("districtID") int districtID, @Param("districtBranchMappingID") int districtBranchMappingID);
 	
 	@Query(value="select institutionID, institutionName from Institute where instituteTypeId =:institutionTypeId", nativeQuery = true)

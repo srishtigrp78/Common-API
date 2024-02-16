@@ -47,7 +47,7 @@ public class InstituteServiceImpl implements InstituteService {
 	@Override
 	public List<Institute> getInstitutesByStateDistrictBranch(Integer stateID, Integer districtID, Integer districtBranchID) {
 		ArrayList<Institute> institutes = new ArrayList<Institute>();
-		Set<Objects[]> instituteResult = instituteRepository.findAciveInstitutesByStateDistBlockID(stateID, districtID,
+		Set<Object[]> instituteResult = instituteRepository.findAciveInstitutesByStateDistBlockID(stateID, districtID,
 				districtBranchID);
 		for (Object[] objects : instituteResult) {
 			if (objects != null && objects.length == 2) {
@@ -61,7 +61,7 @@ public class InstituteServiceImpl implements InstituteService {
 	@Override
 	public List<Institute> getInstitutesByBranch(Integer districtBranchID) {
 		ArrayList<Institute> institutes = new ArrayList<Institute>();
-		Set<Objects[]> instituteResult = instituteRepository.findAciveInstitutesByBranchID(districtBranchID);
+		Set<Object[]> instituteResult = instituteRepository.findAciveInstitutesByBranchID(districtBranchID);
 		for (Object[] objects : instituteResult) {
 			if (objects != null && objects.length == 2) {
 				institutes.add(new Institute((Integer) objects[0], (String) objects[1]));

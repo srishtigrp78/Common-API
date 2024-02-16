@@ -463,7 +463,7 @@ public class IEMRAdminUserServiceImpl implements IEMRAdminUserService {
 			List<UserServiceRoleMapping> userRoles = new ArrayList<UserServiceRoleMapping>();
 			User userDetails = iEMRUserRepositoryCustom.findUserByUserID(userID);
 			if (userDetails.getUserID() != null) {
-				Set<Objects[]> resultSet = userRoleMappingRepository.getUserRoleMappingForUser(userID);
+				Set<Object[]> resultSet = userRoleMappingRepository.getUserRoleMappingForUser(userID);
 				for (Object[] object : resultSet) {
 					if (object != null && object.length >= 11) {
 						UserServiceRoleMapping userServiceRoleMapping = UserServiceRoleMapping
@@ -645,7 +645,7 @@ public class IEMRAdminUserServiceImpl implements IEMRAdminUserService {
 	public ArrayList<LoginSecurityQuestions> getAllLoginSecurityQuestions() {
 
 		ArrayList<LoginSecurityQuestions> result = new ArrayList<LoginSecurityQuestions>();
-		ArrayList<Objects[]> lists = iEMRUserLoginSecurityRepository.getAllLoginSecurityQuestions();
+		ArrayList<Object[]> lists = iEMRUserLoginSecurityRepository.getAllLoginSecurityQuestions();
 		for (Object[] objects : lists) {
 			if (objects != null && objects.length > 0) {
 				LoginSecurityQuestions question = new LoginSecurityQuestions();
@@ -658,7 +658,7 @@ public class IEMRAdminUserServiceImpl implements IEMRAdminUserService {
 
 	private List<UserServiceRoleMapping> getUserServiceRoleMapping(Long userID) throws IEMRException {
 		List<UserServiceRoleMapping> userServiceRoleMappings = new ArrayList<UserServiceRoleMapping>();
-		Set<Objects[]> resultSet = userRoleMappingRepository.getUserRoleMappingForUser(userID);
+		Set<Object[]> resultSet = userRoleMappingRepository.getUserRoleMappingForUser(userID);
 		if (resultSet.size() == 0) {
 			throw new IEMRException("Contact Administrator as either provider or user or both are inactive");
 		}
@@ -681,7 +681,7 @@ public class IEMRAdminUserServiceImpl implements IEMRAdminUserService {
 
 	private List<ServiceRoleScreenMapping> getActiveScreenMappings(Integer serviceProviderMapID, Integer roleID) {
 		List<ServiceRoleScreenMapping> screenMappings = new ArrayList<ServiceRoleScreenMapping>();
-		List<Objects[]> resultSet = serviceRoleScreenMappingRepository.getActiveScreenMappings(serviceProviderMapID,
+		List<Object[]> resultSet = serviceRoleScreenMappingRepository.getActiveScreenMappings(serviceProviderMapID,
 				roleID);
 		for (Object[] objects : resultSet) {
 			ServiceRoleScreenMapping screenMapping = new ServiceRoleScreenMapping();
@@ -696,7 +696,7 @@ public class IEMRAdminUserServiceImpl implements IEMRAdminUserService {
 			throws IEMRException {
 
 		List<ServiceRoleScreenMapping> screenMappings = new ArrayList<ServiceRoleScreenMapping>();
-		List<Objects[]> resultSet = serviceRoleScreenMappingRepository
+		List<Object[]> resultSet = serviceRoleScreenMappingRepository
 				.getActiveScreenMappingsForProvider(providerServiceMapID);
 		for (Object[] objects : resultSet) {
 			ServiceRoleScreenMapping screenMapping = new ServiceRoleScreenMapping();
@@ -717,7 +717,7 @@ public class IEMRAdminUserServiceImpl implements IEMRAdminUserService {
 		// ArrayList<Role> rolesList = new ArrayList<Role>();
 		ArrayList<RoleFeatureOutputModel> rolesList = new ArrayList<RoleFeatureOutputModel>();
 		UserServiceRoleMapping userRoles = InputMapper.gson().fromJson(request, UserServiceRoleMapping.class);
-		Set<Objects[]> resultSet = userRoleMappingRepository
+		Set<Object[]> resultSet = userRoleMappingRepository
 				.getRolesByProviderServiceMapID(userRoles.getProviderServiceMapID());
 		for (Object[] roleObj : resultSet) {
 			if (roleObj != null && roleObj.length >= 2) {
@@ -734,7 +734,7 @@ public class IEMRAdminUserServiceImpl implements IEMRAdminUserService {
 
 	private List<ServiceRoleScreenMapping> getRoleScreenMapping(Integer providerServiceMapID, Integer roleID) {
 		List<ServiceRoleScreenMapping> screenMappings = new ArrayList<ServiceRoleScreenMapping>();
-		List<Objects[]> resultSet = serviceRoleScreenMappingRepository.getRoleScreenMappings(providerServiceMapID,
+		List<Object[]> resultSet = serviceRoleScreenMappingRepository.getRoleScreenMappings(providerServiceMapID,
 				roleID);
 		if (resultSet != null && resultSet.size() > 0) {
 			for (Object[] objects : resultSet) {
@@ -919,7 +919,7 @@ public class IEMRAdminUserServiceImpl implements IEMRAdminUserService {
 	public String getLocationsByProviderID(String request) throws Exception {
 		ArrayList<ProviderServiceAddressMapping> rolesList = new ArrayList<ProviderServiceAddressMapping>();
 		UserServiceRoleMapping userRoles = InputMapper.gson().fromJson(request, UserServiceRoleMapping.class);
-		Set<Objects[]> resultSet = null;
+		Set<Object[]> resultSet = null;
 		if (userRoles.getRoleID() != null) {
 			resultSet = userRoleMappingRepository.getLocationsByProviderID(userRoles.getProviderServiceMapID(),
 					userRoles.getRoleID());

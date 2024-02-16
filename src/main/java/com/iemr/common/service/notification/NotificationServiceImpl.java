@@ -124,7 +124,7 @@ public class NotificationServiceImpl implements NotificationService
 		List<Integer> userIDs = notificationRequest.getUserIDs();
 		List<Integer> languageIDs = notificationRequest.getLanguageIDs();
 		List<Integer> workLocationIDs = notificationRequest.getWorkingLocationIDs();
-		Set<Objects[]> resultSet = null;
+		Set<Object[]> resultSet = null;
 		if (userIDs != null)
 		{
 			resultSet = notificationRepository.getUserNotifications(providerServiceMapID, notificationTypeID,
@@ -169,7 +169,7 @@ public class NotificationServiceImpl implements NotificationService
 	{
 		ArrayList<Notification> notifications = new ArrayList<Notification>();
 		Notification notificationRequest = inputMapper.gson().fromJson(request, Notification.class);
-		Set<Objects[]> resultSet = null;
+		Set<Object[]> resultSet = null;
 		Calendar cal = Calendar.getInstance();
 		Timestamp validStartDate = new Timestamp(cal.getTimeInMillis());
 		cal.add(Calendar.DATE, 7);
@@ -344,9 +344,9 @@ public class NotificationServiceImpl implements NotificationService
 	{
 		ArrayList<NotificationType> notificationTypes = new ArrayList<NotificationType>();
 		NotificationType notificationType = inputMapper.gson().fromJson(request, NotificationType.class);
-		// Set<Objects[]> resultSet = notificationTypeRepository
+		// Set<Object[]> resultSet = notificationTypeRepository
 		// .getNotificationTypes(notificationType.getProviderServiceMapID());
-		Set<Objects[]> resultSet = notificationTypeRepository.getNotificationTypes();
+		Set<Object[]> resultSet = notificationTypeRepository.getNotificationTypes();
 		for (Object[] notificationTypeObjs : resultSet)
 		{
 			if (notificationTypeObjs != null && notificationTypeObjs.length >= 4)
@@ -408,7 +408,7 @@ public class NotificationServiceImpl implements NotificationService
 		Integer notificationTypeID = emergencyContactRequest.getNotificationTypeID();
 		// emergencyContacts = emergencyContactsRepository.getEmergencyContacts(providerServiceMapID,
 		// notificationTypeID);
-		Set<Objects[]> resultSet = null;
+		Set<Object[]> resultSet = null;
 
 		resultSet = emergencyContactsRepository.getEmergencyContacts(providerServiceMapID, notificationTypeID);
 		for (Object[] emergencyContact : resultSet)
@@ -437,7 +437,7 @@ public class NotificationServiceImpl implements NotificationService
 		Integer notificationTypeID = emergencyContactRequest.getNotificationTypeID();
 		// emergencyContacts = emergencyContactsRepository.getSupervisorEmergencyContacts(providerServiceMapID,
 		// notificationTypeID);
-		Set<Objects[]> resultSet = null;
+		Set<Object[]> resultSet = null;
 
 		resultSet =
 				emergencyContactsRepository.getSupervisorEmergencyContacts(providerServiceMapID, notificationTypeID);

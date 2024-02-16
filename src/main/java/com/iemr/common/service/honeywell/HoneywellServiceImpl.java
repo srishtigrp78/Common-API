@@ -68,7 +68,7 @@ public class HoneywellServiceImpl implements HoneywellService {
 		// Integer
 		// totalCalls=crmCallReportRepository.totalCallsCount(call.getStartDate(),call.getEndDate());
 		Integer totalCalls = 0;
-		List<Objects[]> callQuality = null;
+		List<Object[]> callQuality = null;
 		JSONArray responseArray = new JSONArray();
 		Integer count = 0;
 		double p = 0.0;
@@ -151,7 +151,7 @@ public class HoneywellServiceImpl implements HoneywellService {
 		// Integer
 		// totalCalls=crmCallReportRepository.totalCallsCount(call.getStartDate(),call.getEndDate());
 		Integer totalCalls = 0;
-		List<Objects[]> callQuality = null;
+		List<Object[]> callQuality = null;
 		JSONArray responseArray = new JSONArray();
 		Integer count = 0;
 		double p = 0.0;
@@ -239,7 +239,7 @@ public class HoneywellServiceImpl implements HoneywellService {
 			call = InputMapper.gson().fromJson(request, CallQualityReport.class);
 
 //			Integer totalCalls = 0;
-			List<Objects[]> callQuality = null;
+			List<Object[]> callQuality = null;
 //
 //			JSONArray responseArray = new JSONArray();
 //			Integer count = 0;

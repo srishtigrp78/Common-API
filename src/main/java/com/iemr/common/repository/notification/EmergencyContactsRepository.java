@@ -79,7 +79,7 @@ public interface EmergencyContactsRepository extends CrudRepository<EmergencyCon
 			+ "join contacts.providerServiceMapping provider join contacts.notificationType notificationType "
 			+ "join contacts.designation designation where contacts.providerServiceMapID = :providerServiceMapID and "
 			+ "contacts.notificationTypeID = :notificationTypeID and contacts.deleted = false")
-	Set<Objects[]> getEmergencyContacts(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getEmergencyContacts(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("notificationTypeID") Integer notificationTypeID);
 
 	@Query("select contacts.emergContactID, contacts.designationID, contacts.emergContactName, "
@@ -89,7 +89,7 @@ public interface EmergencyContactsRepository extends CrudRepository<EmergencyCon
 			+ "join contacts.providerServiceMapping provider join contacts.notificationType notificationType "
 			+ "join contacts.designation designation where contacts.providerServiceMapID = :providerServiceMapID and "
 			+ "contacts.notificationTypeID = :notificationTypeID")
-	Set<Objects[]> getSupervisorEmergencyContacts(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getSupervisorEmergencyContacts(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("notificationTypeID") Integer notificationTypeID);
 
 }

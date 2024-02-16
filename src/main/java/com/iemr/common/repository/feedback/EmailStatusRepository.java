@@ -36,7 +36,7 @@ public interface EmailStatusRepository extends CrudRepository<EmailStatus, Long>
 
 	@Query("select emailStatusID, emailStatus, emailStatusDesc from EmailStatus where deleted=false "
 			+ "order by emailStatus asc")
-	public ArrayList<Objects[]> findAllEmailStatus();
+	public ArrayList<Object[]> findAllEmailStatus();
 
 	@Query("select emailStatusID from EmailStatus where deleted=false and emailStatus='New' "
 			+ "order by emailStatus asc")

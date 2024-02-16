@@ -43,24 +43,24 @@ public interface UserRoleMappingRepository extends CrudRepository<UserServiceRol
 			+ "and sp.deleted = false and psm.statusID in (1,2) "
 			+ "and sp.validTill > current_timestamp() and sp.validFrom < current_timestamp() "
 			+ "order by map.USRMappingID ")
-	Set<Objects[]> getUserRoleMappingForUser(@Param("UserID") Long UserID);
+	Set<Object[]> getUserRoleMappingForUser(@Param("UserID") Long UserID);
 
 	@Query("select map.RoleID, map.m_Role from UserServiceRoleMapping map join map.m_Role "
 			+ "where map.Deleted = false and map.providerServiceMapID = :providerServiceMapID group by map.RoleID "
 			+ "order by map.RoleID ")
-	Set<Objects[]> getRolesByProviderServiceMapID(@Param("providerServiceMapID") Integer providerServiceMapID);
+	Set<Object[]> getRolesByProviderServiceMapID(@Param("providerServiceMapID") Integer providerServiceMapID);
 
 	@Query("select distinct map.workingLocationID, map.providerServiceAddressMapping "
 			+ "from UserServiceRoleMapping map join map.providerServiceAddressMapping "
 			+ "where map.Deleted = false and map.providerServiceMapID = :providerServiceMapID "
 			+ "group by map.workingLocationID order by map.workingLocationID")
-	Set<Objects[]> getLocationsByProviderID(@Param("providerServiceMapID") Integer providerServiceMapID);
+	Set<Object[]> getLocationsByProviderID(@Param("providerServiceMapID") Integer providerServiceMapID);
 
 	@Query("select distinct map.workingLocationID, map.providerServiceAddressMapping "
 			+ "from UserServiceRoleMapping map join map.providerServiceAddressMapping "
 			+ "where map.Deleted = false and map.providerServiceMapID = :providerServiceMapID and "
 			+ "map.RoleID = :RoleID group by map.workingLocationID order by map.workingLocationID")
-	Set<Objects[]> getLocationsByProviderID(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getLocationsByProviderID(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("RoleID") Integer RoleID);
 
 	@Query("select distinct UserID from UserServiceRoleMapping where Deleted = false and "

@@ -68,7 +68,7 @@ public class SchemeServiceImpl implements SchemeService {
 	@Override
 	public List<Scheme> getSchemeList(Integer providerServiceMapID) throws Exception {
 		List<Scheme> schemeList = new ArrayList<Scheme>();
-		List<Objects[]> schemes = schemeRepository.getschemeList(providerServiceMapID);
+		List<Object[]> schemes = schemeRepository.getschemeList(providerServiceMapID);
 
 		for (Object[] objects : schemes) {
 			if (objects != null && objects.length > 0) {

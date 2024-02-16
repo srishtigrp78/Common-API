@@ -55,28 +55,28 @@ public interface IEMRCalltypeRepositoryImplCustom extends CrudRepository<CallTyp
 	@Query("select callType, callTypeID, callTypeDesc, callGroupType, fitToBlock, fitForFollowUp, "
 			+ "isInbound, isOutbound from CallType "
 			+ "where deleted=false and providerServiceMapID = :providerServiceMapID order by callType asc")
-	Set<Objects[]> getCallTypes(@Param("providerServiceMapID") Integer providerServiceMapID);
+	Set<Object[]> getCallTypes(@Param("providerServiceMapID") Integer providerServiceMapID);
 
 	@Query("select callType, callTypeID, callTypeDesc, callGroupType, fitToBlock, fitForFollowUp, "
 			+ "isInbound, isOutbound from CallType "
 			+ "where deleted=false and providerServiceMapID = :providerServiceMapID and "
 			+ "(isInbound is null or isInbound = :isInbound )and "
 			+ "(isOutbound is null or isOutbound = :isOutbound) order by callType asc")
-	Set<Objects[]> getCallTypes(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getCallTypes(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("isInbound") Boolean isInbound, @Param("isOutbound") Boolean isOutbound);
 
 	@Query("select callType, callTypeID, callTypeDesc, callGroupType, fitToBlock, fitForFollowUp, "
 			+ "isInbound, isOutbound from CallType "
 			+ "where deleted=false and providerServiceMapID = :providerServiceMapID and "
 			+ "(isInbound is null or isInbound = :isInbound ) order by callType asc")
-	Set<Objects[]> getInboundCallTypes(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getInboundCallTypes(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("isInbound") Boolean isInbound);
 
 	@Query("select callType, callTypeID, callTypeDesc, callGroupType, fitToBlock, fitForFollowUp, "
 			+ "isInbound, isOutbound from CallType "
 			+ "where deleted=false and providerServiceMapID = :providerServiceMapID and "
 			+ "(isOutbound is null or isOutbound = :isOutbound) order by callType asc")
-	Set<Objects[]> getOutboundCallTypes(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getOutboundCallTypes(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("isOutbound") Boolean isOutbound);
 
 	@Query("select maxRedial from CallType where callTypeID = :callTypeID")

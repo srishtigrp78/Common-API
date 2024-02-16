@@ -35,7 +35,7 @@ import com.iemr.common.data.userbeneficiarydata.MaritalStatus;
 public abstract interface MaritalStatusRepository extends CrudRepository<MaritalStatus, Integer>
 {
 	@Query("select maritalStatusID, status from MaritalStatus where deleted = false order by status asc")
-	public abstract Set<Objects[]> findAciveMaritalStatus();
+	public abstract Set<Object[]> findAciveMaritalStatus();
 
 	@Query("select maritalStatus from MaritalStatus maritalStatus where maritalStatus.deleted = false "
 			+ "and maritalStatus.maritalStatusID = :maritalStatusID order by status asc")

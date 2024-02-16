@@ -48,7 +48,7 @@ public class GovtIdentityTypeServiceImpl implements GovtIdentityTypeService
 	public List<GovtIdentityType> getActiveIDTypes()
 	{
 		List<GovtIdentityType> govtIdentityTypes = new ArrayList<GovtIdentityType>();
-		Set<Objects[]> resultSet = govtIdentityTypeRepository.getActiveIDTypes();
+		Set<Object[]> resultSet = govtIdentityTypeRepository.getActiveIDTypes();
 		for (Object[] object : resultSet)
 		{
 			if (object != null && object.length >= 3)

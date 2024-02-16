@@ -94,7 +94,7 @@ public class KMFileManagerServiceImpl implements KMFileManagerService {
 	public String getKMFileLists(String request) throws Exception {
 		KMFileManager manager = inputMapper.gson().fromJson(request, KMFileManager.class);
 		List<KMFileManager> kmFileManagers = new ArrayList<KMFileManager>();
-		Set<Objects[]> resultSet = kmFileManagerRepository.getKMFileLists(manager.getProviderServiceMapID());
+		Set<Object[]> resultSet = kmFileManagerRepository.getKMFileLists(manager.getProviderServiceMapID());
 		for (Object[] object : resultSet) {
 			if (object != null && object.length > 12) {
 				kmFileManagers.add(new KMFileManager((Integer) object[0], (Integer) object[1], (String) object[2],

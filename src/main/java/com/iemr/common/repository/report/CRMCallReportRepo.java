@@ -142,7 +142,7 @@ public interface CRMCallReportRepo extends CrudRepository<CallDetailsReport, Int
 			+ "FROM CallQualityReport callQualityReport "
 			+ "where callQualityReport.createdDate >= :startDate and callQualityReport.createdDate <= :endDate "
 			+ "and callQualityReport.providerServiceMapID = :providerServiceMapID and callQualityReport.callTypeID = :callTypeID ")
-	public List<Objects[]> getCallTypeWiseReportByCallTypeID(@Param("startDate") Timestamp startDate,
+	public List<Object[]> getCallTypeWiseReportByCallTypeID(@Param("startDate") Timestamp startDate,
 			@Param("endDate") Timestamp endDate, @Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("callTypeID") Integer callTypeID) throws Exception;
 
@@ -150,7 +150,7 @@ public interface CRMCallReportRepo extends CrudRepository<CallDetailsReport, Int
 			+ "FROM CallQualityReport callQualityReport "
 			+ "where callQualityReport.createdDate >= :startDate and callQualityReport.createdDate <= :endDate "
 			+ "and callQualityReport.providerServiceMapID = :providerServiceMapID group by callQualityReport.callSubType ")
-	public List<Objects[]> getCallTypeWiseReport(@Param("startDate") Timestamp startDate,
+	public List<Object[]> getCallTypeWiseReport(@Param("startDate") Timestamp startDate,
 			@Param("endDate") Timestamp endDate, @Param("providerServiceMapID") Integer providerServiceMapID)
 			throws Exception;
 
@@ -158,7 +158,7 @@ public interface CRMCallReportRepo extends CrudRepository<CallDetailsReport, Int
 			+ "FROM CallQualityReport callQualityReport " + "inner join callQualityReport.userReportObj userReport "
 			+ "where callQualityReport.createdDate >= :startDate and callQualityReport.createdDate <= :endDate "
 			+ "and callQualityReport.providerServiceMapID = :providerServiceMapID and callQualityReport.userID = :userID")
-	public List<Objects[]> getAgentWiseReportByUserID(@Param("startDate") Timestamp startDate,
+	public List<Object[]> getAgentWiseReportByUserID(@Param("startDate") Timestamp startDate,
 			@Param("endDate") Timestamp endDate, @Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("userID") Long userID);
 
@@ -166,7 +166,7 @@ public interface CRMCallReportRepo extends CrudRepository<CallDetailsReport, Int
 			+ "FROM CallQualityReport callQualityReport " + "inner join callQualityReport.userReportObj userReport "
 			+ "where callQualityReport.createdDate >= :startDate and callQualityReport.createdDate <= :endDate "
 			+ "and callQualityReport.providerServiceMapID = :providerServiceMapID group by callQualityReport.userID order by callQualityReport.userID asc ")
-	public List<Objects[]> getAgentWiseReport(@Param("startDate") Timestamp startDate,
+	public List<Object[]> getAgentWiseReport(@Param("startDate") Timestamp startDate,
 			@Param("endDate") Timestamp endDate, @Param("providerServiceMapID") Integer providerServiceMapID);
 
 	@Query("SELECT COUNT(*), callQualityReport.receivedRoleName " + "FROM CallQualityReport callQualityReport "
@@ -174,7 +174,7 @@ public interface CRMCallReportRepo extends CrudRepository<CallDetailsReport, Int
 			+ "inner join userReport.userServiceRoleReport userRoleMapping "
 			+ "where callQualityReport.createdDate >= :startDate and callQualityReport.createdDate <= :endDate "
 			+ "and callQualityReport.providerServiceMapID = :providerServiceMapID and userRoleMapping.roleID = :roleID ")
-	public List<Objects[]> getSkillSetWiseReportByRoleID(@Param("startDate") Timestamp startDate,
+	public List<Object[]> getSkillSetWiseReportByRoleID(@Param("startDate") Timestamp startDate,
 			@Param("endDate") Timestamp endDate, @Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("roleID") Long roleID);
 
@@ -183,14 +183,14 @@ public interface CRMCallReportRepo extends CrudRepository<CallDetailsReport, Int
 			+ "inner join userReport.userServiceRoleReport userRoleMapping "
 			+ "where callQualityReport.createdDate >= :startDate and callQualityReport.createdDate <= :endDate "
 			+ "and callQualityReport.providerServiceMapID = :providerServiceMapID group by userRoleMapping.roleID ")
-	public List<Objects[]> getSkillSetWiseReport(@Param("startDate") Timestamp startDate,
+	public List<Object[]> getSkillSetWiseReport(@Param("startDate") Timestamp startDate,
 			@Param("endDate") Timestamp endDate, @Param("providerServiceMapID") Integer providerServiceMapID);
 
 	@Query("SELECT COUNT(callQualityReport.factBenCallID), callQualityReport.createdDate "
 			+ "FROM CallQualityReport callQualityReport "
 			+ "where callQualityReport.createdDate >= :startDate and callQualityReport.createdDate <= :endDate "
 			+ "and callQualityReport.providerServiceMapID = :providerServiceMapID group by callQualityReport.factCreatedDate ")
-	public List<Objects[]> getDateWiseReport(@Param("startDate") Timestamp startDate,
+	public List<Object[]> getDateWiseReport(@Param("startDate") Timestamp startDate,
 			@Param("endDate") Timestamp endDate, @Param("providerServiceMapID") Integer providerServiceMapID)
 			throws Exception;
 
@@ -200,7 +200,7 @@ public interface CRMCallReportRepo extends CrudRepository<CallDetailsReport, Int
 			+ "left outer join userRoleMapping.workLocation location "
 			+ "where callQualityReport.createdDate >= :startDate and callQualityReport.createdDate <= :endDate "
 			+ "and callQualityReport.providerServiceMapID = :providerServiceMapID group by location.psAddMapID ")
-	public List<Objects[]> getLocationWiseReport(@Param("startDate") Timestamp startDate,
+	public List<Object[]> getLocationWiseReport(@Param("startDate") Timestamp startDate,
 			@Param("endDate") Timestamp endDate, @Param("providerServiceMapID") Integer providerServiceMapID);
 
 	@Query("SELECT COUNT(callQualityReport.factBenCallID), location.locationName "
@@ -209,7 +209,7 @@ public interface CRMCallReportRepo extends CrudRepository<CallDetailsReport, Int
 			+ "left outer join userRoleMapping.workLocation location "
 			+ "where callQualityReport.createdDate >= :startDate and callQualityReport.createdDate <= :endDate "
 			+ "and callQualityReport.providerServiceMapID = :providerServiceMapID and location.psAddMapID= :psAddMapID")
-	public List<Objects[]> getLocationWiseReportByLocationID(@Param("startDate") Timestamp startDate,
+	public List<Object[]> getLocationWiseReportByLocationID(@Param("startDate") Timestamp startDate,
 			@Param("endDate") Timestamp endDate, @Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("psAddMapID") Integer psAddMapID);
 
@@ -247,7 +247,7 @@ public interface CRMCallReportRepo extends CrudRepository<CallDetailsReport, Int
 			+ "LEFT JOIN db_reporting.dim_user t2 ON t1.CallReceivedUserID=t2.UserID LEFT JOIN db_reporting.fact_104benmedhistory t3 ON t1.BenCallID=t3.BenCallID where ReceivedRoleName= :receivedRoleName "
 			+ " and t1.CreatedDate >= :startDate and t1.CreatedDate <= :endDate and t1.ProviderServiceMapID= :providerServiceMapID "
 			+ "and t1.CallTypeName= :callTypeName and t1.CZCallDuration is not null and (t1.CallReceivedUserID=t1.CallEndUserID) group by ReceivedRoleName,ReceivedAgentID", nativeQuery = true)
-	public List<Objects[]> getHAHTValidCalls(@Param("receivedRoleName") String receivedRoleName,
+	public List<Object[]> getHAHTValidCalls(@Param("receivedRoleName") String receivedRoleName,
 			@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate,
 			@Param("callTypeName") String callTypeName, @Param("providerServiceMapID") Integer providerServiceMapID);
 
@@ -256,7 +256,7 @@ public interface CRMCallReportRepo extends CrudRepository<CallDetailsReport, Int
 			+ " LEFT JOIN db_reporting.dim_user t2 ON t1.CallReceivedUserID=t2.UserID LEFT JOIN db_reporting.fact_104benmedhistory t3 ON t1.BenCallID=t3.BenCallID where ReceivedRoleName= :receivedRoleName "
 			+ " and t1.CreatedDate >= :startDate and t1.CreatedDate <= :endDate and t1.ProviderServiceMapID= :providerServiceMapID "
 			+ "and t1.CallTypeName= :callTypeName and t1.CallSubTypeName like '%Disconnected%' and t1.CZCallDuration is not null  group by ReceivedRoleName,ReceivedAgentID", nativeQuery = true)
-	public List<Objects[]> getHAHTDisconnectedCalls(@Param("receivedRoleName") String receivedRoleName,
+	public List<Object[]> getHAHTDisconnectedCalls(@Param("receivedRoleName") String receivedRoleName,
 			@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate,
 			@Param("callTypeName") String callTypeName, @Param("providerServiceMapID") Integer providerServiceMapID);
 
@@ -265,7 +265,7 @@ public interface CRMCallReportRepo extends CrudRepository<CallDetailsReport, Int
 			+ "LEFT JOIN db_reporting.dim_user t2 ON t1.CallReceivedUserID=t2.UserID LEFT JOIN  (select * from db_iemr.t_104benmedhistory where IsChiefComplaint is true)t3 ON t1.BenCallID=t3.BenCallID where ReceivedRoleName= :receivedRoleName "
 			+ " and t1.CreatedDate >= :startDate and t1.CreatedDate <= :endDate and t1.ProviderServiceMapID= :providerServiceMapID "
 			+ "and t1.CallTypeName= :callTypeName and t3.DiseaseSummary is not null and t1.CZCallDuration is not null  group by ReceivedRoleName,ReceivedAgentID", nativeQuery = true)
-	public List<Objects[]> getLAHTAlgorithmCalls(@Param("receivedRoleName") String receivedRoleName,
+	public List<Object[]> getLAHTAlgorithmCalls(@Param("receivedRoleName") String receivedRoleName,
 			@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate,
 			@Param("callTypeName") String callTypeName, @Param("providerServiceMapID") Integer providerServiceMapID);
 
@@ -274,7 +274,7 @@ public interface CRMCallReportRepo extends CrudRepository<CallDetailsReport, Int
 			+ "LEFT JOIN db_reporting.dim_user t2 ON t1.CallReceivedUserID=t2.UserID LEFT JOIN db_reporting.fact_104benmedhistory t3 ON t1.BenCallID=t3.BenCallID where ReceivedRoleName= :receivedRoleName "
 			+ " and t1.CreatedDate >= :startDate and t1.CreatedDate <= :endDate and t1.ProviderServiceMapID= :providerServiceMapID "
 			+ "and t1.CallTypeName= :callTypeName and (t1.CallReceivedUserID=t1.CallEndUserID) and t3.SelecteDiagnosis is not null  group by ReceivedRoleName,ReceivedAgentID", nativeQuery = true)
-	public List<Objects[]> getDSusedValidCallAtHAO(@Param("receivedRoleName") String receivedRoleName,
+	public List<Object[]> getDSusedValidCallAtHAO(@Param("receivedRoleName") String receivedRoleName,
 			@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate,
 			@Param("callTypeName") String callTypeName, @Param("providerServiceMapID") Integer providerServiceMapID);
 
@@ -283,7 +283,7 @@ public interface CRMCallReportRepo extends CrudRepository<CallDetailsReport, Int
 			+ "LEFT JOIN db_reporting.dim_user t2 ON t1.CallReceivedUserID=t2.UserID LEFT JOIN db_reporting.fact_104benmedhistory t3 ON t1.BenCallID=t3.BenCallID where ReceivedRoleName= :receivedRoleName "
 			+ " and t1.CreatedDate >= :startDate and t1.CreatedDate <= :endDate and t1.ProviderServiceMapID= :providerServiceMapID "
 			+ "and t1.CallTypeName= :callTypeName and (t1.CallReceivedUserID=t1.CallEndUserID) and (t3.DiseaseSummary is not null or t3.SelecteDiagnosis is not null)  group by ReceivedRoleName,ReceivedAgentID", nativeQuery = true)
-	public List<Objects[]> getRandomPickup(@Param("receivedRoleName") String receivedRoleName,
+	public List<Object[]> getRandomPickup(@Param("receivedRoleName") String receivedRoleName,
 			@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate,
 			@Param("callTypeName") String callTypeName, @Param("providerServiceMapID") Integer providerServiceMapID);
 
@@ -294,7 +294,7 @@ public interface CRMCallReportRepo extends CrudRepository<CallDetailsReport, Int
 			+ " LEFT JOIN db_iemr.m_role t5 ON t5.RoleID=t4.RoleID where ReceivedRoleName= :receivedRoleName "
 			+ " and t1.CreatedDate >= :startDate and t1.CreatedDate <= :endDate and t1.ProviderServiceMapID= :providerServiceMapID "
 			+ "and t1.CallTypeName= :callTypeName and t5.RoleName='MO' and t1.CZCallDuration is not null  group by ReceivedRoleName,ReceivedAgentID", nativeQuery = true)
-	public List<Objects[]> getLAHTTransferCallsMO(@Param("receivedRoleName") String receivedRoleName,
+	public List<Object[]> getLAHTTransferCallsMO(@Param("receivedRoleName") String receivedRoleName,
 			@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate,
 			@Param("callTypeName") String callTypeName, @Param("providerServiceMapID") Integer providerServiceMapID);
 
@@ -303,7 +303,7 @@ public interface CRMCallReportRepo extends CrudRepository<CallDetailsReport, Int
 			+ "LEFT JOIN db_reporting.dim_user t2 ON t1.CallReceivedUserID=t2.UserID LEFT JOIN (select * from db_reporting.fact_104benmedhistory where DiseaseSummary is null and SelecteDiagnosis is null)t3 ON t1.BenCallID=t3.BenCallID LEFT JOIN db_identity.i_beneficiarymapping t4 ON t1.BeneficiaryRegID=t4.BenRegId where ReceivedRoleName= :receivedRoleName "
 			+ " and t1.CreatedDate >= :startDate and t1.CreatedDate <= :endDate and t1.ProviderServiceMapID= :providerServiceMapID "
 			+ "and t1.CallTypeName= :callTypeName and (t1.CZcallStartTime <= t4.CreatedDate and t1.CZcallEndTime >= t4.CreatedDate) and (t1.CallReceivedUserID=t1.CallEndUserID)  group by ReceivedRoleName,ReceivedAgentID", nativeQuery = true)
-	public List<Objects[]> getOtherAdviceCalls(@Param("receivedRoleName") String receivedRoleName,
+	public List<Object[]> getOtherAdviceCalls(@Param("receivedRoleName") String receivedRoleName,
 			@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate,
 			@Param("callTypeName") String callTypeName, @Param("providerServiceMapID") Integer providerServiceMapID);
 //	@Query("select report from CallReport report "
@@ -326,19 +326,19 @@ public interface CRMCallReportRepo extends CrudRepository<CallDetailsReport, Int
 //			+ "FROM db_reporting.fact_bencall benCallDetail "
 //			+ "inner join db_reporting.dim_beneficiary ben on ben.BeneficiaryRegID=benCallDetail.BeneficiaryRegID "
 //			+ "where benCallDetail.CreatedDate >= :startDate and benCallDetail.CreatedDate <= :endDate and PermDistrictId is not null and PermDistrict is not null group by ben.PermDistrictId,ben.PermDistrict ",nativeQuery=true)
-//	public List<Objects[]> allDistrictsCount(@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate);
+//	public List<Object[]> allDistrictsCount(@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate);
 
 	@Query(value = "SELECT  ba.PermDistrictId, ba.PermDistrict, count(distinct bc.CallID) FROM db_iemr.t_bencall bc "
 			+ " INNER JOIN db_identity.i_beneficiarymapping bm ON bc.BeneficiaryRegID = bm.benRegid "
 			+ " INNER JOIN db_identity.i_beneficiaryaddress ba ON bm.benaddressid = ba.vanserialno AND ba.vanid = bm.vanid "
 			+ " WHERE bc.CreatedDate >= :startDate AND bc.CreatedDate <= :endDate AND ba.PermDistrictId is not null "
 			+ " AND  ba.PermDistrict is not null " + " GROUP BY ba.PermDistrictId, ba.PermDistrict", nativeQuery = true)
-	public List<Objects[]> allDistrictsCount(@Param("startDate") Timestamp startDate,
+	public List<Object[]> allDistrictsCount(@Param("startDate") Timestamp startDate,
 			@Param("endDate") Timestamp endDate);
 
 	@Query(value = "SELECT Isrural, count(Dim_BeneficiaryID) FROM db_reporting.dim_beneficiary"
 			+ " WHERE CreatedDate >= :startDate AND CreatedDate <= :endDate AND Isrural is not null GROUP BY Isrural", nativeQuery = true)
-	public List<Objects[]> allRuralCount(@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate);
+	public List<Object[]> allRuralCount(@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate);
 
 //	@Query(value = "SELECT COUNT(Isrural) FROM db_reporting.dim_beneficiary "
 //			+ " WHERE CreatedDate >= :startDate AND CreatedDate <= :endDate AND Isrural IS FALSE AND Isrural IS NOT NULL", nativeQuery = true)

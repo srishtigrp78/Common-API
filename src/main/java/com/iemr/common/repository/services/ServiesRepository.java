@@ -35,5 +35,5 @@ import com.iemr.common.data.users.ServiceMaster;
 @Repository
 public interface ServiesRepository extends CrudRepository<ServiceMaster, Long> {
 	@Query(value = "select serviceID, serviceName, serviceDesc, deleted from ServiceMaster where deleted = false")
-	public Set<Objects[]> getActiveServicesList();
+	public Set<Object[]> getActiveServicesList();
 }

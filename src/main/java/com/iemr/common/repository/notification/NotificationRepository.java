@@ -68,7 +68,7 @@ public interface NotificationRepository extends CrudRepository<Notification, Lon
 			+ "notification.languageID is null and notification.userID is null and "
 			+ "(notification.workingLocationID is null or notification.workingLocationID in :workLocationIDs) "
 			+ "order by notification.validTill desc")
-	Set<Objects[]> getRoleNotifications(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getRoleNotifications(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("notificationTypeID") Integer notificationTypeID, @Param("roleIDs") List<Integer> roleIDs,
 			@Param("workLocationIDs") List<Integer> workLocationIDs, @Param("validFrom") Timestamp validFrom,
 			@Param("validTill") Timestamp validTill);
@@ -88,7 +88,7 @@ public interface NotificationRepository extends CrudRepository<Notification, Lon
 			+ "notification.deleted <> true and notification.notificationTypeID = :notificationTypeID and "
 			+ "notification.languageID is null and notification.userID is null and "
 			+ "notification.workingLocationID is null order by notification.validTill desc")
-	Set<Objects[]> getRoleNotifications(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getRoleNotifications(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("notificationTypeID") Integer notificationTypeID, @Param("roleIDs") List<Integer> roleIDs,
 			@Param("validFrom") Timestamp validFrom, @Param("validTill") Timestamp validTill);
 
@@ -105,7 +105,7 @@ public interface NotificationRepository extends CrudRepository<Notification, Lon
 			+ "notification.deleted <> true and notification.validFrom <= :validFrom and "
 			+ "notification.validTill >= :validTill and notification.notificationTypeID = :notificationTypeID "
 			+ "order by notification.validTill desc")
-	Set<Objects[]> getUserNotifications(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getUserNotifications(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("notificationTypeID") Integer notificationTypeID, @Param("validFrom") Timestamp validFrom,
 			@Param("validTill") Timestamp validTill, @Param("userIDs") List<Integer> userIDs);
 
@@ -122,7 +122,7 @@ public interface NotificationRepository extends CrudRepository<Notification, Lon
 			+ "notification.languageID in :languageIDs and notification.deleted <> true and "
 			+ "notification.validFrom <= :validFrom and notification.validTill >= :validTill "
 			+ "and notification.notificationTypeID = :notificationTypeID order by notification.validTill desc")
-	Set<Objects[]> getLanguageNotifications(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getLanguageNotifications(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("notificationTypeID") Integer notificationTypeID, @Param("validFrom") Timestamp validFrom,
 			@Param("validTill") Timestamp validTill, @Param("languageIDs") List<Integer> languageIDs);
 
@@ -140,7 +140,7 @@ public interface NotificationRepository extends CrudRepository<Notification, Lon
 			+ "notification.deleted <> true and notification.validFrom <= :validFrom and "
 			+ "notification.validTill >= :validTill and notification.notificationTypeID = :notificationTypeID "
 			+ "order by notification.validTill desc")
-	Set<Objects[]> getLocationNotifications(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getLocationNotifications(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("notificationTypeID") Integer notificationTypeID, @Param("validFrom") Timestamp validFrom,
 			@Param("validTill") Timestamp validTill, @Param("workingLocationIDs") List<Integer> workingLocationIDs);
 
@@ -159,7 +159,7 @@ public interface NotificationRepository extends CrudRepository<Notification, Lon
 			+ "notification.notificationTypeID = :notificationTypeID and notification.languageID is null and "
 			+ "notification.userID is null and notification.workingLocationID is null "
 			+ "order by notification.notificationID desc")
-	Set<Objects[]> getSupervisorNotifications(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getSupervisorNotifications(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("validStartDate") Timestamp validStartDate, @Param("validEndDate") Timestamp validEndDate,
 			@Param("notificationTypeID") Integer notificationTypeID);
 
@@ -180,7 +180,7 @@ public interface NotificationRepository extends CrudRepository<Notification, Lon
 			+ "notification.userID is null and "
 			+ "(notification.workingLocationID is null or notification.workingLocationID in :locationIDs)"
 			+ "order by notification.notificationID desc")
-	Set<Objects[]> getSupervisorNotificationsByRole(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getSupervisorNotificationsByRole(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("validStartDate") Timestamp validStartDate, @Param("validEndDate") Timestamp validEndDate,
 			@Param("roleIDs") List<Integer> roleIDs, @Param("notificationTypeID") Integer notificationTypeID,
 			@Param("locationIDs") List<Integer> locationIDs);
@@ -200,7 +200,7 @@ public interface NotificationRepository extends CrudRepository<Notification, Lon
 			+ "(notification.validFrom <= :validEndDate or notification.validTill <= :validEndDate)) and "
 			+ "notification.notificationTypeID = :notificationTypeID and notification.languageID is null and "
 			+ "notification.userID is null " + "order by notification.notificationID desc")
-	Set<Objects[]> getSupervisorNotificationsByRole(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getSupervisorNotificationsByRole(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("validStartDate") Timestamp validStartDate, @Param("validEndDate") Timestamp validEndDate,
 			@Param("roleIDs") List<Integer> roleIDs, @Param("notificationTypeID") Integer notificationTypeID);
 
@@ -219,7 +219,7 @@ public interface NotificationRepository extends CrudRepository<Notification, Lon
 			+ "(notification.validFrom <= :validEndDate or notification.validTill <= :validEndDate)) and "
 			+ "notification.notificationTypeID = :notificationTypeID and notification.roleID is null "
 			+ "order by notification.notificationID desc")
-	Set<Objects[]> getSupervisorNotificationsByUser(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getSupervisorNotificationsByUser(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("validStartDate") Timestamp validStartDate, @Param("validEndDate") Timestamp validEndDate,
 			@Param("userIDs") List<Integer> userIDs, @Param("notificationTypeID") Integer notificationTypeID);
 
@@ -238,7 +238,7 @@ public interface NotificationRepository extends CrudRepository<Notification, Lon
 			+ "(notification.validFrom <= :validEndDate or notification.validTill <= :validEndDate)) and "
 			+ "notification.notificationTypeID = :notificationTypeID and notification.roleID is null "
 			+ "order by notification.notificationID desc")
-	Set<Objects[]> getSupervisorNotificationsByLocation(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getSupervisorNotificationsByLocation(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("validStartDate") Timestamp validStartDate, @Param("validEndDate") Timestamp validEndDate,
 			@Param("workingLocationIDs") List<Integer> workingLocationIDs,
 			@Param("notificationTypeID") Integer notificationTypeID);
@@ -258,7 +258,7 @@ public interface NotificationRepository extends CrudRepository<Notification, Lon
 			+ "(notification.validFrom <= :validEndDate or notification.validTill <= :validEndDate)) and "
 			+ "notification.notificationTypeID = :notificationTypeID and notification.roleID is null "
 			+ "order by notification.notificationID desc")
-	Set<Objects[]> getSupervisorNotificationsByLanguage(@Param("providerServiceMapID") Integer providerServiceMapID,
+	Set<Object[]> getSupervisorNotificationsByLanguage(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("validStartDate") Timestamp validStartDate, @Param("validEndDate") Timestamp validEndDate,
 			@Param("languageIDs") List<Integer> languageIDs, @Param("notificationTypeID") Integer notificationTypeID);
 

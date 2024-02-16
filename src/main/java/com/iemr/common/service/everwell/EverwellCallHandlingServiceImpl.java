@@ -82,7 +82,7 @@ public class EverwellCallHandlingServiceImpl implements EverwellCallHandlingServ
 		Timestamp startDate = new Timestamp(cal.getTimeInMillis());
 		cal.add(Calendar.DATE, 7);
 		Timestamp lastDate = new Timestamp(cal.getTimeInMillis());
-		Set<Objects[]> resultSet = null;
+		Set<Object[]> resultSet = null;
 		startDate = (outboundCallRequest.getFilterStartDate() != null) ? outboundCallRequest.getFilterStartDate()
 				: startDate;
 		lastDate = (outboundCallRequest.getFilterEndDate() != null) ? outboundCallRequest.getFilterEndDate() : lastDate;
@@ -163,7 +163,7 @@ public class EverwellCallHandlingServiceImpl implements EverwellCallHandlingServ
 	public String outboundCallList(String request) throws IEMRException {
 		EverwellDetails callRequest = inputMapper.gson().fromJson(request, EverwellDetails.class);
 		List<EverwellDetails> outboundCallRequests = new ArrayList<EverwellDetails>();
-		List<Objects[]> resultSet = null;
+		List<Object[]> resultSet = null;
 		Calendar cal = Calendar.getInstance();
 		Timestamp startDate = new Timestamp(cal.getTimeInMillis());
 		cal.add(Calendar.DATE, 7);

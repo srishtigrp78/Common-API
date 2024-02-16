@@ -36,7 +36,7 @@ import com.iemr.common.data.helpline104history.H104BenMedHistory;
 public interface H104BenHistoryRepository extends CrudRepository<H104BenMedHistory, Long> {
 	
 	@Query("select u from H104BenMedHistory u where u.beneficiaryRegID = :BeneficiaryRegID order by u.benHistoryID desc")
-	public ArrayList<Objects[]> getBenHistory(@Param("BeneficiaryRegID") Long BeneficiaryRegID);
+	public ArrayList<Object[]> getBenHistory(@Param("BeneficiaryRegID") Long BeneficiaryRegID);
 	
 	            
 }

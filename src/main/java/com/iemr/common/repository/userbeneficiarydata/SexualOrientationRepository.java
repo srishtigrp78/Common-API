@@ -33,7 +33,7 @@ import com.iemr.common.data.beneficiary.SexualOrientation;
 @Repository
 public abstract interface SexualOrientationRepository extends CrudRepository<SexualOrientation, Short> {
 	@Query("select sexualOrientationId, sexualOrientation from SexualOrientation where deleted = false")
-	public abstract Set<Objects[]> findAciveOrientations();
+	public abstract Set<Object[]> findAciveOrientations();
 
 	public SexualOrientation findBysexualOrientationId(Short sexualOrientationId);
 	

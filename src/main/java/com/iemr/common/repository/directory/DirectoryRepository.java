@@ -37,7 +37,7 @@ public interface DirectoryRepository extends CrudRepository<Directory, Long>
 {
 	@Query("select instituteDirectoryID, instituteDirectoryName from Directory where deleted = false "
 			+ "order by instituteDirectoryName asc")
-	public Set<Objects[]> findAciveDirectories();
+	public Set<Object[]> findAciveDirectories();
 
 	@Query("select new Directory(instituteDirectoryID, instituteDirectoryName) from Directory where "
 			+ "providerServiceMapID = :providerServiceMapID and deleted = false order by instituteDirectoryName asc")

@@ -49,10 +49,10 @@ public interface NotificationTypeRepository extends CrudRepository<NotificationT
 
 	@Query("select notificationTypeID, notificationType, notificationTypeDesc, deleted from NotificationType "
 			+ "where providerServiceMapID = :providerServiceMapID and deleted = false order by notificationType asc")
-	Set<Objects[]> getNotificationTypes(@Param("providerServiceMapID") Integer providerServiceMapID);
+	Set<Object[]> getNotificationTypes(@Param("providerServiceMapID") Integer providerServiceMapID);
 
 	@Query("select notificationTypeID, notificationType, notificationTypeDesc, deleted from NotificationType "
 			+ "where deleted = false order by notificationType asc")
-	Set<Objects[]> getNotificationTypes();
+	Set<Object[]> getNotificationTypes();
 
 }

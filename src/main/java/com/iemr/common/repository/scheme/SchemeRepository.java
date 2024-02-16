@@ -41,7 +41,7 @@ public interface SchemeRepository extends CrudRepository<Scheme, Long>
 	@Query("select s.schemeID, s.schemeName, s.schemeDesc, s.kmFileManagerID, s.providerServiceMapID, s.deleted, s.createdBy, "
 			+ "s.kmFileManager  from Scheme s Left JOIN s.kmFileManager k "
 			+ "where s.providerServiceMapID=:providerServiceMapID " + "order by s.schemeName asc")
-	public List<Objects[]> getschemeList(@Param("providerServiceMapID") Integer providerServiceMapID) throws Exception;
+	public List<Object[]> getschemeList(@Param("providerServiceMapID") Integer providerServiceMapID) throws Exception;
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Modifying

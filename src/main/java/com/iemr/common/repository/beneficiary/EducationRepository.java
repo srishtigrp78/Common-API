@@ -34,7 +34,7 @@ import com.iemr.common.data.beneficiary.BeneficiaryEducation;
 public abstract interface EducationRepository extends CrudRepository<BeneficiaryEducation, Long>
 {
 	@Query("select educationID, educationType from BeneficiaryEducation where deleted = false order by educationType asc")
-	public abstract Set<Objects[]> findActiveEducations();
+	public abstract Set<Object[]> findActiveEducations();
 	
 	BeneficiaryEducation findByEducationID(Long educationID);
 }

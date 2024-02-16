@@ -34,7 +34,7 @@ import com.iemr.common.data.userbeneficiarydata.Religion;
 public abstract interface ReligionRepository extends CrudRepository<Religion, Integer>
 {
 	@Query("select religionID, religionType, religionDesc from Religion where deleted = false")
-	public abstract List<Objects[]> getActiveReligions();
+	public abstract List<Object[]> getActiveReligions();
 	
 	Religion findByReligionID(Integer religionID);
 }

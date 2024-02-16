@@ -43,7 +43,7 @@ public interface EverwellCallHandlingRepository extends CrudRepository<EverwellD
 			+ "and request.deleted <> true and request.createdDate >= :startDate "
 			+ "and request.createdDate <= :endDate and request.beneficiaryRegId is not null "
 			+ "group by request.preferredLanguageName ")
-	public Set<Objects[]> outboundCallCount(@Param("providerServiceMapID") Integer providerServiceMapID,
+	public Set<Object[]> outboundCallCount(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate);
 
 //	@Query("select count(request) "
@@ -54,7 +54,7 @@ public interface EverwellCallHandlingRepository extends CrudRepository<EverwellD
 			+ "and request.agentId  = :assignedUserID and request.isCompleted <> true AND request.isAllocated <> false "
 			+ "and request.deleted <> true and request.beneficiaryRegId is not null "
 			+ "group by request.preferredLanguageName")
-	public Set<Objects[]> outboundCallCount(@Param("providerServiceMapID") Integer providerServiceMapID,
+	public Set<Object[]> outboundCallCount(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("assignedUserID") Integer assignedUserID);
 
 	@Query("select request.preferredLanguageName, count(distinct request.beneficiaryRegId) "
@@ -63,7 +63,7 @@ public interface EverwellCallHandlingRepository extends CrudRepository<EverwellD
 			+ "and request.deleted <> true and request.createdDate >= :startDate  "
 			+ "and request.createdDate <= :endDate and request.preferredLanguageName = :preferredLanguageName AND request.isAllocated <> true "
 			+ "and request.beneficiaryRegId is not null group by request.preferredLanguageName")
-	public Set<Objects[]> outboundCallCount(@Param("providerServiceMapID") Integer providerServiceMapID,
+	public Set<Object[]> outboundCallCount(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate,
 			@Param("preferredLanguageName") String preferredLanguageName);
 
@@ -79,7 +79,7 @@ public interface EverwellCallHandlingRepository extends CrudRepository<EverwellD
 //			+ "FROM EverwellDetails request WHERE request.providerServiceMapId = :providerServiceMapId and request.createdDate >= :startDate and request.createdDate <= :endDate "
 //			+ "AND request.isAllocated <> true AND request.isCompleted <> true AND request.deleted <> true AND request.beneficiaryRegId is not null "
 //			+ " order by request.eapiId desc")
-	public List<Objects[]> getAllOutboundCalls(@Param("providerServiceMapId") Integer providerServiceMapId,
+	public List<Object[]> getAllOutboundCalls(@Param("providerServiceMapId") Integer providerServiceMapId,
 			@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate);
 
 	@Query("SELECT request.eapiId,request.beneficiaryRegId," + "request.providerServiceMapId,request.Id,"
@@ -94,7 +94,7 @@ public interface EverwellCallHandlingRepository extends CrudRepository<EverwellD
 //			+ "FROM EverwellDetails request WHERE request.providerServiceMapId =:providerServiceMapId and request.createdDate >= :startDate and request.createdDate <= :endDate and request.preferredLanguageName = :preferredLanguageName "
 //			+ "AND request.isAllocated <> true AND request.isCompleted <> true AND request.deleted <> true AND request.beneficiaryRegId is not null "
 //			+ " order by request.eapiId desc")
-	public List<Objects[]> getAllOutboundCalls(@Param("providerServiceMapId") Integer providerServiceMapId,
+	public List<Object[]> getAllOutboundCalls(@Param("providerServiceMapId") Integer providerServiceMapId,
 			@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate,
 			@Param("preferredLanguageName") String preferredLanguageName);
 
@@ -106,7 +106,7 @@ public interface EverwellCallHandlingRepository extends CrudRepository<EverwellD
 			+ "FROM EverwellDetails request WHERE request.providerServiceMapId = :providerServiceMapId "
 			+ "AND request.agentId = :agentId AND request.isAllocated <> false AND request.isCompleted <> true AND request.deleted <> true "
 			+ "AND request.beneficiaryRegId is not null" + " order by request.eapiId desc")
-	public List<Objects[]> getAllOutboundCalls(@Param("providerServiceMapId") Integer providerServiceMapId,
+	public List<Object[]> getAllOutboundCalls(@Param("providerServiceMapId") Integer providerServiceMapId,
 			@Param("agentId") Integer agentId);
 
 //	@Query("SELECT request "
@@ -124,7 +124,7 @@ public interface EverwellCallHandlingRepository extends CrudRepository<EverwellD
 			+ "FROM EverwellDetails request WHERE request.providerServiceMapId = :providerServiceMapId "
 			+ "AND request.agentId = :agentId AND request.isAllocated <> false AND request.isCompleted <> true AND request.deleted <> true and request.preferredLanguageName = :preferredLanguageName "
 			+ "AND request.beneficiaryRegId is not null" + " order by request.eapiId desc")
-	public List<Objects[]> getAllOutboundCalls(@Param("providerServiceMapId") Integer providerServiceMapId,
+	public List<Object[]> getAllOutboundCalls(@Param("providerServiceMapId") Integer providerServiceMapId,
 			@Param("agentId") Integer agentId, @Param("preferredLanguageName") String preferredLanguageName);
 //	@Query("SELECT request "
 //			+ "FROM EverwellDetails request WHERE request.providerServiceMapId = :providerServiceMapId "
