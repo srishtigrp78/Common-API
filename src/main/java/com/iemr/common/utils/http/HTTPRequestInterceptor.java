@@ -27,6 +27,7 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,7 +38,7 @@ import com.iemr.common.utils.validator.Validator;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+@Configuration
 @Component
 public class HTTPRequestInterceptor implements HandlerInterceptor {
 	private Validator validator;
@@ -59,6 +60,7 @@ public class HTTPRequestInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception {
 		boolean status = true;
+		logger.info("In info preHandle we are Intercepting the Request");
 		logger.debug("In preHandle we are Intercepting the Request");
 		String authorization = request.getHeader("Authorization");
 		logger.debug("RequestURI::" + request.getRequestURI() + " || Authorization ::" + authorization
