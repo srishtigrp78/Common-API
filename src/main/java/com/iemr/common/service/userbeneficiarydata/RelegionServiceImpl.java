@@ -42,7 +42,7 @@ public class RelegionServiceImpl implements RelegionService {
 
 	public List<Religion> getActiveReligions() {
 		List<Religion> activeReligions = new ArrayList();
-		List<Objects[]> lists = this.relegionRepository.getActiveReligions();
+		List<Object[]> lists = this.relegionRepository.getActiveReligions();
 		for (Object[] objects : lists) {
 			if ((objects != null) && (objects.length == 3)) {
 				activeReligions.add(

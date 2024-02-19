@@ -26,6 +26,6 @@ import java.util.Objects;
 
 public interface H104BenHistoryService {
 	
-	ArrayList<Objects[]> geSmpleBenHistory(Long beneficiaryId);	
+	ArrayList<Object[]> geSmpleBenHistory(Long beneficiaryId);	
 
 }

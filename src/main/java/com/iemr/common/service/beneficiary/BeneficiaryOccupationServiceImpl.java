@@ -45,7 +45,7 @@ public class BeneficiaryOccupationServiceImpl implements BeneficiaryOccupationSe
 	@Override
 	public List<BeneficiaryOccupation> getActiveOccupations() {
 		List<BeneficiaryOccupation> benRelationshipTypes = new ArrayList<BeneficiaryOccupation>();
-		Set<Objects[]> resultSet = beneficiaryOccupationRepository.getActiveOccupations();
+		Set<Object[]> resultSet = beneficiaryOccupationRepository.getActiveOccupations();
 		for (Object[] object : resultSet) {
 			if (object != null && object.length >= 2) {
 				benRelationshipTypes.add(new BeneficiaryOccupation().getOccupation((Long) object[0], (String) object[1]));

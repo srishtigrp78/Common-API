@@ -47,7 +47,7 @@ public class DirectoryServiceImpl implements DirectoryService
 	public List<Directory> getDirectories()
 	{
 		ArrayList<Directory> directories = new ArrayList<Directory>();
-		Set<Objects[]> directoryResult = directoryRepository.findAciveDirectories();
+		Set<Object[]> directoryResult = directoryRepository.findAciveDirectories();
 		for (Object[] objects : directoryResult)
 		{
 			if (objects != null && objects.length >= 2)

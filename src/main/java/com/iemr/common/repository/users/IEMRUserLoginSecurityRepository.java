@@ -36,5 +36,5 @@ public interface IEMRUserLoginSecurityRepository extends CrudRepository<LoginSec
 
 
 	@Query("select QuestionID, Question from LoginSecurityQuestions")
-	ArrayList<Objects[]> getAllLoginSecurityQuestions();
+	ArrayList<Object[]> getAllLoginSecurityQuestions();
 }

@@ -47,7 +47,7 @@ public class UserBeneficiaryDataServiceImpl implements UserBeneficiaryDataServic
 	@Override
 	public List<Gender> getActiveGender() {
 		ArrayList<Gender> genderList = new ArrayList<Gender>();
-		Set<Objects[]> queryResult = userBeneficiaryDataRepository.findActiveGenders();
+		Set<Object[]> queryResult = userBeneficiaryDataRepository.findActiveGenders();
 		for (Object[] object : queryResult) {
 			if (object != null && object.length == 2) {
 				genderList.add(new Gender().getGender((Integer) object[0], (String) object[1]));

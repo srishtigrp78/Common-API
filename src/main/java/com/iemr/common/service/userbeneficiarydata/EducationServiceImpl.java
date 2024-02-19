@@ -43,7 +43,7 @@ public class EducationServiceImpl implements EducationService {
 
 	public List<BeneficiaryEducation> getActiveEducations() {
 		List<BeneficiaryEducation> activeEducations = new ArrayList<BeneficiaryEducation>();
-		Set<Objects[]> lists = this.educationRepository.findActiveEducations();
+		Set<Object[]> lists = this.educationRepository.findActiveEducations();
 		for (Object[] objects : lists) {
 			if ((objects != null) && (objects.length > 0)) {
 				activeEducations.add(new BeneficiaryEducation(((Long) objects[0]).longValue(), (String) objects[1]));

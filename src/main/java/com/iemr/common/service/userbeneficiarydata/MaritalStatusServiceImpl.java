@@ -46,7 +46,7 @@ public class MaritalStatusServiceImpl implements MaritalStatusService
 	public List<MaritalStatus> getActiveMaritalStatus()
 	{
 		List<MaritalStatus> genderList = new ArrayList<MaritalStatus>();
-		Set<Objects[]> queryResult = maritalStatusRepository.findAciveMaritalStatus();
+		Set<Object[]> queryResult = maritalStatusRepository.findAciveMaritalStatus();
 		for (Object[] objects : queryResult)
 		{
 			if (objects != null && objects.length == 2)

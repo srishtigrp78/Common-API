@@ -83,7 +83,7 @@ public interface BeneficiaryCallRepository extends CrudRepository<BeneficiaryCal
 	@Query("select call.benCallID, " + "call.remarks, type.callType, call.callTime " + "from BeneficiaryCall call "
 			+ "join call.callTypeObj type where call.calledServiceID= :calledServiceID and call.callTypeID = :callTypeID "
 			+ "and call.beneficiaryRegID is not null order by call.benCallID desc")
-	public Set<Objects[]> getCallsByCallType(@Param("calledServiceID") Integer calledServiceID,
+	public Set<Object[]> getCallsByCallType(@Param("calledServiceID") Integer calledServiceID,
 			@Param("callTypeID") Integer callTypeID);
 
 	@Query("select call.benCallID, call.beneficiaryRegID, " + "call.remarks, type.callType, call.callTime, "
@@ -91,7 +91,7 @@ public interface BeneficiaryCallRepository extends CrudRepository<BeneficiaryCal
 			+ "join call.callTypeObj type where call.calledServiceID= :calledServiceID and call.callTypeID = :callTypeID "
 			+ "and call.createdDate >= :filterStartDate and call.createdDate <= :filterEndDate "
 			+ "and call.beneficiaryRegID is not null order by call.benCallID desc")
-	public Set<Objects[]> getCallsByCallTypeBetweenDates(@Param("calledServiceID") Integer calledServiceID,
+	public Set<Object[]> getCallsByCallTypeBetweenDates(@Param("calledServiceID") Integer calledServiceID,
 			@Param("callTypeID") Integer callTypeID, @Param("filterStartDate") Timestamp filterStartDate,
 			@Param("filterEndDate") Timestamp filterEndDate);
 
@@ -130,7 +130,7 @@ public interface BeneficiaryCallRepository extends CrudRepository<BeneficiaryCal
 			+ "call.recordingPath, call.archivePath from BeneficiaryCall call "
 			+ "where call.phoneNo = :phoneNo and call.calledServiceID = :calledServiceID "
 			+ "and call.beneficiaryRegID is not null order by call.benCallID desc")
-	public List<Objects[]> nueisanceCallHistory(@Param("phoneNo") String phoneNo,
+	public List<Object[]> nueisanceCallHistory(@Param("phoneNo") String phoneNo,
 			@Param("calledServiceID") Integer calledServiceID, Pageable pageable);
 
 	// @Transactional(propagation = Propagation.REQUIRES_NEW)

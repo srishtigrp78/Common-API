@@ -46,7 +46,7 @@ public class CommunityServiceImpl implements CommunityService
 	public List<Community> getActiveCommunities()
 	{
 		List<Community> communitiesList = new ArrayList<Community>();
-		Set<Objects[]> queryReult = communityRepository.findAciveCommunities();
+		Set<Object[]> queryReult = communityRepository.findAciveCommunities();
 		for (Object[] objects : queryReult)
 		{
 			if (objects != null && objects.length == 2)

@@ -53,7 +53,7 @@ public class LocationServiceImpl implements LocationService {
 	@Override
 	public List<States> getStates(int id) {
 		List<States> stateList = new ArrayList<States>();
-		ArrayList<Objects[]> lists = locationStateRepository.findBy(id);
+		ArrayList<Object[]> lists = locationStateRepository.findBy(id);
 
 		for (Object[] objects : lists) {
 			if (objects != null && objects.length > 0) {
@@ -69,7 +69,7 @@ public class LocationServiceImpl implements LocationService {
 	public List<Districts> getDistricts(int id) {
 
 		List<Districts> districtList = new ArrayList<Districts>();
-		ArrayList<Objects[]> lists = locationDistrictRepository.findBy(id);
+		ArrayList<Object[]> lists = locationDistrictRepository.findBy(id);
 
 		for (Object[] objects : lists) {
 			if (objects != null && objects.length > 0) {
@@ -84,7 +84,7 @@ public class LocationServiceImpl implements LocationService {
 	public List<DistrictBlock> getDistrictBlocks(int id) {
 
 		List<DistrictBlock> districtBlockList = new ArrayList<DistrictBlock>();
-		Set<Objects[]> lists = locationDistrictBlockRepository.findBy(id);
+		Set<Object[]> lists = locationDistrictBlockRepository.findBy(id);
 
 		for (Object[] objects : lists) {
 			if (objects != null && objects.length > 0) {
@@ -135,7 +135,7 @@ public class LocationServiceImpl implements LocationService {
 	@Override
 	public List<Districts> findStateDistrictBy(int id) {
 		List<Districts> stateDistrictList = new ArrayList<Districts>();
-		ArrayList<Objects[]> lists = locationDistrictRepository.findStateDistrictBy(id);
+		ArrayList<Object[]> lists = locationDistrictRepository.findStateDistrictBy(id);
 
 		for (Object[] objects : lists) {
 			if (objects != null && objects.length >= 3) {
@@ -152,7 +152,7 @@ public class LocationServiceImpl implements LocationService {
 	public List<CityDetails> getCities(int id) {
 
 		List<CityDetails> cityList = new ArrayList<CityDetails>();
-		Set<Objects[]> lists = locationDistrictBlockRepository.findBy(id);
+		Set<Object[]> lists = locationDistrictBlockRepository.findBy(id);
 
 		for (Object[] objects : lists) {
 			if (objects != null && objects.length >= 2) {
@@ -167,7 +167,7 @@ public class LocationServiceImpl implements LocationService {
 	public List<DistrictBranchMapping> getDistrilctBranchs(int id) {
 
 		List<DistrictBranchMapping> distrilctBranchsList = new ArrayList<DistrictBranchMapping>();
-		ArrayList<Objects[]> lists = locationDistrilctBranchRepository.findAllBy(id);
+		ArrayList<Object[]> lists = locationDistrilctBranchRepository.findAllBy(id);
 
 		for (Object[] objects : lists) {
 			if (objects != null && objects.length >= 5) {

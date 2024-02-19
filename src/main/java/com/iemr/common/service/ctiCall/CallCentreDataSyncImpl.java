@@ -85,7 +85,7 @@ public class CallCentreDataSyncImpl implements CallCentreDataSync {
 
 	@Override
 	public void ctiDataSync() {
-		List<Objects[]> resultSet = null;
+		List<Object[]> resultSet = null;
 		Date date = new Date();
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		String text = sqlDate.toString();

@@ -44,7 +44,7 @@ public class ServicesImpl implements Services {
 	@Override
 	public List<ServiceMaster> servicesList() {
 		List<ServiceMaster> servicesList = new ArrayList<ServiceMaster>();
-		Set<Objects[]> servicesResult = serviesRepository.getActiveServicesList();
+		Set<Object[]> servicesResult = serviesRepository.getActiveServicesList();
 		for (Object[] object : servicesResult) {
 			if (object != null && object.length >= 4) {
 				servicesList.add(new ServiceMaster((Integer) object[0], (String) object[1], (String) object[2],

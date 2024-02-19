@@ -40,7 +40,7 @@ public class SubCategoryServiceImpl implements SubCategoryService
 	{
 
 		List<SubCategoryDetails> subCategoryList = new ArrayList<SubCategoryDetails>();
-		ArrayList<Objects[]> lists = subCategoryRepository.findBy(id);
+		ArrayList<Object[]> lists = subCategoryRepository.findBy(id);
 		for (Object[] objects : lists)
 		{
 			if (objects != null && objects.length > 0)

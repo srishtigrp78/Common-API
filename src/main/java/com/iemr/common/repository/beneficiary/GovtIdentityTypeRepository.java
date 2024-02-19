@@ -38,7 +38,7 @@ public interface GovtIdentityTypeRepository extends CrudRepository<GovtIdentityT
 {
 	@Query("select govtIdentityTypeID, identityType, isGovtID, deleted, createdBy "
 			+ "from GovtIdentityType where deleted=false order by identityType asc")
-	public Set<Objects[]> getActiveIDTypes();
+	public Set<Object[]> getActiveIDTypes();
 	
 	GovtIdentityType findByGovtIdentityTypeID(Integer govtIdentityTypeID);
 	

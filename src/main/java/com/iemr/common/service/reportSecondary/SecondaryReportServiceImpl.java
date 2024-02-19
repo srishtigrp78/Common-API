@@ -107,7 +107,7 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 			c.setService(fName);
 			c.setAgentID(benmedhistoryReport.getAgentID());
 			c.setRoleID(benmedhistoryReport.getRoleID() !=null ? benmedhistoryReport.getRoleID().toString() :"");
-			List<Objects[]> result = callReportRepoSecondary.getRandomCalls(benmedhistoryReport.getStartDate(),
+			List<Object[]> result = callReportRepoSecondary.getRandomCalls(benmedhistoryReport.getStartDate(),
 					benmedhistoryReport.getEndDate(), "valid", "HYBRID HAO", benmedhistoryReport.getAgentID(),
 					benmedhistoryReport.getProviderServiceMapID());
 			if (result != null && result.size() > 0)
@@ -130,7 +130,7 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 			c.setStart_Date(benmedhistoryReport.getStartDate().toString());
 			c.setEnd_Date(benmedhistoryReport.getEndDate().toString());
 			c.setService(fName);
-			List<Objects[]> result = callReportRepoSecondary.getOtherAdviceCalls(benmedhistoryReport.getStartDate(),
+			List<Object[]> result = callReportRepoSecondary.getOtherAdviceCalls(benmedhistoryReport.getStartDate(),
 					benmedhistoryReport.getEndDate(), "valid", "HYBRID HAO", benmedhistoryReport.getAgentID(),
 					benmedhistoryReport.getProviderServiceMapID());
 			if (result != null && result.size() > 0)
@@ -153,7 +153,7 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 			c.setStart_Date(benmedhistoryReport.getStartDate().toString());
 			c.setEnd_Date(benmedhistoryReport.getEndDate().toString());
 			c.setService(fName);
-			List<Objects[]> result = callReportRepoSecondary.getLAHTTransferCallsToMO(
+			List<Object[]> result = callReportRepoSecondary.getLAHTTransferCallsToMO(
 					benmedhistoryReport.getStartDate(), benmedhistoryReport.getEndDate(), "valid", "HYBRID HAO",
 					benmedhistoryReport.getAgentID(), benmedhistoryReport.getProviderServiceMapID());
 			if (result != null && result.size() > 0)
@@ -176,7 +176,7 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 			c.setStart_Date(benmedhistoryReport.getStartDate().toString());
 			c.setEnd_Date(benmedhistoryReport.getEndDate().toString());
 			c.setService(fName);
-			List<Objects[]> result = callReportRepoSecondary.getHAHTvalidCallsClosedAtHAO(
+			List<Object[]> result = callReportRepoSecondary.getHAHTvalidCallsClosedAtHAO(
 					benmedhistoryReport.getStartDate(), benmedhistoryReport.getEndDate(), "valid", "HYBRID HAO",
 					benmedhistoryReport.getAgentID(), benmedhistoryReport.getProviderServiceMapID());
 			if (result != null && result.size() > 0)
@@ -199,7 +199,7 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 			c.setStart_Date(benmedhistoryReport.getStartDate().toString());
 			c.setEnd_Date(benmedhistoryReport.getEndDate().toString());
 			c.setService(fName);
-			List<Objects[]> result = callReportRepoSecondary.getHAHTDisconnectedCalls(
+			List<Object[]> result = callReportRepoSecondary.getHAHTDisconnectedCalls(
 					benmedhistoryReport.getStartDate(), benmedhistoryReport.getEndDate(), "Incomplete", "HYBRID HAO",
 					benmedhistoryReport.getAgentID(), benmedhistoryReport.getProviderServiceMapID());
 			if (result != null && result.size() > 0)
@@ -222,7 +222,7 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 			c.setStart_Date(benmedhistoryReport.getStartDate().toString());
 			c.setEnd_Date(benmedhistoryReport.getEndDate().toString());
 			c.setService(fName);
-			List<Objects[]> result = callReportRepoSecondary.getDSUsedValidCalls(benmedhistoryReport.getStartDate(),
+			List<Object[]> result = callReportRepoSecondary.getDSUsedValidCalls(benmedhistoryReport.getStartDate(),
 					benmedhistoryReport.getEndDate(), "valid", "HYBRID HAO", benmedhistoryReport.getAgentID(),
 					benmedhistoryReport.getProviderServiceMapID());
 			if (result != null && result.size() > 0)
@@ -249,7 +249,7 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 			c.setStart_Date(benmedhistoryReport.getStartDate().toString());
 			c.setEnd_Date(benmedhistoryReport.getEndDate().toString());
 			c.setService(fName);
-			List<Objects[]> result = callReportRepoSecondary.get104QAReport(benmedhistoryReport.getStartDate(),
+			List<Object[]> result = callReportRepoSecondary.get104QAReport(benmedhistoryReport.getStartDate(),
 					benmedhistoryReport.getEndDate(), benmedhistoryReport.getRoleName(),
 					benmedhistoryReport.getAgentID(), benmedhistoryReport.getProviderServiceMapID());
 			if (result != null && result.size() > 0)
@@ -272,7 +272,7 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 			c.setStart_Date(benmedhistoryReport.getStartDate().toString());
 			c.setEnd_Date(benmedhistoryReport.getEndDate().toString());
 			c.setService(fName);
-			List<Objects[]> result = callReportRepoSecondary.getLAHTAlgorithmCalls(benmedhistoryReport.getStartDate(),
+			List<Object[]> result = callReportRepoSecondary.getLAHTAlgorithmCalls(benmedhistoryReport.getStartDate(),
 					benmedhistoryReport.getEndDate(), "valid", "HYBRID HAO", benmedhistoryReport.getAgentID(),
 					benmedhistoryReport.getProviderServiceMapID());
 			if (result != null && result.size() > 0)
@@ -291,15 +291,15 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 	public ByteArrayInputStream getComplaintDetailReport(String jsonRequest, String fName) throws Exception {
 		String[] headers = { "SNo", "Type Of Request", "Count Of Grievance" };
 		ByteArrayInputStream response = null;
-		List<Objects[]> result = new ArrayList<Objects[]>();
-		List<Objects[]> resultFinal=new ArrayList<Objects[]>();
+		List<Object[]> result = new ArrayList<Object[]>();
+		List<Object[]> resultFinal=new ArrayList<Object[]>();
 		Criteria c=new Criteria();
 		logger.info("CallReportsServiceImpl.getComplaintDetailReport - start");
 		try {
 			
 			FeedbackReport[] feedbackDetails = InputMapper.gson().fromJson(jsonRequest, FeedbackReport[].class);
 			List<FeedbackReport> requestList = Arrays.asList(feedbackDetails);
-			Objects[] obj;
+			Object[] obj;
 			for (FeedbackReport feedback : requestList) {
 				 c=new Criteria();
 				c.setStart_Date(feedback.getStartDate().toString());
@@ -342,7 +342,7 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 			c.setAgentID(benmedhistoryReport.getAgentID());
 			c.setCallTypeID(benmedhistoryReport.getCallTypeID() != null ? benmedhistoryReport.getCallTypeID().toString():null);
 			c.setCallTypeName(benmedhistoryReport.getCallTypeName());
-			List<Objects[]> result = callReportRepoSecondary.getCallSummaryReport(benmedhistoryReport.getStartDate(),
+			List<Object[]> result = callReportRepoSecondary.getCallSummaryReport(benmedhistoryReport.getStartDate(),
 					benmedhistoryReport.getEndDate(), benmedhistoryReport.getRoleName(),benmedhistoryReport.getCallTypeID(),
 					benmedhistoryReport.getAgentID(),
 					benmedhistoryReport.getProviderServiceMapID());
@@ -377,7 +377,7 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 				i++;
 			}
 
-			List<Objects[]> result = callReportRepoSecondary.getDistrictWiseCallReport(districtWiseCallReportDetails.getStartDate(), districtWiseCallReportDetails.getEndDate(),
+			List<Object[]> result = callReportRepoSecondary.getDistrictWiseCallReport(districtWiseCallReportDetails.getStartDate(), districtWiseCallReportDetails.getEndDate(),
 					districtWiseCallReportDetails.getProviderServiceMapID(), districtWiseCallReportDetails.getDistrictID() );
 			
 			for (int j = 0; j< finalHeaders.length; j++, i++) {
@@ -411,7 +411,7 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 			c.setStart_Date(phoneBlockList.getBlockStartDate().toString());
 			c.setEnd_Date(phoneBlockList.getBlockEndDate().toString());
 			c.setService(filename);
-			List<Objects[]> result = callReportRepoSecondary.getUnblockedUserReport(phoneBlockList.getBlockStartDate(),
+			List<Object[]> result = callReportRepoSecondary.getUnblockedUserReport(phoneBlockList.getBlockStartDate(),
 					phoneBlockList.getBlockEndDate(),phoneBlockList.getProviderServiceMapID());
 			if (result != null && result.size() > 0)
 				response = ExcelHelper.tutorialsToExcel(headers, result, filename,  c);
@@ -437,7 +437,7 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 			c.setSexual_Orientation(orientationList.getBeneficiarySexualOrientation() != null ? orientationList.getBeneficiarySexualOrientation() : "All" );
 			c.setStart_Date(orientationList.getStartTimestamp().toString());
 			c.setEnd_Date(orientationList.getEndTimestamp().toString());
-			List<Objects[]> result = callReportRepoSecondary.getAllBySexualOrientationReport(orientationList.getStartTimestamp(),
+			List<Object[]> result = callReportRepoSecondary.getAllBySexualOrientationReport(orientationList.getStartTimestamp(),
 					orientationList.getEndTimestamp(),orientationList.getState(), orientationList.getDistrict(),
 					orientationList.getBeneficiarySexualOrientation(),orientationList.getProviderServiceMapID());
 			if (result != null && result.size() > 0)
@@ -459,7 +459,7 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 		String[] dateWiseReportHeaders = { "SNo", "Date", "Count Of Calls"};
 		String[] locationWiseReportHeaders = {"SNo", "Center", "Count Of Calls" };
 
-		ByteArrayInputStream response = null;List<Objects[]> result=null;
+		ByteArrayInputStream response = null;List<Object[]> result=null;
 		try {
 			Criteria c=new Criteria();
 			c.setStart_Date(callQualityReport.getStartDate().toString());
@@ -522,7 +522,7 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 			c.setLanguage(prefferedLanguageRequest.getBeneficiaryPreferredLanguage() != null ? prefferedLanguageRequest.getBeneficiaryPreferredLanguage() : "All");
 			c.setStart_Date(prefferedLanguageRequest.getStartTimestamp().toString());
 			c.setEnd_Date(prefferedLanguageRequest.getEndTimestamp().toString());
-			List<Objects[]> result = callReportRepoSecondary.getLanguageDistributionReport(prefferedLanguageRequest.getStartTimestamp(),
+			List<Object[]> result = callReportRepoSecondary.getLanguageDistributionReport(prefferedLanguageRequest.getStartTimestamp(),
 					prefferedLanguageRequest.getEndTimestamp(),prefferedLanguageRequest.getState(),
 					prefferedLanguageRequest.getDistrict(),prefferedLanguageRequest.getBeneficiaryPreferredLanguage(),
 					prefferedLanguageRequest.getProviderServiceMapID());
@@ -549,7 +549,7 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 			c.setDistrict(allReportsByAgeGroup.getDistrict() != null ? allReportsByAgeGroup.getDistrict(): "Any");
 			c.setCallerAgeGroup(allReportsByAgeGroup.getCallerAgeGroup() != null ? allReportsByAgeGroup.getCallerAgeGroup(): "All");
 			
-			List<Objects[]> result = callReportRepoSecondary.getAllByAgeGroup(allReportsByAgeGroup.getStartTimestamp(),
+			List<Object[]> result = callReportRepoSecondary.getAllByAgeGroup(allReportsByAgeGroup.getStartTimestamp(),
 					allReportsByAgeGroup.getEndTimestamp(),allReportsByAgeGroup.getState(), allReportsByAgeGroup.getDistrict(),
 					allReportsByAgeGroup.getMinAge(), allReportsByAgeGroup.getMaxAge(), allReportsByAgeGroup.getProviderServiceMapID());
 			if (result != null && result.size() > 0)
@@ -586,7 +586,7 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 			c.setCall_Sub_Type(report1097RequestModel.getBeneficiaryCallSubType() != null ? report1097RequestModel.getBeneficiaryCallSubType():"Any");
 			c.setGender(report1097RequestModel.getGender() != null ? report1097RequestModel.getGender():"Any");
 			c.setSexual_Orientation(report1097RequestModel.getBeneficiarySexualOrientation() != null ? report1097RequestModel.getBeneficiarySexualOrientation():"Any");
-			List<Objects[]> result = callReportRepoSecondary.getAllReportsByDate(report1097RequestModel.getStartTimestamp(),
+			List<Object[]> result = callReportRepoSecondary.getAllReportsByDate(report1097RequestModel.getStartTimestamp(),
 					report1097RequestModel.getEndTimestamp(), report1097RequestModel.getState(),report1097RequestModel.getDistrict(), 
 					report1097RequestModel.getBeneficiaryCallType(), report1097RequestModel.getBeneficiaryCallSubType(),report1097RequestModel.getBeneficiaryPreferredLanguage(), 
 					report1097RequestModel.getGender(), report1097RequestModel.getBeneficiarySexualOrientation(),
@@ -614,7 +614,7 @@ public class SecondaryReportServiceImpl implements SecondaryReportService {
 			c.setGender(genderList.getGender() != null ? genderList.getGender():"All");
 			c.setStart_Date(genderList.getStartTimestamp().toString());
 			c.setEnd_Date(genderList.getEndTimestamp().toString());
-			List<Objects[]> result = callReportRepoSecondary.getAllByGender(genderList.getStartTimestamp(),
+			List<Object[]> result = callReportRepoSecondary.getAllByGender(genderList.getStartTimestamp(),
 					genderList.getEndTimestamp(), genderList.getState(),
 					genderList.getDistrict(), genderList.getGender(),
 					genderList.getProviderServiceMapID());

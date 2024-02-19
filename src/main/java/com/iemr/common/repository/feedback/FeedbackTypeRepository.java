@@ -37,7 +37,7 @@ public interface FeedbackTypeRepository extends CrudRepository<FeedbackType, Lon
 {
 	@Query("select feedbackTypeID, feedbackTypeName from FeedbackType where deleted = false "
 			+ "order by feedbackTypeName asc")
-	Set<Objects[]> findActiveFeedbackTypes();
+	Set<Object[]> findActiveFeedbackTypes();
 
 	@Query("select new FeedbackType(feedbackTypeID, feedbackTypeName) from FeedbackType type where "
 			+ "providerServiceMapID = :providerServiceMapID and deleted = false order by feedbackTypeName asc")

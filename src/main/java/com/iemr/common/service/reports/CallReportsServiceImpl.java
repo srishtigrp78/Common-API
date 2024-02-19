@@ -444,7 +444,7 @@ public class CallReportsServiceImpl implements CallReportsService {
 		logger.debug("getCallQualityReport request: " + OutputMapper.gson().toJson(request));
 
 		CallQualityReport callQualityReport = inputMapper.gson().fromJson(request, CallQualityReport.class);
-		List<Objects[]> callQuality = null;
+		List<Object[]> callQuality = null;
 
 		if (callQualityReport.getSearchCriteria().equalsIgnoreCase("callTypeWise")) {
 			List<CallTypeWiseReport> reportList = new ArrayList<CallTypeWiseReport>();
@@ -1000,7 +1000,7 @@ public class CallReportsServiceImpl implements CallReportsService {
 	}
 
 	private String getHAHTDisconnectedCalls(MedHistory benmedhistoryReport) {
-		List<Objects[]> resultSet = null;
+		List<Object[]> resultSet = null;
 //		List<CallReport> list = crmCallReportRepository.getAllBenCallIDs("HYBRID HAO", "Incomplete",
 //				benmedhistoryReport.getStartDate(), benmedhistoryReport.getEndDate());
 		// List<QaReportModel> modelList = new ArrayList<>();
@@ -1051,7 +1051,7 @@ public class CallReportsServiceImpl implements CallReportsService {
 	}
 
 	public String getRandomPickup(MedHistory benmedhistoryReport) {
-		List<Objects[]> resultSet = null;
+		List<Object[]> resultSet = null;
 //		List<CallReport> list = crmCallReportRepository.getAllBenCallIDs("HYBRID HAO", "valid",
 //				benmedhistoryReport.getStartDate(), benmedhistoryReport.getEndDate());
 //		List<QaReportModel> modelList = new ArrayList<>();
@@ -1102,7 +1102,7 @@ public class CallReportsServiceImpl implements CallReportsService {
 	}
 
 	public String getOtherAdviceCalls(MedHistory benmedhistoryReport) {
-		List<Objects[]> resultSet = null;
+		List<Object[]> resultSet = null;
 //		List<CallReport> list = crmCallReportRepository.getAllBenCallIDs("HYBRID HAO", "valid",
 //				benmedhistoryReport.getStartDate(), benmedhistoryReport.getEndDate());
 //		List<QaReportModel> modelList = new ArrayList<>();
@@ -1154,7 +1154,7 @@ public class CallReportsServiceImpl implements CallReportsService {
 	}
 
 	public String getLAHTTransferCallsAtMO(MedHistory benmedhistoryReport) {
-		List<Objects[]> resultSet = null;
+		List<Object[]> resultSet = null;
 //		List<CallReport> list = crmCallReportRepository.getAllBenCallIDs("HYBRID HAO", "valid",
 //				benmedhistoryReport.getStartDate(), benmedhistoryReport.getEndDate());
 //		List<QaReportModel> modelList = new ArrayList<>();
@@ -1205,7 +1205,7 @@ public class CallReportsServiceImpl implements CallReportsService {
 	}
 
 	public String getLAHTAlgorithmCalls(MedHistory benmedhistoryReport) {
-		List<Objects[]> resultSet = null;
+		List<Object[]> resultSet = null;
 //		List<CallReport> list = crmCallReportRepository.getAllBenCallIDs("HYBRID HAO", "valid",
 //				benmedhistoryReport.getStartDate(), benmedhistoryReport.getEndDate());
 //		List<QaReportModel> modelList = new ArrayList<>();
@@ -1256,7 +1256,7 @@ public class CallReportsServiceImpl implements CallReportsService {
 	}
 
 	public String getDSusedValidCallAtHAO(MedHistory benmedhistoryReport) {
-		List<Objects[]> resultSet = null;
+		List<Object[]> resultSet = null;
 //		List<CallReport> list = crmCallReportRepository.getAllBenCallIDs("HYBRID HAO", "valid",
 //				benmedhistoryReport.getStartDate(), benmedhistoryReport.getEndDate());
 //		List<QaReportModel> modelList = new ArrayList<>();
@@ -1447,7 +1447,7 @@ public class CallReportsServiceImpl implements CallReportsService {
 	}
 
 	public String getHAHTValidClosedCalls(MedHistory benmedhistoryReport) throws Exception {
-		List<Objects[]> resultSet = null;
+		List<Object[]> resultSet = null;
 //		List<CallReport> list = crmCallReportRepository.getAllBenCallIDs("HYBRID HAO", "valid",
 //				benmedhistoryReport.getStartDate(), benmedhistoryReport.getEndDate());
 //		List<QaReportModel> modelList = new ArrayList<>();

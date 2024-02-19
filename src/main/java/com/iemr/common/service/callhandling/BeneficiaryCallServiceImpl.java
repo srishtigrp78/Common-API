@@ -669,7 +669,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 		Timestamp startDate = new Timestamp(cal.getTimeInMillis());
 		cal.add(Calendar.DATE, 7);
 		Timestamp lastDate = new Timestamp(cal.getTimeInMillis());
-		Set<Objects[]> resultSet = null;
+		Set<Object[]> resultSet = null;
 		String executionCondition = getConditionForOutboundSerach(callRequest);
 
 		// (date)(provider check)(service check)(user check)(language check)
@@ -1323,7 +1323,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 		if (requestObj.getPhoneNo() != null && requestObj.getPhoneNo().trim().length() > 0) {
 			phoneNoFilter = "%" + requestObj.getPhoneNo().trim() + "%";
 		}
-		Set<Objects[]> resultSet = phoneBlockRepository.getPhoneBlockListByServiceProviderMapID(
+		Set<Object[]> resultSet = phoneBlockRepository.getPhoneBlockListByServiceProviderMapID(
 				requestObj.getProviderServiceMapID(), phoneNoFilter, blockedList);
 		for (Object[] objects : resultSet) {
 			PhoneBlock phoneBlock = PhoneBlock.initializePhoneBlock((Long) objects[0], (String) objects[1],
@@ -1439,7 +1439,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 		List<PhoneBlock> phoneBlocks = new ArrayList<PhoneBlock>();
 		Calendar cal = Calendar.getInstance();
 		Timestamp endDate = new Timestamp(cal.getTimeInMillis());
-		Set<Objects[]> resultSet = phoneBlockRepository.getPhoneBlockList(endDate);
+		Set<Object[]> resultSet = phoneBlockRepository.getPhoneBlockList(endDate);
 		for (Object[] objects : resultSet) {
 			PhoneBlock phoneBlock = PhoneBlock.initializePhoneBlock((Long) objects[0], (String) objects[1],
 					(Integer) objects[2], (Integer) objects[3], (Boolean) objects[4], (String) objects[5],
@@ -1485,7 +1485,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	public String outboundCallListByCallID(String request) throws IEMRException {
 		OutboundCallRequest outboundCallRequest = inputMapper.gson().fromJson(request, OutboundCallRequest.class);
 		BeneficiaryCall callRequest = inputMapper.gson().fromJson(request, BeneficiaryCall.class);
-		Set<Objects[]> resultSet;
+		Set<Object[]> resultSet;
 		List<OutboundCallRequest> outboundCallRequests = new ArrayList<OutboundCallRequest>();
 
 		List<BeneficiaryCall> benCallRequests = beneficiaryCallRepository
@@ -1530,7 +1530,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 		Timestamp startDate = new Timestamp(cal.getTimeInMillis());
 		cal.add(Calendar.DATE, 7);
 		Timestamp lastDate = new Timestamp(cal.getTimeInMillis());
-		Set<Objects[]> resultSet = null;
+		Set<Object[]> resultSet = null;
 		startDate = (outboundCallRequest.getStartDate() != null) ? outboundCallRequest.getStartDate() : startDate;
 		lastDate = (outboundCallRequest.getEndDate() != null) ? outboundCallRequest.getEndDate() : lastDate;
 		String selectedLanguage = outboundCallRequest.getPreferredLanguageName();
@@ -1752,7 +1752,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	@Override
 	public String checkAutoPreviewDialing(ProviderServiceMapping m_ProviderServiceMapping) {
 		ProviderServiceMapping mapping = null;
-		List<Objects[]> list = null;
+		List<Object[]> list = null;
 		list = dialPreferenceManualRepository
 				.checkAutoPreviewDialing(m_ProviderServiceMapping.getProviderServiceMapID());
 		Object[] objects = list.get(0);

@@ -67,7 +67,7 @@ public class Helpline104BeneficiaryHistoryController {
 		logger.info("getBenCaseSheet request " + smpleBenreq.toString());
 		
 		
-		ArrayList<Objects[]> smpleBenHistory = smpleBenHistoryServiceImpl.geSmpleBenHistory(smpleBenreq.getBeneficiaryRegID());
+		ArrayList<Object[]> smpleBenHistory = smpleBenHistoryServiceImpl.geSmpleBenHistory(smpleBenreq.getBeneficiaryRegID());
 		output.setResponse(smpleBenHistory.toString());
 		logger.info("getBenCaseSheet response: " + output);
 		} catch (Exception e) {

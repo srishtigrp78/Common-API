@@ -33,7 +33,7 @@ import com.iemr.common.data.userbeneficiarydata.Status;
 @Repository
 public abstract interface StatusRepository extends CrudRepository<Status, Integer> {
 	@Query("select statusID, status from Status where deleted = false")
-	public abstract Set<Objects[]> findAciveStatus();
+	public abstract Set<Object[]> findAciveStatus();
 	
 	Status findByStatusID(Integer statusID);
 }

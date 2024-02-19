@@ -44,7 +44,7 @@ public class SexualOrientationServiceImpl implements SexualOrientationService {
 	@Override
 	public List<SexualOrientation> getSexualOrientations() {
 		ArrayList<SexualOrientation> sexualOrientations = new ArrayList<SexualOrientation>();
-		Set<Objects[]> sexualOrientationResult = sexualOrientationRepository.findAciveOrientations();
+		Set<Object[]> sexualOrientationResult = sexualOrientationRepository.findAciveOrientations();
 		for (Object[] objects : sexualOrientationResult) {
 			if (objects != null && objects.length == 2) {
 				sexualOrientations.add(new SexualOrientation((Short) objects[0], (String) objects[1]));

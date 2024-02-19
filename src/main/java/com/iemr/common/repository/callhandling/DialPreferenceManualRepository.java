@@ -47,7 +47,7 @@ public interface DialPreferenceManualRepository extends CrudRepository<ProviderS
 	@Query("SELECT m_ProviderServiceMapping.isDialPreferenceManual, m_ProviderServiceMapping.previewWindowTime "
 			+ "FROM ProviderServiceMapping m_ProviderServiceMapping "
 			+ "where m_ProviderServiceMapping.providerServiceMapID = :providerServiceMapID ")
-	ArrayList<Objects[]> checkAutoPreviewDialing(
+	ArrayList<Object[]> checkAutoPreviewDialing(
 			@Param("providerServiceMapID") Integer providerServiceMapID);
 
 }

@@ -36,7 +36,7 @@ public interface BeneficiaryRelationshipTypeRepository extends CrudRepository<Be
 {
 	@Query("select benRelationshipID, benRelationshipType from BenRelationshipType where deleted = false "
 			+ "order by benRelationshipType asc")
-	Set<Objects[]> getActiveRelationships();
+	Set<Object[]> getActiveRelationships();
 
 	@Query("select relation from BenRelationshipType relation where deleted = false and "
 			+ "relation.benRelationshipID = :relationshipID")

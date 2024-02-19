@@ -242,7 +242,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	public List<FeedbackDetails> getFeedbackRequests(Long id) {
 
 		List<FeedbackDetails> feedbackList = new ArrayList<FeedbackDetails>();
-		ArrayList<Objects[]> lists = feedbackRepository.findByBeneficiaryID(id);
+		ArrayList<Object[]> lists = feedbackRepository.findByBeneficiaryID(id);
 
 		for (Object[] objects : lists) {
 			if (objects != null && objects.length >= 7) {
@@ -257,7 +257,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	public List<FeedbackDetails> getFeedbackRequest(Long id) {
 
 		List<FeedbackDetails> feedbackList = new ArrayList<FeedbackDetails>();
-		ArrayList<Objects[]> lists = feedbackRepository.findByFeedbackId(id);
+		ArrayList<Object[]> lists = feedbackRepository.findByFeedbackId(id);
 
 		for (Object[] objects : lists) {
 			if (objects != null && objects.length >= 8) {
@@ -542,7 +542,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	@Override
 	public String getFeedbackStatus(String request) {
 		List<FeedbackStatus> feedbackStatus = new ArrayList<FeedbackStatus>();
-		List<Objects[]> feedbackResult = feedbackStatusRepository.findAllFeedbackStatus();
+		List<Object[]> feedbackResult = feedbackStatusRepository.findAllFeedbackStatus();
 		for (Object[] object : feedbackResult) {
 			if (object != null && object.length >= 3) {
 				feedbackStatus.add(new FeedbackStatus((Integer) object[0], (String) object[1], (String) object[2]));
@@ -554,7 +554,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	@Override
 	public String getEmailStatus(String request) {
 		List<EmailStatus> emailStatus = new ArrayList<EmailStatus>();
-		List<Objects[]> feedbackResult = emailStatusRepository.findAllEmailStatus();
+		List<Object[]> feedbackResult = emailStatusRepository.findAllEmailStatus();
 		for (Object[] object : feedbackResult) {
 			if (object != null && object.length >= 3) {
 				EmailStatus emailStats = new EmailStatus();

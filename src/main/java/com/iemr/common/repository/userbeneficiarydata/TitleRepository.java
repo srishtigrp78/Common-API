@@ -35,7 +35,7 @@ import com.iemr.common.data.userbeneficiarydata.Title;
 public abstract interface TitleRepository extends CrudRepository<Title, Long>
 {
 	@Query("select titleID, titleName, titleDesc from Title where deleted = false")
-	public abstract Set<Objects[]> findAciveTitles();
+	public abstract Set<Object[]> findAciveTitles();
 
 	@Query("select title from Title title where title.deleted = false and title.titleID = :titleID")
 	public Title findTitlesByID(@Param("titleID") Integer titleID);

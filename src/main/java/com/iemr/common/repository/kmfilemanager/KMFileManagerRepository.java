@@ -52,7 +52,7 @@ public interface KMFileManagerRepository extends CrudRepository<KMFileManager, L
 	@Query("select providerServiceMapID, kmFileManagerID, fileUID, fileName, fileExtension, versionNo, fileCheckSum, "
 			+ "kmUploadStatus, validFrom, validUpto, deleted from KMFileManager "
 			+ "where providerServiceMapID=:providerServiceMapID")
-	Set<Objects[]> getKMFileLists(@Param("providerServiceMapID") Integer providerServiceMapID);
+	Set<Object[]> getKMFileLists(@Param("providerServiceMapID") Integer providerServiceMapID);
 
 	@Query("select files from KMFileManager files "
 			+ "where files.providerServiceMapID = :providerServiceMapID and files.fileName = :fileName "
@@ -73,6 +73,6 @@ public interface KMFileManagerRepository extends CrudRepository<KMFileManager, L
 	
 	@Query("select kmFileManager.fileName, kmFileManager.fileExtension from KMFileManager kmFileManager "
 			+ "where kmFileManager.fileUID = :fileUID")
-	List<Objects[]> getFileNameByUID(@Param("fileUID") String fileUID);
+	List<Object[]> getFileNameByUID(@Param("fileUID") String fileUID);
 
 }

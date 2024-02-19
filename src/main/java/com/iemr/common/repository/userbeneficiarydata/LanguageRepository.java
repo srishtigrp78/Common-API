@@ -34,7 +34,7 @@ import com.iemr.common.data.userbeneficiarydata.Language;
 public abstract interface LanguageRepository extends CrudRepository<Language, Integer>
 {
 	@Query("select languageID, languageName from Language where deleted = false order by languageName asc")
-	public abstract Set<Objects[]> findAciveLanguages();
+	public abstract Set<Object[]> findAciveLanguages();
 
 	public Language findLanguageByLanguageID(Integer languageID);
 	

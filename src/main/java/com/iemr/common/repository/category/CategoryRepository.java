@@ -35,7 +35,7 @@ public interface CategoryRepository extends CrudRepository<CategoryDetails, Inte
 {
 
 	// @Query("select categoryID, categoryName from CategoryDetails where deleted=false " + "order by categoryName asc")
-	// public ArrayList<Objects[]> findBy();
+	// public ArrayList<Object[]> findBy();
 	@Query("select categoryDetails from CategoryDetails categoryDetails "
 			+ "where deleted=false order by categoryName asc")
 	public ArrayList<CategoryDetails> findBy();
@@ -43,7 +43,7 @@ public interface CategoryRepository extends CrudRepository<CategoryDetails, Inte
 	// @Query("select categoryID, categoryName from CategoryDetails "
 	// + "where deleted=false and subServiceID=:subServiceID "
 	// + "order by categoryName asc")
-	// public ArrayList<Objects[]> getAllCategories(@Param("subServiceID") Integer subServiceID);
+	// public ArrayList<Object[]> getAllCategories(@Param("subServiceID") Integer subServiceID);
 	@Query("select categoryDetails from CategoryDetails categoryDetails "
 			+ "where deleted=false and subServiceID=:subServiceID order by categoryName asc")
 	public ArrayList<CategoryDetails> getAllCategories(@Param("subServiceID") Integer subServiceID);
@@ -63,7 +63,7 @@ public interface CategoryRepository extends CrudRepository<CategoryDetails, Inte
 	// @Query("select categoryID, categoryName from CategoryDetails "
 	// + "where deleted=false and subServiceID=:subServiceID " + "and providerServiceMapID=:providerServiceMapID "
 	// + "order by categoryName asc")
-	// public ArrayList<Objects[]> getAllCategories(@Param("subServiceID") Integer subServiceID,
+	// public ArrayList<Object[]> getAllCategories(@Param("subServiceID") Integer subServiceID,
 	// @Param("providerServiceMapID") Integer providerServiceMapID);
 	@Query("select categoryDetails from CategoryDetails categoryDetails "
 			+ "where deleted=false and subServiceID=:subServiceID and providerServiceMapID=:providerServiceMapID "

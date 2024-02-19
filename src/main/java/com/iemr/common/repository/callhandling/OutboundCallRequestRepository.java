@@ -66,7 +66,7 @@ public interface OutboundCallRequestRepository extends CrudRepository<OutboundCa
 			+ "and request.prefferedDateTime < :prefferedEndDateTime and request.assignedUserID is null "
 			+ "and request.deleted <> true and request.isCompleted <> true and request.beneficiaryRegID is not null "
 			+ "order by request.outboundCallReqID desc")
-	public Set<Objects[]> getAllOutboundCalls(@Param("providerServiceMapID") Integer providerServiceMapID,
+	public Set<Object[]> getAllOutboundCalls(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("prefferedStartDateTime") Timestamp prefferedStartDateTime,
 			@Param("prefferedEndDateTime") Timestamp prefferedEndDateTime);
 
@@ -78,7 +78,7 @@ public interface OutboundCallRequestRepository extends CrudRepository<OutboundCa
 			+ "left join request.requestedService where request.providerServiceMapID = :providerServiceMapID "
 			+ "and request.assignedUserID is null and request.deleted <> true and request.beneficiaryRegID is not null "
 			+ "order by request.outboundCallReqID desc")
-	public Set<Objects[]> getAllOutboundCalls(@Param("providerServiceMapID") Integer providerServiceMapID);
+	public Set<Object[]> getAllOutboundCalls(@Param("providerServiceMapID") Integer providerServiceMapID);
 
 	@Query("select request.outboundCallReqID, request.beneficiaryRegID, "
 			+ "request.prefferedDateTime, request.providerServiceMapID, request.requestedFor, request.user, "
@@ -89,7 +89,7 @@ public interface OutboundCallRequestRepository extends CrudRepository<OutboundCa
 			+ "and request.assignedUserID = :assignedUserID and request.isCompleted <> true "
 			+ "and request.deleted <> true and request.beneficiaryRegID is not null "
 			+ "order by request.outboundCallReqID desc")
-	public Set<Objects[]> getAllOutboundCalls(@Param("providerServiceMapID") Integer providerServiceMapID,
+	public Set<Object[]> getAllOutboundCalls(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("assignedUserID") Integer assignedUserID);
 
 	@Query("select request.outboundCallReqID, request.beneficiaryRegID, "
@@ -101,7 +101,7 @@ public interface OutboundCallRequestRepository extends CrudRepository<OutboundCa
 			+ "and request.requestedServiceID = :requestedServiceID and request.isCompleted <> true "
 			+ "and request.deleted <> true and request.beneficiaryRegID is not null "
 			+ "order by request.outboundCallReqID desc")
-	public Set<Objects[]> getAllOutboundCallsWithServID(@Param("providerServiceMapID") Integer providerServiceMapID,
+	public Set<Object[]> getAllOutboundCallsWithServID(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("requestedServiceID") Integer requestedServiceID);
 
 	@Modifying
@@ -116,7 +116,7 @@ public interface OutboundCallRequestRepository extends CrudRepository<OutboundCa
 			+ "where outbound.providerServiceMapID = :providerServiceMapID and "
 			+ "outbound.benCallID = :benCallID and outbound.deleted <> true and outbound.beneficiaryRegID is not null "
 			+ "order by outbound.outboundCallReqID desc")
-	public Set<Objects[]> getOutboundCallListByCallID(@Param("providerServiceMapID") Integer providerServiceMapID,
+	public Set<Object[]> getOutboundCallListByCallID(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("benCallID") Long benCallID);
 
 	@Query("select outbound.outboundCallReqID, outbound.prefferedDateTime, outbound.providerServiceMapID, "
@@ -125,7 +125,7 @@ public interface OutboundCallRequestRepository extends CrudRepository<OutboundCa
 			+ "from OutboundCallRequest outbound left join outbound.requestedService "
 			+ "where outbound.benCallID = :benCallID and outbound.deleted <> true and "
 			+ "outbound.beneficiaryRegID is not null order by outbound.outboundCallReqID desc")
-	public Set<Objects[]> getOutboundCallListByCallID(@Param("benCallID") Long benCallID);
+	public Set<Object[]> getOutboundCallListByCallID(@Param("benCallID") Long benCallID);
 
 	@Query("select request.outboundCallReqID, request.beneficiaryRegID, "
 			+ "request.prefferedDateTime, request.providerServiceMapID, request.requestedFor, request.user, "
@@ -138,7 +138,7 @@ public interface OutboundCallRequestRepository extends CrudRepository<OutboundCa
 			+ "and request.preferredLanguageName = :preferredLanguageName "
 			+ "and request.deleted <> true and request.beneficiaryRegID is not null and request.isCompleted <> true "
 			+ "order by request.outboundCallReqID desc")
-	public Set<Objects[]> getAllOutboundCallsByLanguage(@Param("providerServiceMapID") Integer providerServiceMapID,
+	public Set<Object[]> getAllOutboundCallsByLanguage(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("prefferedStartDateTime") Timestamp prefferedStartDateTime,
 			@Param("prefferedEndDateTime") Timestamp prefferedEndDateTime,
 			@Param("preferredLanguageName") String preferredLanguageName);
@@ -152,7 +152,7 @@ public interface OutboundCallRequestRepository extends CrudRepository<OutboundCa
 			+ "and request.assignedUserID is null and request.deleted <> true and request.isCompleted <> true "
 			+ "and request.preferredLanguageName = :preferredLanguageName and request.beneficiaryRegID is not null "
 			+ "order by request.outboundCallReqID desc")
-	public Set<Objects[]> getAllOutboundCallsByLanguage(@Param("providerServiceMapID") Integer providerServiceMapID,
+	public Set<Object[]> getAllOutboundCallsByLanguage(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("preferredLanguageName") String preferredLanguageName);
 
 	@Query("select request.outboundCallReqID, request.beneficiaryRegID, "
@@ -164,7 +164,7 @@ public interface OutboundCallRequestRepository extends CrudRepository<OutboundCa
 			+ "and request.assignedUserID = :assignedUserID and request.preferredLanguageName = :preferredLanguageName "
 			+ "and request.deleted <> true and request.beneficiaryRegID is not null and request.isCompleted <> true "
 			+ "order by request.outboundCallReqID desc")
-	public Set<Objects[]> getAllOutboundCallsByLanguage(@Param("providerServiceMapID") Integer providerServiceMapID,
+	public Set<Object[]> getAllOutboundCallsByLanguage(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("preferredLanguageName") String preferredLanguageName,
 			@Param("assignedUserID") Integer assignedUserID);
 
@@ -179,7 +179,7 @@ public interface OutboundCallRequestRepository extends CrudRepository<OutboundCa
 			+ "and request.preferredLanguageName = :preferredLanguageName "
 			+ "and request.deleted <> true and request.beneficiaryRegID is not null and request.isCompleted <> true "
 			+ "order by request.outboundCallReqID desc")
-	public Set<Objects[]> getAllOutboundCallsByLanguage(@Param("providerServiceMapID") Integer providerServiceMapID,
+	public Set<Object[]> getAllOutboundCallsByLanguage(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("prefferedStartDateTime") Timestamp prefferedStartDateTime,
 			@Param("prefferedEndDateTime") Timestamp prefferedEndDateTime,
 			@Param("preferredLanguageName") String preferredLanguageName,
@@ -196,7 +196,7 @@ public interface OutboundCallRequestRepository extends CrudRepository<OutboundCa
 			+ "and request.deleted <> true and request.prefferedDateTime >= :startDate "
 			+ "and request.prefferedDateTime <= :endDate and request.beneficiaryRegID is not null "
 			+ "group by request.preferredLanguageName")
-	public Set<Objects[]> outboundCallCount(@Param("providerServiceMapID") Integer providerServiceMapID,
+	public Set<Object[]> outboundCallCount(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate);
 
 	@Query("select request.preferredLanguageName, count(request) "
@@ -205,7 +205,7 @@ public interface OutboundCallRequestRepository extends CrudRepository<OutboundCa
 			+ "and request.deleted <> true and request.prefferedDateTime >= :startDate "
 			+ "and request.prefferedDateTime <= :endDate and request.preferredLanguageName = :preferredLanguageName "
 			+ "and request.beneficiaryRegID is not null group by request.preferredLanguageName")
-	public Set<Objects[]> outboundCallCount(@Param("providerServiceMapID") Integer providerServiceMapID,
+	public Set<Object[]> outboundCallCount(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate,
 			@Param("preferredLanguageName") String preferredLanguageName);
 
@@ -214,7 +214,7 @@ public interface OutboundCallRequestRepository extends CrudRepository<OutboundCa
 			+ "and request.assignedUserID  = :assignedUserID and request.isCompleted <> true "
 			+ "and request.deleted <> true and request.beneficiaryRegID is not null "
 			+ "group by request.preferredLanguageName")
-	public Set<Objects[]> outboundCallCount(@Param("providerServiceMapID") Integer providerServiceMapID,
+	public Set<Object[]> outboundCallCount(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("assignedUserID") Integer assignedUserID);
 
 	@Query("select request.preferredLanguageName, count(request) "
@@ -223,7 +223,7 @@ public interface OutboundCallRequestRepository extends CrudRepository<OutboundCa
 			+ "and request.prefferedDateTime <= :endDate and request.isCompleted <> true "
 			+ "and request.deleted <> true and request.beneficiaryRegID is not null "
 			+ "group by request.preferredLanguageName")
-	public Set<Objects[]> outboundCallCount(@Param("providerServiceMapID") Integer providerServiceMapID,
+	public Set<Object[]> outboundCallCount(@Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate,
 			@Param("assignedUserID") Integer assignedUserID);
 

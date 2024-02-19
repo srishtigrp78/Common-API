@@ -37,7 +37,7 @@ public interface LocationDistrictBlockRepository extends CrudRepository<District
 
 	@Query("select blockID, blockName from DistrictBlock where districtID = :id and deleted = false "
 			+ "order by blockName asc")
-	public Set<Objects[]> findBy(@Param("id") int id);
+	public Set<Object[]> findBy(@Param("id") int id);
 	
 	DistrictBlock findByBlockID(Integer blockID);
 }

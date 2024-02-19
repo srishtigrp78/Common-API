@@ -34,7 +34,7 @@ import com.iemr.common.data.userbeneficiarydata.Gender;
 @Repository
 public abstract interface GenderRepository extends CrudRepository<Gender, Long> {
 	@Query("select genderID, genderName from Gender where deleted = false order by genderName asc")
-	public abstract Set<Objects[]> findAciveGenders();
+	public abstract Set<Object[]> findAciveGenders();
 	
 	@Query("select gender from Gender gender where gender.deleted = false and gender.genderID = :genderID")
 	public Gender findGendersByID(@Param("genderID") Integer genderID);
