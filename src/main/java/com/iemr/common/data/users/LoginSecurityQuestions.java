@@ -59,10 +59,6 @@ public class LoginSecurityQuestions
 	@Column(name = "LastModDate", insertable = false, updatable = false)
 	private Timestamp LastModDate;
 
-	@OneToOne(mappedBy = "m_LoginSecurityQuestions")
-	@PrimaryKeyJoinColumn
-	private UserSecurityQMapping m_UserSecurityQMapping;
-
 	@Transient
 	private OutputMapper outputMapper = new OutputMapper();
 

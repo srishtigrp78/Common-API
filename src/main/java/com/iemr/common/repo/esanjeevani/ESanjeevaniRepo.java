@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.iemr.common.data.door_to_door_app.V_doortodooruserdetails;
 @Repository
-public interface ESanjeevaniRepo extends CrudRepository<V_doortodooruserdetails, Integer>{
+public interface ESanjeevaniRepo extends CrudRepository<V_doortodooruserdetails, String>{
 	
 	@Query(nativeQuery = true, value = "SELECT BenDetailsId AS benDetailsId, BenAddressId AS benAddressId,  BenContactsId AS benContactsId  FROM db_identity.i_beneficiarymapping WHERE BenRegId = :benRegID")
 	public List<Object[]> getBeneficiaryMappingIds(@Param("benRegID") Long benRegID);

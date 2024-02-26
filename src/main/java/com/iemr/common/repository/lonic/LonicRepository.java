@@ -32,7 +32,7 @@ import com.iemr.common.data.lonic.LonicDescription;
 
 
 @Repository
-public interface LonicRepository extends JpaRepository<LonicDescription, Long> {
+public interface LonicRepository extends JpaRepository<LonicDescription, String> {
 	
 	@Query("SELECT DISTINCT s FROM LonicDescription s WHERE "
 			+ "(s.component LIKE %:term% OR "

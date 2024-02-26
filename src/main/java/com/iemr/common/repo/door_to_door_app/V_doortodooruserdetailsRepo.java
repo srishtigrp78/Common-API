@@ -34,7 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.iemr.common.data.door_to_door_app.V_doortodooruserdetails;
 
 @Repository
-public interface V_doortodooruserdetailsRepo extends CrudRepository<V_doortodooruserdetails, Integer> {
+public interface V_doortodooruserdetailsRepo extends CrudRepository<V_doortodooruserdetails, String> {
 
 	public ArrayList<V_doortodooruserdetails> findByUserID(Integer userID);
 
