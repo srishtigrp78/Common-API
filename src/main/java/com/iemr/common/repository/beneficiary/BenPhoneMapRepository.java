@@ -28,7 +28,7 @@ public interface BenPhoneMapRepository //extends CrudRepository<BenPhoneMap, Lon
 	//			+ "b.benRelationshipID, b.phoneNo, b.phoneTypeID, b.deleted, b.benRelationshipType, b.nuisanceCallCount from BenPhoneMap b "
 	//			+ "left join b.benRelationshipType where b.deleted = false and b.benificiaryRegID = :benificiaryRegID "
 	//			+ "order by b.benPhMapID asc")
-	//	public abstract Set<Objects[]> findAciveBeneficiaryPhones(@Param("benificiaryRegID") Long benificiaryRegID);
+	//	public abstract Set<Object[]> findAciveBeneficiaryPhones(@Param("benificiaryRegID") Long benificiaryRegID);
 	//
 	//	@Query("select b.benPhMapID, b.benificiaryRegID, b.parentBenRegID, "
 	//			+ "b.benRelationshipID, b.phoneNo, b.phoneTypeID, b.deleted, "
@@ -36,7 +36,7 @@ public interface BenPhoneMapRepository //extends CrudRepository<BenPhoneMap, Lon
 	//			+ "left join b.benRelationshipType where b.deleted = false and "
 	//			+ "b.benificiaryRegID = :benificiaryRegID and b.phoneNo = :phoneNo "
 	//			+ "order by b.benPhMapID asc")
-	//	public abstract Set<Objects[]> findBeneficiaryPhones(@Param("benificiaryRegID") Long benificiaryRegID,
+	//	public abstract Set<Object[]> findBeneficiaryPhones(@Param("benificiaryRegID") Long benificiaryRegID,
 	//			@Param("phoneNo") String phoneNo);
 	//
 	//	@Transactional
@@ -54,7 +54,7 @@ public interface BenPhoneMapRepository //extends CrudRepository<BenPhoneMap, Lon
 	//			+ "b.benRelationshipType, b.nuisanceCallCount from BenPhoneMap b "
 	//			+ "left join b.benRelationshipType where b.deleted = false and b.phoneNo = :phoneNo "
 	//			+ "order by b.benPhMapID asc")
-	//	public abstract Set<Objects[]> findBeneficiaryByPhone(@Param("phoneNo") String phoneNo);
+	//	public abstract Set<Object[]> findBeneficiaryByPhone(@Param("phoneNo") String phoneNo);
 	//
 	//	@Transactional
 	//	@Modifying

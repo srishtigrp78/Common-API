@@ -164,7 +164,7 @@ public class RegisterBenificiaryServiceImpl implements RegisterBenificiaryServic
 				return response.toString();
 			}
 		}
-		return OutputMapper.gsonWithoutExposeRestriction().toJson(beneficiary);
+		return OutputMapper.gson().toJson(beneficiary);	
 	}
 
 	@Override
