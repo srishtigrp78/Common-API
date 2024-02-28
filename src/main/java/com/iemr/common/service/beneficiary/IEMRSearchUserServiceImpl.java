@@ -292,7 +292,7 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 
 		logger.info("searchUserByParameters response size: "
 				+ (beneficiaryList != null ? beneficiaryList.size() : "No Beneficiary Found"));
-		return OutputMapper.gsonWithoutExposeRestriction().toJson(beneficiaryList);
+		return OutputMapper.gson().toJson(beneficiaryList);
 	}
 
 	// get response mapper
