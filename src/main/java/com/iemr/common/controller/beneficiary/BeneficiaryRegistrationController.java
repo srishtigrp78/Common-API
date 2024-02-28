@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.GsonBuilder;
 import com.iemr.common.data.beneficiary.BenPhoneMap;
 import com.iemr.common.data.beneficiary.BeneficiaryRegistrationData;
@@ -213,11 +214,12 @@ public class BeneficiaryRegistrationController {
 			@Param(value ="{\"beneficiaryRegID\":\"Long\", \"beneficiaryID\":\"Long\", \"HealthID\":\"String\", \"HealthIDNo\":\"String\"} ") @RequestBody String request,
 			HttpServletRequest httpRequest) {
 		OutputResponse response = new OutputResponse();
+		ObjectMapper objectMapper = new ObjectMapper();
 
 		String auth = httpRequest.getHeader(AUTHORIZATION);
 		logger.info("Search user by ID request " + request);
 		try {
-			BeneficiaryModel benificiaryDetails = InputMapper.gson().fromJson(request, BeneficiaryModel.class);
+			BeneficiaryModel benificiaryDetails = objectMapper.readValue(request, BeneficiaryModel.class);
 			logger.debug(benificiaryDetails.toString());
 			List<BeneficiaryModel> iBeneficiary = null;
 			if (benificiaryDetails.getBeneficiaryID() != null) {
@@ -242,7 +244,7 @@ public class BeneficiaryRegistrationController {
 						auth, benificiaryDetails.getIs1097());
 			}
 
-			response.setResponse(OutputMapper.gsonWithoutExposeRestriction().toJson(iBeneficiary));
+			response.setResponse(OutputMapper.gson().toJson(iBeneficiary));
 			logger.info("Search user by ID response size "
 					+ (iBeneficiary != null ? iBeneficiary.size() : "No Beneficiary Found"));
 		} catch (Exception e) {
@@ -265,7 +267,7 @@ public class BeneficiaryRegistrationController {
 			JSONObject requestObj = new JSONObject(request);
 			int pageNumber = requestObj.has("pageNo") ? (requestObj.getInt("pageNo") - 1) : 0;
 			int rows = requestObj.has("rowsPerPage") ? requestObj.getInt("rowsPerPage") : 1000;
-			BenPhoneMap benPhoneMap = OutputMapper.gsonWithoutExposeRestriction().fromJson(request, BenPhoneMap.class);
+			BenPhoneMap benPhoneMap = OutputMapper.gson().fromJson(request, BenPhoneMap.class);
 			logger.info("beneficiary request:" + benPhoneMap);
 			response.setResponse(
 					iemrSearchUserService.findByBeneficiaryPhoneNo(benPhoneMap, pageNumber, rows, auth).toString());

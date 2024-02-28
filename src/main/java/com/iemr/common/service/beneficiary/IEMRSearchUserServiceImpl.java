@@ -249,7 +249,7 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 		beneficiaryList = getBeneficiaryListFromMapper(listBen);
 		logger.info("Serach user by phone no response size "
 				+ (beneficiaryList != null ? beneficiaryList.size() : "No Beneficiary Found"));
-		return OutputMapper.gsonWithoutExposeRestriction().toJson(beneficiaryList);
+		return OutputMapper.gson().toJson(beneficiaryList);
 	}
 
 	// Advance search
