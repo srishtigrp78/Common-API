@@ -39,6 +39,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.iemr.common.data.beneficiary.BenPhoneMap;
 import com.iemr.common.data.beneficiary.BeneficiaryRegistrationData;
@@ -219,7 +220,10 @@ public class BeneficiaryRegistrationController {
 		String auth = httpRequest.getHeader(AUTHORIZATION);
 		logger.info("Search user by ID request " + request);
 		try {
-			BeneficiaryModel benificiaryDetails = objectMapper.readValue(request, BeneficiaryModel.class);
+			Gson gson = new GsonBuilder()
+			        .excludeFieldsWithoutExposeAnnotation()
+			        .create();
+			BeneficiaryModel benificiaryDetails = gson.fromJson(request, BeneficiaryModel.class);
 			logger.debug(benificiaryDetails.toString());
 			List<BeneficiaryModel> iBeneficiary = null;
 			if (benificiaryDetails.getBeneficiaryID() != null) {
