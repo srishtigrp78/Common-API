@@ -19,7 +19,7 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see https://www.gnu.org/licenses/.
 */
-package com.iemr.common.covidVaccination;
+package com.iemr.common.service.covid;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +31,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.iemr.common.data.covid.CovidDoseType;
+import com.iemr.common.data.covid.CovidVaccinationStatus;
+import com.iemr.common.data.covid.CovidVaccineType;
+import com.iemr.common.repository.covid.CovidDoseTypeRepo;
+import com.iemr.common.repository.covid.CovidVaccinationRepo;
+import com.iemr.common.repository.covid.CovidVaccineTypeRepo;
 import com.iemr.common.utils.exception.IEMRException;
 import com.iemr.common.utils.mapper.InputMapper;
 
@@ -39,13 +45,13 @@ public class CovidVaccinationServiceImpl implements CovidVaccinationService {
 
 	final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-	@Autowired(required=false)
+	@Autowired
 	private CovidDoseTypeRepo covidDoseTypeRepo;
 
-	@Autowired(required=false)
+	@Autowired
 	private CovidVaccineTypeRepo covidVaccineTypeRepo;
 
-	@Autowired(required=false)
+	@Autowired
 	private CovidVaccinationRepo covidVaccinationRepo;
 
 	@Override

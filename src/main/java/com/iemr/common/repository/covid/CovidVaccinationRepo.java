@@ -19,12 +19,19 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see https://www.gnu.org/licenses/.
 */
-package com.iemr.common.covidVaccination;
+package com.iemr.common.repository.covid;
+
+import java.math.BigInteger;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import com.iemr.common.data.covid.CovidVaccinationStatus;
+
 @Repository
-public interface CovidDoseTypeRepo extends CrudRepository<CovidDoseType, Integer> {
+
+public interface CovidVaccinationRepo extends CrudRepository<CovidVaccinationStatus, BigInteger> {
+
+	CovidVaccinationStatus findByBeneficiaryRegID(Long benRegId);
 
 }

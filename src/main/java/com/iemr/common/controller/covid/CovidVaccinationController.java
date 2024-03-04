@@ -19,7 +19,7 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see https://www.gnu.org/licenses/.
 */
-package com.iemr.common.covidVaccination;
+package com.iemr.common.controller.covid;
 
 import javax.ws.rs.core.MediaType;
 
@@ -33,6 +33,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.iemr.common.data.covid.CovidVaccinationStatus;
+import com.iemr.common.service.covid.CovidVaccinationService;
 import com.iemr.common.utils.exception.IEMRException;
 import com.iemr.common.utils.response.OutputResponse;
 

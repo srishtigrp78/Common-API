@@ -19,16 +19,14 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see https://www.gnu.org/licenses/.
 */
-package com.iemr.common.covidVaccination;
+package com.iemr.common.repository.covid;
 
-import com.iemr.common.utils.exception.IEMRException;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CovidVaccinationService {
+import com.iemr.common.data.covid.CovidVaccineType;
 
-	public String getVaccinationTypeAndDoseTaken() throws IEMRException;
-
-	public String saveBenCovidVaccinationDetails(String request) throws IEMRException;
-
-	public String getCovidVaccinationDetails(Long benRegId) throws IEMRException;
+@Repository
+public interface CovidVaccineTypeRepo extends CrudRepository<CovidVaccineType, Integer>{
 
 }

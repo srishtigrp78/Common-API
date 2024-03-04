@@ -19,36 +19,35 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see https://www.gnu.org/licenses/.
 */
-package com.iemr.common.covidVaccination;
+package com.iemr.common.data.covid;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import com.google.gson.annotations.Expose;
 
 import lombok.Data;
 
 @Entity
-@Table (name = "m_CovidVaccinetype")
+@Table (name = "m_CovidDoseType")
 @Data
-public class CovidVaccineType {
-	
+public class CovidDoseType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Expose
-	@Column(name = "CovidVaccineTypeID")
-	private Integer covidVaccineTypeID;
+	@Column(name = "CovidDoseTypeID")
+	private Integer covidDoseTypeID;
 	
 	@Expose
-	@Column(name = "VaccineType")
-	private String vaccineType;
+	@Column(name = "DoseType")
+	private String doseType;
 
 	@Expose
 	@Column(name = "ProviderServiceMapID")
@@ -77,5 +76,6 @@ public class CovidVaccineType {
 	@Expose
 	@Column(name = "LastModDate", insertable = false, updatable = false)
 	private Timestamp lastModDate;
-	
-}
+
+	}
+
