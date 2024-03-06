@@ -395,16 +395,15 @@ public class BeneficiaryRegistrationController {
 		String auth = httpRequest.getHeader(AUTHORIZATION);
 		Integer updateCount = 0;
 		try {
-			BeneficiaryModel benificiaryDetails = inputMapper.gson().fromJson(benificiaryRequest,
-					BeneficiaryModel.class);
+			ObjectMapper objectMapper = new ObjectMapper();
+			BeneficiaryModel benificiaryDetails = objectMapper.readValue(benificiaryRequest, BeneficiaryModel.class);
 			updateCount = registerBenificiaryService.updateBenificiary(benificiaryDetails, auth);
 			if (updateCount > 0) {
-				JSONArray updatedUserData = new JSONArray(
-						new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create()
-								.toJson(iemrSearchUserService.userExitsCheckWithId(
-										benificiaryDetails.getBeneficiaryRegID(), auth,
-										benificiaryDetails.getIs1097())));
-				JSONObject responseObj = new JSONObject(updatedUserData.getJSONObject(0).toString());
+				List<BeneficiaryModel> userExitsCheckWithId = iemrSearchUserService.userExitsCheckWithId(
+						benificiaryDetails.getBeneficiaryRegID(), auth,
+						benificiaryDetails.getIs1097());
+				BeneficiaryModel beneficiaryModel = userExitsCheckWithId.get(0);
+				JSONObject responseObj = new JSONObject(beneficiaryModel);
 				responseObj.put("updateCount", updateCount);
 				response.setResponse(responseObj.toString());
 			}

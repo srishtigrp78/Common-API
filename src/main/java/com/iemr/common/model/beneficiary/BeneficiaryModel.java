@@ -32,6 +32,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.model.user.TitleModel;
 import com.iemr.common.model.userbeneficiary.BeneficiaryIdentityModel;
@@ -48,6 +49,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 	private static final Integer DAYS_IN_YEAR = 365;
 	private static final Integer DAYS_IN_MONTH = 30;
@@ -271,7 +273,8 @@ public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 	@Expose
 	private boolean emergencyRegistration;
 	
-	
+	@Expose
+	private Boolean passToNurse = false;
 
 	public static Timestamp getTimestampData(Timestamp timestamp) {
 		return timestamp;
