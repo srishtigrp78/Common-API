@@ -63,7 +63,7 @@ public class BeneficiaryEducation {
 	@Transient
 	private OutputMapper outputMapper = new OutputMapper();
 
-	protected BeneficiaryEducation() {
+	public BeneficiaryEducation() {
 	}
 
 	public BeneficiaryEducation(long educationID, String educationType) {

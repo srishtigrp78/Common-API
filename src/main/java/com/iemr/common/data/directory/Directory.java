@@ -89,7 +89,7 @@ public class Directory
 	@Transient
 	private OutputMapper outputMapper = new OutputMapper();
 
-	protected Directory()
+	public Directory()
 	{
 	}
 
