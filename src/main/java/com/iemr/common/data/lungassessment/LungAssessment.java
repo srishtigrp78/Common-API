@@ -21,6 +21,7 @@
 */
 package com.iemr.common.data.lungassessment;
 
+import java.math.BigInteger;
 import java.sql.Timestamp;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
@@ -37,9 +39,9 @@ import jakarta.persistence.Transient;
 public class LungAssessment {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id", insertable = false)
-	private Long id;
+	private BigInteger id;
 
 	@Column(name = "Beneficiaryregid")
 	private Long patientId;
@@ -102,11 +104,11 @@ public class LungAssessment {
 	@Transient
 	private String timestamp;
 
-	public Long getId() {
+	public BigInteger getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(BigInteger id) {
 		this.id = id;
 	}
 

@@ -245,7 +245,7 @@ public class LungAssessmentServiceImpl implements LungAssessmentService {
 				String tempFileName = "coughSoundAssessment" + lungAssessmentAssessmentRequestObj.getPatientId()
 						+ System.currentTimeMillis() + ".wav";
 				BufferedOutputStream stream = new BufferedOutputStream(
-						new FileOutputStream(new File("lungAssessmentPath" + tempFileName)));
+						new FileOutputStream(new File(lungAssessmentPath + tempFileName)));
 				stream.write(bytes);
 				stream.close();
 
@@ -256,7 +256,7 @@ public class LungAssessmentServiceImpl implements LungAssessmentService {
 				bodyMap.add("gender", lungAssessmentAssessmentRequestObj.getGender());
 				bodyMap.add("assessmentId", lungAssessmentAssessmentRequestObj.getAssessmentId());
 				bodyMap.add("patientId", lungAssessmentAssessmentRequestObj.getPatientId());
-				bodyMap.add("coughsoundfile", new FileSystemResource("swaasaPath" + tempFileName));
+				bodyMap.add("coughsoundfile", new FileSystemResource(lungAssessmentPath + tempFileName));
 
 				HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(bodyMap, headers);
 

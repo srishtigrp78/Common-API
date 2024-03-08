@@ -21,6 +21,7 @@
 */
 package com.iemr.common.repo.lungassessment;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
@@ -29,7 +30,7 @@ import org.springframework.stereotype.Repository;
 import com.iemr.common.data.lungassessment.LungAssessment;
 
 @Repository
-public interface LungAssessmentRepository extends CrudRepository<LungAssessment, Long> {
+public interface LungAssessmentRepository extends CrudRepository<LungAssessment, BigInteger> {
 	public List<LungAssessment> findByAssessmentId(String assessmentId);
 
 	public List<LungAssessment> findByPatientId(Long patientId);
