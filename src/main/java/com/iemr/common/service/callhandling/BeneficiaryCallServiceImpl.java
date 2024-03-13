@@ -48,6 +48,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.data.beneficiary.BenOutboundCallAllocation;
 import com.iemr.common.data.callhandling.BeneficiaryCall;
@@ -59,6 +62,7 @@ import com.iemr.common.data.cti.CTIVoiceFile;
 //import com.iemr.common.data.request_logger.CallLogger;
 import com.iemr.common.data.service.SubService;
 import com.iemr.common.data.users.ProviderServiceMapping;
+import com.iemr.common.data.users.UserServiceRoleMapping;
 import com.iemr.common.dto.identity.BeneficiariesDTO;
 import com.iemr.common.dto.identity.BeneficiariesPartialDTO;
 import com.iemr.common.mapper.BenCompleteDetailMapper;
@@ -274,8 +278,9 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 //	@Autowired
 //	private CallLoggerRepo callLoggerRepo;
 
-	public BeneficiaryCall createCall(String request, String agentIPAddress) throws IEMRException {
-		BeneficiaryCall benCalls = inputMapper.gson().fromJson(request, BeneficiaryCall.class);
+	public BeneficiaryCall createCall(String request, String agentIPAddress) throws IEMRException, JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		BeneficiaryCall benCalls = objectMapper.readValue(request, BeneficiaryCall.class);
 
 		// removing 0 or 91 from phone no - output is 10 digit phone no
 		StringBuffer phoneNo = new StringBuffer();
@@ -662,8 +667,9 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	}
 
 	@Override
-	public String outboundCallList(String request, String auth) throws IEMRException {
-		OutboundCallRequest callRequest = inputMapper.gson().fromJson(request, OutboundCallRequest.class);
+	public String outboundCallList(String request, String auth) throws IEMRException, JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		OutboundCallRequest callRequest = objectMapper.readValue(request, OutboundCallRequest.class);
 		List<OutboundCallRequest> outboundCallRequests = new ArrayList<OutboundCallRequest>();
 		Calendar cal = Calendar.getInstance();
 		Timestamp startDate = new Timestamp(cal.getTimeInMillis());
@@ -1309,8 +1315,9 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	}
 
 	@Override
-	public String getBlacklistNumbers(String request) throws IEMRException {
-		PhoneBlock requestObj = inputMapper.gson().fromJson(request, PhoneBlock.class);
+	public String getBlacklistNumbers(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		PhoneBlock requestObj = objectMapper.readValue(request, PhoneBlock.class);
 		List<PhoneBlock> phoneBlocks = new ArrayList<PhoneBlock>();
 		List<Boolean> blockedList = new ArrayList<Boolean>();
 		if (requestObj.getIsBlocked() != null) {

@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iemr.common.data.scheme.Scheme;
 import com.iemr.common.service.scheme.SchemeServiceImpl;
 import com.iemr.common.utils.mapper.InputMapper;
@@ -88,7 +89,8 @@ public class SchemeController {
 		logger.info("getSchemeList request " + createRequest);
 		OutputResponse output = new OutputResponse();
 		try {
-			Scheme m_scheme = mapper.gson().fromJson(createRequest, Scheme.class);
+			ObjectMapper objectMapper = new ObjectMapper();
+			Scheme m_scheme = objectMapper.readValue(createRequest, Scheme.class);
 			List<Scheme> schemes = null;
 			schemes = schemeServiceImpl.getSchemeList(m_scheme.getProviderServiceMapID());
 			if (schemes != null) {

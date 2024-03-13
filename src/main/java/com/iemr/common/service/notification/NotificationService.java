@@ -26,12 +26,14 @@ import java.security.NoSuchAlgorithmException;
 
 import org.json.JSONException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.iemr.common.utils.exception.IEMRException;
 
 public interface NotificationService {
-	String getNotification(String request) throws IEMRException;
+	String getNotification(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
-	String getSupervisorNotification(String request) throws IEMRException;
+	String getSupervisorNotification(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
 	String createNotification(String request) throws NoSuchAlgorithmException, IOException, IEMRException, Exception;
 

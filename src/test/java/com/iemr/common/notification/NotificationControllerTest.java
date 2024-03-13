@@ -29,7 +29,6 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.iemr.common.controller.notification.NotificationController;
-import com.iemr.common.cti.Constants;
 import com.iemr.common.service.notification.NotificationService;
 import com.iemr.common.service.notification.NotificationServiceImpl;
 
@@ -47,7 +46,7 @@ public class NotificationControllerTest
 //	@Before
 	public void initailize()
 	{
-		request.setRemoteAddr(Constants.REQUESTOR_IP);
+		//request.setRemoteAddr(Constants.REQUESTOR_IP);
 		requestNoIP.setRemoteAddr("");
 	}	
 }

@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import org.json.JSONException;
@@ -38,6 +37,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.iemr.common.data.directory.Directory;
 import com.iemr.common.data.institute.Designation;
 import com.iemr.common.data.kmfilemanager.KMFileManager;
 import com.iemr.common.data.notification.EmergencyContacts;
@@ -112,10 +115,11 @@ public class NotificationServiceImpl implements NotificationService
 //	}
 
 	@Override
-	public String getNotification(String request) throws IEMRException
+	public String getNotification(String request) throws IEMRException, JsonMappingException, JsonProcessingException
 	{
 		ArrayList<Notification> notifications = new ArrayList<Notification>();
-		Notification notificationRequest = inputMapper.gson().fromJson(request, Notification.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Notification notificationRequest = objectMapper.readValue(request, Notification.class);
 		Integer providerServiceMapID = notificationRequest.getProviderServiceMapID();
 		Integer notificationTypeID = notificationRequest.getNotificationTypeID();
 		List<Integer> roleIDs = notificationRequest.getRoleIDs();
@@ -165,10 +169,11 @@ public class NotificationServiceImpl implements NotificationService
 	}
 
 	@Override
-	public String getSupervisorNotification(String request) throws IEMRException
+	public String getSupervisorNotification(String request) throws IEMRException, JsonMappingException, JsonProcessingException
 	{
 		ArrayList<Notification> notifications = new ArrayList<Notification>();
-		Notification notificationRequest = inputMapper.gson().fromJson(request, Notification.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Notification notificationRequest = objectMapper.readValue(request, Notification.class);
 		Set<Object[]> resultSet = null;
 		Calendar cal = Calendar.getInstance();
 		Timestamp validStartDate = new Timestamp(cal.getTimeInMillis());
@@ -239,7 +244,8 @@ public class NotificationServiceImpl implements NotificationService
 	public String createNotification(String request) throws Exception
 	{
 		ArrayList<Notification> savedNotifications = new ArrayList<Notification>();
-		Notification[] notificationRequests = inputMapper.gson().fromJson(request, Notification[].class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Notification[] notificationRequests = objectMapper.readValue(request, Notification[].class);
 		for (Notification notificationRequest : notificationRequests)
 		{
 			Notification notification = addNewNotification(notificationRequest);
@@ -250,7 +256,8 @@ public class NotificationServiceImpl implements NotificationService
 
 	private Notification addNewNotification(Notification notificationRequest) throws Exception
 	{
-		Notification notification = inputMapper.gson().fromJson(notificationRequest.toString(), Notification.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Notification notification = objectMapper.readValue(notificationRequest.toString(), Notification.class);
 		notification.setKmFileManager(null);
 		notification = notificationRepository.save(notification);
 		notificationRequest.setNotificationID(notification.getNotificationID());
@@ -343,7 +350,7 @@ public class NotificationServiceImpl implements NotificationService
 	public String getNotificationType(String request) throws IEMRException
 	{
 		ArrayList<NotificationType> notificationTypes = new ArrayList<NotificationType>();
-		NotificationType notificationType = inputMapper.gson().fromJson(request, NotificationType.class);
+		//NotificationType notificationType = inputMapper.gson().fromJson(request, NotificationType.class);
 		// Set<Object[]> resultSet = notificationTypeRepository
 		// .getNotificationTypes(notificationType.getProviderServiceMapID());
 		Set<Object[]> resultSet = notificationTypeRepository.getNotificationTypes();

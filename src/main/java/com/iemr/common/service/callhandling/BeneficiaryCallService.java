@@ -25,6 +25,8 @@ import java.util.List;
 
 import org.json.JSONException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.iemr.common.data.callhandling.BeneficiaryCall;
 import com.iemr.common.data.callhandling.OutboundCallRequest;
 import com.iemr.common.data.users.ProviderServiceMapping;
@@ -47,8 +49,10 @@ public interface BeneficiaryCallService {
 	 * @param agentIPAddress
 	 * @return - This will return BeneficiaryCall of a newly created call
 	 * @throws IEMRException
+	 * @throws JsonProcessingException 
+	 * @throws JsonMappingException 
 	 */
-	BeneficiaryCall createCall(String request, String agentIPAddress) throws IEMRException;
+	BeneficiaryCall createCall(String request, String agentIPAddress) throws IEMRException, JsonMappingException, JsonProcessingException;
 
 	/**
 	 * This will close the call and updates status of call
@@ -71,7 +75,7 @@ public interface BeneficiaryCallService {
 	 */
 	Integer updateBeneficiaryIDInCall(String beneficiaryCall) throws IEMRException;
 
-	String outboundCallList(String request, String auth) throws IEMRException;
+	String outboundCallList(String request, String auth) throws IEMRException, JsonMappingException, JsonProcessingException;
 
 	String filterCallList(String request, String auth) throws IEMRException;
 
@@ -79,7 +83,7 @@ public interface BeneficiaryCallService {
 
 	String outboundAllocation(String request) throws IEMRException;
 
-	String getBlacklistNumbers(String request) throws IEMRException;
+	String getBlacklistNumbers(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
 	OutputResponse blockPhoneNumber(String request) throws IEMRException;
 

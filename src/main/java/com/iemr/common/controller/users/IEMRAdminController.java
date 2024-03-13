@@ -45,10 +45,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.iemr.common.config.encryption.SecurePassword;
+import com.iemr.common.data.directory.Directory;
 import com.iemr.common.data.users.LoginSecurityQuestions;
 import com.iemr.common.data.users.M_Role;
 import com.iemr.common.data.users.ServiceRoleScreenMapping;
@@ -588,10 +590,9 @@ public class IEMRAdminController {
 		OutputResponse response = new OutputResponse();
 		logger.info("getRoleScreenMappingByProviderID");
 		try {
-
-			ServiceRoleScreenMapping serviceRoleScreenMapping = inputMapper.gson().fromJson(request,
-					ServiceRoleScreenMapping.class);
-
+			ObjectMapper objectMapper = new ObjectMapper();
+			ServiceRoleScreenMapping serviceRoleScreenMapping = objectMapper.readValue(request, ServiceRoleScreenMapping.class);
+			
 			List<ServiceRoleScreenMapping> mapping = iemrAdminUserServiceImpl
 					.getUserServiceRoleMappingForProvider(serviceRoleScreenMapping.getProviderServiceMapID());
 

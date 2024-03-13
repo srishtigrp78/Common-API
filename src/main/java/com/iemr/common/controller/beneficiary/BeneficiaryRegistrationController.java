@@ -44,6 +44,7 @@ import com.google.gson.GsonBuilder;
 import com.iemr.common.data.beneficiary.BenPhoneMap;
 import com.iemr.common.data.beneficiary.BeneficiaryRegistrationData;
 import com.iemr.common.data.directory.Directory;
+import com.iemr.common.data.users.UserServiceRoleMapping;
 import com.iemr.common.model.beneficiary.BeneficiaryModel;
 import com.iemr.common.service.beneficiary.BenRelationshipTypeService;
 import com.iemr.common.service.beneficiary.BeneficiaryOccupationService;
@@ -348,7 +349,8 @@ public class BeneficiaryRegistrationController {
 		OutputResponse response = new OutputResponse();
 		logger.info("Received get user registration data request");
 		try {
-			Directory instituteDirectory = inputMapper.gson().fromJson(request, Directory.class);
+			ObjectMapper objectMapper = new ObjectMapper();
+			Directory instituteDirectory = objectMapper.readValue(request, Directory.class);
 			BeneficiaryRegistrationData beneficiaryRegistrationData = new BeneficiaryRegistrationData();
 			beneficiaryRegistrationData.setM_Status(statusService.getActiveStatus());
 			beneficiaryRegistrationData.setM_Title(titleService.getActiveTitles());

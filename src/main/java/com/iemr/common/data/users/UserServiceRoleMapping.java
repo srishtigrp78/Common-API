@@ -24,6 +24,7 @@ package com.iemr.common.data.users;
 import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.utils.mapper.OutputMapper;
 
@@ -43,6 +44,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "m_userservicerolemapping")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserServiceRoleMapping
 {
 	@Id

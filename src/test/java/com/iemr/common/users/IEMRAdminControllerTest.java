@@ -27,6 +27,8 @@ import static org.mockito.Mockito.when;
 
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.iemr.common.service.users.IEMRAdminUserService;
 import com.iemr.common.service.users.IEMRAdminUserServiceImpl;
 import com.iemr.common.utils.exception.IEMRException;
@@ -53,7 +55,7 @@ public class IEMRAdminControllerTest
 	private static final String OUTPUT_ROLES_BY_PROVIDER_ID_FAILURE_1 = "";
 
 //	@Before
-	public void initializeTest()
+	public void initializeTest() throws JsonMappingException, JsonProcessingException
 	{
 		testService = mock(IEMRAdminUserServiceImpl.class);
 		try

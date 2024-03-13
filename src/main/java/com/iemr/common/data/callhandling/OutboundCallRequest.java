@@ -24,6 +24,7 @@ package com.iemr.common.data.callhandling;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.data.service.SubService;
 import com.iemr.common.data.users.User;
@@ -45,6 +46,7 @@ import lombok.Data;
 @Entity
 @Table(name = "t_outboundcallrequest")
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OutboundCallRequest
 {
 	@Id

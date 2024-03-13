@@ -50,7 +50,7 @@ public class UserNotificationMappingService
 {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-	@Autowired(required=false)
+	@Autowired
 	UserNotificationMappingRepo repo;
 
 	public AlertAndNotificationCountDTO getAlertAndNotificationCount(UserNotificationDisplayMinDTO dto)

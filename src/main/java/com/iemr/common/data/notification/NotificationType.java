@@ -24,6 +24,7 @@ package com.iemr.common.data.notification;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.utils.mapper.OutputMapper;
 
@@ -41,6 +42,7 @@ import lombok.Data;
 @Entity
 @Table(name = "m_notificationtype")
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class NotificationType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -23,6 +23,8 @@ package com.iemr.common.service.services;
 
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.iemr.common.data.category.CategoryDetails;
 import com.iemr.common.data.category.SubCategoryDetails;
 import com.iemr.common.data.service.SubService;
@@ -36,7 +38,7 @@ public interface CommonService
 
 	public Iterable<SubCategoryDetails> getSubCategories(String request) throws IEMRException;
 
-	public Iterable<SubService> getActiveServiceTypes(String request) throws IEMRException;
+	public Iterable<SubService> getActiveServiceTypes(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 	
 //	public List<SubCategoryDetails> getSubCategoriesOfProvider(Integer providerServiceMapID);
 

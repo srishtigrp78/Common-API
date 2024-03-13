@@ -25,6 +25,8 @@ import java.util.List;
 
 import org.json.JSONException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.iemr.common.data.callhandling.CallType;
 import com.iemr.common.utils.exception.IEMRException;
 
@@ -37,7 +39,7 @@ public interface CalltypeService {
 
 	List<CallType> getAllCalltypes(String id) throws IEMRException;
 
-	String getAllCalltypesV1(String request) throws JSONException, IEMRException;
+	String getAllCalltypesV1(String request) throws JSONException, IEMRException, JsonMappingException, JsonProcessingException;
 
 	// String updateCalltype(CallType callType);
 }

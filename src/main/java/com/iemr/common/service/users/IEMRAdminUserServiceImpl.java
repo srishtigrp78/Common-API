@@ -50,6 +50,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -713,10 +716,11 @@ public class IEMRAdminUserServiceImpl implements IEMRAdminUserService {
 	}
 
 	@Override
-	public String getRolesByProviderID(String request) throws IEMRException {
+	public String getRolesByProviderID(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
 		// ArrayList<Role> rolesList = new ArrayList<Role>();
 		ArrayList<RoleFeatureOutputModel> rolesList = new ArrayList<RoleFeatureOutputModel>();
-		UserServiceRoleMapping userRoles = InputMapper.gson().fromJson(request, UserServiceRoleMapping.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		UserServiceRoleMapping userRoles = objectMapper.readValue(request, UserServiceRoleMapping.class);
 		Set<Object[]> resultSet = userRoleMappingRepository
 				.getRolesByProviderServiceMapID(userRoles.getProviderServiceMapID());
 		for (Object[] roleObj : resultSet) {
@@ -750,9 +754,10 @@ public class IEMRAdminUserServiceImpl implements IEMRAdminUserService {
 	}
 
 	@Override
-	public String getUsersByProviderID(String request) throws IEMRException {
+	public String getUsersByProviderID(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
 		ArrayList<User> usersList = new ArrayList<User>();
-		UserServiceRoleMapping userRoles = InputMapper.gson().fromJson(request, UserServiceRoleMapping.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		UserServiceRoleMapping userRoles = objectMapper.readValue(request, UserServiceRoleMapping.class);
 		List<Long> resultSet = null;
 		if (userRoles.getRoleID() != null) {
 			if (userRoles.getLanguageName() != null) {
@@ -918,7 +923,8 @@ public class IEMRAdminUserServiceImpl implements IEMRAdminUserService {
 
 	public String getLocationsByProviderID(String request) throws Exception {
 		ArrayList<ProviderServiceAddressMapping> rolesList = new ArrayList<ProviderServiceAddressMapping>();
-		UserServiceRoleMapping userRoles = InputMapper.gson().fromJson(request, UserServiceRoleMapping.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		UserServiceRoleMapping userRoles = objectMapper.readValue(request, UserServiceRoleMapping.class);
 		Set<Object[]> resultSet = null;
 		if (userRoles.getRoleID() != null) {
 			resultSet = userRoleMappingRepository.getLocationsByProviderID(userRoles.getProviderServiceMapID(),

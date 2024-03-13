@@ -29,6 +29,8 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.gson.JsonObject;
 import com.iemr.common.data.users.LoginSecurityQuestions;
 import com.iemr.common.data.users.M_Role;
@@ -64,9 +66,9 @@ public interface IEMRAdminUserService
 	 */
 	ArrayList<LoginSecurityQuestions> getAllLoginSecurityQuestions();
 
-	String getRolesByProviderID(String request) throws IEMRException;
+	String getRolesByProviderID(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
-	String getUsersByProviderID(String request) throws IEMRException;
+	String getUsersByProviderID(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
 	List<User> getUserDetails(String request) throws Exception;
 

@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -225,7 +226,8 @@ public class CustomerRelationshipSecondaryReports {
 		String filename = null;
 		InputStreamResource file = null;
 		try {
-			CallQualityReport callQualityReport = InputMapper.gson().fromJson(jsonRequest, CallQualityReport.class);
+			ObjectMapper objectMapper = new ObjectMapper();
+			CallQualityReport callQualityReport = objectMapper.readValue(jsonRequest, CallQualityReport.class);
 			filename = getFileName(jsonRequest, callQualityReport.getFileName());
 			file = new InputStreamResource(secondaryReportService.getCallQualityReport(callQualityReport, filename));
 			return ResponseEntity.ok()

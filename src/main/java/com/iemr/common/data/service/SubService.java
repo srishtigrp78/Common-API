@@ -23,6 +23,7 @@ package com.iemr.common.data.service;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.data.users.ProviderServiceMapping;
 import com.iemr.common.utils.mapper.OutputMapper;
@@ -42,6 +43,7 @@ import lombok.Data;
 @Entity
 @Table(name = "m_subservice")
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SubService {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

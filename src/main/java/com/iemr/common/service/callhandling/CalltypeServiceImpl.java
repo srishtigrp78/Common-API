@@ -35,7 +35,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iemr.common.data.callhandling.CallType;
+import com.iemr.common.data.notification.Notification;
 import com.iemr.common.repository.callhandling.IEMRCalltypeRepositoryImplCustom;
 import com.iemr.common.utils.exception.IEMRException;
 import com.iemr.common.utils.mapper.InputMapper;
@@ -78,9 +82,10 @@ public class CalltypeServiceImpl implements CalltypeService
 	}
 
 	@Override
-	public String getAllCalltypesV1(String request) throws JSONException, IEMRException
+	public String getAllCalltypesV1(String request) throws JSONException, IEMRException, JsonMappingException, JsonProcessingException
 	{
-		CallType provider = inputMapper.gson().fromJson(request, CallType.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		CallType provider = objectMapper.readValue(request, CallType.class);
 		JSONArray callGroupTypes = new JSONArray();
 		Set<Object[]> callTypesArray = new HashSet<Object[]>();
 		if (provider.getIsInbound() != null && provider.getIsOutbound() != null)

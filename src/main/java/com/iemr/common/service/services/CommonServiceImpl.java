@@ -23,14 +23,15 @@ package com.iemr.common.service.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iemr.common.data.category.CategoryDetails;
 import com.iemr.common.data.category.SubCategoryDetails;
-import com.iemr.common.data.kmfilemanager.KMFileManager;
 import com.iemr.common.data.service.SubService;
 import com.iemr.common.repository.category.CategoryRepository;
 import com.iemr.common.repository.category.SubCategoryRepository;
@@ -222,8 +223,9 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public Iterable<SubService> getActiveServiceTypes(String request) throws IEMRException {
-		SubService subServiceRequest = inputMapper.gson().fromJson(request, SubService.class);
+	public Iterable<SubService> getActiveServiceTypes(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		SubService subServiceRequest =objectMapper.readValue(request, SubService.class);
 		List<SubService> subServices = new ArrayList<SubService>();
 		ArrayList<Object[]> lists = serviceTypeRepository
 				.findActiveServiceTypes(subServiceRequest.getProviderServiceMapID());
