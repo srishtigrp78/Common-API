@@ -49,7 +49,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 	private static final Integer DAYS_IN_YEAR = 365;
 	private static final Integer DAYS_IN_MONTH = 30;

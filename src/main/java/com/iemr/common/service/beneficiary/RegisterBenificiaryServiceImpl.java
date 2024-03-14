@@ -38,6 +38,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.iemr.common.data.beneficiary.Beneficiary;
 import com.iemr.common.data.mctshistory.MctsOutboundCallDetail;
 import com.iemr.common.dto.identity.BeneficiariesDTO;
@@ -142,8 +144,8 @@ public class RegisterBenificiaryServiceImpl implements RegisterBenificiaryServic
 		identityDTO.setEmergencyRegistration(beneficiaryModel.isEmergencyRegistration());
 		identityDTO
 				.setBenFamilyDTOs(identityMapper.benPhoneMapListToBenFamilyDTOList(beneficiaryModel.getBenPhoneMaps()));
-		String request = InputMapper.getInstance().gson().toJson(identityDTO).toString();
-
+		String request = new Gson().toJson(identityDTO);		
+		
 		if (beneficiaryModel.getIs1097() == null)
 			beneficiaryModel.setIs1097(false);
 

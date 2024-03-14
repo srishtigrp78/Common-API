@@ -32,11 +32,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iemr.common.data.callhandling.BeneficiaryCall;
 import com.iemr.common.data.callhandling.CallType;
 import com.iemr.common.data.users.ProviderServiceMapping;
@@ -76,7 +78,7 @@ public class CallController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get call types")
-	@RequestMapping(value = "/getCallTypes", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getCallTypes", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getAllCallTypes(
 			@Param("{\"providerServiceMapID\":\"Integer - provider service ID\", \"isInbound\": Optional boolean,"
 					+ "\"isOutbound\": Optional boolean}") @RequestBody String providerDetails) {
@@ -94,7 +96,7 @@ public class CallController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get call types V1")
-	@RequestMapping(value = "/getCallTypesV1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getCallTypesV1", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getCallTypesV1(
 			@Param("{\"providerServiceMapID\":\"Integer - provider service ID\", \"isInbound\": Optional boolean,"
 					+ "\"isOutbound\": Optional boolean}") @RequestBody String providerDetails) {
@@ -111,7 +113,7 @@ public class CallController {
 
 	@CrossOrigin()
 	@Operation(summary = "Start call")
-	@RequestMapping(value = "/startCall", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/startCall", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String startCall(
 			@Param(value = "{\"calledServiceID\":\"Integer - provider service ID\", "
 					+ "\"callID\":\"String - Unique ID associated with CTI for every call\""
@@ -140,7 +142,7 @@ public class CallController {
 
 	@CrossOrigin()
 	@Operation(summary = "Update beneficiary in call")
-	@RequestMapping(value = "/updatebeneficiaryincall", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/updatebeneficiaryincall", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String updateBeneficiaryIDInCall(@Param(value = "{\"benCallID\":\"Integer - callID as in CRM\", "
 			+ "\"isCalledEarlier\":\"Boolean - to be set as true or false if called earlier is yes or no\","
 			+ "\"beneficiaryRegID\":\"Integer - benefiicary registration id\"}") @RequestBody String request) {
@@ -162,7 +164,7 @@ public class CallController {
 
 	@CrossOrigin()
 	@Operation(summary = "Close call")
-	@RequestMapping(value = "/closeCall", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/closeCall", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String closeCall(
 			@Param(value = "{\"benCallID\":\"Integer - callID as in CRM\", \"remarks\":\"String - call remarks\", "
 					+ "\"callClosureType\":\"String - closure type\", \"callTypeID\":\"Integer - call type ID\", "
@@ -203,7 +205,7 @@ public class CallController {
 
 	@CrossOrigin()
 	@Operation(summary = "Outbound call list")
-	@RequestMapping(value = "/outboundCallList", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/outboundCallList", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String outboundCallList(@Param(value = "{\"providerServiceMapID\":\" called service ID integer\", "
 			+ "\"assignedUserID\":\"Optional - Integer ID of user that is assigned to\", "
 			+ "\"subServiceID\":\"Optional - Integer ID of subservice that needs to be filtered\", "
@@ -224,7 +226,7 @@ public class CallController {
 
 	@CrossOrigin()
 	@Operation(summary = "Outbound call count")
-	@RequestMapping(value = "/outboundCallCount", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/outboundCallCount", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String outboundCallCount(@Param(value = "{\"providerServiceMapID\":\"called service ID integer\", "
 			+ "\"preferredLanguageName\":\"Optional - String name of the language selected by user\", "
 			+ "\"assignedUserID\":\"Optional - Integer user id to whom calls are assigned\", "
@@ -514,9 +516,10 @@ public class CallController {
 			+ "\"receivedRoleName\":\"availed service role\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		try {
-
+			ObjectMapper objectMapper = new ObjectMapper();
+            BeneficiaryCallModel beneficiaryCallModel = objectMapper.readValue(request, BeneficiaryCallModel.class);
 			response.setResponse(beneficiaryCallService
-					.isAvailed(inputMapper.gson().fromJson(request, BeneficiaryCallModel.class)).toString());
+					.isAvailed(beneficiaryCallModel).toString());
 		} catch (Exception e) {
 			logger.error("isAvailed failed wih error " + e.getMessage(), e);
 			response.setError(e);
@@ -531,9 +534,10 @@ public class CallController {
 			+ "\"calledServiceID\":\"providerServiceMapID\", is1097: boolean}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		try {
-
+            ObjectMapper objectMapper = new ObjectMapper();
+            BeneficiaryCallModel beneficiaryCallModel = objectMapper.readValue(request, BeneficiaryCallModel.class);
 			response.setResponse(beneficiaryCallService
-					.getBenRequestedOutboundCall(inputMapper.gson().fromJson(request, BeneficiaryCallModel.class))
+					.getBenRequestedOutboundCall(beneficiaryCallModel)
 					.toString());
 		} catch (Exception e) {
 			logger.error("isAvailed failed wih error " + e.getMessage(), e);
@@ -549,9 +553,10 @@ public class CallController {
 			+ "\"isDialPreferenceManual\":\"flag to be marked yes based on providerServiceMapID\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		try {
-
+			ObjectMapper objectMapper = new ObjectMapper();
+			ProviderServiceMapping providerServiceMapping = objectMapper.readValue(request, ProviderServiceMapping.class);
 			response.setResponse(beneficiaryCallService
-					.isAutoPreviewDialing(inputMapper.gson().fromJson(request, ProviderServiceMapping.class))
+					.isAutoPreviewDialing(providerServiceMapping)
 					.toString());
 		} catch (Exception e) {
 			logger.error("isAvailed failed wih error " + e.getMessage(), e);
@@ -567,9 +572,10 @@ public class CallController {
 			@Param(value = "{\"providerServiceMapID\":\"called service ID integer\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		try {
-
+			ObjectMapper objectMapper = new ObjectMapper();
+			ProviderServiceMapping providerServiceMapping = objectMapper.readValue(request, ProviderServiceMapping.class);
 			response.setResponse(beneficiaryCallService
-					.checkAutoPreviewDialing(inputMapper.gson().fromJson(request, ProviderServiceMapping.class))
+					.checkAutoPreviewDialing(providerServiceMapping)
 					.toString());
 		} catch (Exception e) {
 			logger.error("isAvailed failed wih error " + e.getMessage(), e);

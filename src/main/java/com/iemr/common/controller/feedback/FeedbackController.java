@@ -39,6 +39,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iemr.common.data.feedback.FeedbackDetails;
 import com.iemr.common.data.feedback.FeedbackLog;
 import com.iemr.common.data.feedback.FeedbackResponse;
@@ -408,7 +409,8 @@ public class FeedbackController {
 
 		OutputResponse response = new OutputResponse();
 		try {
-			FeedbackSeverity severity = inputMapper.gson().fromJson(severityRequest, FeedbackSeverity.class);
+			ObjectMapper objectMapper = new ObjectMapper();
+			FeedbackSeverity severity = objectMapper.readValue(severityRequest, FeedbackSeverity.class);
 			response.setResponse(
 					feedbackSeverityService.getActiveFeedbackSeverity(severity.getProviderServiceMapID()).toString());
 		} catch (Exception e) {
@@ -426,7 +428,8 @@ public class FeedbackController {
 
 		OutputResponse response = new OutputResponse();
 		try {
-			FeedbackType feedbackType = inputMapper.gson().fromJson(severityRequest, FeedbackType.class);
+			ObjectMapper objectMapper = new ObjectMapper();
+			FeedbackType feedbackType = objectMapper.readValue(severityRequest, FeedbackType.class);
 			response.setResponse(
 					feedbackTypeService.getActiveFeedbackTypes(feedbackType.getProviderServiceMapID()).toString());
 		} catch (Exception e) {

@@ -59,15 +59,10 @@ public class DirectoryServiceImpl implements DirectoryService
 	}
 
 	@Override
-	public List<Directory> getDirectories(Integer providerServiceMapID)
-	{
+	public List<Directory> getDirectories(Integer providerServiceMapID) {
 		List<Directory> directories = new ArrayList<Directory>();
 		directories = directoryRepository.findAciveDirectories(providerServiceMapID);
-		// for (Object[] objects : directoryResult) {
-		// if (objects != null && objects.length == 2) {
-		// directories.add(new Directory((Integer) objects[0], (String) objects[1]));
-		// }
-		// }
+
 		return directories;
 	}
 }

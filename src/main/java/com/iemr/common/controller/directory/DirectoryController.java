@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iemr.common.data.directory.Directory;
 import com.iemr.common.data.directory.InstituteDirectoryMapping;
 import com.iemr.common.data.directory.SubDirectory;
@@ -112,8 +113,8 @@ public class DirectoryController
 		logger.info("getDirectory request " + directoryRequest);
 		try
 		{
-			Directory directory = inputMapper.gson().fromJson(directoryRequest, Directory.class);
-			JSONObject responseObj = new JSONObject();
+			ObjectMapper objectMapper = new ObjectMapper();
+			Directory directory = objectMapper.readValue(directoryRequest, Directory.class);
 			response.setResponse("{\"directory\":"
 					+ directoryService.getDirectories(directory.getProviderServiceMapID()).toString() + "}");
 		} catch (Exception e)
