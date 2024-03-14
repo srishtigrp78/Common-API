@@ -309,7 +309,7 @@ public class ESanjeevaniServiceImpl implements ESanjeevaniService {
 		}
 	}
 
-	private void setBeneficiaryContactDetails(BigInteger benContactId,
+	public void setBeneficiaryContactDetails(BigInteger benContactId,
 			ArrayList<ESanjeevaniPatientContactDetail> contactObjList) {
 		ESanjeevaniPatientContactDetail contactObj = new ESanjeevaniPatientContactDetail();
 		if (benContactId != null) {

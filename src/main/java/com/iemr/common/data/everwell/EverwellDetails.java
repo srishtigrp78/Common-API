@@ -34,10 +34,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "t_everwellapi")
 @Data
+@NoArgsConstructor
 public class EverwellDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -249,5 +251,14 @@ public class EverwellDetails {
 	public List<Long> getEAPIIDs() {
 		return eapiIds;
 	}
+
+	public EverwellDetails(Long eapiId, Long id, Long beneficiaryRegId) {
+		super();
+		this.eapiId = eapiId;
+		Id = id;
+		this.beneficiaryRegId = beneficiaryRegId;
+	}
+	
+	
 
 }

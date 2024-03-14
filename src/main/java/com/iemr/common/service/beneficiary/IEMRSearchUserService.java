@@ -31,8 +31,6 @@ public interface IEMRSearchUserService {
 
 	List<BeneficiaryModel> userExitsCheckWithId(Long beneficiaryId, String auth, Boolean is1097) throws Exception;
 
-	List<Beneficiary> findByBeneficiaryRegID(Beneficiary beneficiary);
-
 	String findByBeneficiaryPhoneNo(BenPhoneMap benPhoneMap, Integer pageNo, Integer rows, String auth)
 			throws Exception;
 
