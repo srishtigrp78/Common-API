@@ -41,6 +41,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iemr.common.data.email.EmailNotification;
 import com.iemr.common.data.email.EmailTemplate;
 import com.iemr.common.data.email.MDSR_CDREmail;
@@ -114,8 +115,8 @@ public class EmailServiceImpl implements EmailService {
 
 	@Override
 	public String SendEmail(String request, String authToken) throws Exception {
-
-		EmailNotification notification = inputMapper.gson().fromJson(request, EmailNotification.class);
+        ObjectMapper objectMapper = new ObjectMapper();
+		EmailNotification notification = objectMapper.readValue(request, EmailNotification.class);
 
 		FeedbackDetails feedbackDetail = feedbackRepository.getFeedback(notification.getFeedbackID());
 

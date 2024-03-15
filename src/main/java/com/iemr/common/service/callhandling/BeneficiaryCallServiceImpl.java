@@ -51,6 +51,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.data.beneficiary.BenOutboundCallAllocation;
 import com.iemr.common.data.callhandling.BeneficiaryCall;
@@ -62,7 +63,6 @@ import com.iemr.common.data.cti.CTIVoiceFile;
 //import com.iemr.common.data.request_logger.CallLogger;
 import com.iemr.common.data.service.SubService;
 import com.iemr.common.data.users.ProviderServiceMapping;
-import com.iemr.common.data.users.UserServiceRoleMapping;
 import com.iemr.common.dto.identity.BeneficiariesDTO;
 import com.iemr.common.dto.identity.BeneficiariesPartialDTO;
 import com.iemr.common.mapper.BenCompleteDetailMapper;
@@ -364,9 +364,11 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 
 
 		Integer updateCounts = 0;
-		BeneficiaryCall benificiaryCall = inputMapper.gson().fromJson(request, BeneficiaryCall.class);
-		FollowupRequired followupRequired = inputMapper.gson().fromJson(request, FollowupRequired.class);
-
+		ObjectMapper objectMapper = new ObjectMapper();
+		BeneficiaryCall benificiaryCall = objectMapper.readValue(request, BeneficiaryCall.class);
+		
+		FollowupRequired followupRequired = objectMapper.readValue(request, FollowupRequired.class);
+		
 		// referral
 		if (benificiaryCall != null && benificiaryCall.getInstNames() != null
 				&& benificiaryCall.getInstNames().length > 0) {
@@ -615,7 +617,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	}
 
 	@Override
-	public Integer updateBeneficiaryIDInCall(String request) throws IEMRException {
+	public Integer updateBeneficiaryIDInCall(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
 //		CallLogger callLogger = InputMapper.gson().fromJson(request, CallLogger.class);
 //		if (callLogger != null)
 //		{
@@ -627,7 +629,8 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 //			logger.info("create request is invalid for call");
 
 		Integer updateCounts = 0;
-		BeneficiaryCall benificiaryCallId = inputMapper.gson().fromJson(request, BeneficiaryCall.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		BeneficiaryCall benificiaryCallId = objectMapper.readValue(request, BeneficiaryCall.class);
 		updateCounts = beneficiaryCallRepository.updateBeneficiaryIDInCall(benificiaryCallId.getBenCallID(),
 				benificiaryCallId.getBeneficiaryRegID(), benificiaryCallId.getIsCalledEarlier());
 		logger.info("update count for updateBeneficiaryIDInCall " + updateCounts);
@@ -669,13 +672,14 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	@Override
 	public String outboundCallList(String request, String auth) throws IEMRException, JsonMappingException, JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
+		
 		OutboundCallRequest callRequest = objectMapper.readValue(request, OutboundCallRequest.class);
 		List<OutboundCallRequest> outboundCallRequests = new ArrayList<OutboundCallRequest>();
 		Calendar cal = Calendar.getInstance();
 		Timestamp startDate = new Timestamp(cal.getTimeInMillis());
 		cal.add(Calendar.DATE, 7);
 		Timestamp lastDate = new Timestamp(cal.getTimeInMillis());
-		Set<Object[]> resultSet = null;
+		Set<Object[]> resultSet = new HashSet<>();
 		String executionCondition = getConditionForOutboundSerach(callRequest);
 
 		// (date)(provider check)(service check)(user check)(language check)
@@ -1164,10 +1168,11 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	}
 
 	@Override
-	public String filterCallList(String request, String auth) throws IEMRException {
+	public String filterCallList(String request, String auth) throws IEMRException, JsonMappingException, JsonProcessingException {
 		Map<String, Object> responseMap = new HashMap<>();
 		Integer pageSize = Integer.valueOf(qualityAuditPageSize);
-		BeneficiaryCall callRequest = inputMapper.gson().fromJson(request, BeneficiaryCall.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		BeneficiaryCall callRequest = objectMapper.readValue(request, BeneficiaryCall.class);
 		List<FilteredCallList> filteredCalls = new ArrayList<FilteredCallList>();
 		Calendar today = Calendar.getInstance();
 		Calendar startDate = Calendar.getInstance();
@@ -1288,8 +1293,9 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	}
 
 	@Override
-	public String outboundAllocation(String request) throws IEMRException {
-		BenOutboundCallAllocation allocation = inputMapper.gson().fromJson(request, BenOutboundCallAllocation.class);
+	public String outboundAllocation(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		BenOutboundCallAllocation allocation = objectMapper.readValue(request, BenOutboundCallAllocation.class);
 		OutboundCallRequest[] callRequests = allocation.getOutboundCallRequests();
 		Integer count = 0;
 		logger.debug("reading object: ", allocation.toString());
@@ -1343,10 +1349,11 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	}
 
 	@Override
-	public OutputResponse blockPhoneNumber(String request) throws IEMRException {
+	public OutputResponse blockPhoneNumber(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
 		OutputResponse response = new OutputResponse();
 		OutputResponse blockResponse;
-		PhoneBlock phoneBlockRequest = inputMapper.gson().fromJson(request, PhoneBlock.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		PhoneBlock phoneBlockRequest = objectMapper.readValue(request, PhoneBlock.class);
 		PhoneBlock phoneBlock = phoneBlockRepository.findByPhoneBlockID(phoneBlockRequest.getPhoneBlockID());
 		Calendar cal = Calendar.getInstance();
 		Timestamp blockStartDate = new Timestamp(cal.getTimeInMillis());
@@ -1367,10 +1374,11 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	}
 
 	@Override
-	public OutputResponse unblockPhoneNumber(String request) throws IEMRException {
+	public OutputResponse unblockPhoneNumber(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
 		OutputResponse unblockResponse = new OutputResponse();
 		String response = "failure";
-		PhoneBlock phoneBlockRequest = inputMapper.gson().fromJson(request, PhoneBlock.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		PhoneBlock phoneBlockRequest = objectMapper.readValue(request, PhoneBlock.class);
 		PhoneBlock phoneBlock = phoneBlockRepository.findByPhoneBlockID(phoneBlockRequest.getPhoneBlockID());
 		unblockResponse = blockUnblockPhoneNoInCTI(phoneBlock.getProviderServiceMapping().getCtiCampaignName(),
 				phoneBlock.getPhoneNo(), false);
@@ -1386,8 +1394,9 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	}
 
 	@Override
-	public String completeOutboundCall(String request) throws IEMRException {
-		OutboundCallRequest callRequest = inputMapper.gson().fromJson(request, OutboundCallRequest.class);
+	public String completeOutboundCall(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		OutboundCallRequest callRequest = objectMapper.readValue(request, OutboundCallRequest.class);
 		int updateCount = 0;
 		if (callRequest.getRequestedFor() != null) {
 			updateCount = outboundCallRequestRepository.updateCompleteStatusInCall(callRequest.getOutboundCallReqID(),
@@ -1404,8 +1413,9 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	}
 
 	@Override
-	public String updateOutboundCall(String request) throws IEMRException {
-		OutboundCallRequest callRequest = inputMapper.gson().fromJson(request, OutboundCallRequest.class);
+	public String updateOutboundCall(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		OutboundCallRequest callRequest = objectMapper.readValue(request, OutboundCallRequest.class);
 		int updateCount = 0;
 		OutboundCallRequest outBoundCallDetails = outboundCallRequestRepository
 				.findByOutboundCallReqID(callRequest.getOutboundCallReqID());
@@ -1463,18 +1473,19 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	}
 
 	@Override
-	public Integer updateBeneficiaryCallCDIStatus(String request) throws IEMRException {
+	public Integer updateBeneficiaryCallCDIStatus(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
 		Integer updateCounts = 0;
-		BeneficiaryCall benificiaryCallId = inputMapper.gson().fromJson(request, BeneficiaryCall.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		BeneficiaryCall benificiaryCallId = objectMapper.readValue(request, BeneficiaryCall.class);
 		updateCounts = beneficiaryCallRepository.updateBeneficiaryCallCDIStatus(benificiaryCallId.getBenCallID(),
 				benificiaryCallId.getCDICallStatus());
 		return updateCounts;
 	}
 
 	@Override
-	public List<BeneficiaryCall> getCallHistoryByCallID(String request) throws IEMRException {
-
-		BeneficiaryCall benificiaryCallId = InputMapper.gson().fromJson(request, BeneficiaryCall.class);
+	public List<BeneficiaryCall> getCallHistoryByCallID(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		BeneficiaryCall benificiaryCallId = objectMapper.readValue(request, BeneficiaryCall.class);
 		// updateCounts =
 		// beneficiaryCallRepository.getCallHistoryByCallID(benificiaryCallId.getCallID());
 		if (benificiaryCallId != null && benificiaryCallId.getCallID() != null
@@ -1489,9 +1500,10 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	}
 
 	@Override
-	public String outboundCallListByCallID(String request) throws IEMRException {
-		OutboundCallRequest outboundCallRequest = inputMapper.gson().fromJson(request, OutboundCallRequest.class);
-		BeneficiaryCall callRequest = inputMapper.gson().fromJson(request, BeneficiaryCall.class);
+	public String outboundCallListByCallID(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		OutboundCallRequest outboundCallRequest = objectMapper.readValue(request, OutboundCallRequest.class);
+		BeneficiaryCall callRequest = objectMapper.readValue(request, BeneficiaryCall.class);
 		Set<Object[]> resultSet;
 		List<OutboundCallRequest> outboundCallRequests = new ArrayList<OutboundCallRequest>();
 
@@ -1521,18 +1533,20 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	}
 
 	@Override
-	public String resetOutboundCall(String request) throws IEMRException {
+	public String resetOutboundCall(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
 		logger.debug("Request received for resetOutboundCall: " + request);
-		OutboundCallRequest outboundCallRequest = inputMapper.gson().fromJson(request, OutboundCallRequest.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		OutboundCallRequest outboundCallRequest = objectMapper.readValue(request, OutboundCallRequest.class);
 		Integer count = outboundCallRequestRepository.resetOutboundCall(outboundCallRequest.getOutboundCallReqIDs());
 		logger.debug("Respone from resetOutboundCall: " + count);
 		return count.toString();
 	}
 
 	@Override
-	public String outboundCallCount(String request) throws IEMRException, JSONException {
+	public String outboundCallCount(String request) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		logger.debug("Request received for outboundCallCount: " + request);
-		OutboundCallRequest outboundCallRequest = inputMapper.gson().fromJson(request, OutboundCallRequest.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		OutboundCallRequest outboundCallRequest = objectMapper.readValue(request, OutboundCallRequest.class);
 		Calendar cal = Calendar.getInstance();
 		Timestamp startDate = new Timestamp(cal.getTimeInMillis());
 		cal.add(Calendar.DATE, 7);
@@ -1592,8 +1606,9 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	}
 
 	@Override
-	public String nueisanceCallHistory(String request, String auth) throws IEMRException, JSONException {
-		BeneficiaryCall callRequest = inputMapper.gson().fromJson(request, BeneficiaryCall.class);
+	public String nueisanceCallHistory(String request, String auth) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		BeneficiaryCall callRequest = objectMapper.readValue(request, BeneficiaryCall.class);
 		ArrayList<BeneficiaryCall> beneficiaryCalls = new ArrayList<BeneficiaryCall>();
 		String phoneNo = callRequest.getPhoneNo();
 		Integer count = callRequest.getCount();
@@ -1810,9 +1825,9 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	}
 
 	@Override
-	public String cTIFilePathNew(String request) throws IEMRException {
-
-		BeneficiaryCall benificiaryCall = InputMapper.gson().fromJson(request, BeneficiaryCall.class);
+	public String cTIFilePathNew(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		BeneficiaryCall benificiaryCall = objectMapper.readValue(request, BeneficiaryCall.class);
 		String recordingPath = null, CTIUserFilePath = null;
 //		Map<String,String> CTIRecordingPath = new HashMap<>();
 

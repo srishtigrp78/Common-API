@@ -29,6 +29,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iemr.common.data.callhandling.BeneficiaryCall;
 import com.iemr.common.data.callhandling.CallType;
 import com.iemr.common.data.cti.AgentCallStats;
@@ -100,12 +103,13 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse addUpdateAgentSkills(String request, String ipAddress) throws JSONException, IEMRException {
+	public OutputResponse addUpdateAgentSkills(String request, String ipAddress) throws JSONException, IEMRException, JsonMappingException, JsonProcessingException {
 		OutputResponse result = new OutputResponse();
+		ObjectMapper objectMapper = new ObjectMapper();
 		logger.debug("addUpdateAgentSkills input is " + request);
 		String ctiURI = ConfigProperties.getPropertyByName("add-update-agent-skills-URL");
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
-		AgentSkills agentSkills = inputMapper.gson().fromJson(request, AgentSkills.class);
+		AgentSkills agentSkills = objectMapper.readValue(request, AgentSkills.class);
 
 		String agentID = (agentSkills.getAgentID() != null) ? agentSkills.getAgentID() : "";
 		String agentIPResp = getAgentIP(agentID);
@@ -120,13 +124,6 @@ public class CTIServiceImpl implements CTIService {
 		logger.info("calling URL " + ctiURI);
 		String response = this.callUrl(ctiURI);// httpUtils.get(ctiURI);
 		logger.info("URL " + ctiURI + " returned response " + response);
-		// JSONObject responseObj = new JSONObject(response);
-		// response = responseObj.get("response").toString();
-		// AgentSkills skills = InputMapper.gson().fromJson(response,
-		// AgentSkills.class);
-		// return skills.toString();
-		// CTIResponse response = inputMapper.gson().fromJson(response,
-		// CTIResponse.class);
 		AgentSkills skillsResponse = InputMapper.gson().fromJson(response, AgentSkills.class);
 		CTIResponse ctiResponse = skillsResponse.getResponseObj();
 		if (ctiResponse.getResponse_code().equals(CUSTOM_API_SUCCESS)) {
@@ -139,11 +136,12 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse getCampaignSkills(String request, String ipAddress) throws IEMRException, JSONException {
+	public OutputResponse getCampaignSkills(String request, String ipAddress) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
+		ObjectMapper objectMapper = new ObjectMapper();
 		String ctiURI = ConfigProperties.getPropertyByName("get-campaign-skills-URL");
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
-		CampaignSkills agentState = inputMapper.gson().fromJson(request, CampaignSkills.class);
+		CampaignSkills agentState = objectMapper.readValue(request, CampaignSkills.class);
 		ctiURI = ctiURI.replace("CTI_SERVER", serverURL);
 		ctiURI = ctiURI.replace("CAMPAIGN_NAME",
 				((agentState.getCampaignName() != null) ? agentState.getCampaignName() : ""));
@@ -165,11 +163,12 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse getAgentState(String request, String ipAddress) throws IEMRException, JSONException {
+	public OutputResponse getAgentState(String request, String ipAddress) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
+		ObjectMapper objectMapper = new ObjectMapper();
 		String ctiURI = ConfigProperties.getPropertyByName("get-agent-status-URL");
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
-		AgentState agentState = inputMapper.gson().fromJson(request, AgentState.class);
+		AgentState agentState = objectMapper.readValue(request, AgentState.class);
 
 		String agentID = (agentState.getAgent_id() != null) ? agentState.getAgent_id() : "";
 
@@ -194,11 +193,12 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse getAgentCallStats(String request, String ipAddress) throws IEMRException, JSONException {
+	public OutputResponse getAgentCallStats(String request, String ipAddress) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
+		ObjectMapper objectMapper = new ObjectMapper();
 		String ctiURI = ConfigProperties.getPropertyByName("get-agent-call-stats-URL");
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
-		AgentCallStats agentState = inputMapper.gson().fromJson(request, AgentCallStats.class);
+		AgentCallStats agentState = objectMapper.readValue(request, AgentCallStats.class);
 
 		String agentID = (agentState.getAgentID() != null) ? agentState.getAgentID() : "";
 
@@ -225,11 +225,12 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse getCampaignNames(String request, String ipAddress) throws IEMRException, JSONException {
+	public OutputResponse getCampaignNames(String request, String ipAddress) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
+		ObjectMapper objectMapper = new ObjectMapper();
 		String ctiURI = ConfigProperties.getPropertyByName("get-campaign-name-URL");
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
-		CampaignNames agentState = inputMapper.gson().fromJson(request, CampaignNames.class);
+		CampaignNames agentState = objectMapper.readValue(request, CampaignNames.class);
 		ctiURI = ctiURI.replace("CTI_SERVER", serverURL);
 		ctiURI = ctiURI.replace("SEARCH_KEY", (agentState.getServiceName() != null) ? agentState.getServiceName() : "");
 		ctiURI = ctiURI.replace("CAMPAIGN_TYPE", (agentState.getType() != null) ? agentState.getType() : "");
@@ -251,11 +252,12 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse doAgentLogin(String request, String ipAddress) throws IEMRException, JSONException {
+	public OutputResponse doAgentLogin(String request, String ipAddress) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
+		ObjectMapper objectMapper = new ObjectMapper();
 		String ctiURI = ConfigProperties.getPropertyByName("do-agent-login-URL");
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
-		AgentState agentState = inputMapper.gson().fromJson(request, AgentState.class);
+		AgentState agentState = objectMapper.readValue(request, AgentState.class);
 
 		String agentID = (agentState.getAgent_id() != null) ? agentState.getAgent_id() : "";
 
@@ -280,11 +282,12 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse getLoginKey(String request, String ipAddress) throws IEMRException, JSONException {
+	public OutputResponse getLoginKey(String request, String ipAddress) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
+		ObjectMapper objectMapper = new ObjectMapper();
 		String ctiURI = ConfigProperties.getPropertyByName("get-login-key-URL");
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
-		AgentLoginKey agentState = inputMapper.gson().fromJson(request, AgentLoginKey.class);
+		AgentLoginKey agentState = objectMapper.readValue(request, AgentLoginKey.class);
 
 		ctiURI = ctiURI.replace("CTI_SERVER", serverURL);
 		ctiURI = ctiURI.replace("USERNAME", (agentState.getUsername() != null) ? agentState.getUsername() : "");
@@ -293,8 +296,6 @@ public class CTIServiceImpl implements CTIService {
 		ctiURI = ctiURI.replace("AGENT_IP", ipAddress);
 		String response = this.callUrl(ctiURI);// httpUtils.get(ctiURI);
 		logger.info("URL " + ctiURI + " returned response " + response);
-		// JSONObject responseObj = new JSONObject(response);
-		// response = responseObj.get("response").toString();
 		AgentLoginKey state = InputMapper.gson().fromJson(response, AgentLoginKey.class);
 		CTIResponse ctiResponse = state.getResponse();
 		if (ctiResponse.getResponse_code().equals(CUSTOM_API_SUCCESS)) {
@@ -307,11 +308,12 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse agentLogout(String request, String ipAddress) throws IEMRException, JSONException {
+	public OutputResponse agentLogout(String request, String ipAddress) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
+		ObjectMapper objectMapper = new ObjectMapper();
 		String ctiURI = ConfigProperties.getPropertyByName("do-agent-logout-URL");
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
-		AgentState agentState = inputMapper.gson().fromJson(request, AgentState.class);
+		AgentState agentState = objectMapper.readValue(request, AgentState.class);
 
 		String agentID = (agentState.getAgent_id() != null) ? agentState.getAgent_id() : "";
 
@@ -338,11 +340,12 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse getOnlineAgents(String request, String ipAddress) throws IEMRException, JSONException {
+	public OutputResponse getOnlineAgents(String request, String ipAddress) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
+		ObjectMapper objectMapper = new ObjectMapper();
 		String ctiURI = ConfigProperties.getPropertyByName("do-online-agent-URL");
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
-		AgentState agentState = inputMapper.gson().fromJson(request, AgentState.class);
+		AgentState agentState = objectMapper.readValue(request, AgentState.class);
 
 		String agentID = (agentState.getAgent_id() != null) ? agentState.getAgent_id() : "";
 
@@ -356,8 +359,6 @@ public class CTIServiceImpl implements CTIService {
 		logger.info("calling URL " + ctiURI);
 		String response = this.callUrl(ctiURI);// httpUtils.get(ctiURI);
 		logger.info("URL " + ctiURI + " returned response " + response);
-		// JSONObject responseObj = new JSONObject(response);
-		// response = responseObj.get("response").toString();
 		AgentState state = InputMapper.gson().fromJson(response, AgentState.class);
 		CTIResponseTemp ctiResponse = state.getResponse();
 		if (ctiResponse.getResponse_code().equals(CUSTOM_API_SUCCESS)) {
@@ -370,11 +371,12 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse callBeneficiary(String request, String ipAddress) throws IEMRException, JSONException {
+	public OutputResponse callBeneficiary(String request, String ipAddress) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
+		ObjectMapper objectMapper = new ObjectMapper();
 		String ctiURI = ConfigProperties.getPropertyByName("call-beneficiary-URL");
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
-		CallBeneficiary agentState = inputMapper.gson().fromJson(request, CallBeneficiary.class);
+		CallBeneficiary agentState = objectMapper.readValue(request, CallBeneficiary.class);
 
 		String agentID = (agentState.getAgent_id() != null) ? agentState.getAgent_id() : "";
 
@@ -401,8 +403,9 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse addUpdateUserData(String request, String ipAddress) throws IEMRException, JSONException {
+	public OutputResponse addUpdateUserData(String request, String ipAddress) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
+		ObjectMapper objectMapper = new ObjectMapper();
 		String ctiURI = ConfigProperties.getPropertyByName("add-update-user-data");
 
 		/*
@@ -414,7 +417,7 @@ public class CTIServiceImpl implements CTIService {
 		 */
 
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
-		CTIUser ctiUser = inputMapper.gson().fromJson(request, CTIUser.class);
+		CTIUser ctiUser = objectMapper.readValue(request, CTIUser.class);
 		ctiURI = ctiURI.replace("CTI_SERVER", serverURL);
 		ctiURI = ctiURI.replace("USERNAME", (ctiUser.getUsername() != null) ? ctiUser.getUsername() : "");
 		ctiURI = ctiURI.replace("PASSWORD", (ctiUser.getPassword() != null) ? ctiUser.getPassword() : "");
@@ -429,8 +432,6 @@ public class CTIServiceImpl implements CTIService {
 		logger.info("calling URL " + ctiURI);
 		String response = this.callUrl(ctiURI);// httpUtils.get(ctiURI);
 		logger.info("URL " + ctiURI + " returned response " + response);
-		// JSONObject responseObj = new JSONObject(response);
-		// response = responseObj.get("response").toString();
 		CTIUser state = InputMapper.gson().fromJson(response, CTIUser.class);
 		CTIResponse ctiResponse = state.getResponse();
 		if (ctiResponse.getResponse_code().equals(CUSTOM_API_SUCCESS)) {
@@ -443,11 +444,12 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse getTransferCampaigns(String request, String ipAddress) throws IEMRException, JSONException {
+	public OutputResponse getTransferCampaigns(String request, String ipAddress) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
+		ObjectMapper objectMapper = new ObjectMapper();
 		String ctiURI = ConfigProperties.getPropertyByName("fetch-transferrable-campaigns-URL");
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
-		CTICampaigns agentState = inputMapper.gson().fromJson(request, CTICampaigns.class);
+		CTICampaigns agentState = objectMapper.readValue(request, CTICampaigns.class);
 
 		String agentID = (agentState.getAgent_id() != null) ? agentState.getAgent_id() : "";
 
@@ -474,11 +476,12 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse getCampaignRoles(String request, String remoteAddr) throws IEMRException, JSONException {
+	public OutputResponse getCampaignRoles(String request, String remoteAddr) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
+		ObjectMapper objectMapper = new ObjectMapper();
 		String ctiURI = ConfigProperties.getPropertyByName("get-campaign-roles-URL");
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
-		CampaignRole campaign = inputMapper.gson().fromJson(request, CampaignRole.class);
+		CampaignRole campaign = objectMapper.readValue(request, CampaignRole.class);
 		ctiURI = ctiURI.replace("CTI_SERVER", serverURL);
 		ctiURI = ctiURI.replace("CAMPAIGN_NAME", (campaign.getCampaign() != null) ? campaign.getCampaign() : "");
 		logger.info("calling URL " + ctiURI);
@@ -498,9 +501,10 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse setCallDisposition(String request, String remoteAddr) throws IEMRException, JSONException {
+	public OutputResponse setCallDisposition(String request, String remoteAddr) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
-		CallDisposition disposition = inputMapper.gson().fromJson(request, CallDisposition.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		CallDisposition disposition = objectMapper.readValue(request, CallDisposition.class);
 
 		String agentID = (disposition.getAgent_id() != null) ? disposition.getAgent_id() : "";
 
@@ -531,9 +535,10 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse createVoiceFile(String request, String remoteAddr) throws IEMRException, JSONException {
+	public OutputResponse createVoiceFile(String request, String remoteAddr) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
-		CTIVoiceFile disposition = inputMapper.gson().fromJson(request, CTIVoiceFile.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		CTIVoiceFile disposition = objectMapper.readValue(request, CTIVoiceFile.class);
 		String ctiURI = ConfigProperties.getPropertyByName("mix-voice-file-URL");
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
 		ctiURI = ctiURI.replace("CTI_SERVER", serverURL);
@@ -543,7 +548,7 @@ public class CTIServiceImpl implements CTIService {
 		logger.info("calling URL " + ctiURI);
 		String response = this.callUrl(ctiURI);// httpUtils.get(ctiURI);
 		logger.info("URL " + ctiURI + " returned response " + response);
-		CTIVoiceFile result = inputMapper.gson().fromJson(response, CTIVoiceFile.class);
+		CTIVoiceFile result = objectMapper.readValue(response, CTIVoiceFile.class);
 		CTIResponse ctiResponse = result.getResponse();
 		if (ctiResponse.getResponse_code().equals(CUSTOM_API_SUCCESS)) {
 			disposition.setResponse(ctiResponse);
@@ -555,9 +560,10 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse getVoiceFile(String request, String remoteAddr) throws IEMRException, JSONException {
+	public OutputResponse getVoiceFile(String request, String remoteAddr) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
-		CTIVoiceFile disposition = inputMapper.gson().fromJson(request, CTIVoiceFile.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		CTIVoiceFile disposition = objectMapper.readValue(request, CTIVoiceFile.class);
 		String ctiURI = ConfigProperties.getPropertyByName("get-voice-file-URL");
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
 		ctiURI = ctiURI.replace("CTI_SERVER", serverURL);
@@ -567,7 +573,7 @@ public class CTIServiceImpl implements CTIService {
 		logger.info("calling URL " + ctiURI);
 		String response = this.callUrl(ctiURI);// httpUtils.get(ctiURI);
 		logger.info("URL " + ctiURI + " returned response " + response);
-		CTIVoiceFile result = inputMapper.gson().fromJson(response, CTIVoiceFile.class);
+		CTIVoiceFile result = objectMapper.readValue(response, CTIVoiceFile.class);
 		CTIResponse ctiResponse = result.getResponse();
 		if (ctiResponse.getResponse_code().equals(CUSTOM_API_SUCCESS)) {
 			disposition.setResponse(ctiResponse);
@@ -593,31 +599,22 @@ public class CTIServiceImpl implements CTIService {
 		logger.info("calling URL " + ctiURI);
 		String response = this.callUrl(ctiURI);// httpUtils.get(ctiURI);
 		logger.info("URL " + ctiURI + " returned response " + response);
-//		CTIVoiceFile result = inputMapper.gson().fromJson(response, CTIVoiceFile.class);
-//		CTIResponse ctiResponse = result.getResponse();
-//		if (ctiResponse.getResponse_code().equals(CUSTOM_API_SUCCESS))
-//		{
-//			disposition.setResponse(ctiResponse);
-//			output.setResponse(disposition.toString());
-//		} else
-//		{
-//			output.setError(OutputResponse.GENERIC_FAILURE, ctiResponse.getReason(), ctiResponse.getStatus());
-//		}
+
 		if (response != null)
 			output.setResponse(response);
 		else {
 			output.setResponse("path is null");
 			logger.info("URL " + ctiURI + " returned response " + response + " and saved response - path is null");
-//			output.setError(OutputResponse.GENERIC_FAILURE, "path is null");
 		}
 		return output;
 	}
 
 	@Override
-	public OutputResponse disconnectCall(String request, String remoteAddr) throws IEMRException, JSONException {
+	public OutputResponse disconnectCall(String request, String remoteAddr) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
 		String ctiDisconnectURL;
-		AgentSkills agent = inputMapper.gson().fromJson(request, AgentSkills.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		AgentSkills agent = objectMapper.readValue(request, AgentSkills.class);
 
 		String agentID = (agent.getAgentID() != null) ? agent.getAgentID() : "";
 		String callID = (agent.getCallID() != null) ? agent.getCallID() : "";
@@ -634,7 +631,7 @@ public class CTIServiceImpl implements CTIService {
 		logger.info("Disconnect calls calling url: " + ctiDisconnectURL);
 		String disconnectResponse = this.callUrl(ctiDisconnectURL);// httpUtils.get(ctiDisconnectURL);
 		logger.info("Disonnect API returned " + disconnectResponse);
-		AgentSkills result = inputMapper.gson().fromJson(disconnectResponse, AgentSkills.class);
+		AgentSkills result = objectMapper.readValue(disconnectResponse, AgentSkills.class);
 		CTIResponse ctiResponse = result.getResponseObj();
 		if (ctiResponse.getResponse_code().equals(CUSTOM_API_SUCCESS)) {
 			agent.setResponse(ctiResponse);
@@ -646,10 +643,11 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse switchToInbound(String request, String remoteAddr) throws IEMRException, JSONException {
+	public OutputResponse switchToInbound(String request, String remoteAddr) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
 		String ctiDisconnectURL;
-		CallBeneficiary agent = inputMapper.gson().fromJson(request, CallBeneficiary.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		CallBeneficiary agent = objectMapper.readValue(request, CallBeneficiary.class);
 
 		String agentID = (agent.getAgent_id() != null) ? agent.getAgent_id() : "";
 
@@ -665,7 +663,7 @@ public class CTIServiceImpl implements CTIService {
 		logger.info("switchToInbound calls calling url: " + ctiDisconnectURL);
 		String disconnectResponse = this.callUrl(ctiDisconnectURL);// httpUtils.get(ctiDisconnectURL);
 		logger.info("switchToInbound API returned " + disconnectResponse);
-		CallBeneficiary result = inputMapper.gson().fromJson(disconnectResponse, CallBeneficiary.class);
+		CallBeneficiary result = objectMapper.readValue(disconnectResponse, CallBeneficiary.class);
 		CTIResponse ctiResponse = result.getResponse();
 		if (ctiResponse.getResponse_code().equals(STD_API_SUCCESS)) {
 			agent.setResponse(ctiResponse);
@@ -677,10 +675,11 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse switchToOutbound(String request, String remoteAddr) throws IEMRException, JSONException {
+	public OutputResponse switchToOutbound(String request, String remoteAddr) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
 		String ctiDisconnectURL;
-		CallBeneficiary agent = inputMapper.gson().fromJson(request, CallBeneficiary.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		CallBeneficiary agent = objectMapper.readValue(request, CallBeneficiary.class);
 		ctiDisconnectURL = ConfigProperties.getPropertyByName("switch-to-outbound-URL");
 		String ctiServerIP = ConfigProperties.getPropertyByName("cti-server-ip");
 		String agentID = (agent.getAgent_id() != null) ? agent.getAgent_id() : "";
@@ -694,7 +693,7 @@ public class CTIServiceImpl implements CTIService {
 		logger.info("switchToInbound calls calling url: " + ctiDisconnectURL);
 		String disconnectResponse = this.callUrl(ctiDisconnectURL);// httpUtils.get(ctiDisconnectURL);
 		logger.info("switchToInbound API returned " + disconnectResponse);
-		CallBeneficiary result = inputMapper.gson().fromJson(disconnectResponse, CallBeneficiary.class);
+		CallBeneficiary result = objectMapper.readValue(disconnectResponse, CallBeneficiary.class);
 		CTIResponse ctiResponse = result.getResponse();
 		if (ctiResponse.getResponse_code().equals(STD_API_SUCCESS)) {
 			agent.setResponse(ctiResponse);
@@ -706,9 +705,10 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse getAgentIPAddress(String request, String remoteAddr) throws IEMRException, JSONException {
+	public OutputResponse getAgentIPAddress(String request, String remoteAddr) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
-		AgentState agent = inputMapper.gson().fromJson(request, AgentState.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		AgentState agent = objectMapper.readValue(request, AgentState.class);
 		String agentID = (agent.getAgent_id() != null) ? agent.getAgent_id() : "";
 		String ctiDisconnectURL = ConfigProperties.getPropertyByName("get-agent-ip-address-URL");
 		String ctiServerIP = ConfigProperties.getPropertyByName("cti-server-ip");
@@ -717,7 +717,7 @@ public class CTIServiceImpl implements CTIService {
 		logger.info("getAgentIPAddress calls calling url: " + ctiDisconnectURL);
 		String disconnectResponse = this.callUrl(ctiDisconnectURL);// httpUtils.get(ctiDisconnectURL);
 		logger.info("getAgentIPAddress API returned " + disconnectResponse);
-		AgentState result = inputMapper.gson().fromJson(disconnectResponse, AgentState.class);
+		AgentState result = objectMapper.readValue(disconnectResponse, AgentState.class);
 		CTIResponseTemp ctiResponse = result.getResponse();
 
 		// CTIResponseTemp ctiResponse = getAgentIP(agentID);
@@ -731,9 +731,10 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public String getAgentIP(String agentID) {
+	public String getAgentIP(String agentID) throws JsonMappingException, JsonProcessingException {
 		String ctiDisconnectURL;
 		String agentIP = DEFAULT_IP;
+		ObjectMapper objectMapper = new ObjectMapper();
 		ctiDisconnectURL = ConfigProperties.getPropertyByName("get-agent-ip-address-URL");
 		String ctiServerIP = ConfigProperties.getPropertyByName("cti-server-ip");
 		ctiDisconnectURL = ctiDisconnectURL.replace("CTI_SERVER", ctiServerIP).replace("AGENT_ID", agentID);
@@ -741,7 +742,7 @@ public class CTIServiceImpl implements CTIService {
 		logger.info("getAgentIPAddress calls calling url: " + ctiDisconnectURL);
 		String disconnectResponse = this.callUrl(ctiDisconnectURL);// httpUtils.get(ctiDisconnectURL);
 		logger.info("getAgentIPAddress API returned " + disconnectResponse);
-		AgentState result = inputMapper.gson().fromJson(disconnectResponse, AgentState.class);
+		AgentState result = objectMapper.readValue(disconnectResponse, AgentState.class);
 		CTIResponseTemp ctiResponse = result.getResponse();
 		if (ctiResponse.isSuccessResponse()) {
 			agentIP = ctiResponse.getAgent_ip();
@@ -750,10 +751,11 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse blockNumber(String request, String remoteAddr) throws IEMRException, JSONException {
+	public OutputResponse blockNumber(String request, String remoteAddr) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
 		String blockNumberURL;
-		BlockUnblockNumber agent = inputMapper.gson().fromJson(request, BlockUnblockNumber.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		BlockUnblockNumber agent = objectMapper.readValue(request, BlockUnblockNumber.class);
 		blockNumberURL = ConfigProperties.getPropertyByName("block-api-URL");
 		String ctiServerIP = ConfigProperties.getPropertyByName("cti-server-ip");
 		blockNumberURL = blockNumberURL.replace("CTI_SERVER", ctiServerIP)
@@ -775,10 +777,11 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse unblockNumber(String request, String remoteAddr) throws IEMRException, JSONException {
+	public OutputResponse unblockNumber(String request, String remoteAddr) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
 		String unblockNumberURL;
-		BlockUnblockNumber agent = inputMapper.gson().fromJson(request, BlockUnblockNumber.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		BlockUnblockNumber agent = objectMapper.readValue(request, BlockUnblockNumber.class);
 		unblockNumberURL = ConfigProperties.getPropertyByName("unblock-api-URL");
 		String ctiServerIP = ConfigProperties.getPropertyByName("cti-server-ip");
 		unblockNumberURL = unblockNumberURL.replace("CTI_SERVER", ctiServerIP)
@@ -788,7 +791,7 @@ public class CTIServiceImpl implements CTIService {
 		logger.info("blockNumber calls calling url: " + unblockNumberURL);
 		String unblockResponse = this.callUrl(unblockNumberURL);// httpUtils.get(ctiDisconnectURL);
 		logger.info("blockNumber API returned " + unblockResponse);
-		BlockUnblockNumber result = inputMapper.gson().fromJson(unblockResponse, BlockUnblockNumber.class);
+		BlockUnblockNumber result = objectMapper.readValue(unblockResponse, BlockUnblockNumber.class);
 		CTIResponse ctiResponse = result.getResponse();
 		if (ctiResponse.getResponse_code().equals(STD_API_SUCCESS)) {
 			agent.setResponse(ctiResponse);
@@ -801,10 +804,11 @@ public class CTIServiceImpl implements CTIService {
 
 	@Override
 	public OutputResponse getAvailableAgentSkills(String request, String remoteAddr)
-			throws IEMRException, JSONException {
+			throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
 		OutputResponse output = new OutputResponse();
 		String availableAgentsURL;
-		AgentSkills agent = inputMapper.gson().fromJson(request, AgentSkills.class);
+		AgentSkills agent = objectMapper.readValue(request, AgentSkills.class);
 		availableAgentsURL = ConfigProperties.getPropertyByName("get-available-agents-URL");
 		String ctiServerIP = ConfigProperties.getPropertyByName("cti-server-ip");
 		availableAgentsURL = availableAgentsURL.replace("CTI_SERVER", ctiServerIP)
@@ -814,7 +818,7 @@ public class CTIServiceImpl implements CTIService {
 		logger.info("getAvailableAgentSkills calls calling url: " + availableAgentsURL);
 		String unblockResponse = this.callUrl(availableAgentsURL);// httpUtils.get(ctiDisconnectURL);
 		logger.info("getAvailableAgentSkills API returned " + unblockResponse);
-		AgentSkills result = inputMapper.gson().fromJson(unblockResponse, AgentSkills.class);
+		AgentSkills result = objectMapper.readValue(unblockResponse, AgentSkills.class);
 		CTIResponse ctiResponse = result.getResponseObj();
 		if (ctiResponse.getResponse_code().equals(STD_API_SUCCESS)) {
 			agent.setResponse(ctiResponse);
@@ -826,10 +830,11 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse transferCall(String request, String remoteAddr) throws IEMRException, JSONException {
+	public OutputResponse transferCall(String request, String remoteAddr) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
 		String availableAgentsURL;
-		TransferCall transferCall = InputMapper.gson().fromJson(request, TransferCall.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		TransferCall transferCall = objectMapper.readValue(request, TransferCall.class);
 
 		if (transferCall != null && transferCall.getAgentIPAddress() != null)
 			updateCallDisposition(transferCall, transferCall.getAgentIPAddress());
@@ -860,7 +865,7 @@ public class CTIServiceImpl implements CTIService {
 		logger.info("transferCall calling url: " + availableAgentsURL);
 		String unblockResponse = this.callUrl(availableAgentsURL);
 		logger.info("transferCall API returned " + unblockResponse);
-		TransferCall result = inputMapper.gson().fromJson(unblockResponse, TransferCall.class);
+		TransferCall result = objectMapper.readValue(unblockResponse, TransferCall.class);
 		CTIResponse ctiResponse = result.getResponseObj();
 		if (ctiResponse.getResponse_code().equals(STD_API_SUCCESS)) {
 			transferCall.setResponse(ctiResponse);
@@ -890,7 +895,7 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse customerPreferredLanguage(CustomerLanguage custLang, String remoteAddress) {
+	public OutputResponse customerPreferredLanguage(CustomerLanguage custLang, String remoteAddress) throws JsonMappingException, JsonProcessingException {
 		OutputResponse output = new OutputResponse();
 		String preferredLanguageURL = ConfigProperties.getPropertyByName("preferred-language-URL");
 		String campaignName = (custLang.getCampaign_name() != null) ? custLang.getCampaign_name().trim() : "";
@@ -904,7 +909,8 @@ public class CTIServiceImpl implements CTIService {
 		logger.info("customerPreferredLanguage calling url: " + preferredLanguageURL);
 		String unblockResponse = this.callUrl(preferredLanguageURL);
 		logger.info("customerPreferredLanguage API returned " + unblockResponse);
-		CustomerLanguage result = InputMapper.gson().fromJson(unblockResponse, CustomerLanguage.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		CustomerLanguage result = objectMapper.readValue(unblockResponse, CustomerLanguage.class);
 		CTIResponse ctiResponse = result.getResponse();
 		if (ctiResponse.getResponse_code().equals(STD_API_SUCCESS)) {
 			custLang.setResponse(ctiResponse);
@@ -945,12 +951,13 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse addAutoDialNumbers(String request, String ipAddress) throws JSONException, IEMRException {
+	public OutputResponse addAutoDialNumbers(String request, String ipAddress) throws JSONException, IEMRException, JsonMappingException, JsonProcessingException {
 		OutputResponse result = new OutputResponse();
 		logger.debug("addUpdateAgentSkills input is " + request);
 		String ctiURI = ConfigProperties.getPropertyByName("add-auto-dail-numbers-URL");
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
-		AutoPreviewDial[] autoPreviewDialArray = inputMapper.gson().fromJson(request, AutoPreviewDial[].class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		AutoPreviewDial[] autoPreviewDialArray = objectMapper.readValue(request, AutoPreviewDial[].class);
 
 		AutoPreviewDial autoPreviewDial = autoPreviewDialArray[0];
 
@@ -985,12 +992,13 @@ public class CTIServiceImpl implements CTIService {
 	}
 
 	@Override
-	public OutputResponse setAutoDialNumbers(String request, String ipAddress) throws JSONException, IEMRException {
+	public OutputResponse setAutoDialNumbers(String request, String ipAddress) throws JSONException, IEMRException, JsonMappingException, JsonProcessingException {
 		OutputResponse result = new OutputResponse();
 		logger.debug("setAutoDialNumbers input is " + request);
 		String ctiURI = ConfigProperties.getPropertyByName("set-auto-dail-numbers-URL");
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
-		AutoPreviewDial autoPreviewDial = inputMapper.gson().fromJson(request, AutoPreviewDial.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		AutoPreviewDial autoPreviewDial = objectMapper.readValue(request, AutoPreviewDial.class);
 
 		String agentID = (autoPreviewDial.getAgent_id() != null) ? autoPreviewDial.getAgent_id() : "";
 		String agentIPResp = getAgentIP(agentID);
@@ -1032,7 +1040,8 @@ public class CTIServiceImpl implements CTIService {
 		logger.debug("getZoneDetails input is " + request);
 		String ctiURI = ConfigProperties.getPropertyByName("agent-ivrs-path-URL");
 		String serverURL = ConfigProperties.getPropertyByName("cti-server-ip");
-		AgentState zoneData = inputMapper.gson().fromJson(request, AgentState.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		AgentState zoneData = objectMapper.readValue(request, AgentState.class);
 
 		String agentID = (zoneData.getAgent_id() != null) ? zoneData.getAgent_id() : "";
 		ctiURI = ctiURI.replace("CTI_SERVER", serverURL);

@@ -29,11 +29,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iemr.common.model.sms.CreateSMSRequest;
 import com.iemr.common.model.sms.SMSParameterModel;
 import com.iemr.common.model.sms.SMSRequest;
@@ -60,7 +64,7 @@ public class SMSController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get SMS templates")
-	@RequestMapping(value = "/getSMSTemplates", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getSMSTemplates", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getSMSTemplates(
 			@Param(value = "\"{\\\"providerServiceMapID\\\":\\\"Integer\\\"}\"") @RequestBody SMSRequest request,
 			HttpServletRequest serverRequest) {
@@ -79,8 +83,7 @@ public class SMSController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get full SMS template")
-	@RequestMapping(value = "/getFullSMSTemplate", method = {
-			RequestMethod.POST }, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getFullSMSTemplate", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getFullSMSTemplate(
 			@Param(value = "\"{\\\"providerServiceMapID\\\":\\\"Integer\\\",\\\"smsTemplateID\\\":\\\"Integer\\\"}\"") @RequestBody SMSRequest request,
 			HttpServletRequest serverRequest) {
@@ -99,7 +102,7 @@ public class SMSController {
 
 	@CrossOrigin()
 	@Operation(summary = "Save SMS template")
-	@RequestMapping(value = "/saveSMSTemplate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/saveSMSTemplate", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String saveSMSTemplate(
 			@Param(value = "\"{\\\"createdBy\\\":\\\"String\\\",\\\"providerServiceMapID\\\":\\\"String\\\",\\\"smsParameterMaps\\\":\\\"String\\\",\\\"smsTemplate\\\":\\\"String\\\",\\\"smsTemplateName\\\":\\\"String\\\",\\\"smsTypeID\\\":\\\"Integer\\\"}\"") @RequestBody CreateSMSRequest request,
 			HttpServletRequest serverRequest) {
@@ -118,7 +121,7 @@ public class SMSController {
 
 	@CrossOrigin()
 	@Operation(summary = "Update SMS template")
-	@RequestMapping(value = "/updateSMSTemplate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/updateSMSTemplate", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String updateSMSTemplate(
 			@Param(value = "\"{\\\"smsTemplateID\\\":\\\"String\\\",\\\"smsTemplateName\\\":\\\"String\\\",\\\"smsTemplate\\\":\\\"String\\\","
 					+ "\\\"providerServiceMapID\\\":\\\"Integer\\\",\\\"smsType\\\":{\\\"smsTypeID\\\":\\\"Integer\\\",\\\"smsType\\\":\\\"String\\\","
@@ -142,7 +145,7 @@ public class SMSController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get SMS types")
-	@RequestMapping(value = "/getSMSTypes", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getSMSTypes", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getSMSTypes(
 			@Param(value = "\"{\\\"serviceID\\\":\\\"Integer\\\"}\"") @RequestBody SMSTypeModel request,
 			HttpServletRequest serverRequest) {
@@ -162,7 +165,7 @@ public class SMSController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get SMS parameters")
-	@RequestMapping(value = "/getSMSParameters", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getSMSParameters", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getSMSParameters(
 			@Param(value = "\"{\\\"serviceID\\\":\\\"Integer\\\"}\"") @RequestBody SMSParameterModel request,
 			HttpServletRequest serverRequest) {
@@ -182,7 +185,7 @@ public class SMSController {
 
 	@CrossOrigin()
 	@Operation(summary = "Send SMS")
-	@RequestMapping(value = "/sendSMS", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/sendSMS", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String sendSMS(
 			@Param(value = "\"{\\\"providerServiceMapID\\\":\\\"Integer\\\",\\\"smsTemplateTypeID\\\":\\\"Integer\\\","
 					+ "\\\"smsTemplateID\\\":\\\"Integer\\\",\\\"beneficiaryRegID\\\":\\\"Long\\\",\\\"stateID\\\":\\\"Integer\\\","
@@ -196,11 +199,12 @@ public class SMSController {
 					+ "\\\"specializationID\\\":\\\"Integer\\\",\\\"smsTypeTM\\\":\\\"String\\\",\\\"tcDate\\\":\\\"String\\\","
 					+ "\\\"tcPreviousDate\\\":\\\"String\\\",\\\"presObj\\\":\\\"String\\\",\\\"diagnosis\\\":\\\"List<Object>\\\",\\\"benHistoryID\\\":\\\"Long\\\",\\\"imrDate\\\":\\\"String\\\","
 					+ "\\\"imrID\\\":\\\"String\\\",\\\"nodalNumber\\\":\\\"String\\\",\\\"informerName\\\":\\\"String\\\"}\"") @RequestBody String request,
-			HttpServletRequest serverRequest) {
+			HttpServletRequest serverRequest) throws JsonMappingException, JsonProcessingException {
 		OutputResponse response = new OutputResponse();
 		logger.info("sendSMS received request");
 		logger.debug("sendSMS received a request " + OutputMapper.gson().toJson(request));
-		SMSRequest[] requests = inputMapper.gson().fromJson(request, SMSRequest[].class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		SMSRequest[] requests = objectMapper.readValue(request, SMSRequest[].class);
 		try {
 			response.setResponse(smsService.sendSMS(Arrays.asList(requests), serverRequest.getHeader("Authorization")));
 		} catch (Exception e) {

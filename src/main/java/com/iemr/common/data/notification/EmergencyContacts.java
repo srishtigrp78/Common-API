@@ -239,5 +239,7 @@ public class EmergencyContacts
 		return 0;
 	    /* ... */
 	  }
-
+	@Expose
+	@Transient
+	private String designationName;
 }

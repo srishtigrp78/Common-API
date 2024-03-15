@@ -100,7 +100,7 @@ public interface IEMRAdminUserService
 
 	void userForceLogout(ForceLogoutRequestModel request) throws Exception;
 
-	String getAgentByRoleID(String request) throws IEMRException;
+	String getAgentByRoleID(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
 	List<User> userAuthenticateByEncryption(String req) throws Exception;
 

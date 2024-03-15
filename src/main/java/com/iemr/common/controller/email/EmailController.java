@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,7 +57,7 @@ public class EmailController {
 
 	@CrossOrigin
 	@Operation(summary = "Send email")
-	@RequestMapping(value = "/SendEmail", method = RequestMethod.POST, headers = "Authorization")
+	@PostMapping(value = "/SendEmail", headers = "Authorization")
 	public String SendEmail(
 			@Param("{\"FeedbackID\":\"Long\",\"emailID\":\"String\",\"is1097\":\"Boolean\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
@@ -75,7 +76,7 @@ public class EmailController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get authority email id")
-	@RequestMapping(value = "/getAuthorityEmailID", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getAuthorityEmailID", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getAuthorityEmailID(@Param(value = "{districtID : Integer}") @RequestBody String severityRequest) {
 
 		OutputResponse response = new OutputResponse();
@@ -90,7 +91,7 @@ public class EmailController {
 
 	@CrossOrigin
 	@Operation(summary = "Send email general")
-	@RequestMapping(value = "/sendEmailGeneral", method = RequestMethod.POST, headers = "Authorization")
+	@PostMapping(value = "/sendEmailGeneral", headers = "Authorization")
 	public String sendEmailGeneral(
 			@Param("{\"requestID\":\"String\",\"emailType\":\"String\",\"emailID\":\"String\"}") @RequestBody String requestID,
 			HttpServletRequest serverRequest) {

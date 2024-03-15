@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iemr.common.data.scheme.Scheme;
+import com.iemr.common.data.users.UserServiceRoleMapping;
 import com.iemr.common.service.scheme.SchemeServiceImpl;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
@@ -69,7 +70,8 @@ public class SchemeController {
 			+ "\"createdBy\":\"String: username of supervisor\"}}") @RequestBody String request) {
 		OutputResponse output = new OutputResponse();
 		try {
-			Scheme scheme = inputMapper.gson().fromJson(request, Scheme.class);
+			ObjectMapper objectMapper = new ObjectMapper();
+			Scheme scheme = objectMapper.readValue(request, Scheme.class);
 			Scheme schemeNew;
 			schemeNew = schemeServiceImpl.save(scheme);
 			output.setResponse(schemeNew.toString());
@@ -115,7 +117,8 @@ public class SchemeController {
 		logger.info("delete scheme request " + createRequest);
 		OutputResponse output = new OutputResponse();
 		try {
-			Scheme m_scheme = mapper.gson().fromJson(createRequest, Scheme.class);
+			ObjectMapper objectMapper = new ObjectMapper();
+			Scheme m_scheme = objectMapper.readValue(createRequest, Scheme.class);
 			Scheme scheme = null;
 			scheme = schemeServiceImpl.getSchemeByID(m_scheme.getSchemeID());
 			if (scheme != null) {

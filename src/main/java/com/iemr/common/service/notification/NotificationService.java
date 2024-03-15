@@ -42,7 +42,7 @@ public interface NotificationService {
 
 	String getNotificationType(String request) throws IEMRException;
 
-	String createNotificationType(String request) throws IEMRException;
+	String createNotificationType(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
 	String updateNotificationType(String request) throws JSONException, IEMRException;
 

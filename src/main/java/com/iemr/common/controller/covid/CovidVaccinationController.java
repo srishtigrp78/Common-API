@@ -27,6 +27,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,8 +61,8 @@ public class CovidVaccinationController {
 
 	@CrossOrigin
 	@Operation(summary = "Master Data for Vaccination Type & Dose Taken")
-	@RequestMapping(value = {
-			"/master/VaccinationTypeAndDoseTaken" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	@GetMapping(value = {
+			"/master/VaccinationTypeAndDoseTaken" }, produces = MediaType.APPLICATION_JSON)
 
 	public String getVaccinationTypeAndDoseTaken(@RequestHeader(value = "Authorization") String Authorization) {
 		OutputResponse response = new OutputResponse();
@@ -85,7 +87,7 @@ public class CovidVaccinationController {
 	@CrossOrigin
 	@Operation(summary = "Getting beneficiary covid vaccination details")
 
-	@RequestMapping(value = { "/getCovidVaccinationDetails" }, method = { RequestMethod.POST })
+	@PostMapping(value = { "/getCovidVaccinationDetails" })
 	public String getCovidVaccinationDetails(
 			@Param(value = "{\"beneficiaryRegID\":\"Long\"}") @RequestBody CovidVaccinationStatus covidVaccinationStatus,
 			@RequestHeader(value = "Authorization") String Authorization) {
@@ -128,7 +130,7 @@ public class CovidVaccinationController {
 
 	@CrossOrigin
 	@Operation(summary = "Save beneficiary covid vaccination details")
-	@RequestMapping(value = { "/saveCovidVaccinationDetails" }, method = { RequestMethod.POST })
+	@PostMapping(value = { "/saveCovidVaccinationDetails" })
 	public String saveCovidVaccinationDetails(
 			@Param(value = "{\"covidVSID\": \"Long\",\"beneficiaryRegID\":\"Long\","
 					+ "\"CovidVaccineTypeID\":\"Integer\","

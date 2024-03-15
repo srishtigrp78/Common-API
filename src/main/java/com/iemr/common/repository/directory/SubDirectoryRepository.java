@@ -34,7 +34,7 @@ import com.iemr.common.data.directory.SubDirectory;
 @Repository
 public interface SubDirectoryRepository extends CrudRepository<SubDirectory, Long> {
 	
-	@Query(value="select instituteSubDirectoryID, instituteSubDirectoryName from SubDirectory where "
-			+ "Deleted = false and instituteDirectoryID = :instituteDirectoryID order by instituteSubDirectoryName asc", nativeQuery = true)
+	@Query("select sd.instituteSubDirectoryID, sd.instituteSubDirectoryName from SubDirectory sd where "
+			+ "sd.deleted = false and sd.instituteDirectoryID = :instituteDirectoryID order by sd.instituteSubDirectoryName asc")
 	public Set<Object[]> findAciveSubDirectories(@Param("instituteDirectoryID") int instituteDirectoryID);
 }

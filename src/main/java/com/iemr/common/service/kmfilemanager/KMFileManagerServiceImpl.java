@@ -43,6 +43,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iemr.common.data.kmfilemanager.KMFileManager;
 import com.iemr.common.repository.category.SubCategoryRepository;
 import com.iemr.common.repository.kmfilemanager.KMFileManagerRepository;
@@ -66,14 +67,6 @@ public class KMFileManagerServiceImpl implements KMFileManagerService {
 		this.kmService = kmService;
 	}
 
-	// private ConfigProperties configProperties;
-	//
-	// @Autowired
-	// public void setConfigProperties(ConfigProperties configProperties)
-	// {
-	// this.configProperties = configProperties;
-	// }
-
 	private KMFileManagerRepository kmFileManagerRepository;
 
 	@Autowired
@@ -92,7 +85,8 @@ public class KMFileManagerServiceImpl implements KMFileManagerService {
 
 	@Override
 	public String getKMFileLists(String request) throws Exception {
-		KMFileManager manager = inputMapper.gson().fromJson(request, KMFileManager.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		KMFileManager manager = objectMapper.readValue(request, KMFileManager.class);
 		List<KMFileManager> kmFileManagers = new ArrayList<KMFileManager>();
 		Set<Object[]> resultSet = kmFileManagerRepository.getKMFileLists(manager.getProviderServiceMapID());
 		for (Object[] object : resultSet) {
@@ -107,7 +101,8 @@ public class KMFileManagerServiceImpl implements KMFileManagerService {
 
 	@Override
 	public Integer updateKMFileManager(String request) throws Exception {
-		KMFileManager manager = inputMapper.gson().fromJson(request, KMFileManager.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		KMFileManager manager = objectMapper.readValue(request, KMFileManager.class);
 		Integer updateCount = kmFileManagerRepository.updateKMFileManager(manager.getKmFileManagerID(),
 				manager.getFileUID(), manager.getFileName(), manager.getFileExtension(), manager.getVersionNo(),
 				manager.getFileCheckSum(), manager.getProviderServiceMapID(), manager.getKmUploadStatus(),
@@ -118,7 +113,8 @@ public class KMFileManagerServiceImpl implements KMFileManagerService {
 	@Override
 	// @Transactional(propagation = Propagation.REQUIRES_NEW)
 	public String addKMFile(String request) throws IOException, NoSuchAlgorithmException, IEMRException {
-		KMFileManager[] kmFileManagerArray = inputMapper.gson().fromJson(request, KMFileManager[].class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		KMFileManager[] kmFileManagerArray = objectMapper.readValue(request, KMFileManager[].class);
 		ArrayList<KMFileManager> kmFileManagers = new ArrayList<KMFileManager>();
 		kmFileManagers = addKMFile(new ArrayList(Arrays.asList(kmFileManagerArray)));
 		if (kmFileManagers.size() <= 0) {
@@ -208,14 +204,7 @@ public class KMFileManagerServiceImpl implements KMFileManagerService {
 		List<KMFileManager> files = kmFileManagerRepository.getKMFileByFileName(kmFileManager.getProviderServiceMapID(),
 				kmFileManager.getFileName());
 		version = "V" + (files.size() + 1);
-		// for (KMFileManager file : files)
-		// {
-		// if (file.getFileCheckSum().equals(kmFileManager.getFileCheckSum()))
-		// {
-		// version = "V0";
-		// break;
-		// }
-		// }
+		
 		return version;
 	}
 }

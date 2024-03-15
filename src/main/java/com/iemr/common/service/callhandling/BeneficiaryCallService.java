@@ -72,44 +72,46 @@ public interface BeneficiaryCallService {
 	 *                        beneficiaryRegID to be sent
 	 * @return - number of calls closed successfully
 	 * @throws IEMRException
+	 * @throws JsonProcessingException 
+	 * @throws JsonMappingException 
 	 */
-	Integer updateBeneficiaryIDInCall(String beneficiaryCall) throws IEMRException;
+	Integer updateBeneficiaryIDInCall(String beneficiaryCall) throws IEMRException, JsonMappingException, JsonProcessingException;
 
 	String outboundCallList(String request, String auth) throws IEMRException, JsonMappingException, JsonProcessingException;
 
-	String filterCallList(String request, String auth) throws IEMRException;
+	String filterCallList(String request, String auth) throws IEMRException, JsonMappingException, JsonProcessingException;
 
 	String filterCallListWithPagination(String request, String auth) throws IEMRException;
 
-	String outboundAllocation(String request) throws IEMRException;
+	String outboundAllocation(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
 	String getBlacklistNumbers(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
-	OutputResponse blockPhoneNumber(String request) throws IEMRException;
+	OutputResponse blockPhoneNumber(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
-	OutputResponse unblockPhoneNumber(String request) throws IEMRException;
+	OutputResponse unblockPhoneNumber(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
-	String completeOutboundCall(String request) throws IEMRException;
+	String completeOutboundCall(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
 	String unblockBlockedNumbers();
 
-	Integer updateBeneficiaryCallCDIStatus(String beneficiaryCall) throws IEMRException;
+	Integer updateBeneficiaryCallCDIStatus(String beneficiaryCall) throws IEMRException, JsonMappingException, JsonProcessingException;
 
-	List<BeneficiaryCall> getCallHistoryByCallID(String request) throws IEMRException;
+	List<BeneficiaryCall> getCallHistoryByCallID(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
-	String outboundCallListByCallID(String request) throws IEMRException;
+	String outboundCallListByCallID(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
-	String resetOutboundCall(String request) throws IEMRException;
+	String resetOutboundCall(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
-	String outboundCallCount(String request) throws IEMRException, JSONException;
+	String outboundCallCount(String request) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException;
 
-	String nueisanceCallHistory(String request, String string) throws IEMRException, JSONException;
+	String nueisanceCallHistory(String request, String string) throws IEMRException, JSONException, JsonMappingException, JsonProcessingException;
 
 	Integer closeCallV1(String request, String ipAddress) throws Exception;
 
 	BeneficiaryCallModel beneficiaryByCallID(CallRequestByIDModel request, String string) throws IEMRException;
 
-	String updateOutboundCall(String request) throws IEMRException;
+	String updateOutboundCall(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
 	Boolean isAvailed(BeneficiaryCallModel fromJson);
 
@@ -123,6 +125,6 @@ public interface BeneficiaryCallService {
 	
 	String CTIFilePath(String request) throws IEMRException;
 
-	String cTIFilePathNew(String request) throws IEMRException;
+	String cTIFilePathNew(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
 }

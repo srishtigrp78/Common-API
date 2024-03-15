@@ -581,7 +581,7 @@ public class IEMRAdminUserServiceImpl implements IEMRAdminUserService {
 		}
 	}
 
-	private HashMap<String, String> getAvailableCTIDesignations(String campaign) {
+	private HashMap<String, String> getAvailableCTIDesignations(String campaign) throws JsonMappingException, JsonProcessingException {
 		HashMap<String, String> result = new HashMap<String, String>();
 		try {
 			JSONObject request = new JSONObject();
@@ -1020,8 +1020,9 @@ public class IEMRAdminUserServiceImpl implements IEMRAdminUserService {
 	}
 
 	@Override
-	public String getAgentByRoleID(String request) throws IEMRException {
-		UserServiceRoleMapping userRoles = InputMapper.gson().fromJson(request, UserServiceRoleMapping.class);
+	public String getAgentByRoleID(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		UserServiceRoleMapping userRoles = objectMapper.readValue(request, UserServiceRoleMapping.class);
 		List<String> resultSet = null;
 		List<UserServiceRoleMapping> list = new ArrayList<UserServiceRoleMapping>();
 

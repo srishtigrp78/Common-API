@@ -34,16 +34,16 @@ public interface CommonService
 {
 	public Iterable<CategoryDetails> getCategories();
 
-	public Iterable<CategoryDetails> getCategories(String request) throws IEMRException;
+	public Iterable<CategoryDetails> getCategories(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
-	public Iterable<SubCategoryDetails> getSubCategories(String request) throws IEMRException;
+	public Iterable<SubCategoryDetails> getSubCategories(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
 	public Iterable<SubService> getActiveServiceTypes(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 	
 //	public List<SubCategoryDetails> getSubCategoriesOfProvider(Integer providerServiceMapID);
 
-	public List<SubCategoryDetails> getSubCategoryFiles(String request) throws IEMRException;
+	public List<SubCategoryDetails> getSubCategoryFiles(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 	
-	public List<SubCategoryDetails> getSubCategoryFilesWithURL(String request) throws IEMRException;
+	public List<SubCategoryDetails> getSubCategoryFilesWithURL(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
 }

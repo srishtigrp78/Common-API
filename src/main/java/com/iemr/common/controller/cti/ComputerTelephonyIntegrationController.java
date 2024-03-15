@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,7 +58,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get campaign skills")
-	@RequestMapping(value = "/getCampaignSkills", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getCampaignSkills", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getCampaignSkills(
 			@Param("{\"campaign_name\":\"String: Name of the campaign\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
@@ -79,7 +80,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get agent state")
-	@RequestMapping(value = "/getAgentState", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getAgentState", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getAgentState(@Param("{\"agent_id\":\"String: agent id\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
@@ -100,7 +101,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get agent call stats")
-	@RequestMapping(value = "/getAgentCallStats", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getAgentCallStats", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getAgentCallStats(@Param("{\"agent_id\":\"String: agent id\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
@@ -121,7 +122,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get campaign names")
-	@RequestMapping(value = "/getCampaignNames", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getCampaignNames", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getCampaignNames(
 			@Param("{\"serviceName\":\"String: service name\", "
 					+ "\"type\":\"String - inbound, outbound\"}") @RequestBody String request,
@@ -144,7 +145,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get login key")
-	@RequestMapping(value = "/getLoginKey", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getLoginKey", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getLoginKey(
 			@Param("{\"username\":\"String: user name\", \"password\":\"String: password\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
@@ -166,7 +167,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Do agent logout")
-	@RequestMapping(value = "/doAgentLogout", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
+	@PostMapping(value = "/doAgentLogout", produces = MediaType.APPLICATION_JSON)
 	public String doAgentLogout(@Param("{\"agent_id\":\"String: agent id\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
@@ -187,7 +188,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get online agents")
-	@RequestMapping(value = "/getOnlineAgents", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getOnlineAgents", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getOnlineAgents(@Param("{\"agent_id\":\"String: agent id\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
@@ -208,7 +209,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Call beneficiary")
-	@RequestMapping(value = "/callBeneficiary", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/callBeneficiary", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String callBeneficiary(
 			@Param("{\"agent_id\":\"String: agent_id\", \"phone_num\":\"String - phone number\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
@@ -230,7 +231,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Add update user data")
-	@RequestMapping(value = "/addUpdateUserData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/addUpdateUserData", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String addUpdateUserData(
 			@Param("{\"username\":\"String: username\", \"password\":\"String - password\", "
 					+ "\"firstname\":\"String - firstname\", \"lastname\":\"String - lastname\", "
@@ -255,7 +256,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get transfer campaigns")
-	@RequestMapping(value = "/getTransferCampaigns", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getTransferCampaigns", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getTransferCampaigns(@Param("{\"agent_id\":\"String: agentID\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
@@ -276,7 +277,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get campaign roles")
-	@RequestMapping(value = "/getCampaignRoles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getCampaignRoles", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getCampaignRoles(@Param("{\"campaign\":\"String: campaign name\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
@@ -297,7 +298,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Set call disposition")
-	@RequestMapping(value = "/setCallDisposition", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/setCallDisposition", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String setCallDisposition(
 			@Param("{\"agent_id\":\"String: agentID\", \"cust_disp\":\"String - call subtype\", "
 					+ "\"category\":\"String: call type\", \"session_id\":\"String: unique call id from c-zentrix\"}") @RequestBody String request,
@@ -320,7 +321,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Create voice file")
-	@RequestMapping(value = "/createVoiceFile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/createVoiceFile", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String createVoiceFile(
 			@Param("{\"agent_id\":\"String: agentID\", "
 					+ "\"session_id\":\"String: unique call id from c-zentrix\"}") @RequestBody String request,
@@ -343,7 +344,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get voice file")
-	@RequestMapping(value = "/getVoiceFile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getVoiceFile", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getVoiceFile(
 			@Param("{\"agent_id\":\"String: agentID\", "
 					+ "\"session_id\":\"String: unique call id from c-zentrix\"}") @RequestBody String request,
@@ -366,7 +367,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Disconnect call")
-	@RequestMapping(value = "/disconnectCall", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/disconnectCall", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String disconnectCall(@Param("{\"agent_id\":\"String: agentID\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
@@ -387,7 +388,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Switch to inbound")
-	@RequestMapping(value = "/switchToInbound", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/switchToInbound", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String switchToInbound(@Param("{\"agent_id\":\"String: agentID\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
@@ -408,7 +409,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Switch to outbound")
-	@RequestMapping(value = "/switchToOutbound", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/switchToOutbound", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String switchToOutbound(@Param("{\"agent_id\":\"String: agentID\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
@@ -429,7 +430,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get agent IP address")
-	@RequestMapping(value = "/getAgentIPAddress", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getAgentIPAddress", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getAgentIPAddress(@Param("{\"agent_id\":\"String: agentID\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();
@@ -450,7 +451,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get available agent skills")
-	@RequestMapping(value = "/getAvailableAgentSkills", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getAvailableAgentSkills", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getAvailableAgentSkills(
 			@Param("{\"campaignName\":\"String: campaign name\", "
 					+ "\"skill\":\"String: skill name\"}") @RequestBody String request,
@@ -473,7 +474,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Transfer call")
-	@RequestMapping(value = "/transferCall", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/transferCall", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String transferCall(@Param("{\"transfer_from\":\"String - agent id who is transferring call\", "
 			+ "\"transfer_to\":\"String - agent ID who would be receiving call\", "
 			+ "\"transfer_campaign_info\": \"String - name of the campaign to which call will be transferred\", "
@@ -499,7 +500,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Customer preferred language")
-	@RequestMapping(value = "/customerPreferredLanguage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/customerPreferredLanguage", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String customerPreferredLanguage(
 			@Param("{\"cust_ph_no\":\"phone number of customer\", "
 					+ "\"campaign_name\":\"campaign name for provider from provider service mapping\", "
@@ -525,7 +526,7 @@ public class ComputerTelephonyIntegrationController {
 
 	@CrossOrigin()
 	@Operation(summary = "Get IVRS path details")
-	@RequestMapping(value = "/getIVRSPathDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/getIVRSPathDetails", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getIVRSPathDetails(@Param("{\"agent_id\":\"Integer\"}") @RequestBody String request,
 			HttpServletRequest serverRequest) {
 		OutputResponse response = new OutputResponse();

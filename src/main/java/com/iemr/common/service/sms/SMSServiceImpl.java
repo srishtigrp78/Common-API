@@ -262,7 +262,7 @@ public class SMSServiceImpl implements SMSService {
 
 			// Shubham Shekhar,16-10-2020,TM Prescription SMS
 			smsTemplate = smsTemplateRepository.findBySmsTemplateID(request.getSmsTemplateID());
-			if (smsTemplate.getSmsTemplateName().equalsIgnoreCase(prescription)) {
+			if (null != smsTemplate && smsTemplate.getSmsTemplateName().equalsIgnoreCase(prescription)) {
 //			if (smsTemplate.getSmsTypeID() == request.getSmsTypeID())
 //			{
 				sentSMS = prepareTMSMS(request, authToken);
@@ -604,8 +604,10 @@ public class SMSServiceImpl implements SMSService {
 			smsToSend = request.getSmsText();
 		} else {
 			smsTemplate = smsTemplateRepository.findBySmsTemplateID(request.getSmsTemplateID());
+			if(null != smsTemplate) {
 			sms.setSmsTemplateID(smsTemplate.getSmsTemplateID());
 			smsToSend = smsTemplate.getSmsTemplate();
+			}
 			List<SMSParametersMap> smsParameters = smsParameterMapRepository
 					.findSMSParametersMapBySmsTemplateID(request.getSmsTemplateID());
 			int i = 0;
@@ -692,7 +694,7 @@ public class SMSServiceImpl implements SMSService {
 				}
 			}
 
-			if (smsTemplate.getSmsTypeID() == 15 && request.getMoAdvice() != null) {
+			if (null != smsTemplate && smsTemplate.getSmsTypeID() == 15 && request.getMoAdvice() != null) {
 				smsToSend = smsToSend.concat(request.getMoAdvice());
 			}
 		}

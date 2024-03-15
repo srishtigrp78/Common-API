@@ -24,11 +24,14 @@ package com.iemr.common.service.notification;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
+import java.util.TimeZone;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,7 +43,6 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.iemr.common.data.directory.Directory;
 import com.iemr.common.data.institute.Designation;
 import com.iemr.common.data.kmfilemanager.KMFileManager;
 import com.iemr.common.data.notification.EmergencyContacts;
@@ -245,6 +247,9 @@ public class NotificationServiceImpl implements NotificationService
 	{
 		ArrayList<Notification> savedNotifications = new ArrayList<Notification>();
 		ObjectMapper objectMapper = new ObjectMapper();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata")); // Set the timezone to IST
+		objectMapper.setDateFormat(dateFormat);
 		Notification[] notificationRequests = objectMapper.readValue(request, Notification[].class);
 		for (Notification notificationRequest : notificationRequests)
 		{
@@ -257,6 +262,9 @@ public class NotificationServiceImpl implements NotificationService
 	private Notification addNewNotification(Notification notificationRequest) throws Exception
 	{
 		ObjectMapper objectMapper = new ObjectMapper();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata")); // Set the timezone to IST
+		objectMapper.setDateFormat(dateFormat);
 		Notification notification = objectMapper.readValue(notificationRequest.toString(), Notification.class);
 		notification.setKmFileManager(null);
 		notification = notificationRepository.save(notification);
@@ -329,7 +337,11 @@ public class NotificationServiceImpl implements NotificationService
 	// @Transactional(propagation = Propagation.REQUIRES_NEW)
 	public String updateNotification(String request) throws Exception
 	{
-		Notification notificationRequest = inputMapper.gson().fromJson(request, Notification.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata")); // Set the timezone to IST
+		objectMapper.setDateFormat(dateFormat);
+		Notification notificationRequest = objectMapper.readValue(request, Notification.class);
 		JSONObject response = new JSONObject(notificationRequest.toString());
 		int count = notificationRepository.updateNotification(notificationRequest.getNotificationID(),
 				notificationRequest.getNotification(), notificationRequest.getNotificationDesc(),
@@ -368,10 +380,11 @@ public class NotificationServiceImpl implements NotificationService
 
 	@Override
 	// @Transactional(propagation = Propagation.REQUIRES_NEW)
-	public String createNotificationType(String request) throws IEMRException
+	public String createNotificationType(String request) throws IEMRException, JsonMappingException, JsonProcessingException
 	{
 		ArrayList<NotificationType> savedNotificationTypes = new ArrayList<NotificationType>();
-		NotificationType[] notificationTypeRequest = inputMapper.gson().fromJson(request, NotificationType[].class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		NotificationType[] notificationTypeRequest = objectMapper.readValue(request, NotificationType[].class);
 		savedNotificationTypes =
 				(ArrayList<NotificationType>) notificationTypeRepository.saveAll(Arrays.asList(notificationTypeRequest));
 		return savedNotificationTypes.toString();
@@ -470,7 +483,8 @@ public class NotificationServiceImpl implements NotificationService
 			throws NoSuchAlgorithmException, IOException, IEMRException, Exception
 	{
 		List<EmergencyContacts> emergencyContacts = new ArrayList<EmergencyContacts>();
-		EmergencyContacts[] emergencyContactRequest = InputMapper.gson().fromJson(request, EmergencyContacts[].class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		EmergencyContacts[] emergencyContactRequest = objectMapper.readValue(request, EmergencyContacts[].class);
 		for (EmergencyContacts emergencyContact : emergencyContactRequest)
 		{
 			emergencyContacts.add(emergencyContactsRepository.save(emergencyContact));

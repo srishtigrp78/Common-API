@@ -103,8 +103,9 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public Iterable<SubCategoryDetails> getSubCategories(String request) throws IEMRException {
-		SubCategoryDetails subCategoryDetails = inputMapper.gson().fromJson(request, SubCategoryDetails.class);
+	public Iterable<SubCategoryDetails> getSubCategories(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		SubCategoryDetails subCategoryDetails = objectMapper.readValue(request, SubCategoryDetails.class);
 		List<SubCategoryDetails> subCategoriesList = new ArrayList<SubCategoryDetails>();
 		ArrayList<Object[]> lists = subCategoryRepository.findByCategoryID(subCategoryDetails.getCategoryID());
 		for (Object[] objects : lists) {
@@ -139,9 +140,10 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public List<SubCategoryDetails> getSubCategoryFiles(String request) throws IEMRException {
+	public List<SubCategoryDetails> getSubCategoryFiles(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
 		SubCategoryDetails subCategoryDetails;
-		subCategoryDetails = inputMapper.gson().fromJson(request, SubCategoryDetails.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		subCategoryDetails = objectMapper.readValue(request, SubCategoryDetails.class);
 		List<SubCategoryDetails> subCategoriesList = new ArrayList<SubCategoryDetails>();
 		if (subCategoryDetails.getSubCategoryID() != null) {
 			subCategoriesList = subCategoryRepository.findBySubCategoryID(subCategoryDetails.getSubCategoryID());
@@ -164,9 +166,10 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public List<SubCategoryDetails> getSubCategoryFilesWithURL(String request) throws IEMRException {
+	public List<SubCategoryDetails> getSubCategoryFilesWithURL(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
 		SubCategoryDetails subCategoryDetails;
-		subCategoryDetails = inputMapper.gson().fromJson(request, SubCategoryDetails.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		subCategoryDetails = objectMapper.readValue(request, SubCategoryDetails.class);
 		List<SubCategoryDetails> subCategoriesList = new ArrayList<SubCategoryDetails>();
 		if (subCategoryDetails.getSubCategoryID() != null) {
 			subCategoriesList = subCategoryRepository.findBySubCategoryID(subCategoryDetails.getSubCategoryID());
@@ -197,21 +200,11 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public Iterable<CategoryDetails> getCategories(String request) throws IEMRException {
-		CategoryDetails categoryRequest = inputMapper.gson().fromJson(request, CategoryDetails.class);
+	public Iterable<CategoryDetails> getCategories(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		CategoryDetails categoryRequest = objectMapper.readValue(request, CategoryDetails.class);
 		List<CategoryDetails> categoriesList = new ArrayList<CategoryDetails>();
-		// ArrayList<Object[]> lists =
-		// categoryRepository.getAllCategories(categoryRequest.getSubServiceID(),
-		// categoryRequest.getProviderServiceMapID());
-		// for (Object[] objects : lists)
-		// {
-		// if (objects != null && objects.length > 1)
-		// {
-		// System.out.println(objects);
-		// categoriesList.add(new CategoryDetails((Integer) objects[0], (String)
-		// objects[1]));
-		// }
-		// }
+		
 		if (categoryRequest.getIsWellBeing() != null) {
 			categoriesList = categoryRepository.getAllCategories(categoryRequest.getSubServiceID(),
 					categoryRequest.getProviderServiceMapID(), categoryRequest.getIsWellBeing());

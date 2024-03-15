@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.iemr.common.data.covid.CovidDoseType;
 import com.iemr.common.data.covid.CovidVaccinationStatus;
@@ -96,7 +97,8 @@ public class CovidVaccinationServiceImpl implements CovidVaccinationService {
 	public String saveBenCovidVaccinationDetails(String request) throws IEMRException {
 		CovidVaccinationStatus covidVaccinationStatus = null;
 		try {
-			covidVaccinationStatus = InputMapper.gson().fromJson(request, CovidVaccinationStatus.class);
+			ObjectMapper objectMapper = new ObjectMapper();
+			covidVaccinationStatus = objectMapper.readValue(request, CovidVaccinationStatus.class);
 			if(covidVaccinationStatus != null && covidVaccinationStatus.getCovidVSID() != null) {
 				covidVaccinationStatus.setProcessed("U");
 			}

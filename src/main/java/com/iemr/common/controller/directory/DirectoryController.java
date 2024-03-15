@@ -42,7 +42,6 @@ import com.iemr.common.data.directory.SubDirectory;
 import com.iemr.common.service.directory.DirectoryMappingService;
 import com.iemr.common.service.directory.DirectoryService;
 import com.iemr.common.service.directory.SubDirectoryService;
-import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
 
 import io.lettuce.core.dynamic.annotation.Param;
@@ -62,7 +61,6 @@ public class DirectoryController
 		this.directoryService = directoryService;
 	}
 
-	private InputMapper inputMapper = new InputMapper();
 	private SubDirectoryService subDirectoryService;
 
 	@Autowired
@@ -137,7 +135,8 @@ public class DirectoryController
 		try
 		{
 			JSONObject responseObj = new JSONObject();
-			SubDirectory subDirectoryQuery = inputMapper.gson().fromJson(subDirectoryRequest, SubDirectory.class);
+			ObjectMapper objectMapper = new ObjectMapper();
+			SubDirectory subDirectoryQuery = objectMapper.readValue(subDirectoryRequest, SubDirectory.class);
 			response.setResponse("{subDirectory:"
 					+ subDirectoryService.getSubDirectories(subDirectoryQuery.getInstituteDirectoryID()) + "}");
 		} catch (Exception e)

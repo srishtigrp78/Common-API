@@ -70,8 +70,8 @@ public interface EverwellFeedbackRepo extends CrudRepository<EverwellFeedback, L
 //			+ " req.deleted is false order by req.efid desc ")
 //	ArrayList<EverwellFeedback> getExistingRecords(@Param("Id") Long Id, @Param("dateOfAction") Timestamp dateOfAction);
 	
-	@Query(value = "SELECT req FROM EverwellFeedback req WHERE req.Id = :Id AND date(req.dateOfAction) = date(:dateOfAction) AND "
-			+ " req.deleted is false order by req.efid desc ", nativeQuery = true)
+	@Query("SELECT req FROM EverwellFeedback req WHERE req.Id = :Id AND date(req.dateOfAction) = date(:dateOfAction) AND "
+			+ " req.deleted = false order by req.efid desc ")
 	ArrayList<EverwellFeedback> getExistingRecords(@Param("Id") Long Id, @Param("dateOfAction") Timestamp dateOfAction);
 
 	@Transactional
