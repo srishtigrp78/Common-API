@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.data.beneficiary.Beneficiary;
 import com.iemr.common.data.institute.Designation;
@@ -56,6 +58,7 @@ import lombok.Data;
 @Entity
 @Table(name = "t_feedback")
 @Data
+@JsonIgnoreProperties({"1097ServiceID","designationName","institutionTypeID","FeedbackTypeID","states","m_districtbranchmapping"})
 public class FeedbackDetails {
 
 	@Id
@@ -67,7 +70,7 @@ public class FeedbackDetails {
 	@Column(name = "requestID")
 	@Expose
 	private String requestID;
-
+	
 	@OneToMany(mappedBy = "feedbackDetails")
 	@Transient
 	@Expose
@@ -667,5 +670,5 @@ public class FeedbackDetails {
 	public String getRandomMessage() {
 		return null;
 	}
-
+	
 }

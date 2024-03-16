@@ -39,6 +39,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.iemr.common.data.feedback.FeedbackDetails;
 import com.iemr.common.data.feedback.FeedbackLog;
 import com.iemr.common.data.feedback.FeedbackRequest;
@@ -290,7 +292,9 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 	@Override
 	public String saveFeedback(String feedbackDetails) throws Exception {
-		FeedbackDetails[] feedbacks = inputMapper.gson().fromJson(feedbackDetails, FeedbackDetails[].class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		FeedbackDetails[] feedbacks = objectMapper.readValue(feedbackDetails, FeedbackDetails[].class);
 		for (FeedbackDetails feedback : feedbacks) {
 			if(feedback.getInstituteName() != null) {
                 feedback.setInstiName(feedback.getInstituteName());
@@ -449,6 +453,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 	@Override
 	public String searchFeedback1(String request) throws Exception {
+		ObjectMapper objectMapper = new ObjectMapper();
 		SearchFeedback searchFeedback = inputMapper.gson().fromJson(request, SearchFeedback.class);
 		Timestamp startDate = new Timestamp(searchFeedback.getStartDate().getTime());
 		Timestamp endDate = new Timestamp(searchFeedback.getEndDate().getTime());
@@ -493,7 +498,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 				}
 			}
 
-			return OutputMapper.gsonWithoutExposeRestriction().toJson(resList);
+			return objectMapper.writeValueAsString(resList);
 		} else {
 			Map<String, Object> resMap = null;
 			List<Map<String, Object>> resList = new ArrayList<>();
@@ -534,7 +539,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 				}
 			}
 
-			return OutputMapper.gsonWithoutExposeRestriction().toJson(resList);
+			return objectMapper.writeValueAsString(resList);
 		}
 
 	}
@@ -565,74 +570,9 @@ public class FeedbackServiceImpl implements FeedbackService {
 		return emailStatus.toString();
 	}
 
-	// @Override
-	// public String getFeedbacksList(String feedbackDetails) throws Exception
-	// {
-	// FeedbackDetails feedback = inputMapper.gson().fromJson(feedbackDetails,
-	// FeedbackDetails.class);
-	// List<FeedbackDetails> resList = new ArrayList<FeedbackDetails>();
-	// List<FeedbackDetails> resultSet = new ArrayList<FeedbackDetails>();
-	// if ((feedback.getBeneficiaryRegID() != null) &&
-	// (feedback.getBeneficiaryRegID() > 0))
-	// {
-	// resultSet =
-	// feedbackRepository.getFeedbacksListForBeneficiary(feedback.getServiceID(),
-	// feedback.getBeneficiaryRegID());
-	// } else
-	// {
-	// if (feedback.getFeedbackID() == null || feedback.getFeedbackID() == 0)
-	// {
-	// resultSet =
-	// feedbackRepository.getFeedbacksList(
-	// feedback.getServiceID(), feedback.getStartDate(), feedback.getEndDate());
-	// } else
-	// {
-	// resultSet = feedbackRepository.getFeedbacksList(feedback.getServiceID(),
-	// feedback.getFeedbackID());
-	// }
-	// }
-	// for (FeedbackDetails feedback1 : resultSet)
-	// {
-	// // if (objList != null && objList.length >= 38)
-	// // {
-	// // feedback = FeedbackDetails.initializeFeedbackDetailsWithAllFeilds((Long)
-	// objList[0],
-	// // (User) objList[2], (Long) objList[3], (Institute) objList[4], (Integer)
-	// objList[5],
-	// // (Designation) objList[6], (Integer) objList[7], (FeedbackSeverity)
-	// objList[8],
-	// // (Integer) objList[9], (FeedbackStatus) objList[10], (Integer) objList[11],
-	// // (ProviderServiceMapping) objList[12], (Integer) objList[13], (Integer)
-	// objList[14],
-	// // (EmailStatus) objList[15], (String) objList[16], (Timestamp) objList[17],
-	// (String) objList[18],
-	// // (Timestamp) objList[19], (String) objList[20], (Timestamp) objList[21],
-	// (String) objList[22],
-	// // (Boolean) objList[23], (Integer) objList[24], (FeedbackType) objList[25],
-	// (Integer) objList[26],
-	// // (States) objList[27], (Integer) objList[28], (Districts) objList[29],
-	// (Integer) objList[30],
-	// // (DistrictBlock) objList[31], (Integer) objList[32],
-	// (DistrictBranchMapping) objList[33],
-	// // (Integer) objList[34], (InstituteType) objList[35], (Integer) objList[36],
-	// // (FeedbackNatureDetail) objList[37]);
-	// List<FeedbackRequest> feedbackRequests =
-	// getFeedbackRequestList(feedback1.getFeedbackID());
-	// List<FeedbackResponse> feedbackResponses =
-	// getFeedbackResponseList(feedback1.getFeedbackID());
-	// feedback1.setFeedbackRequests(feedbackRequests);
-	// feedback1.setFeedbackResponses(feedbackResponses);
-	// feedback1.setConsolidatedRequests(feedbackRequests, feedbackResponses);
-	// resList.add(feedback1);
-	// // }
-	// }
-	// return resList.toString();
-	// }
-
 	@Override
 	public String getFeedbacksList(FeedbackListRequestModel feedbackDetails, String authKey) throws Exception {
-		// FeedbackDetails feedback = inputMapper.gson().fromJson(feedbackDetails,
-		// FeedbackDetails.class);
+		ObjectMapper objectMapper = new ObjectMapper();
 		List<FeedbackListResponseModel> resList = new ArrayList<FeedbackListResponseModel>();
 		List<FeedbackDetails> resultSet = new ArrayList<FeedbackDetails>();
 		if ((feedbackDetails.getRequestID() != null) && (feedbackDetails.getRequestID() != "")) {
@@ -642,9 +582,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 				logger.info("Parsed FeedbackID " + Long.parseLong(ar[ar.length - 1]));
 				resultSet = feedbackRepository.findByFeedbackIDNew(Long.parseLong(ar[ar.length - 1]));
 			}
-			// resultSet =
-			// feedbackRepository.getFeedbacksList(feedbackDetails.getRequestID());
-
+	
 		} else if (feedbackDetails.getPhoneNum() != null) {
 			
 			ArrayList<BigInteger> benRegIds=new ArrayList<BigInteger>();
@@ -664,8 +602,6 @@ public class FeedbackServiceImpl implements FeedbackService {
 			}
 			if (list1 != null && list1.size() > 0)
 				resultSet = feedbackRepository.findByBenRegIDs(list1);
-//			else
-//				throw new IEMRException("No generic grievance found with this phone number");
 		}
 
 		else if ((feedbackDetails.getBeneficiaryRegID() != null) && (feedbackDetails.getBeneficiaryRegID() > 0)) {
@@ -692,32 +628,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 		for (FeedbackDetails feedback : resultSet) {
 			beneficiaryRegIDs.add(feedback.getBeneficiaryRegID());
 		}
-		// List<Future<?>> futures = new ArrayList<Future<?>>();
-		// resultSet.forEach(feedback ->
-		// {
-		// Future<?> future = executor.submit(() ->
-		// {
-		// beneficiaryRegIDs.add(feedback.getBeneficiaryRegID());
-		// });
-		// futures.add(future);
-		// });
-
-		// for (FeedbackDetails feedback1 : resultSet)
-		// {
-		// beneficiaryRegIDs.add(feedback1.getBeneficiaryRegID());
-		// }
-
-		// try
-		// {
-		// for (Future<?> future : futures)
-		// {
-		// future.get();
-		// }
-		// } catch (InterruptedException | ExecutionException e)
-		// {
-		// e.printStackTrace();
-		// }
-
+	
 		Map<Long, BeneficiaryModel> result = null;
 		// for (FeedbackDetails feedback1 : resultSet)
 		// {
@@ -733,7 +644,6 @@ public class FeedbackServiceImpl implements FeedbackService {
 					.collect(Collectors.toMap(BeneficiaryModel::getBeneficiaryRegID, Function.identity()));
 
 		}
-		// }
 		if(result != null) {
 		for (FeedbackDetails feedback1 : resultSet) {
 			List<FeedbackRequest> feedbackRequests = getFeedbackRequestList(feedback1.getFeedbackID());
@@ -743,10 +653,11 @@ public class FeedbackServiceImpl implements FeedbackService {
 			feedback1.setConsolidatedRequests(feedbackRequests, feedbackResponses);
 			FeedbackListResponseModel response = feedbackListMapper.feedbackDetailsToResponse(feedback1);
 			response.setBeneficiary(result.get(feedback1.getBeneficiaryRegID()));
+			
 			resList.add(response);
 		}
 		}
-		return OutputMapper.gsonWithoutExposeRestriction().toJson(resList);
+		return objectMapper.writeValueAsString(resList);
 	}
 
 	private List<FeedbackRequest> getFeedbackRequestList(Long feedbackID) {
@@ -882,22 +793,13 @@ public class FeedbackServiceImpl implements FeedbackService {
 			// futures1.add(future);
 		});
 
-		// try
-		// {
-		// for (Future<?> future : futures1)
-		// {
-		// future.get();
-		// }
-		// } catch (InterruptedException | ExecutionException e)
-		// {
-		// e.printStackTrace();
-		// }
 		return beneficiaryList;
 	}
 
 	@Override
 	public String getGrievancesByCreatedDate(FeedbackListRequestModel feedbackDetails, String authKey)
 			throws Exception {
+		ObjectMapper objectMapper = new ObjectMapper();
 		List<FeedbackListResponseModel> resList = new ArrayList<FeedbackListResponseModel>();
 		List<FeedbackDetails> resultSet = new ArrayList<FeedbackDetails>();
 
@@ -947,12 +849,13 @@ public class FeedbackServiceImpl implements FeedbackService {
             }
 			resList.add(response);
 		}
-		return OutputMapper.gsonWithoutExposeRestriction().toJson(resList);
+		return objectMapper.writeValueAsString(resList);
 	}
 
 	@Override
 	public String getGrievancesByUpdatedDate(FeedbackListRequestModel feedbackDetails, String authKey)
 			throws Exception {
+		ObjectMapper objectMapper = new ObjectMapper();
 		List<FeedbackListResponseModel> resList = new ArrayList<FeedbackListResponseModel>();
 		List<FeedbackDetails> resultSet = new ArrayList<FeedbackDetails>();
 
@@ -1002,7 +905,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 			}
 			resList.add(response);
 		}
-		return OutputMapper.gsonWithoutExposeRestriction().toJson(resList);
+		return objectMapper.writeValueAsString(resList);
 	}
 
 	@Override
