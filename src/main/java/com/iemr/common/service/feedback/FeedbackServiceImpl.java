@@ -39,6 +39,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.iemr.common.data.feedback.FeedbackDetails;
@@ -691,7 +692,9 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 	@Override
 	public String createFeedbackRequest(String feedbackRequestString) throws Exception {
-		FeedbackRequest feedbackRequest = inputMapper.gson().fromJson(feedbackRequestString, FeedbackRequest.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		FeedbackRequest feedbackRequest = objectMapper.readValue(feedbackRequestString, FeedbackRequest.class);
 		feedbackRequest = feedbackRequestRepository.save(feedbackRequest);
 		if (feedbackRequest.getFeedbackRequestID() != null) {
 			feedbackRepository.updateStatusByID(feedbackRequest.getFeedbackID(), feedbackRequest.getFeedbackStatusID(),

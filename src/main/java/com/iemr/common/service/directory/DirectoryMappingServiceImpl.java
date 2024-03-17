@@ -26,6 +26,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iemr.common.data.directory.InstituteDirectoryMapping;
 import com.iemr.common.repository.directory.DirectoryMappingRepository;
 import com.iemr.common.utils.exception.IEMRException;
@@ -43,9 +47,11 @@ public class DirectoryMappingServiceImpl implements DirectoryMappingService
 	}
 
 	@Override
-	public List<InstituteDirectoryMapping> findAciveInstituteDirectories(String request) throws IEMRException
+	public List<InstituteDirectoryMapping> findAciveInstituteDirectories(String request) throws IEMRException, JsonMappingException, JsonProcessingException
 	{
-		InstituteDirectoryMapping requestObj = InputMapper.gson().fromJson(request, InstituteDirectoryMapping.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		InstituteDirectoryMapping requestObj = objectMapper.readValue(request, InstituteDirectoryMapping.class);
 		List<InstituteDirectoryMapping> instituteDirectoryMappings = null;
 		if (requestObj.getBlockID() != null)
 		{

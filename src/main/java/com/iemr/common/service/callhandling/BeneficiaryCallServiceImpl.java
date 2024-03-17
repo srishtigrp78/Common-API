@@ -49,6 +49,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -365,9 +366,10 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 
 		Integer updateCounts = 0;
 		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		BeneficiaryCall benificiaryCall = objectMapper.readValue(request, BeneficiaryCall.class);
 		
-		FollowupRequired followupRequired = objectMapper.readValue(request, FollowupRequired.class);
+		FollowupRequired followupRequired = InputMapper.gson().fromJson(request, FollowupRequired.class);
 		
 		// referral
 		if (benificiaryCall != null && benificiaryCall.getInstNames() != null
@@ -392,7 +394,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 			beneficiaryCallRepository.updateBeneficiaryRegIDInCall(benificiaryCall.getBenCallID(),
 					benificiaryCall.getBeneficiaryRegID());
 		if (followupRequired.isFollowupRequired) {
-			OutboundCallRequest outboundCallRequest = inputMapper.gson().fromJson(request, OutboundCallRequest.class);
+			OutboundCallRequest outboundCallRequest = objectMapper.readValue(request, OutboundCallRequest.class);
 			outboundCallRequestRepository.save(outboundCallRequest);
 		}
 		if (benificiaryCall.getFitToBlock()) {
@@ -672,7 +674,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	@Override
 	public String outboundCallList(String request, String auth) throws IEMRException, JsonMappingException, JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
-		
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		OutboundCallRequest callRequest = objectMapper.readValue(request, OutboundCallRequest.class);
 		List<OutboundCallRequest> outboundCallRequests = new ArrayList<OutboundCallRequest>();
 		Calendar cal = Calendar.getInstance();
@@ -764,8 +766,8 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 
 			}
 		}
-		return OutputMapper.gsonWithoutExposeRestriction().toJson(outboundCallRequests);
-	}
+		return outboundCallRequests.toString();
+		}
 
 	/**
 	 * @param OutboundCallRequest
@@ -1295,6 +1297,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	@Override
 	public String outboundAllocation(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		BenOutboundCallAllocation allocation = objectMapper.readValue(request, BenOutboundCallAllocation.class);
 		OutboundCallRequest[] callRequests = allocation.getOutboundCallRequests();
 		Integer count = 0;
@@ -1306,8 +1309,8 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 			Integer userID = allocation.getUserID().get(userIndex);
 			int outboundLastCall = userIndex * allocation.getAllocateNo() + allocation.getAllocateNo();
 			List<Long> outboundCalls = new ArrayList<Long>();
-			for (int outboundCallIndex = userIndex * allocation.getAllocateNo(); outboundCallIndex < outboundLastCall
-					&& outboundCallIndex < callRequests.length; outboundCallIndex++) {
+			for (int outboundCallIndex = userIndex * allocation.getAllocateNo(); outboundCallIndex < outboundLastCall &&
+					null != callRequests && outboundCallIndex < callRequests.length; outboundCallIndex++) {
 				outboundCalls.add(callRequests[outboundCallIndex].getOutboundCallReqID());
 			}
 			logger.debug("userid and outbound call id: ",

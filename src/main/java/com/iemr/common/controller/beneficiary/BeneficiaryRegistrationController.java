@@ -270,9 +270,13 @@ public class BeneficiaryRegistrationController {
 		logger.info("Serach user by phone no request " + request);
 		try {
 			JSONObject requestObj = new JSONObject(request);
+			BenPhoneMap benPhoneMap = OutputMapper.gson().fromJson(request, BenPhoneMap.class);
 			int pageNumber = requestObj.has("pageNo") ? (requestObj.getInt("pageNo") - 1) : 0;
 			int rows = requestObj.has("rowsPerPage") ? requestObj.getInt("rowsPerPage") : 1000;
-			BenPhoneMap benPhoneMap = OutputMapper.gson().fromJson(request, BenPhoneMap.class);
+			if(requestObj.has("is1097") && requestObj.getBoolean("is1097")==true) {
+				benPhoneMap.setIs1097(true);
+			}
+			
 			logger.info("beneficiary request:" + benPhoneMap);
 			response.setResponse(
 					iemrSearchUserService.findByBeneficiaryPhoneNo(benPhoneMap, pageNumber, rows, auth).toString());

@@ -23,6 +23,7 @@ package com.iemr.common.data.feedback;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.data.kmfilemanager.KMFileManager;
 import com.iemr.common.data.users.EmailStatus;

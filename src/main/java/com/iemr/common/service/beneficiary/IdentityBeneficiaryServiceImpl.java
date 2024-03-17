@@ -30,6 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -72,7 +73,6 @@ public class IdentityBeneficiaryServiceImpl implements IdentityBeneficiaryServic
 	// public List<Beneficiary> getBeneficiaryListByIDs() {// search by regID
 	public List<BeneficiariesDTO> getBeneficiaryListByIDs(HashSet benIdList, String auth, Boolean is1097)
 			throws IEMRException {
-
 		List<BeneficiariesDTO> listBenDetailForOutboundDTO = new ArrayList<>();
 
 		JsonParser parser = new JsonParser();
