@@ -42,14 +42,6 @@ class CareStreamCreateOrderControllerTest {
 		String createOrder = benificiaryDetails.toString();
 	}
 
-	@Test
-	void testUpdateOrder() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testDeleteOrder() {
-		fail("Not yet implemented");
-	}
+//	
 
 }
