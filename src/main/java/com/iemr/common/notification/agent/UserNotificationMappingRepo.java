@@ -108,7 +108,6 @@ public interface UserNotificationMappingRepo extends CrudRepository<UserNotifica
 			@Param("userID") Integer userID, @Param("roleID") Integer roleId, @Param("providerServiceMapID") Integer providerServiceMapID,
 			@Param("workingLocationID") Integer workingLocationID, @Param("notificationState") String notificationState,
 			@Param("deleted") Boolean deleted, @Param("now") Timestamp now);
-
 	@Modifying(clearAutomatically = true)
 	@Query("UPDATE UserNotificationMapping u SET u.notificationState = :notificationState "
 			+ "where u.userNotificationMapID IN :userNotificationMapIDList")

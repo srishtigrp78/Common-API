@@ -58,6 +58,7 @@ public class UserNotificationMappingService
 		logger.info("UserNotificationMappingService -> getAlertAndNotificationCount start");
 
 		List<AlertAndNotificationCount> list = null;
+		
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		if (dto.getWorkingLocationID() != null)
 		{
@@ -68,6 +69,7 @@ public class UserNotificationMappingService
 			list = repo.getShortDisplayFormat(dto.getUserID(), dto.getRoleID(), dto.getProviderServiceMapID(), "unread",
 					false, timestamp);
 		}
+	
 		AlertAndNotificationCountDTO result = new AlertAndNotificationCountDTO();
 		result.setUserId(dto.getUserID());
 		result.setUserNotificationTypeList(list);

@@ -30,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
+import com.iemr.common.data.helpline104history.H104BenMedHistory;
 import com.iemr.common.repository.helpline104history.H104BenHistoryRepository;
 
 @Service
@@ -42,7 +43,7 @@ public class H104BenHistoryServiceImpl implements H104BenHistoryService
 	private Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
 	@Override
-	public ArrayList<Object[]> geSmpleBenHistory(Long beneficiaryId)
+	public ArrayList<H104BenMedHistory> geSmpleBenHistory(Long beneficiaryId)
 	{
 
 		return smpleBenHistoryRepositoryRepository.getBenHistory(beneficiaryId);

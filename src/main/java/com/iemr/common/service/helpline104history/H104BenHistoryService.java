@@ -24,8 +24,10 @@ package com.iemr.common.service.helpline104history;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import com.iemr.common.data.helpline104history.H104BenMedHistory;
+
 public interface H104BenHistoryService {
 	
-	ArrayList<Object[]> geSmpleBenHistory(Long beneficiaryId);	
+	ArrayList<H104BenMedHistory> geSmpleBenHistory(Long beneficiaryId);	
 
 }

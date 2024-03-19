@@ -23,17 +23,23 @@ package com.iemr.common.controller.helpline104history;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.iemr.common.data.helpline104history.H104BenMedHistory;
 import com.iemr.common.service.helpline104history.H104BenHistoryServiceImpl;
 import com.iemr.common.utils.mapper.InputMapper;
@@ -55,19 +61,18 @@ public class Helpline104BeneficiaryHistoryController {
 	
 	@CrossOrigin
 	@Operation(summary= "Retrieve beneficiary case record")
-	@RequestMapping(value = "/get104BenMedHistory", method = RequestMethod.POST, headers = "Authorization", consumes = "application/json",
+	@PostMapping(value = "/get104BenMedHistory", headers = "Authorization", consumes = "application/json",
 			produces = "application/json")
 	public String getBenCaseSheet(@Param(
 			value = "{\"beneficiaryRegID\":\"long\"}") @RequestBody String request) {
 		OutputResponse output= new OutputResponse();
 		try {
-			
-		H104BenMedHistory smpleBenreq = inputMapper.gson().fromJson(request,
-				H104BenMedHistory.class);
+			ObjectMapper objectMapper = new ObjectMapper();
+		H104BenMedHistory smpleBenreq = objectMapper.readValue(request, H104BenMedHistory.class);
 		logger.info("getBenCaseSheet request " + smpleBenreq.toString());
 		
+		ArrayList<H104BenMedHistory> smpleBenHistory = smpleBenHistoryServiceImpl.geSmpleBenHistory(smpleBenreq.getBeneficiaryRegID());
 		
-		ArrayList<Object[]> smpleBenHistory = smpleBenHistoryServiceImpl.geSmpleBenHistory(smpleBenreq.getBeneficiaryRegID());
 		output.setResponse(smpleBenHistory.toString());
 		logger.info("getBenCaseSheet response: " + output);
 		} catch (Exception e) {
@@ -76,8 +81,6 @@ public class Helpline104BeneficiaryHistoryController {
 		}
 		return output.toString();
 	}
-		
-	
-	
+
 }
 

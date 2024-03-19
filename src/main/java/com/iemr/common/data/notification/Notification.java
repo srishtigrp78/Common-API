@@ -24,7 +24,6 @@ package com.iemr.common.data.notification;
 import java.sql.Timestamp;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.data.kmfilemanager.KMFileManager;
 import com.iemr.common.data.userbeneficiarydata.Language;
@@ -51,7 +50,6 @@ import lombok.Data;
 @Entity
 @Table(name = "m_notification")
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Notification
 {
 	@Id

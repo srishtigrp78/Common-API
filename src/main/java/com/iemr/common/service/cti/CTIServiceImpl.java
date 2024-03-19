@@ -30,6 +30,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iemr.common.data.callhandling.BeneficiaryCall;
@@ -834,6 +835,7 @@ public class CTIServiceImpl implements CTIService {
 		OutputResponse output = new OutputResponse();
 		String availableAgentsURL;
 		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		TransferCall transferCall = objectMapper.readValue(request, TransferCall.class);
 
 		if (transferCall != null && transferCall.getAgentIPAddress() != null)
