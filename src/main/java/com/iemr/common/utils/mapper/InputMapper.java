@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.ExclusionStrategy;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @Service
@@ -48,4 +49,6 @@ public class InputMapper {
 	public <T> T fromJson(String json, Class<T> classOfT) {
 		return builder.create().fromJson(json, classOfT);
 	}
+	
+	
 }
