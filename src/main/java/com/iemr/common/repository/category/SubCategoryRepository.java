@@ -61,18 +61,19 @@ public interface SubCategoryRepository extends CrudRepository<SubCategoryDetails
 			+ "where cat.providerServiceMapID = :providerServiceMapID and subCat.deleted = false and cat.deleted = false "
 			+ "order by subCat.subCategoryName asc")
 	public ArrayList<SubCategoryDetails> findByProviderServiceMapID(@Param("providerServiceMapID") Integer providerServiceMapID);
+	
+	@Query("SELECT subCat FROM SubCategoryDetails subCat JOIN FETCH subCat.categoryDetails cat " +
+		       "WHERE cat.providerServiceMapID = :providerServiceMapID AND " +
+		       "cat.categoryID = :categoryID AND subCat.deleted = false AND cat.deleted = false " +
+		       "ORDER BY subCat.subCategoryName ASC")
+		public ArrayList<SubCategoryDetails> findByProviderServiceMapCategoryID(
+		        @Param("providerServiceMapID") Integer providerServiceMapID, 
+		        @Param("categoryID") Integer categoryID);
 
-	@Query("select new SubCategoryDetails(subCat.subCategoryID, subCat.subCategoryName, subCat.subCatFilePath, cat) "
-			+ "from SubCategoryDetails subCat join subCat.categoryDetails cat "
-			+ "where cat.providerServiceMapID = :providerServiceMapID and "
-			+ "cat.categoryID = :categoryID and subCat.deleted = false and cat.deleted = false "
-			+ "order by subCat.subCategoryName asc")
-	public ArrayList<SubCategoryDetails> findByProviderServiceMapCategoryID(
-			@Param("providerServiceMapID") Integer providerServiceMapID, @Param("categoryID") Integer categoryID);
 
-	@Query("select new SubCategoryDetails(subCat.subCategoryID, subCat.subCategoryName, subCat.subCatFilePath, cat) "
-			+ "from SubCategoryDetails subCat join subCat.categoryDetails cat "
-			+ "where subCat.subCategoryID = :subCategoryID and subCat.deleted = false and cat.deleted = false "
-			+ "order by subCat.subCategoryName asc")
-	public ArrayList<SubCategoryDetails> findBySubCategoryID(@Param("subCategoryID") Integer subCategoryID);
+	@Query("SELECT subCat FROM SubCategoryDetails subCat JOIN FETCH subCat.categoryDetails cat " +
+		       "WHERE subCat.subCategoryID = :subCategoryID AND subCat.deleted = false AND cat.deleted = false " +
+		       "ORDER BY subCat.subCategoryName ASC")
+		public ArrayList<SubCategoryDetails> findBySubCategoryID(@Param("subCategoryID") Integer subCategoryID);
+
 }

@@ -52,7 +52,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.data.beneficiary.BenOutboundCallAllocation;
 import com.iemr.common.data.callhandling.BeneficiaryCall;
@@ -1058,8 +1057,9 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 			predicates.add(criteriaBuilder.equal(entityRoot.get("callTypeID"), callRequest.getCallTypeID()));
 		}
 
-		predicates.add(criteriaBuilder.like(entityRoot.get("phoneNo"),
-				(callRequest.getPhoneNo() == null) ? "%%" : callRequest.getPhoneNo()));
+		if (callRequest.getPhoneNo() != null) {
+			predicates.add(criteriaBuilder.equal(entityRoot.get("phoneNo"), callRequest.getPhoneNo()));
+		}
 
 		if (callRequest.getInboundOutbound() != null) {
 			callRequest.setIsOutbound(callRequest.getInboundOutbound().equalsIgnoreCase("outbound") ? true : false);
@@ -1080,15 +1080,6 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 					.add(criteriaBuilder.equal(entityRoot.get("cDICallStatus"), callRequest.getCDICallStatus().trim()));
 		}
 
-//		// filter only valid and transfered call
-//		List<String> callTypes = new ArrayList<>();
-//		callTypes.add("Valid");
-//		callTypes.add("Transfer");
-
-//		Expression<String> exp = entityRoot.get("callTypeObj").get("callGroupType");
-//		predicates.add(exp.in(callTypes));
-		// grouping by callID from C-zentric
-		// cqCount.groupBy(entityRoot.get("callID"));
 
 		cqCount.where(predicates.toArray(new Predicate[] {}));
 
@@ -1149,16 +1140,6 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 					.add(criteriaBuilder.equal(entityRoot.get("cDICallStatus"), callRequest.getCDICallStatus().trim()));
 		}
 
-//		// filter only valid and transfered call
-//		List<String> callTypes = new ArrayList<>();
-//		callTypes.add("Valid");
-//		callTypes.add("Transfer");
-
-//		Expression<String> exp = entityRoot.get("callTypeObj").get("callGroupType");
-//		predicates.add(exp.in(callTypes));
-		// grouping by callID from C-zentric
-		// cqCount.groupBy(entityRoot.get("callID"));
-
 		cqCount.where(predicates.toArray(new Predicate[] {}));
 
 		List<Long> totalCountList = entityManager.createQuery(cqCount).getResultList();
@@ -1200,8 +1181,9 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 			predicates.add(criteriaBuilder.equal(root.get("callTypeID"), callRequest.getCallTypeID()));
 		}
 
-		predicates.add(criteriaBuilder.like(root.get("phoneNo"),
-				(callRequest.getPhoneNo() == null) ? "%%" : callRequest.getPhoneNo()));
+		if (callRequest.getPhoneNo() != null) {
+			predicates.add(criteriaBuilder.equal(root.get("phoneNo"), callRequest.getPhoneNo()));
+		}
 
 		if (callRequest.getInboundOutbound() != null) {
 			callRequest.setIsOutbound(callRequest.getInboundOutbound().equalsIgnoreCase("outbound") ? true : false);

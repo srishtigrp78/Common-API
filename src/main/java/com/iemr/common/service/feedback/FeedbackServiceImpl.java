@@ -705,7 +705,9 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 	@Override
 	public String updateResponse(String updateResponseString) throws Exception {
-		FeedbackResponse feedbackResponse = inputMapper.gson().fromJson(updateResponseString, FeedbackResponse.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		FeedbackResponse feedbackResponse = objectMapper.readValue(updateResponseString, FeedbackResponse.class);
 
 		feedbackResponse.setKmFileManagerID(null);
 		Integer kmFileManagerID = 0;

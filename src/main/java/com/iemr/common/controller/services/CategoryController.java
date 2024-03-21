@@ -31,12 +31,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iemr.common.data.category.CategoryDetails;
+import com.iemr.common.data.cti.CustomerLanguage;
 import com.iemr.common.service.category.CategoryService;
 import com.iemr.common.utils.mapper.InputMapper;
 import com.iemr.common.utils.response.OutputResponse;
@@ -47,12 +49,14 @@ import io.swagger.v3.oas.annotations.Operation;
 @RestController
 @RequestMapping(value = "/category")
 public class CategoryController {
+	@Autowired
+	private CategoryService categoryService;
 	InputMapper inputMapper = new InputMapper();
 	final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 	@CrossOrigin()
 	@Operation(summary = "Get all categries")
-	@RequestMapping(value = "/categories", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	@PostMapping(value = "/categories", produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getAllCategries(
 			@Param("{\"providerServiceMapID\":\"Integer\", " + "\"subServiceID\":\"subServiceID\", "
 					+ "\"feedbackNatureID\":\"feedbackNatureID\"}") @RequestBody String request) {
@@ -67,18 +71,5 @@ public class CategoryController {
 			response.setError(e);
 		}
 		return response.toString();
-	}
-
-	/**
-	 * Category srvice
-	 */
-	private CategoryService categoryService;
-
-	/**
-	 * Inject category service
-	 */
-	@Autowired
-	public void setCategoryService(CategoryService categoryService) {
-		this.categoryService = categoryService;
 	}
 }

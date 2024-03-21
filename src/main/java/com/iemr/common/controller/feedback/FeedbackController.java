@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -362,7 +363,7 @@ public class FeedbackController {
 
 	@CrossOrigin
 	@Operation(summary = "Update response")
-	@RequestMapping(value = "/updateResponse", method = RequestMethod.POST, headers = "Authorization")
+	@PostMapping(value = "/updateResponse", headers = "Authorization")
 	public String updateResponse(@RequestBody String feedbackresponce) {
 		OutputResponse response = new OutputResponse();
 		logger.info("updateResponse request " + feedbackresponce);
