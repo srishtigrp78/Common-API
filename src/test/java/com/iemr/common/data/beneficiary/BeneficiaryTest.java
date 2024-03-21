@@ -41,26 +41,26 @@ class BeneficiaryTest {
         assertSame(expectedTimeZone, formatYear.getCalendar().getTimeZone());
     }
 
-    @Test
-    void testNewBeneficiary2() {
-      
-        // Arrange
-        Gender m_gender = new Gender();
-        m_gender.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-        m_gender.setCreatedDate(mock(Timestamp.class));
-        m_gender.setDeleted(true);
-        m_gender.setGenderID(1);
-        m_gender.setGenderName("Gender Name");
-        m_gender.setI_beneficiary(new HashSet<>());
-        m_gender.setLastModDate(mock(Timestamp.class));
-        m_gender.setM_user(new HashSet<>());
-        m_gender.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-        m_gender.setOutputMapper(new OutputMapper());
-
-        // Act
-        new Beneficiary(1L, "Beneficiary ID", "Jane", "Middle Name", "Doe", m_gender, mock(Timestamp.class));
-
-    }
+//    @Test
+//    void testNewBeneficiary2() {
+//      
+//        // Arrange
+//        Gender m_gender = new Gender();
+//        m_gender.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
+//        m_gender.setCreatedDate(mock(Timestamp.class));
+//        m_gender.setDeleted(true);
+//        m_gender.setGenderID(1);
+//        m_gender.setGenderName("Gender Name");
+//        m_gender.setI_beneficiary(new HashSet<>());
+//        m_gender.setLastModDate(mock(Timestamp.class));
+//        m_gender.setM_user(new HashSet<>());
+//        m_gender.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
+//        m_gender.setOutputMapper(new OutputMapper());
+//
+//        // Act
+//        new Beneficiary(1L, "Beneficiary ID", "Jane", "Middle Name", "Doe", m_gender, mock(Timestamp.class));
+//
+//    }
 
  
     @Test

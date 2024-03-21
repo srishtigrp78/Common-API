@@ -38,11 +38,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
-import lombok.Data;
 
 @Entity
 @Table(name = "t_104benmedhistory")
-@Data
 public class H104BenMedHistory {
 
 	@Id

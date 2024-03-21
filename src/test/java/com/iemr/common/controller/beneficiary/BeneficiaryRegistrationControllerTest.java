@@ -3,7 +3,9 @@ package com.iemr.common.controller.beneficiary;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -97,7 +99,6 @@ class BeneficiaryRegistrationControllerTest {
 	@Mock
 	private GovtIdentityTypeService govtIdentityTypeService;
 
-	
 	@Test
 	void testCreateBeneficiary() throws Exception {
 
@@ -123,6 +124,21 @@ class BeneficiaryRegistrationControllerTest {
 		Assertions.assertEquals(resp,
 				beneficiaryRegistrationController.createBeneficiary(beneficiaryModel, httpRequest));
 
+	}
+
+	@Test
+	void testCreateBeneficiary_Exception() throws Exception {
+		// Arrange
+		// String directoryRequest = "";
+
+		String errorMessage = "Failed to get directories";
+
+		// Act
+		String result = beneficiaryRegistrationController.createBeneficiary(any(), any());
+
+		// Assert
+		assertNotNull(result);
+		assertTrue(result.contains("error"));
 	}
 
 	@Test
@@ -231,6 +247,21 @@ class BeneficiaryRegistrationControllerTest {
 
 	}
 
+//	@Test
+//	void testSearchBeneficiary_Exceptiion() throws Exception {
+//		// Arrange
+//		// String directoryRequest = "";
+//
+//		String errorMessage = "Failed to get directories";
+//
+//		// Act
+//		String result = beneficiaryRegistrationController.searchBeneficiary(any(), any());
+//
+//		// Assert
+//		assertNotNull(result);
+//		assertTrue(result.contains("error"));
+//	}
+
 	@Test
 	void testGetRegistrationData() {
 		OutputResponse response = new OutputResponse();
@@ -331,19 +362,18 @@ class BeneficiaryRegistrationControllerTest {
 		Integer updateCount = 1;
 		List<BeneficiaryModel> beneficiaryModelList = new ArrayList<BeneficiaryModel>();
 		beneficiaryModelList.add(benificiaryDetails);
-		
-		
+
 		String expResp = beneficiaryRegistrationController.updateBenefciary(resp, httpRequest);
 		try {
 			response.setResponse(expResp);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logger.error("Update beneficiary failed with error " + e.getMessage(), e);
 			response.setError(e);
 		}
-		
+
 		assertNotEquals(0, updateCount);
 		Assertions.assertEquals(expResp, beneficiaryRegistrationController.updateBenefciary(resp, httpRequest));
-		
+
 	}
 
 	@Test
@@ -358,15 +388,16 @@ class BeneficiaryRegistrationControllerTest {
 		int pageNumber = 0;
 		int rows = 1000;
 		String expResp = beneficiaryRegistrationController.getBeneficiariesByPhone(request, httpRequest);
-		
+
 		try {
 			response.setResponse(expResp);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			response.setError(e);
 			logger.error("getBeneficiariesByPhoneNo failed with error " + e.getMessage(), e);
 		}
-		
-		Assertions.assertEquals(expResp, beneficiaryRegistrationController.getBeneficiariesByPhone(request, httpRequest));
+
+		Assertions.assertEquals(expResp,
+				beneficiaryRegistrationController.getBeneficiariesByPhone(request, httpRequest));
 	}
 
 	@Test
@@ -377,19 +408,20 @@ class BeneficiaryRegistrationControllerTest {
 		BeneficiaryModel benificiaryDetails = new BeneficiaryModel();
 		benificiaryDetails.setBeneficiaryID("Ben Id");
 		Integer updateCount = 1;
-		
+
 		when(registerBenificiaryService.updateCommunityorEducation(benificiaryDetails, auth)).thenReturn(updateCount);
 		String expResp = beneficiaryRegistrationController.updateBenefciaryCommunityorEducation(auth, httpRequest);
-		
+
 		try {
 			response.setResponse(expResp);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logger.error("Update beneficiary failed with error " + e.getMessage(), e);
 			response.setError(e);
 		}
-		
+
 		assertNotEquals(0, updateCount);
-		Assertions.assertEquals(expResp, beneficiaryRegistrationController.updateBenefciaryCommunityorEducation(auth, httpRequest));
+		Assertions.assertEquals(expResp,
+				beneficiaryRegistrationController.updateBenefciaryCommunityorEducation(auth, httpRequest));
 	}
 
 	@Test
@@ -401,17 +433,17 @@ class BeneficiaryRegistrationControllerTest {
 		Integer req = Integer.valueOf((benIDRequired) + (vanID));
 		String request = req.toString();
 		logger.info("generateBeneficiaryIDs request " + request);
-		
+
 		when(registerBenificiaryService.generateBeneficiaryIDs(request, httpRequest)).thenReturn(request);
 		String expResp = beneficiaryRegistrationController.getBeneficiaryIDs(request, httpRequest);
-		
+
 		try {
 			response.setResponse(expResp);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logger.error(e.getMessage());
 			response.setError(e);
 		}
-		
+
 		Assertions.assertEquals(expResp, beneficiaryRegistrationController.getBeneficiaryIDs(request, httpRequest));
 	}
 

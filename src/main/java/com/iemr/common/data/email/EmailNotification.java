@@ -23,8 +23,7 @@ package com.iemr.common.data.email;
 
 import java.sql.Timestamp;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
 import com.google.gson.annotations.Expose;
 import com.iemr.common.utils.mapper.OutputMapper;
 
@@ -124,9 +123,7 @@ public class EmailNotification {
 	@Override
 	public String toString()
 	{
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-		return gson.toJson(this);
-	//	return OutputMapper.gsonWithoutExposeRestriction().toJson(this);
+		return OutputMapper.gsonWithoutExposeRestriction().toJson(this);
 	}
 	
 }

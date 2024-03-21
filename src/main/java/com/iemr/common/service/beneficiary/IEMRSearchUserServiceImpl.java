@@ -249,7 +249,7 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 		beneficiaryList = getBeneficiaryListFromMapper(listBen);
 		logger.info("Serach user by phone no response size "
 				+ (beneficiaryList != null ? beneficiaryList.size() : "No Beneficiary Found"));
-		return OutputMapper.gsonWithoutExposeRestriction().toJson(beneficiaryList);
+		return OutputMapper.gson().toJson(beneficiaryList);
 	}
 
 	// Advance search
@@ -292,7 +292,7 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 
 		logger.info("searchUserByParameters response size: "
 				+ (beneficiaryList != null ? beneficiaryList.size() : "No Beneficiary Found"));
-		return OutputMapper.gsonWithoutExposeRestriction().toJson(beneficiaryList);
+		return OutputMapper.gson().toJson(beneficiaryList);
 	}
 
 	// get response mapper
@@ -326,6 +326,59 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 
 		beneficiaryList.removeIf(Objects::isNull);
 		Collections.sort(beneficiaryList);
+		return beneficiaryList;
+	}
+
+	// ABHA address & Abha id no based search
+	// private String searchByAbhaAddress
+
+	// Deprecated, 07-03-2022
+	@Deprecated
+	private Beneficiary prepareBeneficiaryData(Object[] i_Beneficiary) {
+		Beneficiary beneficiary = new Beneficiary((Long) i_Beneficiary[0], (String) i_Beneficiary[1],
+				(String) i_Beneficiary[2], (String) i_Beneficiary[3], (String) i_Beneficiary[4],
+				(Gender) i_Beneficiary[5], (Timestamp) i_Beneficiary[6], (Title) i_Beneficiary[7],
+				(Status) i_Beneficiary[8], (MaritalStatus) i_Beneficiary[9], (SexualOrientation) i_Beneficiary[10],
+				(String) i_Beneficiary[11], (String) i_Beneficiary[12], null, (String) i_Beneficiary[13],
+				(Integer) i_Beneficiary[14], (Integer) i_Beneficiary[15], (Boolean) i_Beneficiary[16],
+				(Integer) i_Beneficiary[17], (Integer) i_Beneficiary[18], (Integer) i_Beneficiary[19],
+				(Integer) i_Beneficiary[20], (Integer) i_Beneficiary[21], (String) i_Beneficiary[22],
+				(String) i_Beneficiary[23], (String) i_Beneficiary[24], (String) i_Beneficiary[25]);
+		Long beneficiaryId = (Long) i_Beneficiary[0];
+		if (beneficiary.getBenPhoneMaps() == null) {
+			beneficiary.setBenPhoneMaps(getBenPhoneMapByID(beneficiaryId));
+		}
+		if (beneficiary.getI_bendemographics() == null) {
+			beneficiary.setI_bendemographics(getBenDemographicsByID(beneficiaryId));
+		}
+		return beneficiary;
+	}
+
+	@Deprecated
+	private BenDemographics getBenDemographicsByID(Long beneficiaryRegID) {
+		BenDemographics benDemographics = new BenDemographics();
+		return benDemographics;
+	}
+
+	@Deprecated
+	private List<BenPhoneMap> getBenPhoneMapByID(Long beneficiaryRegID) {
+		List<BenPhoneMap> benDemographics = new ArrayList<BenPhoneMap>();
+		return benDemographics;
+	}
+
+	@Deprecated
+	private List<BenPhoneMap> getBenPhoneMap(Long beneficiaryRegID, String phoneNo) {
+
+		List<BenPhoneMap> benDemographics = new ArrayList<BenPhoneMap>();
+
+		return benDemographics;
+	}
+
+	@Deprecated
+	@Override
+	public List<Beneficiary> findByBeneficiaryRegID(Beneficiary beneficiary) {
+		List<Beneficiary> beneficiaryList = new ArrayList<Beneficiary>();
+
 		return beneficiaryList;
 	}
 

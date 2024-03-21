@@ -31,10 +31,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @ExtendWith(MockitoExtension.class)
 public class CommonApplicationTests
 {
-//
-//	@Test
-//	public void contextLoads()
-//	{
-//	}
+
+	@Test
+	public void contextLoads()
+	{
+	}
 
 }

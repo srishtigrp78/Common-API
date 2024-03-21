@@ -50,5 +50,4 @@ public class InputMapper {
 		return builder.create().fromJson(json, classOfT);
 	}
 	
-	
 }

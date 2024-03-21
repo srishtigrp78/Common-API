@@ -21,9 +21,6 @@
 */
 package com.iemr.common.data.carestream;
 
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor
 public class CreateOrderData {
 	private String firstName;
 	private String middleName;

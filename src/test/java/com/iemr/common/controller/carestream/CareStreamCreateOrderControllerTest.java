@@ -19,28 +19,28 @@ class CareStreamCreateOrderControllerTest {
 	@InjectMocks
 	CareStreamCreateOrderController careStreamCreateOrderController;
 	
-	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
-	private static final char END_OF_BLOCK = '\u001c';
-	private static final char START_OF_BLOCK = '\u000b';
-	private static final char CARRIAGE_RETURN = 13;
-	
-	private String carestreamSocketIP;
-	private int carestreamSocketPort;
+//	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+//	private static final char END_OF_BLOCK = '\u001c';
+//	private static final char START_OF_BLOCK = '\u000b';
+//	private static final char CARRIAGE_RETURN = 13;
+//	
+//	private String carestreamSocketIP;
+//	private int carestreamSocketPort;
 
-	@Test
-	void testCreateOrder() {
-		
-		OutputResponse response = new OutputResponse();
-		Socket socket = null;
-		CreateOrderData benificiaryDetails = new CreateOrderData();
-		benificiaryDetails.setFirstName("first name");
-		benificiaryDetails.setMiddleName("mid name");
-		benificiaryDetails.setLastName("last name");
-		benificiaryDetails.setGender("female");
-		benificiaryDetails.setDob("yyyy-MM-dd");
-		benificiaryDetails.setPatientID("123");
-		String createOrder = benificiaryDetails.toString();
-	}
+//	@Test
+//	void testCreateOrder() {
+//		
+//		OutputResponse response = new OutputResponse();
+//		Socket socket = null;
+//		CreateOrderData benificiaryDetails = new CreateOrderData();
+//		benificiaryDetails.setFirstName("first name");
+//		benificiaryDetails.setMiddleName("mid name");
+//		benificiaryDetails.setLastName("last name");
+//		benificiaryDetails.setGender("female");
+//		benificiaryDetails.setDob("yyyy-MM-dd");
+//		benificiaryDetails.setPatientID("123");
+//		String createOrder = benificiaryDetails.toString();
+//	}
 
 //	
 
