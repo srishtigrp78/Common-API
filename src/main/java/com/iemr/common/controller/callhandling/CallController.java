@@ -38,7 +38,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.gson.Gson;
 import com.iemr.common.data.callhandling.BeneficiaryCall;
 import com.iemr.common.data.callhandling.CallType;
 import com.iemr.common.data.users.ProviderServiceMapping;
@@ -501,7 +504,10 @@ public class CallController {
 		try {
 			BeneficiaryCallModel callData = beneficiaryCallService.beneficiaryByCallID(request,
 					serverRequest.getHeader("Authorization"));
-			response.setResponse(OutputMapper.gsonWithoutExposeRestriction().toJson(callData));
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+			String jsonString = mapper.writeValueAsString(callData);
+			response.setResponse(jsonString);
 		} catch (Exception e) {
 			logger.error("getCallHistoryByCallID failed wih error " + e.getMessage(), e);
 			response.setError(e);

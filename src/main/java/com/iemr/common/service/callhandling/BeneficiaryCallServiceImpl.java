@@ -552,7 +552,6 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 				callData.getCalledServiceID(), 1, false, providerServiceMapping.getCtiCampaignName(), null, null,
 				callData.getBenCallID().toString());
 		phoneBlock.setCreatedBy(callData.getCreatedBy());
-		logger.info("Phone block entry: " + OutputMapper.gsonWithoutExposeRestriction().toJson(phoneBlock));
 		logger.info(phoneBlockRepository.save(phoneBlock) + "");
 	}
 
@@ -631,6 +630,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 
 		Integer updateCounts = 0;
 		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		BeneficiaryCall benificiaryCallId = objectMapper.readValue(request, BeneficiaryCall.class);
 		updateCounts = beneficiaryCallRepository.updateBeneficiaryIDInCall(benificiaryCallId.getBenCallID(),
 				benificiaryCallId.getBeneficiaryRegID(), benificiaryCallId.getIsCalledEarlier());
@@ -1623,16 +1623,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 
 	@Override
 	public BeneficiaryCallModel beneficiaryByCallID(CallRequestByIDModel request, String authKey) throws IEMRException {
-//		CallLogger callLogger = new CallLogger();
-//		if (request != null)
-//		{
-//			callLogger.setCallID(request.getCallID());
-//			callLogger.setRequestOBJ(request.toString());
-//			callLogger.setAPIName("call/beneficiaryByCallID");
-//			callLoggerRepo.save(callLogger);
-//		}
-//		else
-//			logger.info("create request is invalid for call");
+
 		BeneficiaryCallModel beneficiaryInCall = null;
 		HashSet<Long> beneficiaryRegIDs = new HashSet<Long>();
 		List<BeneficiaryCall> resultSet = beneficiaryCallRepository.getCallHistoryByCallID(request.getCallID());
@@ -1646,30 +1637,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 					.getBeneficiaryListByIDs(beneficiaryRegIDs, authKey, request.getIs1097());
 
 			List<BeneficiaryModel> iben = new ArrayList<>();
-			// for (BeneficiariesDTO beneficiariesDTO : benDetailForOutboundDTOList)
-			// {
-			// BeneficiaryModel beneficiary =
-			// benCompleteMapper.BenDetailForOutboundDTOToI_Beneficiary(
-			// beneficiariesDTO, locationStateRepo, stateMapper, locationDistrictRepository,
-			// districtMapper,
-			// blockRepository, blockMapper, branchRepository, branchMapper,
-			// educationRepository,
-			// educationMapper, communityRepository, communityMapper,relationshipRepository,
-			// relationshipMapper);
-			// beneficiary.setSexualOrientation(
-			// sexualOrientationMapper.sexualOrientationByIDToModel(beneficiary.getSexualOrientationId()));
-			// beneficiary.getI_bendemographics().setHealthCareWorkerType(healthCareWorkerMapper
-			// .getModelByWorkerID(beneficiary.getI_bendemographics().getHealthCareWorkerID()));
-			// beneficiary.setGovtIdentityType(
-			// govtIdentityTypeMapper.govtIdentityTypeModelByIDToModel(beneficiary.getGovtIdentityTypeID()));
-			// beneficiary.setM_gender(
-			// genderMapper.genderByIDToLoginResponse(beneficiariesDTO.getBeneficiaryDetails().getGenderId()));
-			// beneficiary.setMaritalStatus(
-			// maritalStatusMapper.maritalStatusByIDToResponse(beneficiariesDTO.getBeneficiaryDetails().getMaritalStatusId()));
-			// beneficiary.setM_title(
-			// titleMapper.titleByIDToResponse(beneficiariesDTO.getBeneficiaryDetails().getTitleId()));
-			// iben.add(beneficiary);
-			// }
+			
 			iben = getBeneficiaryListFromMapper(benDetailForOutboundDTOList);
 			result = iben.stream()
 					.collect(Collectors.toMap(BeneficiaryModel::getBeneficiaryRegID, Function.identity()));
@@ -1707,20 +1675,9 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 					.setM_title(titleMapper.titleByIDToResponse(beneficiaryModel.getBeneficiaryDetails().getTitleId()));
 
 			beneficiaryList.add(beneficiary);
-			// });
-			// futures1.add(future);
+		
 		});
 
-		// try
-		// {
-		// for (Future<?> future : futures1)
-		// {
-		// future.get();
-		// }
-		// } catch (InterruptedException | ExecutionException e)
-		// {
-		// e.printStackTrace();
-		// }
 		return beneficiaryList;
 	}
 

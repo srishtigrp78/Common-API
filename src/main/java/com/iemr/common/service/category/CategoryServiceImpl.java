@@ -27,6 +27,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iemr.common.data.category.CategoryDetails;
 import com.iemr.common.repository.category.CategoryRepository;
 import com.iemr.common.utils.mapper.InputMapper;
@@ -51,18 +52,10 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public List<CategoryDetails> getAllCategories(String request) throws Exception {
-		CategoryDetails categoryDetails = inputMapper.gson().fromJson(request, CategoryDetails.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		CategoryDetails categoryDetails = objectMapper.readValue(request, CategoryDetails.class);
 		List<CategoryDetails> categoryList = new ArrayList<CategoryDetails>();
-		// ArrayList<Object[]> lists =
-		// categoryRepository.getAllCategories(categoryDetails.getSubServiceID());
-		// for (Object[] objects : lists)
-		// {
-		// if (objects != null && objects.length >= 2)
-		// {
-		// categoryList.add(new CategoryDetails((Integer) objects[0], (String)
-		// objects[1]));
-		// }
-		// }
+		
 		if (categoryDetails.getFeedbackNatureID() != null) {
 			categoryList = categoryRepository.getCategoriesByNatureID(categoryDetails.getFeedbackNatureID(),
 					categoryDetails.getProviderServiceMapID());

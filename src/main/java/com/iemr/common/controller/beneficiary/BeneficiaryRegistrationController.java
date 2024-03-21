@@ -452,18 +452,18 @@ public class BeneficiaryRegistrationController {
 					+ "\"educationID\":\"Integer\"}}") @RequestBody String benificiaryRequest,
 			HttpServletRequest httpRequest) {
 		OutputResponse response = new OutputResponse();
+		ObjectMapper objectMapper = new ObjectMapper();
 		String auth = httpRequest.getHeader(AUTHORIZATION);
 		Integer updateCount = 0;
 		try {
-			BeneficiaryModel benificiaryDetails = inputMapper.gson().fromJson(benificiaryRequest,
+			BeneficiaryModel benificiaryDetails = objectMapper.readValue(benificiaryRequest,
 					BeneficiaryModel.class);
 			updateCount = registerBenificiaryService.updateCommunityorEducation(benificiaryDetails, auth);
 			if (updateCount > 0) {
-				JSONArray updatedUserData = new JSONArray(
-						new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create()
-								.toJson(iemrSearchUserService.userExitsCheckWithId(
-										benificiaryDetails.getBeneficiaryRegID(), auth,
-										benificiaryDetails.getIs1097())));
+				List<BeneficiaryModel> userExitsCheckWithId = iemrSearchUserService.userExitsCheckWithId(
+						benificiaryDetails.getBeneficiaryRegID(), auth,
+						benificiaryDetails.getIs1097());
+				JSONArray updatedUserData = new JSONArray(userExitsCheckWithId);
 				JSONObject responseObj = new JSONObject(updatedUserData.getJSONObject(0).toString());
 				responseObj.put("updateCount", updateCount);
 				response.setResponse(responseObj.toString());

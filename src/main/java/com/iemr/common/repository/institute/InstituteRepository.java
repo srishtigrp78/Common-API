@@ -48,7 +48,7 @@ public abstract interface InstituteRepository extends CrudRepository<Institute, 
 	public abstract Set<Object[]> findAciveInstitutesByStateDistBlockID(@Param("stateID") int stateID,
 			@Param("districtID") int districtID, @Param("districtBranchMappingID") int districtBranchMappingID);
 	
-	@Query(value="select institutionID, institutionName from Institute where instituteTypeId =:institutionTypeId", nativeQuery = true)
+	@Query("select i.institutionID, i.institutionName from Institute i where i.institutionTypeId =:institutionTypeId")
 	public ArrayList<Object[]> getInstitutionNameByType(@Param("institutionTypeId") int institutionTypeId);
 	
 	@Query(value="select InstitutionID, InstitutionName from m_institution  where InstituteTypeId =:institutionTypeId and DistrictID =:districtID  ", nativeQuery = true)

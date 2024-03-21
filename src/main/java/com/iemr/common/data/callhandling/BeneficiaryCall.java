@@ -23,6 +23,7 @@ package com.iemr.common.data.callhandling;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.data.beneficiary.Beneficiary;
 import com.iemr.common.utils.config.ConfigProperties;
@@ -43,6 +44,7 @@ import lombok.Data;
 @Entity
 @Table(name = "t_bencall")
 @Data
+@JsonIgnoreProperties("instNames")
 public class BeneficiaryCall {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
