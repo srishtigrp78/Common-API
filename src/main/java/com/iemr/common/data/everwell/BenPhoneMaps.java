@@ -21,9 +21,6 @@
 */
 package com.iemr.common.data.everwell;
 
-import lombok.Data;
-
-
 public class BenPhoneMaps {
 
 	private Integer benRelationshipID;

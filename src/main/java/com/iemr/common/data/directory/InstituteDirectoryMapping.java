@@ -38,7 +38,6 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "m_institutedirectorymapping")
@@ -101,7 +100,7 @@ public class InstituteDirectoryMapping {
 	@Transient
 	private Integer stateID;
 
-	public InstituteDirectoryMapping() {
+	protected InstituteDirectoryMapping() {
 	}
 
 	public InstituteDirectoryMapping(Long instituteDirMapID, Integer institutionID, String institutionName) {

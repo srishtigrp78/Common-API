@@ -38,7 +38,6 @@ import lombok.Data;
 @Entity
 @Table(name = "t_everwellapi")
 @Data
-
 public class EverwellDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -180,40 +179,39 @@ public class EverwellDetails {
 	@Transient
 	@Expose
 	private Timestamp filterStartDate;
-
+	
 	@Expose
-	@Column(name = "retryNeeded")
-	private Boolean retryNeeded;
-
-	@Expose
-	@Column(name = "callCounter")
-	private Integer callCounter;
+    @Column(name = "retryNeeded")
+    private Boolean retryNeeded;
+   
+    @Expose
+    @Column(name = "callCounter")
+    private Integer callCounter;
 
 	@Transient
 	@Expose
 	private Timestamp filterEndDate;
-
+	
 	@Transient
 	private String lastCall;
-
+	
 	@Expose
-	@Column(name = "NoInfoDoseCount")
-	private Integer NoInfoDoseCount;
-
+    @Column(name = "NoInfoDoseCount")
+    private Integer NoInfoDoseCount;
+	
 	@Expose
-	@Column(name = "NoInfoDoseDates ")
-	private String noInfoDosesDates;
-
+    @Column(name = "NoInfoDoseDates ")
+    private String noInfoDosesDates ;
+	 
 	@Transient
 	private String NoInfoDoseDates[];
-
+	
 	public EverwellDetails getOutboundCall(Long EAPIID, Long BeneficiaryRegID, Integer ProviderServiceMapID,
 			Long EverWellID, Integer AgentID, String firstName, String lastName, String primaryNumber,
 			Timestamp LastModDate, Integer missedDoses, String facilityName, String state, Integer adherencePercentage,
 			String actionTaken, String category, String subCategory, Timestamp dateOfAction, String comments,
-			String createdBy, Timestamp createdDate, String gender, String district, Long BeneficiaryID,
-			Integer currentMonthMissedDoses, Boolean retryNeeded, Integer callCounter, String lastCall,
-			Integer noInfoDosesCount, String noInfoDosesDates) {
+			String createdBy, Timestamp createdDate, String gender, String district, Long BeneficiaryID,Integer currentMonthMissedDoses,
+			Boolean retryNeeded, Integer callCounter,String lastCall,Integer noInfoDosesCount,String noInfoDosesDates) {
 		this.eapiId = EAPIID;
 		this.beneficiaryRegId = BeneficiaryRegID;
 		this.beneficiaryID = BeneficiaryID;
@@ -242,21 +240,14 @@ public class EverwellDetails {
 		this.retryNeeded = retryNeeded;
 		this.callCounter = callCounter;
 		this.lastCall = lastCall;
-		this.NoInfoDoseCount = noInfoDosesCount;
-		this.noInfoDosesDates = noInfoDosesDates;
+		this.NoInfoDoseCount=noInfoDosesCount;
+		this.noInfoDosesDates=noInfoDosesDates;
 		return this;
 
 	}
 
 	public List<Long> getEAPIIDs() {
 		return eapiIds;
-	}
-
-	public EverwellDetails(Long eapiId, Long id, Long beneficiaryRegId) {
-		super();
-		this.eapiId = eapiId;
-		Id = id;
-		this.beneficiaryRegId = beneficiaryRegId;
 	}
 
 }
