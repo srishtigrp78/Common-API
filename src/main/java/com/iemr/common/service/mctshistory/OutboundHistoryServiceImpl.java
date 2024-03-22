@@ -27,6 +27,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iemr.common.data.mctshistory.MctsCallResponseDetail;
 import com.iemr.common.data.mctshistory.MctsOutboundCallDetail;
 import com.iemr.common.repository.mctshistory.OutboundHistoryRepository;
@@ -66,19 +70,22 @@ public class OutboundHistoryServiceImpl implements OutboundHistoryService {
 	 * (java.lang.String)
 	 */
 	@Override
-	public String getCallHistory(String request) throws IEMRException {
-
+	public String getCallHistory(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		List<MctsOutboundCallDetail> mctsOutboundCallDetails = new ArrayList<MctsOutboundCallDetail>();
-		MctsOutboundCallDetail callDetail = inputMapper.gson().fromJson(request, MctsOutboundCallDetail.class);
+		
+		MctsOutboundCallDetail callDetail = objectMapper.readValue(request, MctsOutboundCallDetail.class);
 
 			mctsOutboundCallDetails = outboundHistoryRepository.getCallHistory(callDetail.getBeneficiaryRegID());
 		return mctsOutboundCallDetails.toString();
 	}
 	
 	@Override
-	public String getMctsCallResponse(String request) throws IEMRException {
-
-		MctsOutboundCallDetail callDetail = inputMapper.gson().fromJson(request, MctsOutboundCallDetail.class);
+	public String getMctsCallResponse(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		MctsOutboundCallDetail callDetail = objectMapper.readValue(request, MctsOutboundCallDetail.class);
 		List<MctsCallResponseDetail> callResponseDetails = new ArrayList<MctsCallResponseDetail>();
 		callResponseDetails = outboundResponseRepository.getMctsCallResponse(callDetail.getCallDetailID());
 		return callResponseDetails.toString();

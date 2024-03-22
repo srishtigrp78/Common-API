@@ -881,12 +881,16 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 
 	/**
 	 * 17-09-2019, Paagination implementd in this service
+	 * @throws JsonProcessingException 
+	 * @throws JsonMappingException 
 	 */
 
 	@Override
-	public String filterCallListWithPagination(String request, String auth) throws IEMRException {
+	public String filterCallListWithPagination(String request, String auth) throws IEMRException, JsonMappingException, JsonProcessingException {
 		Map<String, Object> responseMap = new HashMap<>();
-		BeneficiaryCall callRequest = inputMapper.gson().fromJson(request, BeneficiaryCall.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		BeneficiaryCall callRequest = objectMapper.readValue(request, BeneficiaryCall.class);
 		List<FilteredCallList> filteredCalls = new ArrayList<FilteredCallList>();
 		Calendar today = Calendar.getInstance();
 		Calendar startDate = Calendar.getInstance();

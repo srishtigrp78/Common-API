@@ -38,9 +38,8 @@ import com.iemr.common.data.mctshistory.MctsOutboundCallDetail;
 @Repository
 public interface OutboundHistoryRepository extends CrudRepository<MctsOutboundCallDetail, Long> {
 
-	@Query(value="select cd from MctsOutboundCallDetail cd join cd.callType where cd.beneficiaryRegID = :beneficiaryRegID "
-			+ "and (cd.isMother =1 or cd.isMother =0) "
-			+ " order by cd.createdDate desc ", nativeQuery = true)
+	@Query("select cd from MctsOutboundCallDetail cd join cd.callType where cd.beneficiaryRegID = :beneficiaryRegID "
+			+ " order by cd.createdDate desc ")
 	public ArrayList<MctsOutboundCallDetail> getCallHistory(@Param("beneficiaryRegID") Long beneficiaryRegID);
 	
 	@Query("select cd from MctsOutboundCallDetail cd where cd.beneficiaryRegID = :beneficiaryRegID "

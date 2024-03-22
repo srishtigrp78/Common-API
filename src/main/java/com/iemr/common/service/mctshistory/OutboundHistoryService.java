@@ -21,6 +21,8 @@
 */
 package com.iemr.common.service.mctshistory;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.iemr.common.utils.exception.IEMRException;
 
 public interface OutboundHistoryService {
@@ -31,9 +33,11 @@ public interface OutboundHistoryService {
 	 * @param request
 	 * @return
 	 * @throws IEMRException 
+	 * @throws JsonProcessingException 
+	 * @throws JsonMappingException 
 	 */
-	String getCallHistory(String request) throws IEMRException;
+	String getCallHistory(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
-	String getMctsCallResponse(String request) throws IEMRException;
+	String getMctsCallResponse(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
 }

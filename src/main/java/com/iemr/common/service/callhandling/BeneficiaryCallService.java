@@ -81,7 +81,7 @@ public interface BeneficiaryCallService {
 
 	String filterCallList(String request, String auth) throws IEMRException, JsonMappingException, JsonProcessingException;
 
-	String filterCallListWithPagination(String request, String auth) throws IEMRException;
+	String filterCallListWithPagination(String request, String auth) throws IEMRException, JsonMappingException, JsonProcessingException;
 
 	String outboundAllocation(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
