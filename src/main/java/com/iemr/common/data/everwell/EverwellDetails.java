@@ -252,13 +252,4 @@ public class EverwellDetails {
 		return eapiIds;
 	}
 
-	public EverwellDetails(Long eapiId, Long id, Long beneficiaryRegId) {
-		super();
-		this.eapiId = eapiId;
-		Id = id;
-		this.beneficiaryRegId = beneficiaryRegId;
-	}
-	
-	
-
 }
