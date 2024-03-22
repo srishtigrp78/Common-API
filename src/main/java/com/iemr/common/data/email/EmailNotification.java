@@ -124,9 +124,8 @@ public class EmailNotification {
 	@Override
 	public String toString()
 	{
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-		return gson.toJson(this);
-	//	return OutputMapper.gsonWithoutExposeRestriction().toJson(this);
+		
+		return OutputMapper.gsonWithoutExposeRestriction().toJson(this);
 	}
 	
 }

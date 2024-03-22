@@ -29,12 +29,8 @@ public class OutputMapper {
 	static GsonBuilder builder;
 	static GsonBuilder builderWithoutExposeRestriction;
 	
-	static {
-		OutputMapper();
-	}
 
-
-	private static void OutputMapper() {
+	public OutputMapper() {
 		if (builder == null) {
 			builder = new GsonBuilder();
 			builder.setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
