@@ -751,7 +751,8 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 			List<BeneficiaryModel> iben = new ArrayList<BeneficiaryModel>(benDetailForOutboundDTOList.size());
 			iben = getBeneficiaryListFromMapper(benDetailForOutboundDTOList);
 			result = iben.stream()
-					.collect(Collectors.toMap(BeneficiaryModel::getBeneficiaryRegID, Function.identity()));
+			        .filter(b -> b.getBeneficiaryRegID() != null)
+			        .collect(Collectors.toMap(BeneficiaryModel::getBeneficiaryRegID, Function.identity()));
 		}
 
 		for (Object[] object : resultSet) {

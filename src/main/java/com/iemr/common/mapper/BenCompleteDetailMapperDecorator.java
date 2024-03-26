@@ -75,6 +75,7 @@ public abstract class BenCompleteDetailMapperDecorator implements BenCompleteDet
 		BenDetailDTO benDetails = beneficiariesDTO.getBeneficiaryDetails();
 
 		BeneficiaryDemographicsModel demographicsModel = new BeneficiaryDemographicsModel();
+		if(null != benRegID)
 		demographicsModel.setBeneficiaryRegID(Long.parseLong(benRegID.toString()));
 		demographicsModel.setStateID(address.getStateId());
 		if (address.getStateId() != null)
