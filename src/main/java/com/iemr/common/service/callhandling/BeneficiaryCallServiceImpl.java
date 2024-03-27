@@ -52,6 +52,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.data.beneficiary.BenOutboundCallAllocation;
 import com.iemr.common.data.callhandling.BeneficiaryCall;
@@ -1465,8 +1466,12 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 	@Override
 	public Integer updateBeneficiaryCallCDIStatus(String request) throws IEMRException, JsonMappingException, JsonProcessingException {
 		Integer updateCounts = 0;
+		JSONObject requestObject = new JSONObject(request);
+		String status = String.valueOf(requestObject.get("cDICallStatus"));
 		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		BeneficiaryCall benificiaryCallId = objectMapper.readValue(request, BeneficiaryCall.class);
+		benificiaryCallId.setCDICallStatus(status);
 		updateCounts = beneficiaryCallRepository.updateBeneficiaryCallCDIStatus(benificiaryCallId.getBenCallID(),
 				benificiaryCallId.getCDICallStatus());
 		return updateCounts;
