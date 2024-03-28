@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -402,6 +403,7 @@ public class BeneficiaryRegistrationController {
 		Integer updateCount = 0;
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
+			objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			BeneficiaryModel benificiaryDetails = objectMapper.readValue(benificiaryRequest, BeneficiaryModel.class);
 			updateCount = registerBenificiaryService.updateBenificiary(benificiaryDetails, auth);
 			if (updateCount > 0) {
