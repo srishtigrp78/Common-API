@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Config>
+  <ElasticSearch>
+    <ip>localhost</ip>
+    <portno>9300</portno>
+    <idxName>ilbs_patient_info_idx</idxName>
+  </ElasticSearch>
+  <Category name="cat3">
+    <Range>
+      <field>age</field>
+      <minvalue>23</minvalue>
+      <maxvalue>40</maxvalue>
+    </Range>
+    <Filter>
+      <field>city</field>
+      <value>GHAZIABAD</value>
+    </Filter>
+    <Range>
+      <field>age</field>
+      <minvalue>1</minvalue>
+      <maxvalue>2</maxvalue>
+    </Range>
+    <Filter>
+      <field>patientName</field>
+      <value>chandan</value>
+    </Filter>
+    <Range>
+      <field>san</field>
+      <minvalue>3</minvalue>
+      <maxvalue>4</maxvalue>
+    </Range>
+  </Category>
+  <Category name="cat23">
+    <Range>
+      <field>age</field>
+      <minvalue>3</minvalue>
+      <maxvalue>4</maxvalue>
+    </Range>
+    <Filter>
+      <field>age</field>
+      <value>3</value>
+    </Filter>
+    <Range>
+      <field>age</field>
+      <minvalue>23</minvalue>
+      <maxvalue>27</maxvalue>
+    </Range>
+  </Category>
+  <Category name="cat1323">
+    <Filter>
+      <field>state</field>
+      <value>pileru</value>
+    </Filter>
+    <Range>
+      <field>age</field>
+      <minvalue>24</minvalue>
+      <maxvalue>27</maxvalue>
+    </Range>
+  </Category>
+  <Category name="cat27">
+    <Range>
+      <field>age</field>
+      <minvalue>23</minvalue>
+      <maxvalue>40</maxvalue>
+    </Range>
+    <Filter>
+      <field>city</field>
+      <value>GHAZIABAD</value>
+    </Filter>
+  </Category>
+</Config>
