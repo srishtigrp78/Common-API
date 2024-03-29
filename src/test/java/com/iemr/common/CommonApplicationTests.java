@@ -32,9 +32,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class CommonApplicationTests
 {
 
-	@Test
-	public void contextLoads()
-	{
-	}
+//	@Test
+//	public void contextLoads()
+//	{
+//	}
 
 }

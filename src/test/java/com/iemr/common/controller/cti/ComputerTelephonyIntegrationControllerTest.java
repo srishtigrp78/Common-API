@@ -1,6 +1,7 @@
 package com.iemr.common.controller.cti;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
@@ -284,7 +285,8 @@ class ComputerTelephonyIntegrationControllerTest {
 		String remoteAddress = serverRequest.getHeader("X-FORWARDED-FOR");
 		when(ctiService.addUpdateUserData(request, remoteAddress)).thenThrow(NotFoundException.class);
 		String response = computerTelephonyIntegrationController.addUpdateUserData(request, serverRequest);
-		Assertions.assertEquals(response, computerTelephonyIntegrationController.addUpdateUserData(request, serverRequest));
+		assertTrue(response.contains("Failed with null"));
+		//Assertions.assertEquals(response, computerTelephonyIntegrationController.addUpdateUserData(request, serverRequest));
 	}
 
 	@Test
@@ -505,7 +507,8 @@ class ComputerTelephonyIntegrationControllerTest {
 		String remoteAddress = serverRequest.getHeader("X-FORWARDED-FOR");
 		when(ctiService.getAgentIPAddress(request, remoteAddress)).thenThrow(NotFoundException.class);
 		String response = computerTelephonyIntegrationController.getAgentIPAddress(request, serverRequest);
-		Assertions.assertEquals(response, computerTelephonyIntegrationController.getAgentIPAddress(request, serverRequest));
+		assertTrue(response.contains("Failed with null"));
+//		Assertions.assertEquals(response, computerTelephonyIntegrationController.getAgentIPAddress(request, serverRequest));
 	}
 
 	@Test

@@ -2,7 +2,6 @@ package com.iemr.common.controller.everwell.callhandle;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
@@ -24,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import com.iemr.common.data.everwell.EverwellAllocateMultiple;
 import com.iemr.common.data.everwell.EverwellDetails;
 import com.iemr.common.data.everwell.EverwellFeedback;
+import com.iemr.common.service.callhandling.CalltypeServiceImpl;
 import com.iemr.common.service.everwell.EverwellCallHandlingService;
 import com.iemr.common.utils.exception.IEMRException;
 import com.iemr.common.utils.mapper.InputMapper;
@@ -33,12 +33,13 @@ import jakarta.ws.rs.NotFoundException;
 
 @ExtendWith(MockitoExtension.class)
 class EverwellCallControllerTest {
-	
+
 	@InjectMocks
 	EverwellCallController everwellCallController;
-	
+
 	@Mock
 	private EverwellCallHandlingService beneficiaryCallService;
+
 	InputMapper inputMapper = new InputMapper();
 	final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -86,7 +87,7 @@ class EverwellCallControllerTest {
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), everwellCallController.outboundCallCount(request));
 	}
-	
+
 	@Test
 	void testOutboundCallCount_CatchBlock() throws IEMRException, JSONException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -104,7 +105,7 @@ class EverwellCallControllerTest {
 		agentIds.add(2);
 		allocation.setAgentId(agentIds);
 		allocation.setAllocateNo(12);
-		EverwellDetails[] outboundCallRequests = {new EverwellDetails(123L, 12L, 32L)};
+		EverwellDetails[] outboundCallRequests = { new EverwellDetails() };
 		allocation.setOutboundCallRequests(outboundCallRequests);
 		allocation.toString();
 		String request = allocation.toString();
@@ -112,7 +113,7 @@ class EverwellCallControllerTest {
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), everwellCallController.outboundAllocation(request));
 	}
-	
+
 	@Test
 	void testOutboundAllocation_CatchBlock() throws IEMRException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -165,7 +166,7 @@ class EverwellCallControllerTest {
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), everwellCallController.outboundCallList(request));
 	}
-	
+
 	@Test
 	void testOutboundCallList_CatchBlock() throws IEMRException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -222,7 +223,7 @@ class EverwellCallControllerTest {
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), everwellCallController.resetOutboundCall(request));
 	}
-	
+
 	@Test
 	void testResetOutboundCall_CatchBlock() throws IEMRException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -279,7 +280,7 @@ class EverwellCallControllerTest {
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), everwellCallController.saveCallDetails(request));
 	}
-	
+
 	@Test
 	void testSaveCallDetails_CatchBlock() throws IEMRException, ParseException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -336,20 +337,21 @@ class EverwellCallControllerTest {
 		when(beneficiaryCallService.completeOutboundCall(request)).thenReturn("success");
 		response.setResponse("success");
 		String actualResp = everwellCallController.completeOutboundCall(request);
-		assertTrue(actualResp.toLowerCase().contains("success"), "Expected 'success' in the response, but got: " + actualResp);
+		assertTrue(actualResp.toLowerCase().contains("success"),
+				"Expected 'success' in the response, but got: " + actualResp);
 		Assertions.assertEquals(response.toString(), actualResp);
 	}
-	
+
 	@Test
 	void testCompleteOutboundCall_InvalidRequest() throws IEMRException {
 		OutputResponse response = new OutputResponse();
-		String invalidRequestObj = "{\"someInvalidField\": \"value\"}"; 
+		String invalidRequestObj = "{\"someInvalidField\": \"value\"}";
 		String expResp = everwellCallController.completeOutboundCall(invalidRequestObj);
 		response.setError(5000, "error in updating data");
 		Assertions.assertEquals(expResp, everwellCallController.completeOutboundCall(invalidRequestObj));
 		assertTrue(response.toString().contains("error in updating data"));
 	}
-	
+
 	@Test
 	void testCompleteOutboundCall_CatchBlock() throws IEMRException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -389,17 +391,17 @@ class EverwellCallControllerTest {
 		assertNotNull(actualResp);
 		Assertions.assertEquals(response.toString(), actualResp);
 	}
-	
+
 	@Test
 	void testGetEverwellfeedbackDetails_InvalidRequest() throws IEMRException {
 		OutputResponse response = new OutputResponse();
-		String invalidRequestObj = "{\"someInvalidField\": \"value\"}"; 
+		String invalidRequestObj = "{\"someInvalidField\": \"value\"}";
 		String expResp = everwellCallController.getEverwellfeedbackDetails(invalidRequestObj);
 		response.setError(5000, "error in fetching data");
 		Assertions.assertEquals(expResp, everwellCallController.getEverwellfeedbackDetails(invalidRequestObj));
 		assertTrue(response.toString().contains("error in fetching data"));
 	}
-	
+
 	@Test
 	void testGetEverwellfeedbackDetails_CatchBlock() throws IEMRException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -457,7 +459,7 @@ class EverwellCallControllerTest {
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), everwellCallController.outboundCallListWithMobileNumber(request));
 	}
-	
+
 	@Test
 	void testOutboundCallListWithMobileNumber_CatchBlock() throws IEMRException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -515,7 +517,7 @@ class EverwellCallControllerTest {
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), everwellCallController.checkIfCalledOrNot(request));
 	}
-	
+
 	@Test
 	void testCheckIfCalledOrNot_CatchBlock() throws IEMRException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";

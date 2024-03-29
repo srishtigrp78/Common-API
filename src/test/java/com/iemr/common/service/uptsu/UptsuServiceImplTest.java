@@ -76,10 +76,10 @@ class UptsuServiceImplTest {
 				"The returned JSON does not match the expected JSON.");
 	}
 
-	@Test
-	void testSaveAppointmentDetails() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	void testSaveAppointmentDetails() {
+//		fail("Not yet implemented");
+//	}
 
 //	@Test
 //	void testCreateSmsGateway() {
@@ -114,15 +114,15 @@ class UptsuServiceImplTest {
 		verify(smsService, times(2)).sendSMS(anyList(), eq(Authorization));
 	}
 
-	@Test
-	void testCreateSMSRequestForCho() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testCreateSMSRequestForBeneficiary() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	void testCreateSMSRequestForCho() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testCreateSMSRequestForBeneficiary() {
+//		fail("Not yet implemented");
+//	}
 
 //	@Test
 //	    public void testCreateSMSRequestForBeneficiary() {
@@ -163,10 +163,10 @@ class UptsuServiceImplTest {
 	@Mock
 	private RestTemplate restTemplate;
 
-	@Test
-	void testRestTemplate() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	void testRestTemplate() {
+//		fail("Not yet implemented");
+//	}
 
 //	@Test
 //	public void testRestTemplate() {

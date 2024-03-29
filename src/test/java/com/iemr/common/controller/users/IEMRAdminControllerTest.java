@@ -1,9 +1,10 @@
 package com.iemr.common.controller.users;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
@@ -56,6 +57,7 @@ import com.iemr.common.utils.mapper.OutputMapper;
 import com.iemr.common.utils.redis.RedisSessionException;
 import com.iemr.common.utils.sessionobject.SessionObject;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
 
 @ExtendWith(MockitoExtension.class)

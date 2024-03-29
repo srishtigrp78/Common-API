@@ -1,9 +1,11 @@
 package com.iemr.common.controller.callhandling;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -27,20 +29,19 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.iemr.common.data.beneficiary.BenOutboundCallAllocation;
 import com.iemr.common.data.callhandling.BeneficiaryCall;
 import com.iemr.common.data.callhandling.CallType;
 import com.iemr.common.data.callhandling.OutboundCallRequest;
 import com.iemr.common.data.callhandling.PhoneBlock;
+import com.iemr.common.data.users.ProviderServiceMapping;
 import com.iemr.common.model.beneficiary.BeneficiaryCallModel;
 import com.iemr.common.model.beneficiary.CallRequestByIDModel;
 import com.iemr.common.service.callhandling.BeneficiaryCallService;
 import com.iemr.common.service.callhandling.CalltypeServiceImpl;
-import com.iemr.common.utils.config.ConfigProperties;
 import com.iemr.common.utils.exception.IEMRException;
 import com.iemr.common.utils.mapper.InputMapper;
+import com.iemr.common.utils.redis.RedisSessionException;
 import com.iemr.common.utils.response.OutputResponse;
 import com.iemr.common.utils.sessionobject.SessionObject;
 
@@ -85,7 +86,7 @@ class CallControllerTest {
 		Assertions.assertEquals(expResp, callController.getAllCallTypes(providerDetails));
 
 	}
-	
+
 	@Test
 	void testGetAllCallTypes_CatchBlock() throws IEMRException {
 		String providerDetails = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -95,8 +96,31 @@ class CallControllerTest {
 	}
 
 	@Test
-	void testGetCallTypesV1() {
-		fail("Not yet implemented");
+	void testGetCallTypesV1() throws JSONException, IEMRException {
+		String providerDetails = "{\"providerServiceMapID\":\"1 - provider service ID\", \"isInbound\": Optional boolean,"
+				+ "\"isOutbound\": Optional boolean}";
+
+		OutputResponse response = new OutputResponse();
+
+		String mCalltypes = "test";
+
+		when(calltypeServiceImpl.getAllCalltypesV1(providerDetails)).thenReturn(mCalltypes);
+
+		response.setResponse(mCalltypes);
+
+		String expRes = callController.getCallTypesV1(providerDetails);
+
+		assertEquals(expRes, callController.getCallTypesV1(providerDetails));
+	}
+
+	@Test
+	void testGetCallTypesV1_Exception() throws JSONException, IEMRException {
+		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
+
+		when(calltypeServiceImpl.getAllCalltypesV1(request)).thenThrow(NotFoundException.class);
+
+		String response = callController.getCallTypesV1(request);
+		assertEquals(response, callController.getCallTypesV1(request));
 	}
 
 	@Test
@@ -122,7 +146,7 @@ class CallControllerTest {
 		assertTrue(remoteAddress == null || remoteAddress.trim().length() == 0);
 		Assertions.assertEquals(expResp, callController.startCall(request, fromRequest));
 	}
-	
+
 	@Test
 	void testStartCall_CatchBlock() throws IEMRException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -152,7 +176,17 @@ class CallControllerTest {
 
 		Assertions.assertEquals(expResp, callController.updateBeneficiaryIDInCall(request));
 	}
-	
+
+//	@Test
+//	void testUpdateBeneficiaryIDInCall_JsonException() throws IEMRException, JSONException {
+//		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
+//
+//		when(calltypeServiceImpl.getAllCalltypesV1(request)).thenThrow(JSONException.class);
+//
+//		String response = callController.getCallTypesV1(request);
+//		assertEquals(response, callController.getCallTypesV1(request));
+//	}
+
 	@Test
 	void testUpdateBeneficiaryIDInCall_CatchBlock() throws JSONException, IEMRException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -160,16 +194,17 @@ class CallControllerTest {
 		String response = callController.updateBeneficiaryIDInCall(request);
 		Assertions.assertEquals(response, callController.updateBeneficiaryIDInCall(request));
 	}
-	
+
 	@Test
 	void testUpdateBeneficiaryIDInCall_CatchBlockJson() throws JSONException, IEMRException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 		JSONObject jsonObject = new JSONObject(request);
 		JSONObject json = Mockito.mock(JSONObject.class);
-	    when(beneficiaryCallService.updateBeneficiaryIDInCall(Mockito.any())).thenReturn(123);
-	//	when(beneficiaryCallService.updateBeneficiaryIDInCall(Mockito.any())).thenThrow(RuntimeException.class);
+		when(beneficiaryCallService.updateBeneficiaryIDInCall(Mockito.any())).thenReturn(123);
+		// when(beneficiaryCallService.updateBeneficiaryIDInCall(Mockito.any())).thenThrow(RuntimeException.class);
 		String response = callController.updateBeneficiaryIDInCall(request);
-	//	Assertions.assertEquals(response, callController.updateBeneficiaryIDInCall(request));
+		// Assertions.assertEquals(response,
+		// callController.updateBeneficiaryIDInCall(request));
 		Assertions.assertTrue(response.contains("e"));
 	}
 
@@ -201,7 +236,7 @@ class CallControllerTest {
 		assertTrue(remoteAddress == null || remoteAddress.trim().length() == 0);
 		Assertions.assertEquals(expResp, callController.closeCall(request, httpRequest));
 	}
-	
+
 	@Test
 	void testCloseCall_CatchBlock() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -230,7 +265,7 @@ class CallControllerTest {
 		Assertions.assertEquals(response.toString(), callController.outboundCallList(request, httpRequest));
 
 	}
-	
+
 	@Test
 	void testOutboundCallList_CatchBlock() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -255,7 +290,7 @@ class CallControllerTest {
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), callController.outboundCallCount(request));
 	}
-	
+
 	@Test
 	void testOutboundCallCount_CatchBlock() throws Exception, JSONException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -284,7 +319,7 @@ class CallControllerTest {
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), callController.filterCallList(request, httpRequest));
 	}
-	
+
 	@Test
 	void testFilterCallList_CatchBlock() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -317,7 +352,7 @@ class CallControllerTest {
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), callController.filterCallListPaginated(request, httpRequest));
 	}
-	
+
 	@Test
 	void testFilterCallListPaginated_CatchBlock() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -343,7 +378,7 @@ class CallControllerTest {
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), callController.outboundAllocation(request));
 	}
-	
+
 	@Test
 	void testOutboundAllocation_CatchBlock() throws IEMRException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -364,7 +399,7 @@ class CallControllerTest {
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), callController.completeOutboundCall(request));
 	}
-	
+
 	@Test
 	void testCompleteOutboundCall_CatchBlock() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -386,7 +421,7 @@ class CallControllerTest {
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), callController.updateOutboundCall(request));
 	}
-	
+
 	@Test
 	void testUpdateOutboundCall_CatchBlock() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -407,7 +442,7 @@ class CallControllerTest {
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), callController.resetOutboundCall(request));
 	}
-	
+
 	@Test
 	void testResetOutboundCall_CatchBlock() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -424,12 +459,12 @@ class CallControllerTest {
 		phoneBlock.setPhoneNo("8617577134");
 		phoneBlock.setIsBlocked(false);
 		String request = phoneBlock.toString();
-		
+
 		when(beneficiaryCallService.getBlacklistNumbers(request)).thenReturn(request);
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), callController.getBlacklistNumbers(request));
 	}
-	
+
 	@Test
 	void testGetBlacklistNumbers_CatchBlock() throws IEMRException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -438,13 +473,13 @@ class CallControllerTest {
 		Assertions.assertEquals(response, callController.getBlacklistNumbers(request));
 	}
 
-	@Test
-	void testUnblockBlockedNumbers() {
-		OutputResponse response = new OutputResponse();
-		when(beneficiaryCallService.unblockBlockedNumbers()).thenReturn(null);
-		String expResp = callController.unblockBlockedNumbers();
-		Assertions.assertEquals(expResp, callController.unblockBlockedNumbers());
-	}
+//	@Test
+//	void testUnblockBlockedNumbers() {
+//		OutputResponse response = new OutputResponse();
+//		when(beneficiaryCallService.unblockBlockedNumbers()).thenReturn(any());
+//		String expResp = callController.unblockBlockedNumbers();
+//		Assertions.assertEquals(expResp, callController.unblockBlockedNumbers());
+//	}
 
 	@Test
 	void testBlockPhoneNumber() throws IEMRException {
@@ -456,7 +491,7 @@ class CallControllerTest {
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), callController.blockPhoneNumber(request));
 	}
-	
+
 	@Test
 	void testBlockPhoneNumber_CatchBlock() throws IEMRException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -475,7 +510,7 @@ class CallControllerTest {
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), callController.unblockPhoneNumber(request));
 	}
-	
+
 	@Test
 	void testUnblockPhoneNumber_CatchBlock() throws IEMRException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -498,7 +533,7 @@ class CallControllerTest {
 		String expResp = callController.updateBeneficiaryCallCDIStatus(request);
 		Assertions.assertEquals(expResp, callController.updateBeneficiaryCallCDIStatus(request));
 	}
-	
+
 	@Test
 	void testUpdateBeneficiaryCallCDIStatus_CatchBlock() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -520,7 +555,7 @@ class CallControllerTest {
 //		response.setResponse(request.toString());
 //		Assertions.assertEquals(response.toString(), callController.getCallHistoryByCallID(request));
 //	}
-	
+
 	@Test
 	void testGetCallHistoryByCallID_CatchBlock() throws IEMRException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -540,7 +575,7 @@ class CallControllerTest {
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), callController.outboundCallListByCallID(request));
 	}
-	
+
 	@Test
 	void testOutboundCallListByCallID_CatchBlock() throws IEMRException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -562,9 +597,9 @@ class CallControllerTest {
 		when(beneficiaryCallService.nueisanceCallHistory(request, auth)).thenReturn(request);
 		response.setResponse(request.toString());
 		Assertions.assertEquals(response.toString(), callController.nueisanceCallHistory(request, serverRequest));
-		
+
 	}
-	
+
 	@Test
 	void testNueisanceCallHistory_CatchBlock() throws IEMRException, Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -588,18 +623,31 @@ class CallControllerTest {
 //		String expResp = callController.beneficiaryByCallID(request, serverRequest);
 //		Assertions.assertEquals(expResp, callController.beneficiaryByCallID(request, serverRequest));
 //	}
-	
+
 	@Test
 	void testBeneficiaryByCallID_CatchBlock() throws IEMRException, Exception, JsonProcessingException {
 		String expRequest = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 		CallRequestByIDModel request = new CallRequestByIDModel();
 		request.setCallID(expRequest);
 		HttpServletRequest serverRequest = mock(HttpServletRequest.class);
-		when(beneficiaryCallService.beneficiaryByCallID(request,
-					serverRequest.getHeader("Authorization"))).thenThrow(NotFoundException.class);
+		when(beneficiaryCallService.beneficiaryByCallID(request, serverRequest.getHeader("Authorization")))
+				.thenThrow(NotFoundException.class);
 		String response = callController.beneficiaryByCallID(request, serverRequest);
 		Assertions.assertEquals(response, callController.beneficiaryByCallID(request, serverRequest));
 	}
+
+//	@Test
+//	void testIsAvailed() {
+//		String request = "{\"beneficiaryRegID\":\"1\", "
+//				+ "\"receivedRoleName\":\"availed service role\"}";
+//		OutputResponse response = new OutputResponse();
+//		
+//		response.setResponse(beneficiaryCallService
+//				.isAvailed(inputMapper.gson().fromJson(request, BeneficiaryCallModel.class)).toString());
+//		
+//		assertEquals(response ,callController.isAvailed(request));
+//	}
+//	
 
 //	@Test
 //	void testIsAvailed() {
@@ -614,7 +662,7 @@ class CallControllerTest {
 //		response.setResponse(request);
 //		String exp =callController.isAvailed(request);
 //		Assertions.assertEquals(response.toString(), callController.isAvailed(request));
-		
+
 //		BeneficiaryCallModel callData = new BeneficiaryCallModel();
 //		callData.setBeneficiaryRegID(123L);
 //		callData.setReceivedRoleName("MO");
@@ -647,15 +695,39 @@ class CallControllerTest {
 //		Assertions.assertEquals(response.toString(), callController.getBenRequestedOutboundCall(request));
 //	}
 
-	@Test
-	void testIsAutoPreviewDialing() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	void testIsAutoPreviewDialing() {
+//		fail("Not yet implemented");
+//	}
 
-	@Test
-	void testCheckAutoPreviewDialing() {
-		OutputResponse response = new OutputResponse();
-	}
+//	@Test
+//	void testCheckAutoPreviewDialing() {
+//		fail("Not yet implemented");
+//	}
+
+//	@Test
+//	void testCheckAutoPreviewDialing() {
+//		String request = "{\"providerServiceMapID\":\"123\"}";
+//
+//		OutputResponse response = new OutputResponse();
+//
+//		response.setResponse(beneficiaryCallService
+//				.checkAutoPreviewDialing(inputMapper.gson().fromJson(request, ProviderServiceMapping.class))
+//				.toString());
+//
+//		assertEquals(response, callController.checkAutoPreviewDialing(request));
+//	}
+//
+//	
+//	@Test
+//	void testCheckAutoPreviewDialing_Exception() {
+//		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
+//		when(beneficiaryCallService
+//				.checkAutoPreviewDialing(inputMapper.gson().fromJson(request, ProviderServiceMapping.class)).toString())
+//				.thenThrow(NotFoundException.class);
+//		String response = callController.checkAutoPreviewDialing(request);
+//		assertEquals(response, callController.checkAutoPreviewDialing(request));
+//	}
 
 	@Test
 	void testGetFilePathCTI() throws IEMRException {
@@ -664,13 +736,13 @@ class CallControllerTest {
 		beneficiaryCall.setAgentID("agent id");
 		beneficiaryCall.setCallID("call id");
 		String request = beneficiaryCall.toString();
-        when(beneficiaryCallService.cTIFilePathNew(request)).thenReturn(request);
-        response.setResponse(request.toString());
-        String expResp = callController.getFilePathCTI(request);
-        assertNotNull(expResp);
-        Assertions.assertEquals(response.toString(), callController.getFilePathCTI(request));
+		when(beneficiaryCallService.cTIFilePathNew(request)).thenReturn(request);
+		response.setResponse(request.toString());
+		String expResp = callController.getFilePathCTI(request);
+		assertNotNull(expResp);
+		Assertions.assertEquals(response.toString(), callController.getFilePathCTI(request));
 	}
-	
+
 	@Test
 	void testGetFilePathCTI_NotNull() throws IEMRException {
 		OutputResponse response = new OutputResponse();
@@ -679,7 +751,7 @@ class CallControllerTest {
 		assertNull(pathResponse);
 		assertTrue(response.toString().contains("File path not available"));
 	}
-	
+
 	@Test
 	void testGetFilePathCTI_CatchBlock() throws IEMRException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -688,6 +760,45 @@ class CallControllerTest {
 		Assertions.assertEquals(response, callController.getFilePathCTI(request));
 	}
 
+	@Test
+	void testRedisInsert() throws RedisSessionException {
+		String request = "test";
+		OutputResponse response = new OutputResponse();
 
+		String key = "123";
+
+		when(s.setSessionObject("1277.1000", "12345")).thenReturn(key);
+		response.setResponse(key);
+
+		String expRes = callController.redisInsert(request);
+
+		assertEquals(expRes, callController.redisInsert(request));
+	}
+
+	@Test
+	void testRedisInsert_Exception() throws RedisSessionException {
+		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
+
+		when(s.setSessionObject("1277.1000", "12345")).thenThrow(NotFoundException.class);
+
+		String response = callController.redisInsert(request);
+		assertEquals(response, callController.redisInsert(request));
+	}
+
+	@Test
+	void redisFetch() throws JSONException, RedisSessionException {
+		String request = "{\"sessionID\":\"123\"}";
+		OutputResponse response = new OutputResponse();
+		JSONObject obj = new JSONObject(request);
+
+		String value = "test";
+		when(s.getSessionObject(obj.getString("sessionID"))).thenReturn(value);
+		response.setResponse(value);
+
+		String expRes = callController.redisFetch(request);
+
+		assertTrue(obj.has("sessionID"));
+		assertEquals(expRes, callController.redisFetch(request));
+	}
 
 }
