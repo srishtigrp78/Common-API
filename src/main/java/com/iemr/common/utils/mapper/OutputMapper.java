@@ -28,8 +28,13 @@ import com.google.gson.LongSerializationPolicy;
 public class OutputMapper {
 	static GsonBuilder builder;
 	static GsonBuilder builderWithoutExposeRestriction;
+<<<<<<< HEAD
 
 
+=======
+	
+
+>>>>>>> 59a9709bc9edfb11166215ee20f1a4b256f8a37c
 	public OutputMapper() {
 		if (builder == null) {
 			builder = new GsonBuilder();

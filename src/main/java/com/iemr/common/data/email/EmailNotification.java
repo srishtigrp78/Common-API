@@ -120,7 +120,13 @@ public class EmailNotification {
 	Boolean is1097;
 
 	@Override
+<<<<<<< HEAD
 	public String toString() {
+=======
+	public String toString()
+	{
+		
+>>>>>>> 59a9709bc9edfb11166215ee20f1a4b256f8a37c
 		return OutputMapper.gsonWithoutExposeRestriction().toJson(this);
 	}
 
