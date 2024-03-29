@@ -27,12 +27,12 @@ class BenRelationshipTypeServiceImplTest {
     private BeneficiaryRelationshipTypeRepository beneficiaryRelationshipTypeRepository;
 
     
-    @Test
-    void testSetBeneficiaryRelationshipTypeRepository() {
-        
-        (new BenRelationshipTypeServiceImpl())
-                .setBeneficiaryRelationshipTypeRepository(mock(BeneficiaryRelationshipTypeRepository.class));
-    }
+//    @Test
+//    void testSetBeneficiaryRelationshipTypeRepository() {
+//        
+//        (new BenRelationshipTypeServiceImpl())
+//                .setBeneficiaryRelationshipTypeRepository(mock(BeneficiaryRelationshipTypeRepository.class));
+//    }
 
     @Test
     void testGetActiveRelationshipTypes() {

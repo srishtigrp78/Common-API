@@ -28,12 +28,12 @@ class BeneficiaryOccupationServiceImplTest {
     private BeneficiaryOccupationServiceImpl beneficiaryOccupationServiceImpl;
 
     
-    @Test
-    void testSetBeneficiaryOccupationRepository() {
-      
-        (new BeneficiaryOccupationServiceImpl())
-                .setBeneficiaryOccupationRepository(mock(BeneficiaryOccupationRepository.class));
-    }
+//    @Test
+//    void testSetBeneficiaryOccupationRepository() {
+//      
+//        (new BeneficiaryOccupationServiceImpl())
+//                .setBeneficiaryOccupationRepository(mock(BeneficiaryOccupationRepository.class));
+//    }
 
   
     @Test

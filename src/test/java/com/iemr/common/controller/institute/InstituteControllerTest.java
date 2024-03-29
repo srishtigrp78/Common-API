@@ -168,7 +168,7 @@ class InstituteControllerTest {
 	}
 
 	@Test()
-	public void getInstituteByBranchExpTest() throws Exception {
+	 void getInstituteByBranchExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		// when(instituteService.getInstitutesByBranch(anyInt())).thenThrow(NotFoundException.class);
@@ -178,7 +178,7 @@ class InstituteControllerTest {
 	}
 
 	@Test()
-	public void getInstitutesByLocationExpTest() throws Exception {
+	 void getInstitutesByLocationExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		// when(instituteService.getInstitutesByStateDistrictBranch(anyInt(), anyInt(),

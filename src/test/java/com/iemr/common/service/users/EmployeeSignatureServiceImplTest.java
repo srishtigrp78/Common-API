@@ -24,12 +24,12 @@ public class EmployeeSignatureServiceImplTest {
 	private EmployeeSignatureServiceImpl service;
 
 	@BeforeEach
-	public void setUp() {
+	 void setUp() {
 		MockitoAnnotations.openMocks(this);
 	}
 
 	@Test
-	public void testFetchSignature_ExistingUser() {
+	 void testFetchSignature_ExistingUser() {
 		Long userSignID = 1L;
 		EmployeeSignature mockSignature = new EmployeeSignature();
 		// Assuming EmployeeSignature has a setUserID method or similar to set the ID.
@@ -45,7 +45,7 @@ public class EmployeeSignatureServiceImplTest {
 	}
 
 	@Test
-	public void testFetchSignature_NonExistingUser() {
+	 void testFetchSignature_NonExistingUser() {
 		Long userSignID = 99L;
 
 		when(employeeSignatureRepo.findOneByUserID(userSignID)).thenReturn(null);
@@ -57,7 +57,7 @@ public class EmployeeSignatureServiceImplTest {
 	}
 
 	@Test
-	public void testExistSignature_True() {
+	 void testExistSignature_True() {
 		Long userID = 1L;
 
 		when(employeeSignatureRepo.countByUserIDAndSignatureNotNull(userID)).thenReturn(1L);
@@ -69,7 +69,7 @@ public class EmployeeSignatureServiceImplTest {
 	}
 
 	@Test
-	public void testExistSignature_False() {
+	 void testExistSignature_False() {
 		Long userID = 99L;
 
 		when(employeeSignatureRepo.countByUserIDAndSignatureNotNull(userID)).thenReturn(0L);

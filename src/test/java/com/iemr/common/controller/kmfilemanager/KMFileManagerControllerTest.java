@@ -104,6 +104,7 @@ class KMFileManagerControllerTest {
 		when(kmFileManagerService.addKMFile(request)).thenThrow(NotFoundException.class);
 
 		String response = kmFileManagerController.addFile(request);
+		assertTrue(response.contains("Failed with null"));
 		// assertEquals(response, kmFileManagerController.addFile(request));
 	}
 

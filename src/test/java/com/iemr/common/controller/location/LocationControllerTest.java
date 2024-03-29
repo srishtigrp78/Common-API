@@ -38,7 +38,7 @@ class LocationControllerTest {
 	private LocationController locationController;
 
 	@Test
-	public void testGetStates_Success() throws Exception {
+	 void testGetStates_Success() throws Exception {
 		// Local setup
 		States state1 = new States();
 		state1.setStateID(1);
@@ -70,7 +70,7 @@ class LocationControllerTest {
 
 
 	@Test
-	public void testGetDistricts_Success() throws Exception {
+	 void testGetDistricts_Success() throws Exception {
 		// Local setup
 		Districts district1 = new Districts();
 		district1.setDistrictID(1);
@@ -102,7 +102,7 @@ class LocationControllerTest {
 
 
 	@Test
-	public void testGetStateDistrictsSuccess() {
+	 void testGetStateDistrictsSuccess() {
 		// Given
 		int stateId = 1;
 		Districts district1 = new Districts(); // Assuming Districts is properly defined elsewhere
@@ -132,7 +132,7 @@ class LocationControllerTest {
 
 
 	@Test
-	public void testGetDistrictBlocksSuccess() {
+	 void testGetDistrictBlocksSuccess() {
 		// Given
 		int districtId = 10;
 		DistrictBlock block1 = new DistrictBlock(); // Assuming DistrictBlock is properly defined elsewhere
@@ -163,7 +163,7 @@ class LocationControllerTest {
 
 
 	@Test
-	public void testGetCitySuccess() {
+	 void testGetCitySuccess() {
 		// Given
 		int districtId = 1;
 		DistrictBlock block1 = new DistrictBlock(); // Assuming DistrictBlock is a valid class
@@ -193,7 +193,7 @@ class LocationControllerTest {
 
 
 	@Test
-	public void testGetVillagesSuccess() {
+	 void testGetVillagesSuccess() {
 		// Given
 		int districtId = 1;
 		DistrictBranchMapping village1 = new DistrictBranchMapping(); // Assuming a valid class exists
@@ -275,7 +275,7 @@ class LocationControllerTest {
 	}
 
 	@Test
-	public void testGetStateDistrictsExceptionHandling() {
+	 void testGetStateDistrictsExceptionHandling() {
 		int testId = 1;
 		String simulatedErrorMessage = "Simulated error";
 		Exception simulatedException = new RuntimeException(simulatedErrorMessage);

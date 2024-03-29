@@ -54,7 +54,7 @@ public class UPTechnicalSupportControllerTest {
 	}
 
 	@Test
-	public void testGetFacilityException() throws Exception {
+	 void testGetFacilityException() throws Exception {
 		// Given
 		Integer providerServiceMapID = 1;
 		String blockName = "TestBlock";
@@ -63,7 +63,6 @@ public class UPTechnicalSupportControllerTest {
 		// When
 		String response = controller.getFacility(providerServiceMapID, blockName);
 
-		System.out.println(response);
 
 		// Then
 		verify(uptsuService).getFacility(providerServiceMapID, blockName);

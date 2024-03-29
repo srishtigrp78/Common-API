@@ -34,7 +34,7 @@ public class CategoryControllerTest {
 	private CategoryController categoryController;
 
 	@BeforeEach
-	public void setUp() {
+	 void setUp() {
 		MockitoAnnotations.openMocks(this);
 	}
 
@@ -54,7 +54,7 @@ public class CategoryControllerTest {
 		assertEquals(response.toString(), categoryController.getAllCategries(request));
 	}
 //	@Test
-//	public void getAllCategories_Success() throws Exception {
+//	 void getAllCategories_Success() throws Exception {
 //		// Given
 //		String request = "{\"providerServiceMapID\":\"1\", \"subServiceID\":\"2\", \"feedbackNatureID\":\"3\"}";
 //		
@@ -67,7 +67,6 @@ public class CategoryControllerTest {
 //		// When
 //		String response = categoryController.getAllCategries(request);
 //		
-//		System.out.println(response);
 //
 //		// Then
 ////		verify(categoryService, times(1)).getAllCategories(anyString());
@@ -78,7 +77,7 @@ public class CategoryControllerTest {
 //	}
 
 	@Test
-	public void getAllCategories_Exception() throws Exception {
+	 void getAllCategories_Exception() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(categoryService.getAllCategories().toString()).thenThrow(NotFoundException.class);

@@ -16,7 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.iemr.common.service.brd.BRDIntegrationService;
 
 @ExtendWith(MockitoExtension.class)
-class BRDIntegrationControllerTest2 {
+class BRDIntegrationControllerTest {
 
 	@Mock
 	private BRDIntegrationService integrationService;

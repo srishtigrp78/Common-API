@@ -29,7 +29,7 @@ class QuestionTypeServiceImplTest {
 	private QuestionTypeRepository questionTypeRepository;
 
 	@Test
-	public void testCreateQuestionType() throws IEMRException, com.iemr.common.utils.exception.IEMRException {
+	void testCreateQuestionType() throws IEMRException, com.iemr.common.utils.exception.IEMRException {
 		// Given
 		String jsonInput = "[{\"id\":1,\"type\":\"Multiple Choice\",\"description\":\"Choose one or more from a list.\"}]";
 		QuestionTypeDetail questionTypeDetail = new QuestionTypeDetail(); // Populate with appropriate values
@@ -47,7 +47,7 @@ class QuestionTypeServiceImplTest {
 	}
 
 	@Test
-	public void testGetQuestionTypeList() {
+	void testGetQuestionTypeList() {
 		assertEquals(questionTypeRepository.getQuestionTypeList().toString(),
 				questionTypeService.getQuestionTypeList().toString());
 	}

@@ -30,19 +30,19 @@ public class EducationServiceImplTest {
 	private EducationServiceImpl educationService;
 
 	@BeforeEach
-	public void setUp() {
+	 void setUp() {
 		MockitoAnnotations.openMocks(this);
 	}
 
-	@Test
-	void testSetEducationServiceImpl() {
+//	@Test
+//	void testSetEducationServiceImpl() {
+//
+//		// Arrange and Act
+//		(new EducationServiceImpl()).setEducationServiceImpl(mock(EducationRepository.class));
+//	}
 
-		// Arrange and Act
-		(new EducationServiceImpl()).setEducationServiceImpl(mock(EducationRepository.class));
-	}
-
 	@Test
-	public void testGetActiveEducations_WithValidData() {
+	 void testGetActiveEducations_WithValidData() {
 		Set<Object[]> mockData = new HashSet<>();
 		mockData.add(new Object[] { 1L, "Primary" });
 		mockData.add(new Object[] { 2L, "Secondary" });
@@ -55,7 +55,7 @@ public class EducationServiceImplTest {
 	}
 
 	@Test
-	public void testGetActiveEducations_EmptySet() {
+	 void testGetActiveEducations_EmptySet() {
 		Set<Object[]> mockData = new HashSet<>();
 
 		when(educationRepository.findActiveEducations()).thenReturn(mockData);

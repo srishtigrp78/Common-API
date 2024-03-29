@@ -235,7 +235,7 @@ class SMSControllerTest {
 	}
 
 	@Test
-	public void testGetFullSMSTemplateThrowsException() throws Exception {
+	 void testGetFullSMSTemplateThrowsException() throws Exception {
 		// Setup mock for static method within the test method
 		try (MockedStatic<OutputMapper> mockedOutputMapper = mockStatic(OutputMapper.class)) {
 			Gson gson = new Gson(); // Or use your specific Gson configuration
@@ -262,7 +262,7 @@ class SMSControllerTest {
 	}
 
 	@Test
-	public void testSaveSMSTemplateThrowsException() throws Exception {
+	 void testSaveSMSTemplateThrowsException() throws Exception {
 		try (MockedStatic<OutputMapper> mockedOutputMapper = Mockito.mockStatic(OutputMapper.class)) {
 			mockedOutputMapper.when(() -> OutputMapper.gson()).thenReturn(new Gson()); // Provide your mocked behavior
 
@@ -280,7 +280,7 @@ class SMSControllerTest {
 	}
 
 	@Test
-	public void updateSMSTemplate_CatchBlockExecuted() throws Exception {
+	 void updateSMSTemplate_CatchBlockExecuted() throws Exception {
 		// Use try-with-resources to ensure MockedStatic is closed after the test
 		try (MockedStatic<OutputMapper> mockedOutputMapper = Mockito.mockStatic(OutputMapper.class)) {
 			// Mock OutputMapper.gson() to return a new Gson instance
@@ -306,7 +306,7 @@ class SMSControllerTest {
 	}
 
 	@Test
-	public void getSMSTypes_CatchBlockExecuted() throws Exception {
+	 void getSMSTypes_CatchBlockExecuted() throws Exception {
 		// Mock the dependencies
 		SMSService mockSMSService = mock(SMSService.class);
 		HttpServletRequest mockRequest = mock(HttpServletRequest.class);
@@ -329,7 +329,7 @@ class SMSControllerTest {
 	}
 
 	@Test
-	public void getSMSParameters_CatchBlockExecuted() throws Exception {
+	 void getSMSParameters_CatchBlockExecuted() throws Exception {
 		// Create mock instances for the dependencies
 		SMSService mockSMSService = mock(SMSService.class);
 		HttpServletRequest mockHttpServletRequest = mock(HttpServletRequest.class);

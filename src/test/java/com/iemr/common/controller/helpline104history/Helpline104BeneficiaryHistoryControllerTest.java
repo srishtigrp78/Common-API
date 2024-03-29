@@ -31,7 +31,7 @@ import jakarta.ws.rs.NotFoundException;
 
 @Timeout(value = 5, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
 @ExtendWith(MockitoExtension.class)
-class Helpline104BeneficiaryHistoryControllerTest2 {
+class Helpline104BeneficiaryHistoryControllerTest {
 
 	private final H104BenHistoryServiceImpl smpleBenHistoryServiceImplMock = mock(H104BenHistoryServiceImpl.class,
 			"smpleBenHistoryServiceImpl");
@@ -42,7 +42,7 @@ class Helpline104BeneficiaryHistoryControllerTest2 {
 	private Helpline104BeneficiaryHistoryController target;
 
 	@AfterEach()
-	public void afterTest() throws Exception {
+	 void afterTest() throws Exception {
 		if (autoCloseableMocks != null)
 			autoCloseableMocks.close();
 	}
@@ -107,7 +107,7 @@ class Helpline104BeneficiaryHistoryControllerTest2 {
 //	}
 
 	@Test
-	public void testGetBenCaseSheet_Exception() throws Exception {
+	 void testGetBenCaseSheet_Exception() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(smpleBenHistoryServiceImplMock.geSmpleBenHistory(any()).toString()).thenThrow(NotFoundException.class);

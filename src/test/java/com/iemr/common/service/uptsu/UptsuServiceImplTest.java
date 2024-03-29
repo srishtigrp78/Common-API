@@ -49,12 +49,12 @@ class UptsuServiceImplTest {
 	private SMSService smsService;
 
 	@BeforeEach
-	public void setUp() {
+	 void setUp() {
 		MockitoAnnotations.openMocks(this);
 	}
 
 	@Test
-	public void testGetFacility() {
+	 void testGetFacility() {
 		Integer providerServiceMapID = 1;
 		String blockname = "TestBlock";
 		FacilityMaster facility1 = new FacilityMaster(); // Assuming FacilityMaster has a parameterless constructor
@@ -125,7 +125,7 @@ class UptsuServiceImplTest {
 //	}
 
 //	@Test
-//	    public void testCreateSMSRequestForBeneficiary() {
+//	     void testCreateSMSRequestForBeneficiary() {
 //	        // Setup mocks
 //	        String benSms = "benSms";
 //	        String appointmentDate = "2022-01-01";
@@ -169,7 +169,7 @@ class UptsuServiceImplTest {
 //	}
 
 //	@Test
-//	public void testRestTemplate() {
+//	 void testRestTemplate() {
 //		// Mock response
 //		String expectedResponse = "response";
 //		when(restTemplate.exchange(anyString(), eq(HttpMethod.POST), any(HttpEntity.class), eq(String.class)))

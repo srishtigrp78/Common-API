@@ -114,7 +114,7 @@ class SMSServiceImplTest {
 //	}
 
 	@Test
-	public void testGetSMSTemplates_smsTypeIDNull() throws Exception {
+	void testGetSMSTemplates_smsTypeIDNull() throws Exception {
 		// Arrange
 		SMSRequest smsRequest = new SMSRequest();
 		smsRequest.setProviderServiceMapID(123);
@@ -141,7 +141,7 @@ class SMSServiceImplTest {
 	}
 
 //	@Test
-//	public void testGetSMSTemplates_smsTypeIDNotNull() throws Exception {
+//	void testGetSMSTemplates_smsTypeIDNotNull() throws Exception {
 //		// Arrange
 //		SMSRequest smsRequest = new SMSRequest();
 //		smsRequest.setProviderServiceMapID(123);

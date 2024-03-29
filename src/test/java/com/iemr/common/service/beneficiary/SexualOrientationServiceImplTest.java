@@ -26,11 +26,11 @@ class SexualOrientationServiceImplTest {
     @InjectMocks
     private SexualOrientationServiceImpl sexualOrientationServiceImpl;
 
-    @Test
-    void testSetDirectoryRepository() {
-       
-        (new SexualOrientationServiceImpl()).setDirectoryRepository(mock(SexualOrientationRepository.class));
-    }
+//    @Test
+//    void testSetDirectoryRepository() {
+//       
+//        (new SexualOrientationServiceImpl()).setDirectoryRepository(mock(SexualOrientationRepository.class));
+//    }
 
     @Test
     void testGetSexualOrientations() {

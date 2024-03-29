@@ -74,7 +74,7 @@ class FeedbackControllerTest {
 	private FeedbackController target;
 
 	@AfterEach()
-	public void afterTest() throws Exception {
+	 void afterTest() throws Exception {
 		if (autoCloseableMocks != null)
 			autoCloseableMocks.close();
 	}
@@ -577,45 +577,45 @@ class FeedbackControllerTest {
 
 	// Sapient generated method id: ${2be9fed3-10dc-39c2-a089-b7152fb2aba5}, hash:
 	// B813ADB01FC09B080073B2A6DF64E8C3
-	@Disabled()
-	@Test()
-	void getAllfeedbackWhenData2IsNotEmpty() {
-		/*
-		 * Branches:* (data2 != null) : true* (data2.size() > 0) : true*
-		 * (for-each(data2)) : true
-		 */
-		// Arrange Statement(s)
-		try (MockedStatic<OutputMapper> outputMapper = mockStatic(OutputMapper.class)) {
-			Gson gson = new Gson();
-			outputMapper.when(() -> OutputMapper.gsonWithoutExposeRestriction()).thenReturn(gson);
-			target = new FeedbackController();
-			autoCloseableMocks = MockitoAnnotations.openMocks(this);
-			Object object = new Object();
-			Object object2 = new Object();
-			Object object3 = new Object();
-			Object object4 = new Object();
-			Object object5 = new Object();
-			Object object6 = new Object();
-			Object object7 = new Object();
-			Object object8 = new Object();
-			Object object9 = new Object();
-			Object[] objectArray = new Object[] { object, object2, object3, object4, object5, object6, object7, object8,
-					object9 };
-			ArrayList<Object[]> objectList = new ArrayList<>();
-			objectList.add(objectArray);
-			doReturn(objectList).when(feedbackResponseServiceMock).getdataById(0L);
-			FeedbackResponse feedbackResponse = new FeedbackResponse();
-			feedbackResponse.setFeedbackID(0L);
-			// Act Statement(s)
-			String result = target.getAllfeedback(feedbackResponse);
-			// Assert statement(s)
-			assertAll("result", () -> {
-				assertThat(result, equalTo("result1"));
-				outputMapper.verify(() -> OutputMapper.gsonWithoutExposeRestriction(), atLeast(1));
-				verify(feedbackResponseServiceMock).getdataById(0L);
-			});
-		}
-	}
+	
+//	@Test()
+//	void getAllfeedbackWhenData2IsNotEmpty() {
+//		/*
+//		 * Branches:* (data2 != null) : true* (data2.size() > 0) : true*
+//		 * (for-each(data2)) : true
+//		 */
+//		// Arrange Statement(s)
+//		try (MockedStatic<OutputMapper> outputMapper = mockStatic(OutputMapper.class)) {
+//			Gson gson = new Gson();
+//			outputMapper.when(() -> OutputMapper.gsonWithoutExposeRestriction()).thenReturn(gson);
+//			target = new FeedbackController();
+//			autoCloseableMocks = MockitoAnnotations.openMocks(this);
+//			Object object = new Object();
+//			Object object2 = new Object();
+//			Object object3 = new Object();
+//			Object object4 = new Object();
+//			Object object5 = new Object();
+//			Object object6 = new Object();
+//			Object object7 = new Object();
+//			Object object8 = new Object();
+//			Object object9 = new Object();
+//			Object[] objectArray = new Object[] { object, object2, object3, object4, object5, object6, object7, object8,
+//					object9 };
+//			ArrayList<Object[]> objectList = new ArrayList<>();
+//			objectList.add(objectArray);
+//			doReturn(objectList).when(feedbackResponseServiceMock).getdataById(0L);
+//			FeedbackResponse feedbackResponse = new FeedbackResponse();
+//			feedbackResponse.setFeedbackID(0L);
+//			// Act Statement(s)
+//			String result = target.getAllfeedback(feedbackResponse);
+//			// Assert statement(s)
+//			assertAll("result", () -> {
+//				assertThat(result, equalTo("result1"));
+//				outputMapper.verify(() -> OutputMapper.gsonWithoutExposeRestriction(), atLeast(1));
+//				verify(feedbackResponseServiceMock).getdataById(0L);
+//			});
+//		}
+//	}
 
 	// Sapient generated method id: ${b55f32b0-6608-3b68-9b57-67d5998a0e5f}, hash:
 	// C3E626822CB5A1BE9415B1569B6BA882
@@ -1303,7 +1303,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void getFeedbackByPostExpTest() {
+	 void getFeedbackByPostExpTest() {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackServiceMock.getFeedbackRequests(any())).thenThrow(NotFoundException.class);
@@ -1313,7 +1313,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void createFeedbackExpTest() throws Exception {
+	 void createFeedbackExpTest() throws Exception {
 
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
@@ -1324,7 +1324,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void feedbacksListExpTest() {
+	 void feedbacksListExpTest() {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackServiceMock.getFeedbackRequests(any())).thenThrow(NotFoundException.class);
@@ -1334,7 +1334,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void updateFeedbackExpTest() throws Exception {
+	 void updateFeedbackExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackServiceMock.updateFeedback(any())).thenThrow(NotFoundException.class);
@@ -1344,7 +1344,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void updateFeedbackStatusExpTest() throws Exception {
+	 void updateFeedbackStatusExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackServiceMock.updateFeedbackStatus(any())).thenThrow(NotFoundException.class);
@@ -1354,7 +1354,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void searchFeedbackExpTest() throws Exception {
+	 void searchFeedbackExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackServiceMock.searchFeedback(any())).thenThrow(NotFoundException.class);
@@ -1364,7 +1364,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void searchFeedback1ExpTest() throws Exception {
+	 void searchFeedback1ExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackServiceMock.searchFeedback1(any())).thenThrow(NotFoundException.class);
@@ -1374,7 +1374,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void getAllFeedbackByIdExpTest() throws Exception {
+	 void getAllFeedbackByIdExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackRequestServiceMock.getAllFeedback(any())).thenThrow(NotFoundException.class);
@@ -1384,7 +1384,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void getFeedbackStatusTypesExpTest() throws Exception {
+	 void getFeedbackStatusTypesExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackServiceMock.getFeedbackStatus(any())).thenThrow(NotFoundException.class);
@@ -1394,7 +1394,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void getEmailStatusExpTest() throws Exception {
+	 void getEmailStatusExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackServiceMock.getEmailStatus(any())).thenThrow(NotFoundException.class);
@@ -1404,7 +1404,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void getFeedbackRequestByIdExpTest() throws Exception {
+	 void getFeedbackRequestByIdExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackRequestServiceMock.getAllFeedback(any())).thenThrow(NotFoundException.class);
@@ -1415,7 +1415,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void getFeedbackResponseByIdExpTest() throws Exception {
+	 void getFeedbackResponseByIdExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackRequestServiceMock.getAllFeedback(any())).thenThrow(NotFoundException.class);
@@ -1425,7 +1425,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void getFeedbacksListExpTest() throws Exception {
+	 void getFeedbacksListExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackServiceMock.getFeedbacksList(any(), any())).thenThrow(NotFoundException.class);
@@ -1435,7 +1435,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void updateResponseExpTest() throws Exception {
+	 void updateResponseExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackServiceMock.updateResponse(any())).thenThrow(NotFoundException.class);
@@ -1445,7 +1445,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void requestFeedbackExpTest() throws Exception {
+	 void requestFeedbackExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackServiceMock.createFeedbackRequest(any())).thenThrow(NotFoundException.class);
@@ -1456,7 +1456,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void getFeedbackSeverityExpTest() throws Exception {
+	 void getFeedbackSeverityExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackSeverityServiceMock.getActiveFeedbackSeverity(any()).toString())
@@ -1467,7 +1467,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void getFeedbackTypeExpTest() throws Exception {
+	 void getFeedbackTypeExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackTypeServiceMock.getActiveFeedbackTypes(any())).thenThrow(NotFoundException.class);
@@ -1477,7 +1477,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void getGrievancesByCreatedDateExpTest() throws Exception {
+	 void getGrievancesByCreatedDateExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackServiceMock.getGrievancesByCreatedDate(any(), any())).thenThrow(NotFoundException.class);
@@ -1487,17 +1487,19 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void getGrievancesByUpdatedDateExpTest() throws Exception {
+	 void getGrievancesByUpdatedDateExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackServiceMock.getGrievancesByUpdatedDate(any(), any())).thenThrow(NotFoundException.class);
 
 		String response = target.getGrievancesByUpdatedDate(any(), any());
-		assertEquals(response, target.getGrievancesByUpdatedDate(any(), any()));
+		
+		assertTrue(response.contains("error"));
+		//assertEquals(response, target.getGrievancesByUpdatedDate(any(), any()));
 	}
 
 	@Test()
-	public void createFeedbackRequestExpTest() throws Exception {
+	 void createFeedbackRequestExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackServiceMock.saveFeedbackRequest(any())).thenThrow(NotFoundException.class);
@@ -1507,7 +1509,7 @@ class FeedbackControllerTest {
 	}
 
 	@Test()
-	public void getFeedbackLogsExpTest() throws Exception {
+	 void getFeedbackLogsExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(feedbackServiceMock.saveFeedbackRequest(any())).thenThrow(NotFoundException.class);

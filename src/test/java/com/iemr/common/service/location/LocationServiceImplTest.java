@@ -59,7 +59,7 @@ class LocationServiceImplTest {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 	@Test
-	public void testGetStatesReturnsNonEmptyList() {
+	void testGetStatesReturnsNonEmptyList() {
 		// Setup
 		int testId = 1;
 		ArrayList<Object[]> mockResponse = new ArrayList<>();
@@ -75,7 +75,7 @@ class LocationServiceImplTest {
 	}
 
 	@Test
-	public void testGetStatesReturnsEmptyListForNoResults() {
+	void testGetStatesReturnsEmptyListForNoResults() {
 		// Setup
 		int testId = 2;
 		ArrayList<Object[]> mockResponse = new ArrayList<>();

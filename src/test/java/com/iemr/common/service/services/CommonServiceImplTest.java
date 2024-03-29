@@ -72,7 +72,7 @@ class CommonServiceImplTest {
 //	}
 
 	@Test
-	public void testGetCategoriesReturnsData() {
+	void testGetCategoriesReturnsData() {
 		// Local setup for this test case
 		List<CategoryDetails> localMockCategories = new ArrayList<>();
 		localMockCategories.add(new CategoryDetails(1, "Category 1"));
@@ -92,7 +92,7 @@ class CommonServiceImplTest {
 	}
 
 	@Test
-	public void testGetCategoriesReturnsEmptyList() {
+	void testGetCategoriesReturnsEmptyList() {
 		// Local setup for this test case with an empty list
 		List<CategoryDetails> localEmptyList = new ArrayList<>();
 
@@ -114,7 +114,7 @@ class CommonServiceImplTest {
 //	}
 	
 //	@Test
-//    public void testGetSubCategories() {
+//    void testGetSubCategories() {
 //        // Arrange
 //        String request = "{\"categoryID\":\"123\"}";
 //        SubCategoryDetails subCategoryDetails = new SubCategoryDetails();

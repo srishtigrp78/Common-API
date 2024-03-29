@@ -42,7 +42,7 @@ class SchemeServiceImplTest {
 //	}
 
 	@Test
-	public void testGetSchemeList() throws Exception {
+	void testGetSchemeList() throws Exception {
 		// Given
 		Integer providerServiceMapID = 1; // Example ID
 		List<Object[]> mockedResult = new ArrayList<>();
@@ -106,7 +106,7 @@ class SchemeServiceImplTest {
 //	}
 
 	@Test
-	public void testGetFilePath() {
+	void testGetFilePath() {
 		// Setup
 		KMFileManager kmFileManager = new KMFileManager();
 		kmFileManager.setFileUID("uniqueFileIdentifier");

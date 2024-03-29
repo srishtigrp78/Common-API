@@ -28,10 +28,10 @@ class GovtIdentityTypeServiceImplTest {
     @InjectMocks
     private GovtIdentityTypeServiceImpl govtIdentityTypeServiceImpl;
 
-    @Test
-    void testSetBeneficiaryOccupationRepository() {
-        (new GovtIdentityTypeServiceImpl()).setBeneficiaryOccupationRepository(mock(GovtIdentityTypeRepository.class));
-    }
+//    @Test
+//    void testSetBeneficiaryOccupationRepository() {
+//        (new GovtIdentityTypeServiceImpl()).setBeneficiaryOccupationRepository(mock(GovtIdentityTypeRepository.class));
+//    }
 
     @Test
     void testGetActiveIDTypes()  {

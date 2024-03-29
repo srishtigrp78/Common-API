@@ -17,12 +17,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class SnomedServiceImplTest {
-	@Test
-	void testSetSnomedRepository() {
-
-		// Arrange and Act
-		(new SnomedServiceImpl()).setSnomedRepository(mock(SnomedRepository.class));
-	}
+//	@Test
+//	void testSetSnomedRepository() {
+//
+//		// Arrange and Act
+//		(new SnomedServiceImpl()).setSnomedRepository(mock(SnomedRepository.class));
+//	}
 
 	@Test
 	void testFindSnomedCTRecordFromTerm() {
@@ -40,7 +40,7 @@ class SnomedServiceImplTest {
 		SCTDescription actualFindSnomedCTRecordFromTermResult = snomedServiceImpl.findSnomedCTRecordFromTerm("Term");
 
 		// Assert
-		verify(snomedRepository).findSnomedCTRecordFromTerm(eq("Term"));
+		verify(snomedRepository).findSnomedCTRecordFromTerm(("Term"));
 		assertNull(actualFindSnomedCTRecordFromTermResult);
 	}
 
@@ -62,7 +62,7 @@ class SnomedServiceImplTest {
 		SCTDescription actualFindSnomedCTRecordFromTermResult = snomedServiceImpl.findSnomedCTRecordFromTerm("Term");
 
 		// Assert
-		verify(snomedRepository).findSnomedCTRecordFromTerm(eq("Term"));
+		verify(snomedRepository).findSnomedCTRecordFromTerm(("Term"));
 		assertEquals("42", actualFindSnomedCTRecordFromTermResult.getConceptID());
 		assertEquals("42", actualFindSnomedCTRecordFromTermResult.getTerm());
 	}

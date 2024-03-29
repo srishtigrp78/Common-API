@@ -27,12 +27,12 @@ public class UserBeneficiaryDataServiceImplTest {
 	private UserBeneficiaryDataServiceImpl userBeneficiaryDataService;
 
 	@BeforeEach
-	public void setUp() {
+	 void setUp() {
 		MockitoAnnotations.openMocks(this);
 	}
 
 	@Test
-	public void getActiveGender_WhenFound() {
+	 void getActiveGender_WhenFound() {
 		// Arrange
 		Set<Object[]> mockResponse = new HashSet<>();
 		mockResponse.add(new Object[] { 1, "Male" });
@@ -49,7 +49,7 @@ public class UserBeneficiaryDataServiceImplTest {
 	}
 
 	@Test
-	public void getActiveGender_WhenNoneFound() {
+	 void getActiveGender_WhenNoneFound() {
 		// Arrange
 		Set<Object[]> mockResponse = new HashSet<>();
 		when(userBeneficiaryDataRepository.findActiveGenders()).thenReturn(mockResponse);

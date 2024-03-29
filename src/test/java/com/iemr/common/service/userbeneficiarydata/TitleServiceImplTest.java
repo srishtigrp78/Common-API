@@ -30,18 +30,6 @@ class TitleServiceImplTest {
 	void setUp() {
 		MockitoAnnotations.openMocks(this);
 	}
-	
-	@Test
-	void setTitleServiceImpl() {
-		// Arrange and Act
-		(new TitleServiceImpl()).setTitleServiceImpl(mock(TitleRepository.class));
-	}
-
-	@Test
-	void testSetTitleServiceImpl() {
-		// Arrange and Act
-		(new TitleServiceImpl()).setTitleServiceImpl(mock(TitleRepository.class));
-	}
 
 	@Test
 	void getActiveTitles_whenTitlesFound() {

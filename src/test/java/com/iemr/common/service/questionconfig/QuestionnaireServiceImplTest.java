@@ -28,7 +28,7 @@ class QuestionnaireServiceImplTest {
 	private QuestionnaireRepository questionnaireRepository;
 
 	@Test
-	public void testCreateQuestionnaire() throws IEMRException, com.iemr.common.utils.exception.IEMRException {
+	void testCreateQuestionnaire() throws IEMRException, com.iemr.common.utils.exception.IEMRException {
 		// Given
 		String jsonInput = "[{\"id\":1,\"name\":\"Survey 1\",\"description\":\"A sample survey.\"}]";
 		QuestionnaireDetail detail = new QuestionnaireDetail();

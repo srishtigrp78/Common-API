@@ -164,7 +164,7 @@ class IEMRAdminControllerTest {
 
 		// Assert
 		verify(m_User, atLeast(1)).getUserName();
-		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
+		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
 		assertEquals(
 				"{\"statusCode\":5002,\"errorMessage\":\"User not found, please contact administrator\",\"status\":\"User login"
 						+ " failed\"}",
@@ -298,7 +298,7 @@ class IEMRAdminControllerTest {
 
 		// Assert
 		verify(m_User, atLeast(1)).getUserName();
-		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
+		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
 	}
 
 	@Test
@@ -538,7 +538,7 @@ class IEMRAdminControllerTest {
 
 		// Assert
 		verify(m_User, atLeast(1)).getUserName();
-		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
+		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
 		assertEquals(
 				"{\"statusCode\":5002,\"errorMessage\":\"More than 1 user found, please contact administrator\",\"status\":\"User"
 						+ " login failed\"}",
@@ -713,24 +713,24 @@ class IEMRAdminControllerTest {
 
 		// Assert
 		verify(user).getUserName();
-		verify(user).setAadhaarNo(eq("Failed with generic error"));
-		verify(user).setAgentID(eq("Failed with generic error"));
-		verify(user).setAgentPassword(eq("iloveyou"));
-		verify(user).setCreatedBy(eq("Jan 1, 2020 8:00am GMT+0100"));
+		verify(user).setAadhaarNo(("Failed with generic error"));
+		verify(user).setAgentID(("Failed with generic error"));
+		verify(user).setAgentPassword(("iloveyou"));
+		verify(user).setCreatedBy(("Jan 1, 2020 8:00am GMT+0100"));
 		verify(user).setCreatedDate(Mockito.<Timestamp>any());
 		verify(user).setDeleted(Mockito.<Boolean>any());
 		verify(user).setDesignation(Mockito.<Designation>any());
 		verify(user).setDesignationID(Mockito.<Integer>any());
-		verify(user).setEmailID(eq("jane.doe@example.org"));
-		verify(user).setEmergencyContactNo(eq("Failed with generic error"));
-		verify(user).setEmergencyContactPerson(eq("Failed with generic error"));
+		verify(user).setEmailID(("jane.doe@example.org"));
+		verify(user).setEmergencyContactNo(("Failed with generic error"));
+		verify(user).setEmergencyContactPerson(("Failed with generic error"));
 		verify(user).setFailedAttempt(Mockito.<Integer>any());
 		verify(user).setFeedbackDetails(Mockito.<Set<FeedbackDetails>>any());
-		verify(user).setFirstName(eq("Jane"));
+		verify(user).setFirstName(("Jane"));
 		verify(user).setGenderID(Mockito.<Integer>any());
 		verify(user).setIsSupervisor(Mockito.<Boolean>any());
 		verify(user).setLastModDate(Mockito.<Timestamp>any());
-		verify(user).setLastName(eq("Doe"));
+		verify(user).setLastName(("Doe"));
 		verify(user).setM_UserLangMappings(Mockito.<Set<UserLangMapping>>any());
 		verify(user).setM_UserServiceRoleMapping(Mockito.<List<UserServiceRoleMapping>>any());
 		verify(user).setM_gender(Mockito.<Gender>any());
@@ -738,23 +738,23 @@ class IEMRAdminControllerTest {
 		verify(user).setM_status(Mockito.<Status>any());
 		verify(user).setM_title(Mockito.<Title>any());
 		verify(user).setMaritalStatusID(Mockito.<Integer>any());
-		verify(user).setMiddleName(eq("Failed with generic error"));
-		verify(user).setModifiedBy(eq("Jan 1, 2020 9:00am GMT+0100"));
-		verify(user).setNewPassword(eq("iloveyou"));
+		verify(user).setMiddleName(("Failed with generic error"));
+		verify(user).setModifiedBy(("Jan 1, 2020 9:00am GMT+0100"));
+		verify(user).setNewPassword(("iloveyou"));
 		verify(user).setOutPutMapper(Mockito.<OutputMapper>any());
 		verify(user).setOutboundCallRequests(Mockito.<Set<OutboundCallRequest>>any());
-		verify(user).setPassword(eq("iloveyou"));
+		verify(user).setPassword(("iloveyou"));
 		verify(user).setQualificationID(Mockito.<Integer>any());
 		verify(user).setRoleMappings(Mockito.<Set<UserServiceRoleMapping>>any());
 		verify(user).setStatusID(Mockito.<Integer>any());
 		verify(user).setTitleID(Mockito.<Integer>any());
 		verify(user).setUserID(Mockito.<Long>any());
-		verify(user).setUserName(eq("janedoe"));
+		verify(user).setUserName(("janedoe"));
 		verify(user).setdOB(Mockito.<Timestamp>any());
 		verify(user).setdOJ(Mockito.<Timestamp>any());
-		verify(user).setpAN(eq("Failed with generic error"));
+		verify(user).setpAN(("Failed with generic error"));
 		verify(m_User, atLeast(1)).getUserName();
-		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
+		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
 	}
 
 	@Test
@@ -929,24 +929,24 @@ class IEMRAdminControllerTest {
 
 		// Assert
 		verify(user).getUserName();
-		verify(user).setAadhaarNo(eq("Failed with generic error"));
-		verify(user).setAgentID(eq("Failed with generic error"));
-		verify(user).setAgentPassword(eq("iloveyou"));
-		verify(user).setCreatedBy(eq("Jan 1, 2020 8:00am GMT+0100"));
+		verify(user).setAadhaarNo(("Failed with generic error"));
+		verify(user).setAgentID(("Failed with generic error"));
+		verify(user).setAgentPassword(("iloveyou"));
+		verify(user).setCreatedBy(("Jan 1, 2020 8:00am GMT+0100"));
 		verify(user).setCreatedDate(Mockito.<Timestamp>any());
 		verify(user).setDeleted(Mockito.<Boolean>any());
 		verify(user).setDesignation(Mockito.<Designation>any());
 		verify(user).setDesignationID(Mockito.<Integer>any());
-		verify(user).setEmailID(eq("jane.doe@example.org"));
-		verify(user).setEmergencyContactNo(eq("Failed with generic error"));
-		verify(user).setEmergencyContactPerson(eq("Failed with generic error"));
+		verify(user).setEmailID(("jane.doe@example.org"));
+		verify(user).setEmergencyContactNo(("Failed with generic error"));
+		verify(user).setEmergencyContactPerson(("Failed with generic error"));
 		verify(user).setFailedAttempt(Mockito.<Integer>any());
 		verify(user).setFeedbackDetails(Mockito.<Set<FeedbackDetails>>any());
-		verify(user).setFirstName(eq("Jane"));
+		verify(user).setFirstName(("Jane"));
 		verify(user).setGenderID(Mockito.<Integer>any());
 		verify(user).setIsSupervisor(Mockito.<Boolean>any());
 		verify(user).setLastModDate(Mockito.<Timestamp>any());
-		verify(user).setLastName(eq("Doe"));
+		verify(user).setLastName(("Doe"));
 		verify(user).setM_UserLangMappings(Mockito.<Set<UserLangMapping>>any());
 		verify(user).setM_UserServiceRoleMapping(Mockito.<List<UserServiceRoleMapping>>any());
 		verify(user).setM_gender(Mockito.<Gender>any());
@@ -954,24 +954,24 @@ class IEMRAdminControllerTest {
 		verify(user).setM_status(Mockito.<Status>any());
 		verify(user).setM_title(Mockito.<Title>any());
 		verify(user).setMaritalStatusID(Mockito.<Integer>any());
-		verify(user).setMiddleName(eq("Failed with generic error"));
-		verify(user).setModifiedBy(eq("Jan 1, 2020 9:00am GMT+0100"));
-		verify(user).setNewPassword(eq("iloveyou"));
+		verify(user).setMiddleName(("Failed with generic error"));
+		verify(user).setModifiedBy(("Jan 1, 2020 9:00am GMT+0100"));
+		verify(user).setNewPassword(("iloveyou"));
 		verify(user).setOutPutMapper(Mockito.<OutputMapper>any());
 		verify(user).setOutboundCallRequests(Mockito.<Set<OutboundCallRequest>>any());
-		verify(user).setPassword(eq("iloveyou"));
+		verify(user).setPassword(("iloveyou"));
 		verify(user).setQualificationID(Mockito.<Integer>any());
 		verify(user).setRoleMappings(Mockito.<Set<UserServiceRoleMapping>>any());
 		verify(user).setStatusID(Mockito.<Integer>any());
 		verify(user).setTitleID(Mockito.<Integer>any());
 		verify(user).setUserID(Mockito.<Long>any());
-		verify(user).setUserName(eq("janedoe"));
+		verify(user).setUserName(("janedoe"));
 		verify(user).setdOB(Mockito.<Timestamp>any());
 		verify(user).setdOJ(Mockito.<Timestamp>any());
-		verify(user).setpAN(eq("Failed with generic error"));
+		verify(user).setpAN(("Failed with generic error"));
 		verify(m_User, atLeast(1)).getUserName();
-		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
-		verify(sessionObject).deleteSessionObject(eq("Session Object"));
+		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
+		verify(sessionObject).deleteSessionObject(("Session Object"));
 		verify(sessionObject, atLeast(1)).getSessionObject(Mockito.<String>any());
 		assertEquals(
 				"{\"data\":{\"response\":\"User successfully logged out\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status"
@@ -1151,24 +1151,24 @@ class IEMRAdminControllerTest {
 
 		// Assert
 		verify(user).getUserName();
-		verify(user).setAadhaarNo(eq("Failed with generic error"));
-		verify(user).setAgentID(eq("Failed with generic error"));
-		verify(user).setAgentPassword(eq("iloveyou"));
-		verify(user).setCreatedBy(eq("Jan 1, 2020 8:00am GMT+0100"));
+		verify(user).setAadhaarNo(("Failed with generic error"));
+		verify(user).setAgentID(("Failed with generic error"));
+		verify(user).setAgentPassword(("iloveyou"));
+		verify(user).setCreatedBy(("Jan 1, 2020 8:00am GMT+0100"));
 		verify(user).setCreatedDate(Mockito.<Timestamp>any());
 		verify(user).setDeleted(Mockito.<Boolean>any());
 		verify(user).setDesignation(Mockito.<Designation>any());
 		verify(user).setDesignationID(Mockito.<Integer>any());
-		verify(user).setEmailID(eq("jane.doe@example.org"));
-		verify(user).setEmergencyContactNo(eq("Failed with generic error"));
-		verify(user).setEmergencyContactPerson(eq("Failed with generic error"));
+		verify(user).setEmailID(("jane.doe@example.org"));
+		verify(user).setEmergencyContactNo(("Failed with generic error"));
+		verify(user).setEmergencyContactPerson(("Failed with generic error"));
 		verify(user).setFailedAttempt(Mockito.<Integer>any());
 		verify(user).setFeedbackDetails(Mockito.<Set<FeedbackDetails>>any());
-		verify(user).setFirstName(eq("Jane"));
+		verify(user).setFirstName(("Jane"));
 		verify(user).setGenderID(Mockito.<Integer>any());
 		verify(user).setIsSupervisor(Mockito.<Boolean>any());
 		verify(user).setLastModDate(Mockito.<Timestamp>any());
-		verify(user).setLastName(eq("Doe"));
+		verify(user).setLastName(("Doe"));
 		verify(user).setM_UserLangMappings(Mockito.<Set<UserLangMapping>>any());
 		verify(user).setM_UserServiceRoleMapping(Mockito.<List<UserServiceRoleMapping>>any());
 		verify(user).setM_gender(Mockito.<Gender>any());
@@ -1176,24 +1176,24 @@ class IEMRAdminControllerTest {
 		verify(user).setM_status(Mockito.<Status>any());
 		verify(user).setM_title(Mockito.<Title>any());
 		verify(user).setMaritalStatusID(Mockito.<Integer>any());
-		verify(user).setMiddleName(eq("Failed with generic error"));
-		verify(user).setModifiedBy(eq("Jan 1, 2020 9:00am GMT+0100"));
-		verify(user).setNewPassword(eq("iloveyou"));
+		verify(user).setMiddleName(("Failed with generic error"));
+		verify(user).setModifiedBy(("Jan 1, 2020 9:00am GMT+0100"));
+		verify(user).setNewPassword(("iloveyou"));
 		verify(user).setOutPutMapper(Mockito.<OutputMapper>any());
 		verify(user).setOutboundCallRequests(Mockito.<Set<OutboundCallRequest>>any());
-		verify(user).setPassword(eq("iloveyou"));
+		verify(user).setPassword(("iloveyou"));
 		verify(user).setQualificationID(Mockito.<Integer>any());
 		verify(user).setRoleMappings(Mockito.<Set<UserServiceRoleMapping>>any());
 		verify(user).setStatusID(Mockito.<Integer>any());
 		verify(user).setTitleID(Mockito.<Integer>any());
 		verify(user).setUserID(Mockito.<Long>any());
-		verify(user).setUserName(eq("janedoe"));
+		verify(user).setUserName(("janedoe"));
 		verify(user).setdOB(Mockito.<Timestamp>any());
 		verify(user).setdOJ(Mockito.<Timestamp>any());
-		verify(user).setpAN(eq("Failed with generic error"));
+		verify(user).setpAN(("Failed with generic error"));
 		verify(m_User, atLeast(1)).getUserName();
-		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
-		verify(sessionObject).deleteSessionObject(eq("Failed with generic error"));
+		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
+		verify(sessionObject).deleteSessionObject(("Failed with generic error"));
 		verify(sessionObject, atLeast(1)).getSessionObject(Mockito.<String>any());
 		assertEquals(
 				"{\"data\":{\"response\":\"User successfully logged out\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status"
@@ -1375,24 +1375,24 @@ class IEMRAdminControllerTest {
 
 		// Assert
 		verify(user).getUserName();
-		verify(user).setAadhaarNo(eq("Failed with generic error"));
-		verify(user).setAgentID(eq("Failed with generic error"));
-		verify(user).setAgentPassword(eq("iloveyou"));
-		verify(user).setCreatedBy(eq("Jan 1, 2020 8:00am GMT+0100"));
+		verify(user).setAadhaarNo(("Failed with generic error"));
+		verify(user).setAgentID(("Failed with generic error"));
+		verify(user).setAgentPassword(("iloveyou"));
+		verify(user).setCreatedBy(("Jan 1, 2020 8:00am GMT+0100"));
 		verify(user).setCreatedDate(Mockito.<Timestamp>any());
 		verify(user).setDeleted(Mockito.<Boolean>any());
 		verify(user).setDesignation(Mockito.<Designation>any());
 		verify(user).setDesignationID(Mockito.<Integer>any());
-		verify(user).setEmailID(eq("jane.doe@example.org"));
-		verify(user).setEmergencyContactNo(eq("Failed with generic error"));
-		verify(user).setEmergencyContactPerson(eq("Failed with generic error"));
+		verify(user).setEmailID(("jane.doe@example.org"));
+		verify(user).setEmergencyContactNo(("Failed with generic error"));
+		verify(user).setEmergencyContactPerson(("Failed with generic error"));
 		verify(user).setFailedAttempt(Mockito.<Integer>any());
 		verify(user).setFeedbackDetails(Mockito.<Set<FeedbackDetails>>any());
-		verify(user).setFirstName(eq("Jane"));
+		verify(user).setFirstName(("Jane"));
 		verify(user).setGenderID(Mockito.<Integer>any());
 		verify(user).setIsSupervisor(Mockito.<Boolean>any());
 		verify(user).setLastModDate(Mockito.<Timestamp>any());
-		verify(user).setLastName(eq("Doe"));
+		verify(user).setLastName(("Doe"));
 		verify(user).setM_UserLangMappings(Mockito.<Set<UserLangMapping>>any());
 		verify(user).setM_UserServiceRoleMapping(Mockito.<List<UserServiceRoleMapping>>any());
 		verify(user).setM_gender(Mockito.<Gender>any());
@@ -1400,24 +1400,24 @@ class IEMRAdminControllerTest {
 		verify(user).setM_status(Mockito.<Status>any());
 		verify(user).setM_title(Mockito.<Title>any());
 		verify(user).setMaritalStatusID(Mockito.<Integer>any());
-		verify(user).setMiddleName(eq("Failed with generic error"));
-		verify(user).setModifiedBy(eq("Jan 1, 2020 9:00am GMT+0100"));
-		verify(user).setNewPassword(eq("iloveyou"));
+		verify(user).setMiddleName(("Failed with generic error"));
+		verify(user).setModifiedBy(("Jan 1, 2020 9:00am GMT+0100"));
+		verify(user).setNewPassword(("iloveyou"));
 		verify(user).setOutPutMapper(Mockito.<OutputMapper>any());
 		verify(user).setOutboundCallRequests(Mockito.<Set<OutboundCallRequest>>any());
-		verify(user).setPassword(eq("iloveyou"));
+		verify(user).setPassword(("iloveyou"));
 		verify(user).setQualificationID(Mockito.<Integer>any());
 		verify(user).setRoleMappings(Mockito.<Set<UserServiceRoleMapping>>any());
 		verify(user).setStatusID(Mockito.<Integer>any());
 		verify(user).setTitleID(Mockito.<Integer>any());
 		verify(user).setUserID(Mockito.<Long>any());
-		verify(user).setUserName(eq("janedoe"));
+		verify(user).setUserName(("janedoe"));
 		verify(user).setdOB(Mockito.<Timestamp>any());
 		verify(user).setdOJ(Mockito.<Timestamp>any());
-		verify(user).setpAN(eq("Failed with generic error"));
+		verify(user).setpAN(("Failed with generic error"));
 		verify(m_User, atLeast(1)).getUserName();
-		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
-		verify(sessionObject).deleteSessionObject(eq("FAILURE"));
+		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
+		verify(sessionObject).deleteSessionObject(("FAILURE"));
 		verify(sessionObject, atLeast(1)).getSessionObject(Mockito.<String>any());
 		assertEquals(
 				"{\"data\":{\"response\":\"User successfully logged out\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status"
@@ -1599,24 +1599,24 @@ class IEMRAdminControllerTest {
 
 		// Assert
 		verify(user).getUserName();
-		verify(user).setAadhaarNo(eq("Failed with generic error"));
-		verify(user).setAgentID(eq("Failed with generic error"));
-		verify(user).setAgentPassword(eq("iloveyou"));
-		verify(user).setCreatedBy(eq("Jan 1, 2020 8:00am GMT+0100"));
+		verify(user).setAadhaarNo(("Failed with generic error"));
+		verify(user).setAgentID(("Failed with generic error"));
+		verify(user).setAgentPassword(("iloveyou"));
+		verify(user).setCreatedBy(("Jan 1, 2020 8:00am GMT+0100"));
 		verify(user).setCreatedDate(Mockito.<Timestamp>any());
 		verify(user).setDeleted(Mockito.<Boolean>any());
 		verify(user).setDesignation(Mockito.<Designation>any());
 		verify(user).setDesignationID(Mockito.<Integer>any());
-		verify(user).setEmailID(eq("jane.doe@example.org"));
-		verify(user).setEmergencyContactNo(eq("Failed with generic error"));
-		verify(user).setEmergencyContactPerson(eq("Failed with generic error"));
+		verify(user).setEmailID(("jane.doe@example.org"));
+		verify(user).setEmergencyContactNo(("Failed with generic error"));
+		verify(user).setEmergencyContactPerson(("Failed with generic error"));
 		verify(user).setFailedAttempt(Mockito.<Integer>any());
 		verify(user).setFeedbackDetails(Mockito.<Set<FeedbackDetails>>any());
-		verify(user).setFirstName(eq("Jane"));
+		verify(user).setFirstName(("Jane"));
 		verify(user).setGenderID(Mockito.<Integer>any());
 		verify(user).setIsSupervisor(Mockito.<Boolean>any());
 		verify(user).setLastModDate(Mockito.<Timestamp>any());
-		verify(user).setLastName(eq("Doe"));
+		verify(user).setLastName(("Doe"));
 		verify(user).setM_UserLangMappings(Mockito.<Set<UserLangMapping>>any());
 		verify(user).setM_UserServiceRoleMapping(Mockito.<List<UserServiceRoleMapping>>any());
 		verify(user).setM_gender(Mockito.<Gender>any());
@@ -1624,24 +1624,24 @@ class IEMRAdminControllerTest {
 		verify(user).setM_status(Mockito.<Status>any());
 		verify(user).setM_title(Mockito.<Title>any());
 		verify(user).setMaritalStatusID(Mockito.<Integer>any());
-		verify(user).setMiddleName(eq("Failed with generic error"));
-		verify(user).setModifiedBy(eq("Jan 1, 2020 9:00am GMT+0100"));
-		verify(user).setNewPassword(eq("iloveyou"));
+		verify(user).setMiddleName(("Failed with generic error"));
+		verify(user).setModifiedBy(("Jan 1, 2020 9:00am GMT+0100"));
+		verify(user).setNewPassword(("iloveyou"));
 		verify(user).setOutPutMapper(Mockito.<OutputMapper>any());
 		verify(user).setOutboundCallRequests(Mockito.<Set<OutboundCallRequest>>any());
-		verify(user).setPassword(eq("iloveyou"));
+		verify(user).setPassword(("iloveyou"));
 		verify(user).setQualificationID(Mockito.<Integer>any());
 		verify(user).setRoleMappings(Mockito.<Set<UserServiceRoleMapping>>any());
 		verify(user).setStatusID(Mockito.<Integer>any());
 		verify(user).setTitleID(Mockito.<Integer>any());
 		verify(user).setUserID(Mockito.<Long>any());
-		verify(user).setUserName(eq("janedoe"));
+		verify(user).setUserName(("janedoe"));
 		verify(user).setdOB(Mockito.<Timestamp>any());
 		verify(user).setdOJ(Mockito.<Timestamp>any());
-		verify(user).setpAN(eq("Failed with generic error"));
+		verify(user).setpAN(("Failed with generic error"));
 		verify(m_User, atLeast(1)).getUserName();
-		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
-		verify(sessionObject).deleteSessionObject(eq("{\"response\":\"$$STRING\"}"));
+		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
+		verify(sessionObject).deleteSessionObject(("{\"response\":\"$$STRING\"}"));
 		verify(sessionObject, atLeast(1)).getSessionObject(Mockito.<String>any());
 		assertEquals(
 				"{\"data\":{\"response\":\"User successfully logged out\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status"
@@ -1823,24 +1823,24 @@ class IEMRAdminControllerTest {
 
 		// Assert
 		verify(user).getUserName();
-		verify(user).setAadhaarNo(eq("Failed with generic error"));
-		verify(user).setAgentID(eq("Failed with generic error"));
-		verify(user).setAgentPassword(eq("iloveyou"));
-		verify(user).setCreatedBy(eq("Jan 1, 2020 8:00am GMT+0100"));
+		verify(user).setAadhaarNo(("Failed with generic error"));
+		verify(user).setAgentID(("Failed with generic error"));
+		verify(user).setAgentPassword(("iloveyou"));
+		verify(user).setCreatedBy(("Jan 1, 2020 8:00am GMT+0100"));
 		verify(user).setCreatedDate(Mockito.<Timestamp>any());
 		verify(user).setDeleted(Mockito.<Boolean>any());
 		verify(user).setDesignation(Mockito.<Designation>any());
 		verify(user).setDesignationID(Mockito.<Integer>any());
-		verify(user).setEmailID(eq("jane.doe@example.org"));
-		verify(user).setEmergencyContactNo(eq("Failed with generic error"));
-		verify(user).setEmergencyContactPerson(eq("Failed with generic error"));
+		verify(user).setEmailID(("jane.doe@example.org"));
+		verify(user).setEmergencyContactNo(("Failed with generic error"));
+		verify(user).setEmergencyContactPerson(("Failed with generic error"));
 		verify(user).setFailedAttempt(Mockito.<Integer>any());
 		verify(user).setFeedbackDetails(Mockito.<Set<FeedbackDetails>>any());
-		verify(user).setFirstName(eq("Jane"));
+		verify(user).setFirstName(("Jane"));
 		verify(user).setGenderID(Mockito.<Integer>any());
 		verify(user).setIsSupervisor(Mockito.<Boolean>any());
 		verify(user).setLastModDate(Mockito.<Timestamp>any());
-		verify(user).setLastName(eq("Doe"));
+		verify(user).setLastName(("Doe"));
 		verify(user).setM_UserLangMappings(Mockito.<Set<UserLangMapping>>any());
 		verify(user).setM_UserServiceRoleMapping(Mockito.<List<UserServiceRoleMapping>>any());
 		verify(user).setM_gender(Mockito.<Gender>any());
@@ -1848,24 +1848,24 @@ class IEMRAdminControllerTest {
 		verify(user).setM_status(Mockito.<Status>any());
 		verify(user).setM_title(Mockito.<Title>any());
 		verify(user).setMaritalStatusID(Mockito.<Integer>any());
-		verify(user).setMiddleName(eq("Failed with generic error"));
-		verify(user).setModifiedBy(eq("Jan 1, 2020 9:00am GMT+0100"));
-		verify(user).setNewPassword(eq("iloveyou"));
+		verify(user).setMiddleName(("Failed with generic error"));
+		verify(user).setModifiedBy(("Jan 1, 2020 9:00am GMT+0100"));
+		verify(user).setNewPassword(("iloveyou"));
 		verify(user).setOutPutMapper(Mockito.<OutputMapper>any());
 		verify(user).setOutboundCallRequests(Mockito.<Set<OutboundCallRequest>>any());
-		verify(user).setPassword(eq("iloveyou"));
+		verify(user).setPassword(("iloveyou"));
 		verify(user).setQualificationID(Mockito.<Integer>any());
 		verify(user).setRoleMappings(Mockito.<Set<UserServiceRoleMapping>>any());
 		verify(user).setStatusID(Mockito.<Integer>any());
 		verify(user).setTitleID(Mockito.<Integer>any());
 		verify(user).setUserID(Mockito.<Long>any());
-		verify(user).setUserName(eq("janedoe"));
+		verify(user).setUserName(("janedoe"));
 		verify(user).setdOB(Mockito.<Timestamp>any());
 		verify(user).setdOJ(Mockito.<Timestamp>any());
-		verify(user).setpAN(eq("Failed with generic error"));
+		verify(user).setpAN(("Failed with generic error"));
 		verify(m_User, atLeast(1)).getUserName();
-		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
-		verify(sessionObject).deleteSessionObject(eq("$$STRING"));
+		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
+		verify(sessionObject).deleteSessionObject(("$$STRING"));
 		verify(sessionObject, atLeast(1)).getSessionObject(Mockito.<String>any());
 		assertEquals(
 				"{\"data\":{\"response\":\"User successfully logged out\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status"
@@ -2047,24 +2047,24 @@ class IEMRAdminControllerTest {
 
 		// Assert
 		verify(user).getUserName();
-		verify(user).setAadhaarNo(eq("Failed with generic error"));
-		verify(user).setAgentID(eq("Failed with generic error"));
-		verify(user).setAgentPassword(eq("iloveyou"));
-		verify(user).setCreatedBy(eq("Jan 1, 2020 8:00am GMT+0100"));
+		verify(user).setAadhaarNo(("Failed with generic error"));
+		verify(user).setAgentID(("Failed with generic error"));
+		verify(user).setAgentPassword(("iloveyou"));
+		verify(user).setCreatedBy(("Jan 1, 2020 8:00am GMT+0100"));
 		verify(user).setCreatedDate(Mockito.<Timestamp>any());
 		verify(user).setDeleted(Mockito.<Boolean>any());
 		verify(user).setDesignation(Mockito.<Designation>any());
 		verify(user).setDesignationID(Mockito.<Integer>any());
-		verify(user).setEmailID(eq("jane.doe@example.org"));
-		verify(user).setEmergencyContactNo(eq("Failed with generic error"));
-		verify(user).setEmergencyContactPerson(eq("Failed with generic error"));
+		verify(user).setEmailID(("jane.doe@example.org"));
+		verify(user).setEmergencyContactNo(("Failed with generic error"));
+		verify(user).setEmergencyContactPerson(("Failed with generic error"));
 		verify(user).setFailedAttempt(Mockito.<Integer>any());
 		verify(user).setFeedbackDetails(Mockito.<Set<FeedbackDetails>>any());
-		verify(user).setFirstName(eq("Jane"));
+		verify(user).setFirstName(("Jane"));
 		verify(user).setGenderID(Mockito.<Integer>any());
 		verify(user).setIsSupervisor(Mockito.<Boolean>any());
 		verify(user).setLastModDate(Mockito.<Timestamp>any());
-		verify(user).setLastName(eq("Doe"));
+		verify(user).setLastName(("Doe"));
 		verify(user).setM_UserLangMappings(Mockito.<Set<UserLangMapping>>any());
 		verify(user).setM_UserServiceRoleMapping(Mockito.<List<UserServiceRoleMapping>>any());
 		verify(user).setM_gender(Mockito.<Gender>any());
@@ -2072,24 +2072,24 @@ class IEMRAdminControllerTest {
 		verify(user).setM_status(Mockito.<Status>any());
 		verify(user).setM_title(Mockito.<Title>any());
 		verify(user).setMaritalStatusID(Mockito.<Integer>any());
-		verify(user).setMiddleName(eq("Failed with generic error"));
-		verify(user).setModifiedBy(eq("Jan 1, 2020 9:00am GMT+0100"));
-		verify(user).setNewPassword(eq("iloveyou"));
+		verify(user).setMiddleName(("Failed with generic error"));
+		verify(user).setModifiedBy(("Jan 1, 2020 9:00am GMT+0100"));
+		verify(user).setNewPassword(("iloveyou"));
 		verify(user).setOutPutMapper(Mockito.<OutputMapper>any());
 		verify(user).setOutboundCallRequests(Mockito.<Set<OutboundCallRequest>>any());
-		verify(user).setPassword(eq("iloveyou"));
+		verify(user).setPassword(("iloveyou"));
 		verify(user).setQualificationID(Mockito.<Integer>any());
 		verify(user).setRoleMappings(Mockito.<Set<UserServiceRoleMapping>>any());
 		verify(user).setStatusID(Mockito.<Integer>any());
 		verify(user).setTitleID(Mockito.<Integer>any());
 		verify(user).setUserID(Mockito.<Long>any());
-		verify(user).setUserName(eq("janedoe"));
+		verify(user).setUserName(("janedoe"));
 		verify(user).setdOB(Mockito.<Timestamp>any());
 		verify(user).setdOJ(Mockito.<Timestamp>any());
-		verify(user).setpAN(eq("Failed with generic error"));
+		verify(user).setpAN(("Failed with generic error"));
 		verify(m_User, atLeast(1)).getUserName();
-		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
-		verify(sessionObject).deleteSessionObject(eq("foo"));
+		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
+		verify(sessionObject).deleteSessionObject(("foo"));
 		verify(sessionObject, atLeast(1)).getSessionObject(Mockito.<String>any());
 		assertEquals(
 				"{\"data\":{\"response\":\"User successfully logged out\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status"
@@ -2270,24 +2270,24 @@ class IEMRAdminControllerTest {
 
 		// Assert
 		verify(user).getUserName();
-		verify(user).setAadhaarNo(eq("Failed with generic error"));
-		verify(user).setAgentID(eq("Failed with generic error"));
-		verify(user).setAgentPassword(eq("iloveyou"));
-		verify(user).setCreatedBy(eq("Jan 1, 2020 8:00am GMT+0100"));
+		verify(user).setAadhaarNo(("Failed with generic error"));
+		verify(user).setAgentID(("Failed with generic error"));
+		verify(user).setAgentPassword(("iloveyou"));
+		verify(user).setCreatedBy(("Jan 1, 2020 8:00am GMT+0100"));
 		verify(user).setCreatedDate(Mockito.<Timestamp>any());
 		verify(user).setDeleted(Mockito.<Boolean>any());
 		verify(user).setDesignation(Mockito.<Designation>any());
 		verify(user).setDesignationID(Mockito.<Integer>any());
-		verify(user).setEmailID(eq("jane.doe@example.org"));
-		verify(user).setEmergencyContactNo(eq("Failed with generic error"));
-		verify(user).setEmergencyContactPerson(eq("Failed with generic error"));
+		verify(user).setEmailID(("jane.doe@example.org"));
+		verify(user).setEmergencyContactNo(("Failed with generic error"));
+		verify(user).setEmergencyContactPerson(("Failed with generic error"));
 		verify(user).setFailedAttempt(Mockito.<Integer>any());
 		verify(user).setFeedbackDetails(Mockito.<Set<FeedbackDetails>>any());
-		verify(user).setFirstName(eq("Jane"));
+		verify(user).setFirstName(("Jane"));
 		verify(user).setGenderID(Mockito.<Integer>any());
 		verify(user).setIsSupervisor(Mockito.<Boolean>any());
 		verify(user).setLastModDate(Mockito.<Timestamp>any());
-		verify(user).setLastName(eq("Doe"));
+		verify(user).setLastName(("Doe"));
 		verify(user).setM_UserLangMappings(Mockito.<Set<UserLangMapping>>any());
 		verify(user).setM_UserServiceRoleMapping(Mockito.<List<UserServiceRoleMapping>>any());
 		verify(user).setM_gender(Mockito.<Gender>any());
@@ -2295,24 +2295,24 @@ class IEMRAdminControllerTest {
 		verify(user).setM_status(Mockito.<Status>any());
 		verify(user).setM_title(Mockito.<Title>any());
 		verify(user).setMaritalStatusID(Mockito.<Integer>any());
-		verify(user).setMiddleName(eq("Failed with generic error"));
-		verify(user).setModifiedBy(eq("Jan 1, 2020 9:00am GMT+0100"));
-		verify(user).setNewPassword(eq("iloveyou"));
+		verify(user).setMiddleName(("Failed with generic error"));
+		verify(user).setModifiedBy(("Jan 1, 2020 9:00am GMT+0100"));
+		verify(user).setNewPassword(("iloveyou"));
 		verify(user).setOutPutMapper(Mockito.<OutputMapper>any());
 		verify(user).setOutboundCallRequests(Mockito.<Set<OutboundCallRequest>>any());
-		verify(user).setPassword(eq("iloveyou"));
+		verify(user).setPassword(("iloveyou"));
 		verify(user).setQualificationID(Mockito.<Integer>any());
 		verify(user).setRoleMappings(Mockito.<Set<UserServiceRoleMapping>>any());
 		verify(user).setStatusID(Mockito.<Integer>any());
 		verify(user).setTitleID(Mockito.<Integer>any());
 		verify(user).setUserID(Mockito.<Long>any());
-		verify(user).setUserName(eq("janedoe"));
+		verify(user).setUserName(("janedoe"));
 		verify(user).setdOB(Mockito.<Timestamp>any());
 		verify(user).setdOJ(Mockito.<Timestamp>any());
-		verify(user).setpAN(eq("Failed with generic error"));
+		verify(user).setpAN(("Failed with generic error"));
 		verify(m_User, atLeast(1)).getUserName();
-		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
-		verify(sessionObject).getSessionObject(eq("janedoe"));
+		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
+		verify(sessionObject).getSessionObject(("janedoe"));
 		assertEquals(
 				"{\"statusCode\":5002,\"errorMessage\":\"Unable to fetch session from redis\",\"status\":\"User login failed\"}",
 				actualLogOutUserFromConcurrentSessionResult);
@@ -2492,24 +2492,24 @@ class IEMRAdminControllerTest {
 
 		// Assert
 		verify(user).getUserName();
-		verify(user).setAadhaarNo(eq("Failed with generic error"));
-		verify(user).setAgentID(eq("Failed with generic error"));
-		verify(user).setAgentPassword(eq("iloveyou"));
-		verify(user).setCreatedBy(eq("Jan 1, 2020 8:00am GMT+0100"));
+		verify(user).setAadhaarNo(("Failed with generic error"));
+		verify(user).setAgentID(("Failed with generic error"));
+		verify(user).setAgentPassword(("iloveyou"));
+		verify(user).setCreatedBy(("Jan 1, 2020 8:00am GMT+0100"));
 		verify(user).setCreatedDate(Mockito.<Timestamp>any());
 		verify(user).setDeleted(Mockito.<Boolean>any());
 		verify(user).setDesignation(Mockito.<Designation>any());
 		verify(user).setDesignationID(Mockito.<Integer>any());
-		verify(user).setEmailID(eq("jane.doe@example.org"));
-		verify(user).setEmergencyContactNo(eq("Failed with generic error"));
-		verify(user).setEmergencyContactPerson(eq("Failed with generic error"));
+		verify(user).setEmailID(("jane.doe@example.org"));
+		verify(user).setEmergencyContactNo(("Failed with generic error"));
+		verify(user).setEmergencyContactPerson(("Failed with generic error"));
 		verify(user).setFailedAttempt(Mockito.<Integer>any());
 		verify(user).setFeedbackDetails(Mockito.<Set<FeedbackDetails>>any());
-		verify(user).setFirstName(eq("Jane"));
+		verify(user).setFirstName(("Jane"));
 		verify(user).setGenderID(Mockito.<Integer>any());
 		verify(user).setIsSupervisor(Mockito.<Boolean>any());
 		verify(user).setLastModDate(Mockito.<Timestamp>any());
-		verify(user).setLastName(eq("Doe"));
+		verify(user).setLastName(("Doe"));
 		verify(user).setM_UserLangMappings(Mockito.<Set<UserLangMapping>>any());
 		verify(user).setM_UserServiceRoleMapping(Mockito.<List<UserServiceRoleMapping>>any());
 		verify(user).setM_gender(Mockito.<Gender>any());
@@ -2517,24 +2517,24 @@ class IEMRAdminControllerTest {
 		verify(user).setM_status(Mockito.<Status>any());
 		verify(user).setM_title(Mockito.<Title>any());
 		verify(user).setMaritalStatusID(Mockito.<Integer>any());
-		verify(user).setMiddleName(eq("Failed with generic error"));
-		verify(user).setModifiedBy(eq("Jan 1, 2020 9:00am GMT+0100"));
-		verify(user).setNewPassword(eq("iloveyou"));
+		verify(user).setMiddleName(("Failed with generic error"));
+		verify(user).setModifiedBy(("Jan 1, 2020 9:00am GMT+0100"));
+		verify(user).setNewPassword(("iloveyou"));
 		verify(user).setOutPutMapper(Mockito.<OutputMapper>any());
 		verify(user).setOutboundCallRequests(Mockito.<Set<OutboundCallRequest>>any());
-		verify(user).setPassword(eq("iloveyou"));
+		verify(user).setPassword(("iloveyou"));
 		verify(user).setQualificationID(Mockito.<Integer>any());
 		verify(user).setRoleMappings(Mockito.<Set<UserServiceRoleMapping>>any());
 		verify(user).setStatusID(Mockito.<Integer>any());
 		verify(user).setTitleID(Mockito.<Integer>any());
 		verify(user).setUserID(Mockito.<Long>any());
-		verify(user).setUserName(eq("janedoe"));
+		verify(user).setUserName(("janedoe"));
 		verify(user).setdOB(Mockito.<Timestamp>any());
 		verify(user).setdOJ(Mockito.<Timestamp>any());
-		verify(user).setpAN(eq("Failed with generic error"));
+		verify(user).setpAN(("Failed with generic error"));
 		verify(m_User, atLeast(1)).getUserName();
-		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
-		verify(sessionObject).deleteSessionObject(eq("42"));
+		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
+		verify(sessionObject).deleteSessionObject(("42"));
 		verify(sessionObject, atLeast(1)).getSessionObject(Mockito.<String>any());
 		assertEquals(
 				"{\"data\":{\"response\":\"User successfully logged out\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status"
@@ -2716,24 +2716,24 @@ class IEMRAdminControllerTest {
 
 		// Assert
 		verify(user).getUserName();
-		verify(user).setAadhaarNo(eq("Failed with generic error"));
-		verify(user).setAgentID(eq("Failed with generic error"));
-		verify(user).setAgentPassword(eq("iloveyou"));
-		verify(user).setCreatedBy(eq("Jan 1, 2020 8:00am GMT+0100"));
+		verify(user).setAadhaarNo(("Failed with generic error"));
+		verify(user).setAgentID(("Failed with generic error"));
+		verify(user).setAgentPassword(("iloveyou"));
+		verify(user).setCreatedBy(("Jan 1, 2020 8:00am GMT+0100"));
 		verify(user).setCreatedDate(Mockito.<Timestamp>any());
 		verify(user).setDeleted(Mockito.<Boolean>any());
 		verify(user).setDesignation(Mockito.<Designation>any());
 		verify(user).setDesignationID(Mockito.<Integer>any());
-		verify(user).setEmailID(eq("jane.doe@example.org"));
-		verify(user).setEmergencyContactNo(eq("Failed with generic error"));
-		verify(user).setEmergencyContactPerson(eq("Failed with generic error"));
+		verify(user).setEmailID(("jane.doe@example.org"));
+		verify(user).setEmergencyContactNo(("Failed with generic error"));
+		verify(user).setEmergencyContactPerson(("Failed with generic error"));
 		verify(user).setFailedAttempt(Mockito.<Integer>any());
 		verify(user).setFeedbackDetails(Mockito.<Set<FeedbackDetails>>any());
-		verify(user).setFirstName(eq("Jane"));
+		verify(user).setFirstName(("Jane"));
 		verify(user).setGenderID(Mockito.<Integer>any());
 		verify(user).setIsSupervisor(Mockito.<Boolean>any());
 		verify(user).setLastModDate(Mockito.<Timestamp>any());
-		verify(user).setLastName(eq("Doe"));
+		verify(user).setLastName(("Doe"));
 		verify(user).setM_UserLangMappings(Mockito.<Set<UserLangMapping>>any());
 		verify(user).setM_UserServiceRoleMapping(Mockito.<List<UserServiceRoleMapping>>any());
 		verify(user).setM_gender(Mockito.<Gender>any());
@@ -2741,24 +2741,24 @@ class IEMRAdminControllerTest {
 		verify(user).setM_status(Mockito.<Status>any());
 		verify(user).setM_title(Mockito.<Title>any());
 		verify(user).setMaritalStatusID(Mockito.<Integer>any());
-		verify(user).setMiddleName(eq("Failed with generic error"));
-		verify(user).setModifiedBy(eq("Jan 1, 2020 9:00am GMT+0100"));
-		verify(user).setNewPassword(eq("iloveyou"));
+		verify(user).setMiddleName(("Failed with generic error"));
+		verify(user).setModifiedBy(("Jan 1, 2020 9:00am GMT+0100"));
+		verify(user).setNewPassword(("iloveyou"));
 		verify(user).setOutPutMapper(Mockito.<OutputMapper>any());
 		verify(user).setOutboundCallRequests(Mockito.<Set<OutboundCallRequest>>any());
-		verify(user).setPassword(eq("iloveyou"));
+		verify(user).setPassword(("iloveyou"));
 		verify(user).setQualificationID(Mockito.<Integer>any());
 		verify(user).setRoleMappings(Mockito.<Set<UserServiceRoleMapping>>any());
 		verify(user).setStatusID(Mockito.<Integer>any());
 		verify(user).setTitleID(Mockito.<Integer>any());
 		verify(user).setUserID(Mockito.<Long>any());
-		verify(user).setUserName(eq("janedoe"));
+		verify(user).setUserName(("janedoe"));
 		verify(user).setdOB(Mockito.<Timestamp>any());
 		verify(user).setdOJ(Mockito.<Timestamp>any());
-		verify(user).setpAN(eq("Failed with generic error"));
+		verify(user).setpAN(("Failed with generic error"));
 		verify(m_User, atLeast(1)).getUserName();
-		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
-		verify(sessionObject).deleteSessionObject(eq(""));
+		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
+		verify(sessionObject).deleteSessionObject((""));
 		verify(sessionObject, atLeast(1)).getSessionObject(Mockito.<String>any());
 		assertEquals(
 				"{\"data\":{\"response\":\"User successfully logged out\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status"
@@ -2936,24 +2936,24 @@ class IEMRAdminControllerTest {
 
 		// Assert
 		verify(user).getUserName();
-		verify(user).setAadhaarNo(eq("Failed with generic error"));
-		verify(user).setAgentID(eq("Failed with generic error"));
-		verify(user).setAgentPassword(eq("iloveyou"));
-		verify(user).setCreatedBy(eq("Jan 1, 2020 8:00am GMT+0100"));
+		verify(user).setAadhaarNo(("Failed with generic error"));
+		verify(user).setAgentID(("Failed with generic error"));
+		verify(user).setAgentPassword(("iloveyou"));
+		verify(user).setCreatedBy(("Jan 1, 2020 8:00am GMT+0100"));
 		verify(user).setCreatedDate(Mockito.<Timestamp>any());
 		verify(user).setDeleted(Mockito.<Boolean>any());
 		verify(user).setDesignation(Mockito.<Designation>any());
 		verify(user).setDesignationID(Mockito.<Integer>any());
-		verify(user).setEmailID(eq("jane.doe@example.org"));
-		verify(user).setEmergencyContactNo(eq("Failed with generic error"));
-		verify(user).setEmergencyContactPerson(eq("Failed with generic error"));
+		verify(user).setEmailID(("jane.doe@example.org"));
+		verify(user).setEmergencyContactNo(("Failed with generic error"));
+		verify(user).setEmergencyContactPerson(("Failed with generic error"));
 		verify(user).setFailedAttempt(Mockito.<Integer>any());
 		verify(user).setFeedbackDetails(Mockito.<Set<FeedbackDetails>>any());
-		verify(user).setFirstName(eq("Jane"));
+		verify(user).setFirstName(("Jane"));
 		verify(user).setGenderID(Mockito.<Integer>any());
 		verify(user).setIsSupervisor(Mockito.<Boolean>any());
 		verify(user).setLastModDate(Mockito.<Timestamp>any());
-		verify(user).setLastName(eq("Doe"));
+		verify(user).setLastName(("Doe"));
 		verify(user).setM_UserLangMappings(Mockito.<Set<UserLangMapping>>any());
 		verify(user).setM_UserServiceRoleMapping(Mockito.<List<UserServiceRoleMapping>>any());
 		verify(user).setM_gender(Mockito.<Gender>any());
@@ -2961,23 +2961,23 @@ class IEMRAdminControllerTest {
 		verify(user).setM_status(Mockito.<Status>any());
 		verify(user).setM_title(Mockito.<Title>any());
 		verify(user).setMaritalStatusID(Mockito.<Integer>any());
-		verify(user).setMiddleName(eq("Failed with generic error"));
-		verify(user).setModifiedBy(eq("Jan 1, 2020 9:00am GMT+0100"));
-		verify(user).setNewPassword(eq("iloveyou"));
+		verify(user).setMiddleName(("Failed with generic error"));
+		verify(user).setModifiedBy(("Jan 1, 2020 9:00am GMT+0100"));
+		verify(user).setNewPassword(("iloveyou"));
 		verify(user).setOutPutMapper(Mockito.<OutputMapper>any());
 		verify(user).setOutboundCallRequests(Mockito.<Set<OutboundCallRequest>>any());
-		verify(user).setPassword(eq("iloveyou"));
+		verify(user).setPassword(("iloveyou"));
 		verify(user).setQualificationID(Mockito.<Integer>any());
 		verify(user).setRoleMappings(Mockito.<Set<UserServiceRoleMapping>>any());
 		verify(user).setStatusID(Mockito.<Integer>any());
 		verify(user).setTitleID(Mockito.<Integer>any());
 		verify(user).setUserID(Mockito.<Long>any());
-		verify(user).setUserName(eq("janedoe"));
+		verify(user).setUserName(("janedoe"));
 		verify(user).setdOB(Mockito.<Timestamp>any());
 		verify(user).setdOJ(Mockito.<Timestamp>any());
-		verify(user).setpAN(eq("Failed with generic error"));
+		verify(user).setpAN(("Failed with generic error"));
 		verify(m_User, atLeast(1)).getUserName();
-		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
+		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
 	}
 
 //
@@ -3007,8 +3007,8 @@ class IEMRAdminControllerTest {
 		String actualLoginResponse = iemrAdminController.getLoginResponse(request);
 
 		// Assert
-		verify(sessionObject).getSessionObject(eq("https://example.org/example"));
-		verify(request).getHeader(eq("Authorization"));
+		verify(sessionObject).getSessionObject(("https://example.org/example"));
+		verify(request).getHeader(("Authorization"));
 		assertEquals(
 				"{\"data\":{\"response\":\"Session Object\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualLoginResponse);
@@ -3030,8 +3030,8 @@ class IEMRAdminControllerTest {
 		String actualLoginResponse = iemrAdminController.getLoginResponse(request);
 
 		// Assert
-		verify(sessionObject).getSessionObject(eq("https://example.org/example"));
-		verify(request).getHeader(eq("Authorization"));
+		verify(sessionObject).getSessionObject(("https://example.org/example"));
+		verify(request).getHeader(("Authorization"));
 		assertEquals(
 				"{\"data\":{\"response\":\"Failed with generic error\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":"
 						+ "\"Success\"}",
@@ -3056,8 +3056,8 @@ class IEMRAdminControllerTest {
 		String actualLoginResponse = iemrAdminController.getLoginResponse(request);
 
 		// Assert
-		verify(sessionObject).getSessionObject(eq("https://example.org/example"));
-		verify(request).getHeader(eq("Authorization"));
+		verify(sessionObject).getSessionObject(("https://example.org/example"));
+		verify(request).getHeader(("Authorization"));
 		assertEquals(
 				"{\"data\":{\"response\":\"FAILURE\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualLoginResponse);
@@ -3081,8 +3081,8 @@ class IEMRAdminControllerTest {
 		String actualLoginResponse = iemrAdminController.getLoginResponse(request);
 
 		// Assert
-		verify(sessionObject).getSessionObject(eq("https://example.org/example"));
-		verify(request).getHeader(eq("Authorization"));
+		verify(sessionObject).getSessionObject(("https://example.org/example"));
+		verify(request).getHeader(("Authorization"));
 		assertEquals(
 				"{\"data\":{\"response\":\"$$STRING\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualLoginResponse);
@@ -3106,8 +3106,8 @@ class IEMRAdminControllerTest {
 		String actualLoginResponse = iemrAdminController.getLoginResponse(request);
 
 		// Assert
-		verify(sessionObject).getSessionObject(eq("https://example.org/example"));
-		verify(request).getHeader(eq("Authorization"));
+		verify(sessionObject).getSessionObject(("https://example.org/example"));
+		verify(request).getHeader(("Authorization"));
 		assertEquals(
 				"{\"data\":{\"response\":\"$$STRING\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualLoginResponse);
@@ -3131,8 +3131,8 @@ class IEMRAdminControllerTest {
 		String actualLoginResponse = iemrAdminController.getLoginResponse(request);
 
 		// Assert
-		verify(sessionObject).getSessionObject(eq("https://example.org/example"));
-		verify(request).getHeader(eq("Authorization"));
+		verify(sessionObject).getSessionObject(("https://example.org/example"));
+		verify(request).getHeader(("Authorization"));
 		assertEquals(
 				"{\"data\":{\"response\":\"foo\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualLoginResponse);
@@ -3154,8 +3154,8 @@ class IEMRAdminControllerTest {
 		String actualLoginResponse = iemrAdminController.getLoginResponse(request);
 
 		// Assert
-		verify(sessionObject).getSessionObject(eq("https://example.org/example"));
-		verify(request).getHeader(eq("Authorization"));
+		verify(sessionObject).getSessionObject(("https://example.org/example"));
+		verify(request).getHeader(("Authorization"));
 		assertEquals(
 				"{\"data\":{\"response\":\"42\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualLoginResponse);
@@ -3177,8 +3177,8 @@ class IEMRAdminControllerTest {
 		String actualLoginResponse = iemrAdminController.getLoginResponse(request);
 
 		// Assert
-		verify(sessionObject).getSessionObject(eq("https://example.org/example"));
-		verify(request).getHeader(eq("Authorization"));
+		verify(sessionObject).getSessionObject(("https://example.org/example"));
+		verify(request).getHeader(("Authorization"));
 		assertEquals(
 				"{\"data\":{\"response\":\"\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualLoginResponse);
@@ -3201,8 +3201,8 @@ class IEMRAdminControllerTest {
 		iemrAdminController.getLoginResponse(request);
 
 		// Assert
-		verify(sessionObject).getSessionObject(eq("https://example.org/example"));
-		verify(request).getHeader(eq("Authorization"));
+		verify(sessionObject).getSessionObject(("https://example.org/example"));
+		verify(request).getHeader(("Authorization"));
 	}
 
 //
@@ -3238,10 +3238,10 @@ class IEMRAdminControllerTest {
 		// Assert
 		verify(m_User).getUserName();
 		verify(m_User).setIsAdmin(Mockito.<Boolean>any());
-		verify(m_User).setNewPassword(eq("iloveyou"));
-		verify(m_User).setPassword(eq("iloveyou"));
-		verify(m_User).setTransactionId(eq("42"));
-		verify(m_User).setUserName(eq("janedoe"));
+		verify(m_User).setNewPassword(("iloveyou"));
+		verify(m_User).setPassword(("iloveyou"));
+		verify(m_User).setTransactionId(("42"));
+		verify(m_User).setUserName(("janedoe"));
 	}
 
 	/**
@@ -3275,10 +3275,10 @@ class IEMRAdminControllerTest {
 		// Assert
 		verify(m_User).getUserName();
 		verify(m_User).setIsAdmin(Mockito.<Boolean>any());
-		verify(m_User).setNewPassword(eq("iloveyou"));
-		verify(m_User).setPassword(eq("iloveyou"));
-		verify(m_User).setTransactionId(eq("42"));
-		verify(m_User).setUserName(eq("janedoe"));
+		verify(m_User).setNewPassword(("iloveyou"));
+		verify(m_User).setPassword(("iloveyou"));
+		verify(m_User).setTransactionId(("42"));
+		verify(m_User).setUserName(("janedoe"));
 	}
 
 	/**
@@ -3315,11 +3315,11 @@ class IEMRAdminControllerTest {
 		// Assert
 		verify(m_User).getUserName();
 		verify(m_User).setIsAdmin(Mockito.<Boolean>any());
-		verify(m_User).setNewPassword(eq("iloveyou"));
-		verify(m_User).setPassword(eq("iloveyou"));
-		verify(m_User).setTransactionId(eq("42"));
-		verify(m_User).setUserName(eq("janedoe"));
-		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
+		verify(m_User).setNewPassword(("iloveyou"));
+		verify(m_User).setPassword(("iloveyou"));
+		verify(m_User).setTransactionId(("42"));
+		verify(m_User).setUserName(("janedoe"));
+		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
 		assertEquals(
 				"{\"statusCode\":5002,\"errorMessage\":\"user not found, please contact administrator\",\"status\":\"User login"
 						+ " failed\"}",
@@ -3471,11 +3471,11 @@ class IEMRAdminControllerTest {
 		// Assert
 		verify(m_User).getUserName();
 		verify(m_User).setIsAdmin(Mockito.<Boolean>any());
-		verify(m_User).setNewPassword(eq("iloveyou"));
-		verify(m_User).setPassword(eq("iloveyou"));
-		verify(m_User).setTransactionId(eq("42"));
-		verify(m_User).setUserName(eq("janedoe"));
-		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
+		verify(m_User).setNewPassword(("iloveyou"));
+		verify(m_User).setPassword(("iloveyou"));
+		verify(m_User).setTransactionId(("42"));
+		verify(m_User).setUserName(("janedoe"));
+		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
 		verify(iemrAdminUserService).userSecurityQuestion(Mockito.<Long>any());
 		assertEquals(
 				"{\"data\":{\"SecurityQuesAns\":[]},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
@@ -3654,11 +3654,11 @@ class IEMRAdminControllerTest {
 //		// Assert
 //		verify(m_User).getUserName();
 //		verify(m_User).setIsAdmin(Mockito.<Boolean>any());
-//		verify(m_User).setNewPassword(eq("iloveyou"));
-//		verify(m_User).setPassword(eq("iloveyou"));
-//		verify(m_User).setTransactionId(eq("42"));
-//		verify(m_User).setUserName(eq("janedoe"));
-//		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
+//		verify(m_User).setNewPassword(("iloveyou"));
+//		verify(m_User).setPassword(("iloveyou"));
+//		verify(m_User).setTransactionId(("42"));
+//		verify(m_User).setUserName(("janedoe"));
+//		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
 //		verify(iemrAdminUserService).userSecurityQuestion(Mockito.<Long>any());
 //		assertEquals(
 //				"{\"data\":{\"SecurityQuesAns\":[{\"questionId\":\"Failed with generic error\",\"question\":\"Failed with generic"
@@ -3863,11 +3863,11 @@ class IEMRAdminControllerTest {
 //		// Assert
 //		verify(m_User).getUserName();
 //		verify(m_User).setIsAdmin(Mockito.<Boolean>any());
-//		verify(m_User).setNewPassword(eq("iloveyou"));
-//		verify(m_User).setPassword(eq("iloveyou"));
-//		verify(m_User).setTransactionId(eq("42"));
-//		verify(m_User).setUserName(eq("janedoe"));
-//		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
+//		verify(m_User).setNewPassword(("iloveyou"));
+//		verify(m_User).setPassword(("iloveyou"));
+//		verify(m_User).setTransactionId(("42"));
+//		verify(m_User).setUserName(("janedoe"));
+//		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
 //		verify(iemrAdminUserService).userSecurityQuestion(Mockito.<Long>any());
 //		assertEquals(
 //				"{\"data\":{\"SecurityQuesAns\":[{\"questionId\":\"FAILURE\",\"question\":\"FAILURE\"},{\"questionId\":\"Failed with"
@@ -4129,11 +4129,11 @@ class IEMRAdminControllerTest {
 		// Assert
 		verify(m_User).getUserName();
 		verify(m_User).setIsAdmin(Mockito.<Boolean>any());
-		verify(m_User).setNewPassword(eq("iloveyou"));
-		verify(m_User).setPassword(eq("iloveyou"));
-		verify(m_User).setTransactionId(eq("42"));
-		verify(m_User).setUserName(eq("janedoe"));
-		verify(iemrAdminUserService).userExitsCheck(eq("janedoe"));
+		verify(m_User).setNewPassword(("iloveyou"));
+		verify(m_User).setPassword(("iloveyou"));
+		verify(m_User).setTransactionId(("42"));
+		verify(m_User).setUserName(("janedoe"));
+		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
 		assertEquals(
 				"{\"statusCode\":5002,\"errorMessage\":\"more than 1 user found, please contact administrator\",\"status\":\"User"
 						+ " login failed\"}",
@@ -4411,7 +4411,7 @@ class IEMRAdminControllerTest {
 		String actualRolesByProviderID = iemrAdminController.getRolesByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getRolesByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getRolesByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"Roles By Provider ID\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":"
 						+ "\"Success\"}",
@@ -4431,7 +4431,7 @@ class IEMRAdminControllerTest {
 		String actualRolesByProviderID = iemrAdminController.getRolesByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getRolesByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getRolesByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"Failed with generic error\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":"
 						+ "\"Success\"}",
@@ -4451,7 +4451,7 @@ class IEMRAdminControllerTest {
 		String actualRolesByProviderID = iemrAdminController.getRolesByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getRolesByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getRolesByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"FAILURE\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualRolesByProviderID);
@@ -4471,7 +4471,7 @@ class IEMRAdminControllerTest {
 		String actualRolesByProviderID = iemrAdminController.getRolesByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getRolesByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getRolesByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"$$STRING\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualRolesByProviderID);
@@ -4491,7 +4491,7 @@ class IEMRAdminControllerTest {
 		String actualRolesByProviderID = iemrAdminController.getRolesByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getRolesByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getRolesByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"$$STRING\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualRolesByProviderID);
@@ -4513,7 +4513,7 @@ class IEMRAdminControllerTest {
 		String actualRolesByProviderID = iemrAdminController.getRolesByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getRolesByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getRolesByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"foo\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualRolesByProviderID);
@@ -4535,7 +4535,7 @@ class IEMRAdminControllerTest {
 		String actualRolesByProviderID = iemrAdminController.getRolesByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getRolesByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getRolesByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualRolesByProviderID);
@@ -4555,7 +4555,7 @@ class IEMRAdminControllerTest {
 		String actualRolesByProviderID = iemrAdminController.getRolesByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getRolesByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getRolesByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"42\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualRolesByProviderID);
@@ -4574,7 +4574,7 @@ class IEMRAdminControllerTest {
 		iemrAdminController.getRolesByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getRolesByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getRolesByProviderID(("Request"));
 	}
 
 	@Test
@@ -4590,7 +4590,7 @@ class IEMRAdminControllerTest {
 		String actualRolesByProviderID = iemrAdminController.getRolesByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getRolesByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getRolesByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"\\u0027\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualRolesByProviderID);
@@ -4621,7 +4621,7 @@ class IEMRAdminControllerTest {
 		String actualUsersByProviderID = iemrAdminController.getUsersByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getUsersByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getUsersByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"Users By Provider ID\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":"
 						+ "\"Success\"}",
@@ -4642,7 +4642,7 @@ class IEMRAdminControllerTest {
 		String actualUsersByProviderID = iemrAdminController.getUsersByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getUsersByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getUsersByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"Failed with generic error\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":"
 						+ "\"Success\"}",
@@ -4663,7 +4663,7 @@ class IEMRAdminControllerTest {
 		String actualUsersByProviderID = iemrAdminController.getUsersByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getUsersByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getUsersByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"FAILURE\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualUsersByProviderID);
@@ -4683,7 +4683,7 @@ class IEMRAdminControllerTest {
 		String actualUsersByProviderID = iemrAdminController.getUsersByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getUsersByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getUsersByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"$$STRING\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualUsersByProviderID);
@@ -4703,7 +4703,7 @@ class IEMRAdminControllerTest {
 		String actualUsersByProviderID = iemrAdminController.getUsersByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getUsersByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getUsersByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"$$STRING\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualUsersByProviderID);
@@ -4723,7 +4723,7 @@ class IEMRAdminControllerTest {
 		String actualUsersByProviderID = iemrAdminController.getUsersByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getUsersByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getUsersByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"foo\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualUsersByProviderID);
@@ -4743,7 +4743,7 @@ class IEMRAdminControllerTest {
 		String actualUsersByProviderID = iemrAdminController.getUsersByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getUsersByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getUsersByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualUsersByProviderID);
@@ -4763,7 +4763,7 @@ class IEMRAdminControllerTest {
 		String actualUsersByProviderID = iemrAdminController.getUsersByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getUsersByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getUsersByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"42\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualUsersByProviderID);
@@ -4783,7 +4783,7 @@ class IEMRAdminControllerTest {
 		iemrAdminController.getUsersByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getUsersByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getUsersByProviderID(("Request"));
 	}
 
 	@Test
@@ -4800,7 +4800,7 @@ class IEMRAdminControllerTest {
 		String actualUsersByProviderID = iemrAdminController.getUsersByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getUsersByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getUsersByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"\\u0027\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualUsersByProviderID);
@@ -4906,7 +4906,7 @@ class IEMRAdminControllerTest {
 		String actualLocationsByProviderID = iemrAdminController.getLocationsByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getLocationsByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getLocationsByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"Locations By Provider ID\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":"
 						+ "\"Success\"}",
@@ -4928,7 +4928,7 @@ class IEMRAdminControllerTest {
 		String actualLocationsByProviderID = iemrAdminController.getLocationsByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getLocationsByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getLocationsByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"Failed with generic error\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":"
 						+ "\"Success\"}",
@@ -4949,7 +4949,7 @@ class IEMRAdminControllerTest {
 		String actualLocationsByProviderID = iemrAdminController.getLocationsByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getLocationsByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getLocationsByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"FAILURE\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualLocationsByProviderID);
@@ -4969,7 +4969,7 @@ class IEMRAdminControllerTest {
 		String actualLocationsByProviderID = iemrAdminController.getLocationsByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getLocationsByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getLocationsByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"$$STRING\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualLocationsByProviderID);
@@ -4989,7 +4989,7 @@ class IEMRAdminControllerTest {
 		String actualLocationsByProviderID = iemrAdminController.getLocationsByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getLocationsByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getLocationsByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"$$STRING\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualLocationsByProviderID);
@@ -5009,7 +5009,7 @@ class IEMRAdminControllerTest {
 		String actualLocationsByProviderID = iemrAdminController.getLocationsByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getLocationsByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getLocationsByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"foo\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualLocationsByProviderID);
@@ -5029,7 +5029,7 @@ class IEMRAdminControllerTest {
 		String actualLocationsByProviderID = iemrAdminController.getLocationsByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getLocationsByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getLocationsByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualLocationsByProviderID);
@@ -5049,7 +5049,7 @@ class IEMRAdminControllerTest {
 		String actualLocationsByProviderID = iemrAdminController.getLocationsByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getLocationsByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getLocationsByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"42\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualLocationsByProviderID);
@@ -5069,7 +5069,7 @@ class IEMRAdminControllerTest {
 		iemrAdminController.getLocationsByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getLocationsByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getLocationsByProviderID(("Request"));
 	}
 
 	@Test
@@ -5086,7 +5086,7 @@ class IEMRAdminControllerTest {
 		String actualLocationsByProviderID = iemrAdminController.getLocationsByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getLocationsByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getLocationsByProviderID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"\\u0027\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualLocationsByProviderID);
@@ -5107,7 +5107,7 @@ class IEMRAdminControllerTest {
 		String actualLocationsByProviderID = iemrAdminController.getLocationsByProviderID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getLocationsByProviderID(eq("Request"));
+		verify(iemrAdminUserService).getLocationsByProviderID(("Request"));
 		assertEquals("{\"statusCode\":5002,\"errorMessage\":\"An error occurred\",\"status\":\"User login failed\"}",
 				actualLocationsByProviderID);
 	}
@@ -5139,9 +5139,9 @@ class IEMRAdminControllerTest {
 		iemrAdminController.forceLogout(request);
 
 		// Assert
-		verify(request).setPassword(eq("iloveyou"));
+		verify(request).setPassword(("iloveyou"));
 		verify(request).setProviderServiceMapID(Mockito.<Integer>any());
-		verify(request).setUserName(eq("janedoe"));
+		verify(request).setUserName(("janedoe"));
 	}
 
 	@Test
@@ -5164,9 +5164,9 @@ class IEMRAdminControllerTest {
 
 		// Assert
 		verify(request).getUserName();
-		verify(request).setPassword(eq("iloveyou"));
+		verify(request).setPassword(("iloveyou"));
 		verify(request).setProviderServiceMapID(Mockito.<Integer>any());
-		verify(request).setUserName(eq("janedoe"));
+		verify(request).setUserName(("janedoe"));
 	}
 
 	@Test
@@ -5189,9 +5189,9 @@ class IEMRAdminControllerTest {
 		String actualForceLogoutResult = iemrAdminController.forceLogout(request);
 
 		// Assert
-		verify(request).setPassword(eq("iloveyou"));
+		verify(request).setPassword(("iloveyou"));
 		verify(request).setProviderServiceMapID(Mockito.<Integer>any());
-		verify(request).setUserName(eq("janedoe"));
+		verify(request).setUserName(("janedoe"));
 		verify(iemrAdminUserService).forceLogout(Mockito.<ForceLogoutRequestModel>any());
 		assertEquals(
 				"{\"data\":{\"response\":\"Success\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
@@ -5220,9 +5220,9 @@ class IEMRAdminControllerTest {
 		iemrAdminController.forceLogout(request);
 
 		// Assert
-		verify(request).setPassword(eq("iloveyou"));
+		verify(request).setPassword(("iloveyou"));
 		verify(request).setProviderServiceMapID(Mockito.<Integer>any());
-		verify(request).setUserName(eq("janedoe"));
+		verify(request).setUserName(("janedoe"));
 		verify(iemrAdminUserService).forceLogout(Mockito.<ForceLogoutRequestModel>any());
 	}
 
@@ -5247,9 +5247,9 @@ class IEMRAdminControllerTest {
 		iemrAdminController.forceLogout(request);
 
 		// Assert
-		verify(request).setPassword(eq("iloveyou"));
+		verify(request).setPassword(("iloveyou"));
 		verify(request).setProviderServiceMapID(Mockito.<Integer>any());
-		verify(request).setUserName(eq("janedoe"));
+		verify(request).setUserName(("janedoe"));
 		verify(iemrAdminUserService).forceLogout(Mockito.<ForceLogoutRequestModel>any());
 	}
 
@@ -5275,9 +5275,9 @@ class IEMRAdminControllerTest {
 		String actualForceLogoutResult = iemrAdminController.forceLogout(request);
 
 		// Assert
-		verify(request).setPassword(eq("iloveyou"));
+		verify(request).setPassword(("iloveyou"));
 		verify(request).setProviderServiceMapID(Mockito.<Integer>any());
-		verify(request).setUserName(eq("janedoe"));
+		verify(request).setUserName(("janedoe"));
 		verify(iemrAdminUserService).forceLogout(Mockito.<ForceLogoutRequestModel>any());
 		assertEquals("{\"statusCode\":5002,\"errorMessage\":\"An error occurred\",\"status\":\"User login failed\"}",
 				actualForceLogoutResult);
@@ -5308,7 +5308,7 @@ class IEMRAdminControllerTest {
 		String actualAgentByRoleID = iemrAdminController.getAgentByRoleID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getAgentByRoleID(eq("Request"));
+		verify(iemrAdminUserService).getAgentByRoleID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"Agent By Role ID\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":"
 						+ "\"Success\"}",
@@ -5328,7 +5328,7 @@ class IEMRAdminControllerTest {
 		String actualAgentByRoleID = iemrAdminController.getAgentByRoleID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getAgentByRoleID(eq("Request"));
+		verify(iemrAdminUserService).getAgentByRoleID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"Failed with generic error\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":"
 						+ "\"Success\"}",
@@ -5349,7 +5349,7 @@ class IEMRAdminControllerTest {
 		String actualAgentByRoleID = iemrAdminController.getAgentByRoleID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getAgentByRoleID(eq("Request"));
+		verify(iemrAdminUserService).getAgentByRoleID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"FAILURE\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualAgentByRoleID);
@@ -5369,7 +5369,7 @@ class IEMRAdminControllerTest {
 		String actualAgentByRoleID = iemrAdminController.getAgentByRoleID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getAgentByRoleID(eq("Request"));
+		verify(iemrAdminUserService).getAgentByRoleID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"$$STRING\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualAgentByRoleID);
@@ -5391,7 +5391,7 @@ class IEMRAdminControllerTest {
 		String actualAgentByRoleID = iemrAdminController.getAgentByRoleID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getAgentByRoleID(eq("Request"));
+		verify(iemrAdminUserService).getAgentByRoleID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"$$STRING\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualAgentByRoleID);
@@ -5413,7 +5413,7 @@ class IEMRAdminControllerTest {
 		String actualAgentByRoleID = iemrAdminController.getAgentByRoleID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getAgentByRoleID(eq("Request"));
+		verify(iemrAdminUserService).getAgentByRoleID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"foo\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualAgentByRoleID);
@@ -5433,7 +5433,7 @@ class IEMRAdminControllerTest {
 		String actualAgentByRoleID = iemrAdminController.getAgentByRoleID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getAgentByRoleID(eq("Request"));
+		verify(iemrAdminUserService).getAgentByRoleID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualAgentByRoleID);
@@ -5453,7 +5453,7 @@ class IEMRAdminControllerTest {
 		String actualAgentByRoleID = iemrAdminController.getAgentByRoleID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getAgentByRoleID(eq("Request"));
+		verify(iemrAdminUserService).getAgentByRoleID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"42\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualAgentByRoleID);
@@ -5473,7 +5473,7 @@ class IEMRAdminControllerTest {
 		iemrAdminController.getAgentByRoleID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getAgentByRoleID(eq("Request"));
+		verify(iemrAdminUserService).getAgentByRoleID(("Request"));
 	}
 
 	@Test
@@ -5490,7 +5490,7 @@ class IEMRAdminControllerTest {
 		String actualAgentByRoleID = iemrAdminController.getAgentByRoleID("Request");
 
 		// Assert
-		verify(iemrAdminUserService).getAgentByRoleID(eq("Request"));
+		verify(iemrAdminUserService).getAgentByRoleID(("Request"));
 		assertEquals(
 				"{\"data\":{\"response\":\"\\u0027\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualAgentByRoleID);
@@ -5510,7 +5510,7 @@ class IEMRAdminControllerTest {
 		String actualAgentByRoleID = iemrAdminController.getAgentByRoleID("Failed with generic error");
 
 		// Assert
-		verify(iemrAdminUserService).getAgentByRoleID(eq("Failed with generic error"));
+		verify(iemrAdminUserService).getAgentByRoleID(("Failed with generic error"));
 		assertEquals(
 				"{\"data\":{\"response\":\"\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualAgentByRoleID);
@@ -5599,15 +5599,15 @@ class IEMRAdminControllerTest {
 		iemrAdminController.getrolewrapuptime(1);
 
 		// Assert
-		verify(m_Role).setCreatedBy(eq("Jan 1, 2020 8:00am GMT+0100"));
+		verify(m_Role).setCreatedBy(("Jan 1, 2020 8:00am GMT+0100"));
 		verify(m_Role).setCreatedDate(Mockito.<Timestamp>any());
-		verify(m_Role).setDeleted(eq(true));
+		verify(m_Role).setDeleted((true));
 		verify(m_Role).setIsWrapUpTime(Mockito.<Boolean>any());
 		verify(m_Role).setLastModDate(Mockito.<Timestamp>any());
-		verify(m_Role).setModifiedBy(eq("Jan 1, 2020 9:00am GMT+0100"));
-		verify(m_Role).setRoleDesc(eq("Role Desc"));
-		verify(m_Role).setRoleID(eq(1));
-		verify(m_Role).setRoleName(eq("Role Name"));
+		verify(m_Role).setModifiedBy(("Jan 1, 2020 9:00am GMT+0100"));
+		verify(m_Role).setRoleDesc(("Role Desc"));
+		verify(m_Role).setRoleID((1));
+		verify(m_Role).setRoleName(("Role Name"));
 		verify(m_Role).setWrapUpTime(Mockito.<Integer>any());
 		verify(iemrAdminUserService).getrolewrapuptime(Mockito.<Integer>any());
 	}

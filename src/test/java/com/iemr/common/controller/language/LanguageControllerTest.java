@@ -59,6 +59,8 @@ class LanguageControllerTest {
 		when(languageService.getActiveLanguages().toString()).thenThrow(NotFoundException.class);
 		
 		String response = languageController.getLanguageList();
+		
+		assertTrue(response.contains("Failed with null"));
 		//assertEquals(response, languageController.getLanguageList());
 	}
 

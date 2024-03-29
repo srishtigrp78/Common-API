@@ -31,19 +31,19 @@ public class CommunityServiceImplTest {
 	private CommunityServiceImpl communityService;
 
 	@BeforeEach
-	public void setUp() {
+	 void setUp() {
 		MockitoAnnotations.openMocks(this);
 	}
 
-	@Test
-	void testSetCommunityServiceImpl() {
+//	@Test
+//	void testSetCommunityServiceImpl() {
+//
+//		// Arrange and Act
+//		(new CommunityServiceImpl()).setCommunityServiceImpl(mock(CommunityRepository.class));
+//	}
 
-		// Arrange and Act
-		(new CommunityServiceImpl()).setCommunityServiceImpl(mock(CommunityRepository.class));
-	}
-
 	@Test
-	public void testGetActiveCommunities_WithValidData() {
+	 void testGetActiveCommunities_WithValidData() {
 		// Setup mock data
 		Set<Object[]> mockData = new HashSet<>();
 		mockData.add(new Object[] { 1, "Community A" });
@@ -57,11 +57,11 @@ public class CommunityServiceImplTest {
 
 		// Assertions
 		assertEquals(2, result.size());
-		// Optionally, assert more details if necessary
+		
 	}
 
 	@Test
-	public void testGetActiveCommunities_EmptySet() {
+	 void testGetActiveCommunities_EmptySet() {
 		// Setup empty set for mocking
 		Set<Object[]> mockData = new HashSet<>();
 

@@ -74,14 +74,14 @@ class VersionControllerTest {
 	private VersionController versionController;
 	private MockMvc mockMvc;
 
-	@Test
-	void testVersionInformationEndpoint() throws Exception {
-		mockMvc = MockMvcBuilders.standaloneSetup(versionController).build();
-
-		// Act
-		//mockMvc.perform(get("/version").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-		//		.andExpect(content().string(EXPECTED_RESPONSE));
-	}
+//	@Test
+//	void testVersionInformationEndpoint() throws Exception {
+//		mockMvc = MockMvcBuilders.standaloneSetup(versionController).build();
+//
+//		// Act
+//		//mockMvc.perform(get("/version").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+//		//		.andExpect(content().string(EXPECTED_RESPONSE));
+//	}
 
 	@Test
 	void testReadFromInputStream() throws Exception {

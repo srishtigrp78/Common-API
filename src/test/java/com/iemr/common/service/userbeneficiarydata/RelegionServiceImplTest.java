@@ -31,12 +31,6 @@ class RelegionServiceImplTest {
 	}
 
 	@Test
-	void testsetRelegionServiceImpl() {
-		// Arrange and Act
-		(new RelegionServiceImpl()).setRelegionServiceImpl(mock(ReligionRepository.class));
-	}
-
-	@Test
 	void getActiveReligionsReturnsCorrectData() {
 		// Setup our mocked repository
 		Object[] religionData1 = { 1, "Hinduism", "Active" };
