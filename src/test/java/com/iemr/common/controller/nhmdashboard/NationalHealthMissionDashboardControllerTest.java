@@ -40,28 +40,6 @@ class NationalHealthMissionDashboardControllerTest {
 		assertTrue(result.contains("Success response"));
 	}
 
-//	@Test
-//	void testPushAbandonCallsFailure() throws Exception {
-//		// Arrange
-//		AbandonCallSummary abandonCallSummary = new AbandonCallSummary();
-//		when(nHM_DashboardService.pushAbandonCalls(abandonCallSummary))
-//				.thenThrow(new RuntimeException("Failed to push calls"));
-//
-//		// Act & Assert
-//		Exception exception = assertThrows(RuntimeException.class, () -> {
-//			nationalHealthMissionDashboardController.pushAbandonCallsFromC_Zentrix(abandonCallSummary);
-//		});
-//
-//		String expectedMessage = "Failed to push calls";
-//		String actualMessage = exception.getMessage();
-//
-//		assertTrue(actualMessage.contains(expectedMessage));
-//	}
-
-//	@Test
-//	void testGetAbandonCalls() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void testGetAbandonCallsSuccess() throws Exception {
@@ -77,19 +55,6 @@ class NationalHealthMissionDashboardControllerTest {
 		assertTrue(result.contains(expectedResponse));
 	}
 
-//	@Test
-//    void testGetAbandonCallsException() throws Exception {
-//        // Arrange
-//        when(nHM_DashboardService.getAbandonCalls()).thenThrow(new RuntimeException("Failed to retrieve abandon calls"));
-//
-//        // Act
-//        String result = nationalHealthMissionDashboardController.getAbandonCalls();
-//
-//        // Assert
-//        assertNotNull(result);
-//        assertTrue(result.contains("error"));
-//        assertTrue(result.contains("Failed to retrieve abandon calls"));
-//    }
 
 	@Test
 	void testGetAgentSummaryReport_Success() throws Exception {

@@ -213,11 +213,6 @@ class LocationServiceImplTest {
 		assertTrue(result.isEmpty(), "The city list should be empty for no results.");
 	}
 
-//	@Test
-//	void testGetDistrilctBranchs() {
-//		fail("Not yet implemented");
-//	}
-
 	@Test
 	void testGetDistrilctBranchsReturnsNonEmptyList() {
 		// Setup

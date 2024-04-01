@@ -101,8 +101,6 @@ public class UPTechnicalSupportControllerTest {
 		// Assert
 		assertNotNull(actualResponse);
 		assertTrue(actualResponse.contains("5000")); // Assuming your error format includes the error code
-		// assertTrue(actualResponse.contains("Database error")); // Check for the
-		// presence of the error message
 	}
 
 }

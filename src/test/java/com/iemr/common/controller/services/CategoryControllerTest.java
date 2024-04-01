@@ -53,28 +53,7 @@ public class CategoryControllerTest {
 
 		assertEquals(response.toString(), categoryController.getAllCategries(request));
 	}
-//	@Test
-//	 void getAllCategories_Success() throws Exception {
-//		// Given
-//		String request = "{\"providerServiceMapID\":\"1\", \"subServiceID\":\"2\", \"feedbackNatureID\":\"3\"}";
-//		
-//		OutputResponse outputResponse = new OutputResponse();
-//		
-//		List<CategoryDetails> mockCategoryList = new ArrayList<>();
-//		mockCategoryList.add(new CategoryDetails(1,"abc",true)); // Add mock details as needed
-//		when(categoryService.getAllCategories(anyString())).thenReturn(mockCategoryList);
-//
-//		// When
-//		String response = categoryController.getAllCategries(request);
-//		
-//
-//		// Then
-////		verify(categoryService, times(1)).getAllCategories(anyString());
-//		
-//		outputResponse.setResponse(mockCategoryList.toString());
-//		
-//		assertTrue(response.contains(mockCategoryList.toString()));
-//	}
+
 
 	@Test
 	 void getAllCategories_Exception() throws Exception {

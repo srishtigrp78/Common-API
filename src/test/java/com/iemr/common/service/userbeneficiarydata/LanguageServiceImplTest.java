@@ -33,12 +33,6 @@ class LanguageServiceImplTest {
 		MockitoAnnotations.openMocks(this);
 	}
 
-//	@Test
-//	void testSetLanguageServiceImpl() {
-//
-//		// Arrange and Act
-//		(new LanguageServiceImpl()).setGenderServiceImpl(mock(LanguageRepository.class));
-//	}
 
 	@Test
 	void testGetActiveLanguages_ReturnsNonEmptyList() {

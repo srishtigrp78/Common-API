@@ -25,7 +25,6 @@ import com.iemr.common.data.beneficiary.BenRelationshipType;
 import com.iemr.common.repository.beneficiary.BeneficiaryRelationshipTypeRepository;
 import com.iemr.common.service.beneficiary.BenRelationshipTypeServiceImpl;
 
-//@Timeout(value = 5, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
 @ExtendWith(MockitoExtension.class)
 class BRDIntegrationServiceUmplTest {
 
@@ -43,14 +42,8 @@ class BRDIntegrationServiceUmplTest {
 			autoCloseableMocks.close();
 	}
 
-	// Sapient generated method id: ${68d0032a-61f3-3970-bf0c-36240cd99490}, hash:
-	// D228329B1BFF214A5EDF4C15C093FE2E
 	@Test()
 	void getActiveRelationshipTypesWhenObjectLengthGreaterThanOrEqualsTo2() {
-		/*
-		 * Branches:* (for-each(resultSet)) : true* (object != null) : true*
-		 * (object.length >= 2) : true
-		 */
 		// Arrange Statement(s)
 		target = new BenRelationshipTypeServiceImpl();
 		autoCloseableMocks = MockitoAnnotations.openMocks(this);

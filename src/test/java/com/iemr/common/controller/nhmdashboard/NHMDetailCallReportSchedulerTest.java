@@ -61,7 +61,6 @@ class NHMDetailCallReportSchedulerTest {
 
 		// Then
 		verify(callReportRepo, times(1)).getBenCallDetailsBySessionIDAndPhone(anyString(), anyString());
-		// Add more verifications as needed
 	}
 
 	@Test

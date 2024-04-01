@@ -34,6 +34,7 @@ import com.iemr.common.data.uptsu.SmsRequestOBJ;
 import com.iemr.common.repository.uptsu.FacilityMasterRepo;
 import com.iemr.common.repository.uptsu.T_104AppointmentDetailsRepo;
 import com.iemr.common.service.sms.SMSService;
+
 @ExtendWith(MockitoExtension.class)
 class UptsuServiceImplTest {
 
@@ -47,14 +48,16 @@ class UptsuServiceImplTest {
 	private T_104AppointmentDetailsRepo t_104AppointmentDetailsRepo;
 	@Mock
 	private SMSService smsService;
+	@Mock
+	private RestTemplate restTemplate;
 
 	@BeforeEach
-	 void setUp() {
+	void setUp() {
 		MockitoAnnotations.openMocks(this);
 	}
 
 	@Test
-	 void testGetFacility() {
+	void testGetFacility() {
 		Integer providerServiceMapID = 1;
 		String blockname = "TestBlock";
 		FacilityMaster facility1 = new FacilityMaster(); // Assuming FacilityMaster has a parameterless constructor
@@ -75,16 +78,6 @@ class UptsuServiceImplTest {
 		assertEquals(new Gson().toJson(expectedFacilities), result,
 				"The returned JSON does not match the expected JSON.");
 	}
-
-//	@Test
-//	void testSaveAppointmentDetails() {
-//		fail("Not yet implemented");
-//	}
-
-//	@Test
-//	void testCreateSmsGateway() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void testCreateSmsGateway() throws Exception {
@@ -113,77 +106,5 @@ class UptsuServiceImplTest {
 		// the beneficiary)
 		verify(smsService, times(2)).sendSMS(anyList(), eq(Authorization));
 	}
-
-//	@Test
-//	void testCreateSMSRequestForCho() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	void testCreateSMSRequestForBeneficiary() {
-//		fail("Not yet implemented");
-//	}
-
-//	@Test
-//	     void testCreateSMSRequestForBeneficiary() {
-//	        // Setup mocks
-//	        String benSms = "benSms";
-//	        String appointmentDate = "2022-01-01";
-//	        String appointmentTime = "10:00";
-//	        String benPhoneNo = "1234567890";
-//	        String beneficiaryName = "John Doe";
-//	        Long beneficiaryId = 123L;
-//	        String facilityName = "Facility";
-//	        String hfrId = "hfrId";
-//	        Long benRegId = 456L;
-//	        String createdBy = "User";
-//	        SmsRequestOBJ objBen = new SmsRequestOBJ();
-//
-//	        // Setup return values for mock methods
-//	        when(t_104AppointmentDetailsRepo.getSMSTypeIDBen(benSms)).thenReturn(1);
-//	        when(t_104AppointmentDetailsRepo.getSMSTemplateIDBen(1)).thenReturn(1);
-//
-//	        // Call the method under test
-//	        String response = uptsuService.createSMSRequestForBeneficiary(benSms, appointmentDate, appointmentTime, benPhoneNo, beneficiaryName, beneficiaryId, facilityName, hfrId, benRegId, createdBy);
-//
-//	        // Verify mocked method calls
-//	        verify(t_104AppointmentDetailsRepo, times(1)).getSMSTypeIDBen(benSms);
-//	        verify(t_104AppointmentDetailsRepo, times(1)).getSMSTemplateIDBen(1);
-//
-//	        // Convert the response to a list of SmsRequestOBJ objects
-//	        List<SmsRequestOBJ> objList1 = new Gson().fromJson(response, new TypeToken<List<SmsRequestOBJ>>() {
-//	        }.getType());
-//
-//	        // Assertions
-//	        assertNotNull(objList1);
-//	        assertEquals(1, objList1.size());
-//	        assertEquals("templateId", objList1.get(0).getSmsTemplateID());
-//	}
-
-	@Mock
-	private RestTemplate restTemplate;
-
-//	@Test
-//	void testRestTemplate() {
-//		fail("Not yet implemented");
-//	}
-
-//	@Test
-//	 void testRestTemplate() {
-//		// Mock response
-//		String expectedResponse = "response";
-//		when(restTemplate.exchange(anyString(), eq(HttpMethod.POST), any(HttpEntity.class), eq(String.class)))
-//				.thenReturn(new ResponseEntity<>(expectedResponse, HttpStatus.OK));
-//
-//		// Test method call
-//		String response = uptsuService.restTemplate(anyString(), anyString(), anyString());
-//
-//		// Verify that the exchange method was called correctly
-//		verify(restTemplate, times(1)).exchange(anyString(), eq(HttpMethod.POST), any(HttpEntity.class),
-//				eq(String.class));
-//
-//		// Assert the response
-//		assertEquals(expectedResponse, response);
-//	}
 
 }

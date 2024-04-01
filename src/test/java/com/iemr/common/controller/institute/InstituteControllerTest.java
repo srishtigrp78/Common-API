@@ -41,42 +41,6 @@ class InstituteControllerTest {
 	@InjectMocks
 	private InstituteController instituteController; // Replace "YourClass" with the actual class name
 
-//	@Test
-//	void testGetInstitutesByLocation() {
-//		fail("Not yet implemented");
-//	}
-
-//	@Test
-//	void testGetInstitutesByLocation() throws JSONException {
-//		JSONObject responseObj = new JSONObject();
-//		OutputResponse response = new OutputResponse();
-//
-//		String instituteRequest = "{\\\"stateID\\\": \\\"1\\\", \\\"districtID\\\": \\\"2\\\", \\\"districtBranchMappingID\\\": \\\"3\\\"}\";";
-//
-//		Institute instituteQuery = inputMapper.gson().fromJson(instituteRequest, Institute.class);
-//				
-//		responseObj.put("institute",
-//				instituteService.getInstitutesByStateDistrictBranch(instituteQuery.getStateID(),
-//						instituteQuery.getDistrictID(), instituteQuery.getDistrictBranchMappingID()));
-//	
-//	
-//		response.setResponse(responseObj.toString());
-//		
-//		String expRes = instituteController.getInstitutesByLocation(instituteRequest);
-//		
-//		assertEquals( expRes, instituteController.getInstitutesByLocation(instituteRequest));
-//	}
-
-//	@Test
-//	void testGetInstituteByBranch() {
-//		fail("Not yet implemented");
-//	}
-
-//	@Test
-//	void testGetInstituteTypes() {
-//		fail("Not yet implemented");
-//	}
-
 	@Test
 	void testGetInstituteTypes() throws Exception {
 		String instituteTypeRequest = "{\"providerServiceMapID\": \"1\"}";
@@ -168,21 +132,16 @@ class InstituteControllerTest {
 	}
 
 	@Test()
-	 void getInstituteByBranchExpTest() throws Exception {
+	void getInstituteByBranchExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
-
-		// when(instituteService.getInstitutesByBranch(anyInt())).thenThrow(NotFoundException.class);
 
 		String response = instituteController.getInstituteByBranch(request);
 		assertEquals(response, instituteController.getInstituteByBranch(request));
 	}
 
 	@Test()
-	 void getInstitutesByLocationExpTest() throws Exception {
+	void getInstitutesByLocationExpTest() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
-
-		// when(instituteService.getInstitutesByStateDistrictBranch(anyInt(), anyInt(),
-		// anyInt())).thenThrow(NotFoundException.class);
 
 		String response = instituteController.getInstitutesByLocation(request);
 		assertEquals(response, instituteController.getInstitutesByLocation(request));

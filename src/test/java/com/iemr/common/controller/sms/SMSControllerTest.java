@@ -78,16 +78,6 @@ class SMSControllerTest {
 		verify(smsService, times(1)).getSMSTemplates(Mockito.any());
 	}
 
-//	@Test
-//	void testGetSMSTemplatesException() throws Exception {
-//		HttpServletRequest serverRequest = mock(HttpServletRequest.class);
-//		SMSRequest request = new SMSRequest();
-//		request.setProviderServiceMapID(123); // Set the required fields for the request
-//		when(smsService.getSMSTemplates(Mockito.any())).thenThrow(NotFoundException.class);
-//		String response = smsController.getSMSTemplates(request, serverRequest);
-//		assertEquals(response, smsController.getSMSTemplates(request, serverRequest));
-//	}
-
 	@Test
 	void getFullSMSTemplate_Success() throws Exception {
 		// Arrange
@@ -105,11 +95,6 @@ class SMSControllerTest {
 		assertTrue(actualResponse.contains(expectedResponse));
 	}
 
-//	@Test
-//	void testSaveSMSTemplate() {
-//		fail("Not yet implemented");
-//	}
-
 	@Test
 	void testSaveSMSTemplateSuccess() throws Exception {
 		// Given
@@ -125,25 +110,6 @@ class SMSControllerTest {
 		// this based on actual response structure.
 		assertTrue(result.contains("Success response"));
 	}
-
-//	@Test
-//	void testSaveSMSTemplateFailure() throws Exception {
-//		// Given
-//		CreateSMSRequest request = new CreateSMSRequest();
-//		when(smsService.saveSMSTemplate(any(CreateSMSRequest.class))).thenThrow(new RuntimeException("Test exception"));
-//
-//		// When
-//		Exception exception = assertThrows(RuntimeException.class,
-//				() -> controller.saveSMSTemplate(request, serverRequest));
-//
-//		// Then
-//		assertEquals("Test exception", exception.getMessage());
-//	}
-
-//	@Test
-//	void testUpdateSMSTemplate() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void testUpdateSMSTemplateSuccess() throws Exception {
@@ -162,11 +128,6 @@ class SMSControllerTest {
 		assertTrue(result.contains("Success response"));
 	}
 
-//	@Test
-//	void testGetSMSTypes() {
-//		fail("Not yet implemented");
-//	}
-
 	@Test
 	void testGetSMSTypesSuccess() throws Exception {
 		// Arrange
@@ -182,11 +143,6 @@ class SMSControllerTest {
 		assertNotNull(result, "Result should not be null");
 		assertTrue(result.contains(expectedResponse), "Result should contain the expected response");
 	}
-
-//	@Test
-//	void testGetSMSParameters() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void testGetSMSParametersSuccess() throws Exception {
@@ -206,11 +162,6 @@ class SMSControllerTest {
 
 		verify(smsService).getSMSParameters(any(SMSParameterModel.class)); // Verify smsService was called
 	}
-
-//	@Test
-//	void testSendSMS() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void testSendSMSSuccess() throws Exception {
@@ -235,7 +186,7 @@ class SMSControllerTest {
 	}
 
 	@Test
-	 void testGetFullSMSTemplateThrowsException() throws Exception {
+	void testGetFullSMSTemplateThrowsException() throws Exception {
 		// Setup mock for static method within the test method
 		try (MockedStatic<OutputMapper> mockedOutputMapper = mockStatic(OutputMapper.class)) {
 			Gson gson = new Gson(); // Or use your specific Gson configuration
@@ -262,7 +213,7 @@ class SMSControllerTest {
 	}
 
 	@Test
-	 void testSaveSMSTemplateThrowsException() throws Exception {
+	void testSaveSMSTemplateThrowsException() throws Exception {
 		try (MockedStatic<OutputMapper> mockedOutputMapper = Mockito.mockStatic(OutputMapper.class)) {
 			mockedOutputMapper.when(() -> OutputMapper.gson()).thenReturn(new Gson()); // Provide your mocked behavior
 
@@ -280,7 +231,7 @@ class SMSControllerTest {
 	}
 
 	@Test
-	 void updateSMSTemplate_CatchBlockExecuted() throws Exception {
+	void updateSMSTemplate_CatchBlockExecuted() throws Exception {
 		// Use try-with-resources to ensure MockedStatic is closed after the test
 		try (MockedStatic<OutputMapper> mockedOutputMapper = Mockito.mockStatic(OutputMapper.class)) {
 			// Mock OutputMapper.gson() to return a new Gson instance
@@ -306,7 +257,7 @@ class SMSControllerTest {
 	}
 
 	@Test
-	 void getSMSTypes_CatchBlockExecuted() throws Exception {
+	void getSMSTypes_CatchBlockExecuted() throws Exception {
 		// Mock the dependencies
 		SMSService mockSMSService = mock(SMSService.class);
 		HttpServletRequest mockRequest = mock(HttpServletRequest.class);
@@ -329,7 +280,7 @@ class SMSControllerTest {
 	}
 
 	@Test
-	 void getSMSParameters_CatchBlockExecuted() throws Exception {
+	void getSMSParameters_CatchBlockExecuted() throws Exception {
 		// Create mock instances for the dependencies
 		SMSService mockSMSService = mock(SMSService.class);
 		HttpServletRequest mockHttpServletRequest = mock(HttpServletRequest.class);
@@ -355,5 +306,4 @@ class SMSControllerTest {
 		}
 	}
 
-	
 }

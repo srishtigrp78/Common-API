@@ -42,72 +42,13 @@ class Helpline104BeneficiaryHistoryControllerTest {
 	private Helpline104BeneficiaryHistoryController target;
 
 	@AfterEach()
-	 void afterTest() throws Exception {
+	void afterTest() throws Exception {
 		if (autoCloseableMocks != null)
 			autoCloseableMocks.close();
 	}
 
-//	// Sapient generated method id: ${7bc3155a-f54a-37f8-b037-d14a553a69df}, hash:
-//	// 0F6CF2727588DBB5F8460CF5FE2C3EEE
-//	@Test()
-//	void getBenCaseSheetTest() throws Exception {
-//		// Arrange Statement(s)
-//		InputMapper inputMapperMock = mock(InputMapper.class);
-//		H104BenMedHistory h104BenMedHistoryMock = mock(H104BenMedHistory.class, "getBenCaseSheet_object1");
-//		try (MockedStatic<InputMapper> inputMapper = mockStatic(InputMapper.class)) {
-//			inputMapper.when(() -> InputMapper.gson()).thenReturn(inputMapperMock);
-//			doReturn(h104BenMedHistoryMock).when(inputMapperMock).fromJson("request1", H104BenMedHistory.class);
-//			doReturn(0L).when(h104BenMedHistoryMock).getBeneficiaryRegID();
-//			target = new Helpline104BeneficiaryHistoryController();
-//			autoCloseableMocks = MockitoAnnotations.openMocks(this);
-//			ArrayList<Object[]> objectList = new ArrayList<>();
-//			doReturn(objectList).when(smpleBenHistoryServiceImplMock).geSmpleBenHistory(0L);
-//			// Act Statement(s)
-//			String result = target.getBenCaseSheet("request1");
-//			// Assert statement(s)
-//			assertAll("result", () -> {
-//				assertThat(result, equalTo(
-//						"{\"data\":[],\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}"));
-//				inputMapper.verify(() -> InputMapper.gson(), atLeast(1));
-//				verify(inputMapperMock).fromJson("request1", H104BenMedHistory.class);
-//				verify(h104BenMedHistoryMock).getBeneficiaryRegID();
-//				verify(smpleBenHistoryServiceImplMock).geSmpleBenHistory(0L);
-//			});
-//		}
-//	}
-//
-//	// Sapient generated method id: ${381c317a-c1df-3f37-b31d-d6737a467dd6}, hash:
-//	// 4840F693373414DCA8366C43EF9C2D8F
-//	@Test()
-//	void getBenCaseSheetWhenCaughtException() throws Exception {
-//		
-//		// Arrange Statement(s)
-//		InputMapper inputMapperMock = mock(InputMapper.class);
-//		H104BenMedHistory h104BenMedHistoryMock = mock(H104BenMedHistory.class, "getBenCaseSheet_object1");
-//		try (MockedStatic<InputMapper> inputMapper = mockStatic(InputMapper.class)) {
-//			inputMapper.when(() -> InputMapper.gson()).thenReturn(inputMapperMock);
-//			doReturn(h104BenMedHistoryMock).when(inputMapperMock).fromJson("request1", H104BenMedHistory.class);
-//			doReturn(0L).when(h104BenMedHistoryMock).getBeneficiaryRegID();
-//			target = new Helpline104BeneficiaryHistoryController();
-//			autoCloseableMocks = MockitoAnnotations.openMocks(this);
-//			ArrayList<Object[]> objectList = new ArrayList<>();
-//			doReturn(objectList).when(smpleBenHistoryServiceImplMock).geSmpleBenHistory(0L);
-//			// Act Statement(s)
-//			String result = target.getBenCaseSheet("request1");
-//			// Assert statement(s)
-//			assertAll("result", () -> {
-//				assertThat(result, equalTo(
-//						"{\"data\":[],\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}"));
-//				inputMapper.verify(() -> InputMapper.gson(), atLeast(1));
-//				verify(inputMapperMock).fromJson("request1", H104BenMedHistory.class);
-//				verify(h104BenMedHistoryMock).getBeneficiaryRegID();
-//				verify(smpleBenHistoryServiceImplMock).geSmpleBenHistory(0L);
-//			});
-//		}
-//	}
-
 	@Test
-	 void testGetBenCaseSheet_Exception() throws Exception {
+	void testGetBenCaseSheet_Exception() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(smpleBenHistoryServiceImplMock.geSmpleBenHistory(any()).toString()).thenThrow(NotFoundException.class);

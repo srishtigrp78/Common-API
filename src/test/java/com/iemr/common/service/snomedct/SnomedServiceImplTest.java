@@ -17,12 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class SnomedServiceImplTest {
-//	@Test
-//	void testSetSnomedRepository() {
-//
-//		// Arrange and Act
-//		(new SnomedServiceImpl()).setSnomedRepository(mock(SnomedRepository.class));
-//	}
 
 	@Test
 	void testFindSnomedCTRecordFromTerm() {

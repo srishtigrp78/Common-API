@@ -34,24 +34,12 @@ class CustomerRelationshipReportsTest {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 	InputMapper inputMapper = new InputMapper();
 
-//	@Test
-//	void testPatientAppChiefComplaintsMasterData() throws Exception {
-//		Integer providerServiceMapID = 1;
-//
-//		OutputResponse response = new OutputResponse();
-//
-//		response.setResponse(callReportsService.getReportTypes(providerServiceMapID));
-//
-//		assertEquals(response.toString(),
-//				customerRelationshipReports.patientAppChiefComplaintsMasterData(providerServiceMapID));
-//	}
 
 	@Test
 	void testPatientAppChiefComplaintsMasterData1() throws Exception {
 		Integer providerServiceMapID = 1;
 		String expectedResponse = "expected response";
 
-		// Assuming callReportsService.getReportTypes(providerServiceMapID) returns a
 		// String for simplicity
 		when(callReportsService.getReportTypes(providerServiceMapID)).thenReturn(expectedResponse);
 

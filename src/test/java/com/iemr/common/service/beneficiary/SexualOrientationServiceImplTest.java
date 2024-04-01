@@ -20,63 +20,57 @@ import com.iemr.common.repository.userbeneficiarydata.SexualOrientationRepositor
 
 @ExtendWith(MockitoExtension.class)
 class SexualOrientationServiceImplTest {
-    @Mock
-    private SexualOrientationRepository sexualOrientationRepository;
+	@Mock
+	private SexualOrientationRepository sexualOrientationRepository;
 
-    @InjectMocks
-    private SexualOrientationServiceImpl sexualOrientationServiceImpl;
+	@InjectMocks
+	private SexualOrientationServiceImpl sexualOrientationServiceImpl;
 
-//    @Test
-//    void testSetDirectoryRepository() {
-//       
-//        (new SexualOrientationServiceImpl()).setDirectoryRepository(mock(SexualOrientationRepository.class));
-//    }
+	@Test
+	void testGetSexualOrientations() {
+		when(sexualOrientationRepository.findAciveOrientations()).thenReturn(new HashSet<>());
+		List<SexualOrientation> actualSexualOrientations = sexualOrientationServiceImpl.getSexualOrientations();
+		verify(sexualOrientationRepository).findAciveOrientations();
+		assertTrue(actualSexualOrientations.isEmpty());
+	}
 
-    @Test
-    void testGetSexualOrientations() {
-        when(sexualOrientationRepository.findAciveOrientations()).thenReturn(new HashSet<>());
-        List<SexualOrientation> actualSexualOrientations = sexualOrientationServiceImpl.getSexualOrientations();
-        verify(sexualOrientationRepository).findAciveOrientations();
-        assertTrue(actualSexualOrientations.isEmpty());
-    }
+	@Test
+	void testGetSexualOrientations2() {
+		HashSet<Object[]> objectArraySet = new HashSet<>();
+		objectArraySet.add(new Object[] { "42" });
+		when(sexualOrientationRepository.findAciveOrientations()).thenReturn(objectArraySet);
+		List<SexualOrientation> actualSexualOrientations = sexualOrientationServiceImpl.getSexualOrientations();
+		verify(sexualOrientationRepository).findAciveOrientations();
+		assertTrue(actualSexualOrientations.isEmpty());
+	}
 
-    @Test
-    void testGetSexualOrientations2() {
-        HashSet<Object[]> objectArraySet = new HashSet<>();
-        objectArraySet.add(new Object[]{"42"});
-        when(sexualOrientationRepository.findAciveOrientations()).thenReturn(objectArraySet);
-        List<SexualOrientation> actualSexualOrientations = sexualOrientationServiceImpl.getSexualOrientations();
-        verify(sexualOrientationRepository).findAciveOrientations();
-        assertTrue(actualSexualOrientations.isEmpty());
-    }
+	@Test
+	void testGetSexualOrientations3() {
+		HashSet<Object[]> objectArraySet = new HashSet<>();
+		objectArraySet.add(null);
+		when(sexualOrientationRepository.findAciveOrientations()).thenReturn(objectArraySet);
+		List<SexualOrientation> actualSexualOrientations = sexualOrientationServiceImpl.getSexualOrientations();
+		verify(sexualOrientationRepository).findAciveOrientations();
+		assertTrue(actualSexualOrientations.isEmpty());
+	}
 
-    @Test
-    void testGetSexualOrientations3() {
-        HashSet<Object[]> objectArraySet = new HashSet<>();
-        objectArraySet.add(null);
-        when(sexualOrientationRepository.findAciveOrientations()).thenReturn(objectArraySet);
-        List<SexualOrientation> actualSexualOrientations = sexualOrientationServiceImpl.getSexualOrientations();
-        verify(sexualOrientationRepository).findAciveOrientations();
-        assertTrue(actualSexualOrientations.isEmpty());
-    }
+	@Test
+	void testGetSexualOrientations4() {
+		HashSet<Object[]> objectArraySet = new HashSet<>();
+		objectArraySet.add(new Object[] { (short) 1, "42" });
+		when(sexualOrientationRepository.findAciveOrientations()).thenReturn(objectArraySet);
+		List<SexualOrientation> actualSexualOrientations = sexualOrientationServiceImpl.getSexualOrientations();
+		verify(sexualOrientationRepository).findAciveOrientations();
+		assertEquals(1, actualSexualOrientations.size());
+	}
 
-    @Test
-    void testGetSexualOrientations4() {
-        HashSet<Object[]> objectArraySet = new HashSet<>();
-        objectArraySet.add(new Object[]{(short) 1, "42"});
-        when(sexualOrientationRepository.findAciveOrientations()).thenReturn(objectArraySet);
-        List<SexualOrientation> actualSexualOrientations = sexualOrientationServiceImpl.getSexualOrientations();
-        verify(sexualOrientationRepository).findAciveOrientations();
-        assertEquals(1, actualSexualOrientations.size());
-    }
-
-    @Test
-    void testGetSexualOrientations5() {
-        HashSet<Object[]> objectArraySet = new HashSet<>();
-        objectArraySet.add(new Object[]{(short) 2, "42"});
-        when(sexualOrientationRepository.findAciveOrientations()).thenReturn(objectArraySet);
-        List<SexualOrientation> actualSexualOrientations = sexualOrientationServiceImpl.getSexualOrientations();
-        verify(sexualOrientationRepository).findAciveOrientations();
-        assertEquals(1, actualSexualOrientations.size());
-    }
+	@Test
+	void testGetSexualOrientations5() {
+		HashSet<Object[]> objectArraySet = new HashSet<>();
+		objectArraySet.add(new Object[] { (short) 2, "42" });
+		when(sexualOrientationRepository.findAciveOrientations()).thenReturn(objectArraySet);
+		List<SexualOrientation> actualSexualOrientations = sexualOrientationServiceImpl.getSexualOrientations();
+		verify(sexualOrientationRepository).findAciveOrientations();
+		assertEquals(1, actualSexualOrientations.size());
+	}
 }

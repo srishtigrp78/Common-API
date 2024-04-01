@@ -86,7 +86,6 @@ class RegisterBenificiaryServiceImplTest {
 		verify(identityBenEditMapper).BenToIdentityEditMapper(beneficiaryModel);
 		verify(identityBeneficiaryService).editIdentityEditDTO(identityEditDTO, auth, false);
 		assertNotNull(beneficiaryIdentities);
-		//assertNotEquals(0, beneficiaryIdentities);
 		assertEquals(1, actualUpdateBenificiaryResult.intValue());
 	}
 
@@ -102,16 +101,14 @@ class RegisterBenificiaryServiceImplTest {
 		String identityResponse = "{\"response\":{\"data\":{\"benId\":1,\"benRegId\":123}}}";
 		when(identityBeneficiaryService.getIdentityResponse(Mockito.anyString(), Mockito.anyString(),
 				Mockito.anyBoolean())).thenReturn(identityResponse);
-	    String response = registerBenificiaryServiceImpl.save(beneficiaryModel, httpServletRequest);
-	    assertNotNull(response, "Response should not be null");
-	    verify(identityMapper).beneficiaryModelCommonIdentityDTO(beneficiaryModel);
+		String response = registerBenificiaryServiceImpl.save(beneficiaryModel, httpServletRequest);
+		assertNotNull(response, "Response should not be null");
+		verify(identityMapper).beneficiaryModelCommonIdentityDTO(beneficiaryModel);
 
-	    verify(identityBeneficiaryService).getIdentityResponse(Mockito.anyString(), ArgumentMatchers.eq("mockAuthToken"), ArgumentMatchers.eq(false));
+		verify(identityBeneficiaryService).getIdentityResponse(Mockito.anyString(),
+				ArgumentMatchers.eq("mockAuthToken"), ArgumentMatchers.eq(false));
 
-		
 	}
-	
-	
 
 	@Test
 	void testUpdateCommunityorEducation() throws IEMRException {
@@ -128,7 +125,7 @@ class RegisterBenificiaryServiceImplTest {
 				Mockito.eq(auth), Mockito.eq(false))).thenReturn(1);
 
 		Integer updatedRows = registerBenificiaryServiceImpl.updateCommunityorEducation(beneficiaryModel, auth);
-		assertEquals(1,updatedRows);
+		assertEquals(1, updatedRows);
 
 		verify(identityBeneficiaryService).editIdentityEditDTOCommunityorEducation(Mockito.any(IdentityEditDTO.class),
 				Mockito.eq(auth), Mockito.eq(false));
@@ -141,12 +138,12 @@ class RegisterBenificiaryServiceImplTest {
 		when(servletRequest.getHeader("authorization")).thenReturn("mockAuth");
 		List<BeneficiaryGenModel> beneficiaryGenModels = new ArrayList<>();
 		beneficiaryGenModels.add(new BeneficiaryGenModel());
-		when(identityBeneficiaryService.generateBeneficiaryIDs(Mockito.anyString(), Mockito.eq("mockAuth"))).thenReturn(beneficiaryGenModels);
+		when(identityBeneficiaryService.generateBeneficiaryIDs(Mockito.anyString(), Mockito.eq("mockAuth")))
+				.thenReturn(beneficiaryGenModels);
 
 		String response = registerBenificiaryServiceImpl.generateBeneficiaryIDs(request, servletRequest);
 		assertNotNull(response, "Response should not be null");
 
-		//verify(identityBeneficiaryService).generateBeneficiaryIDs(Mockito.eq(request), ("mockAuth"));
 	}
 
 }

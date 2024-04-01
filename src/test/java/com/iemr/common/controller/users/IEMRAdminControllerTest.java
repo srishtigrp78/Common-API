@@ -73,22 +73,6 @@ class IEMRAdminControllerTest {
 	@Mock
 	private IEMRAdminUserService iemrAdminUserService;
 
-//	@Test
-//	void testUserAuthenticateNew() {
-//		fail("Not yet implemented");
-//	}
-
-//
-//	@Test
-//	void testUserAuthenticate() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	void testLogOutUserFromConcurrentSession() {
-//		fail("Not yet implemented");
-//	}
-
 	@Test
 	void testLogOutUserFromConcurrentSession() {
 		// Arrange
@@ -3482,404 +3466,6 @@ class IEMRAdminControllerTest {
 				actualForgetPasswordResult);
 	}
 
-	/**
-	 * Method under test:
-	 * {@link IEMRAdminController#forgetPassword(ChangePasswordModel)}
-	 */
-//	@Test
-//	void testForgetPassword5() {
-//		// Diffblue Cover was unable to create a Spring-specific test for this Spring
-//		// method.
-//
-//		// Arrange
-//		Designation designation = new Designation();
-//		designation.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		designation.setCreatedDate(mock(Timestamp.class));
-//		designation.setDeleted(true);
-//		designation.setDesignationDesc("Failed with generic error");
-//		designation.setDesignationID(1);
-//		designation.setDesignationName("Failed with generic error");
-//		designation.setFeedbackDetails(new HashSet<>());
-//		designation.setLastModDate(mock(Timestamp.class));
-//		designation.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		designation.setOutputMapper(new OutputMapper());
-//		designation.setUsers(new HashSet<>());
-//
-//		Gender m_gender = new Gender();
-//		m_gender.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		m_gender.setCreatedDate(mock(Timestamp.class));
-//		m_gender.setDeleted(true);
-//		m_gender.setGenderID(1);
-//		m_gender.setGenderName("Failed with generic error");
-//		m_gender.setI_beneficiary(new HashSet<>());
-//		m_gender.setLastModDate(mock(Timestamp.class));
-//		m_gender.setM_user(new HashSet<>());
-//		m_gender.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		m_gender.setOutputMapper(new OutputMapper());
-//
-//		MaritalStatus m_maritalstatus = new MaritalStatus();
-//		m_maritalstatus.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		m_maritalstatus.setCreatedDate(mock(Timestamp.class));
-//		m_maritalstatus.setDeleted(true);
-//		m_maritalstatus.setI_beneficiary(new HashSet<>());
-//		m_maritalstatus.setLastModDate(mock(Timestamp.class));
-//		m_maritalstatus.setM_user(new HashSet<>());
-//		m_maritalstatus.setMaritalStatusID(1);
-//		m_maritalstatus.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		m_maritalstatus.setOutputMapper(new OutputMapper());
-//		m_maritalstatus.setStatus("Failed with generic error");
-//		m_maritalstatus.setStatusDesc("Failed with generic error");
-//
-//		Status m_status = new Status();
-//		m_status.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		m_status.setCreatedDate(mock(Timestamp.class));
-//		m_status.setDeleted(true);
-//		m_status.setI_Beneficiaries(new HashSet<>());
-//		m_status.setLastModDate(mock(Timestamp.class));
-//		m_status.setM_Users(new HashSet<>());
-//		m_status.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		m_status.setOutputMapper(new OutputMapper());
-//		m_status.setProviderServiceMappings(new HashSet<>());
-//		m_status.setServiceProviders(new HashSet<>());
-//		m_status.setStatus("Failed with generic error");
-//		m_status.setStatusDesc("Failed with generic error");
-//		m_status.setStatusID(1);
-//
-//		Title m_title = new Title();
-//		m_title.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		m_title.setCreatedDate(mock(Timestamp.class));
-//		m_title.setDeleted(true);
-//		m_title.setI_beneficiary(new HashSet<>());
-//		m_title.setLastModDate(mock(Timestamp.class));
-//		m_title.setM_user(new HashSet<>());
-//		m_title.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		m_title.setOutputMapper(new OutputMapper());
-//		m_title.setTitleDesc("Dr");
-//		m_title.setTitleID(1);
-//		m_title.setTitleName("Dr");
-//
-//		User user = new User();
-//		user.setAadhaarNo("Failed with generic error");
-//		user.setAgentID("Failed with generic error");
-//		user.setAgentPassword("iloveyou");
-//		user.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		user.setCreatedDate(mock(Timestamp.class));
-//		user.setDeleted(true);
-//		user.setDesignation(designation);
-//		user.setDesignationID(1);
-//		user.setEmailID("jane.doe@example.org");
-//		user.setEmergencyContactNo("Failed with generic error");
-//		user.setEmergencyContactPerson("Failed with generic error");
-//		user.setFailedAttempt(5000);
-//		user.setFeedbackDetails(new HashSet<>());
-//		user.setFirstName("Jane");
-//		user.setGenderID(1);
-//		user.setIsSupervisor(true);
-//		user.setLastModDate(mock(Timestamp.class));
-//		user.setLastName("Doe");
-//		user.setM_UserLangMappings(new HashSet<>());
-//		user.setM_UserServiceRoleMapping(new ArrayList<>());
-//		user.setM_gender(m_gender);
-//		user.setM_maritalstatus(m_maritalstatus);
-//		user.setM_status(m_status);
-//		user.setM_title(m_title);
-//		user.setMaritalStatusID(1);
-//		user.setMiddleName("Failed with generic error");
-//		user.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		user.setNewPassword("iloveyou");
-//		user.setOutPutMapper(new OutputMapper());
-//		user.setOutboundCallRequests(new HashSet<>());
-//		user.setPassword("iloveyou");
-//		user.setQualificationID(1);
-//		user.setRoleMappings(new HashSet<>());
-//		user.setStatusID(1);
-//		user.setTitleID(1);
-//		user.setUserID(1L);
-//		user.setUserName("janedoe");
-//		user.setdOB(mock(Timestamp.class));
-//		user.setdOJ(mock(Timestamp.class));
-//		user.setpAN("Failed with generic error");
-//
-//		ArrayList<User> userList = new ArrayList<>();
-//		userList.add(user);
-//
-//		LoginSecurityQuestions m_LoginSecurityQuestions = new LoginSecurityQuestions();
-//		m_LoginSecurityQuestions.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		m_LoginSecurityQuestions.setCreatedDate(mock(Timestamp.class));
-//		m_LoginSecurityQuestions.setDeleted(true);
-//		m_LoginSecurityQuestions.setLastModDate(mock(Timestamp.class));
-//		m_LoginSecurityQuestions.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		m_LoginSecurityQuestions.setOutputMapper(new OutputMapper());
-//		m_LoginSecurityQuestions.setQuestion("Failed with generic error");
-//		m_LoginSecurityQuestions.setQuestionID(1);
-//
-//		UserSecurityQMapping userSecurityQMapping = new UserSecurityQMapping();
-//		userSecurityQMapping.setAnswers("Failed with generic error");
-//		userSecurityQMapping.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		userSecurityQMapping.setCreatedDate(mock(Timestamp.class));
-//		userSecurityQMapping.setDeleted(true);
-//		userSecurityQMapping.setLastModDate(mock(Timestamp.class));
-//		userSecurityQMapping.setM_LoginSecurityQuestions(m_LoginSecurityQuestions);
-//		userSecurityQMapping.setMobileNumber("42");
-//		userSecurityQMapping.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		userSecurityQMapping.setOutputMapper(new OutputMapper());
-//		userSecurityQMapping.setQuestionID("Failed with generic error");
-//		userSecurityQMapping.setUserID(1L);
-//		userSecurityQMapping.setUserSecurityQAID(1L);
-//
-//		ArrayList<UserSecurityQMapping> userSecurityQMappingList = new ArrayList<>();
-//		userSecurityQMappingList.add(userSecurityQMapping);
-//		IEMRAdminUserService iemrAdminUserService = mock(IEMRAdminUserService.class);
-//		when(iemrAdminUserService.userSecurityQuestion(Mockito.<Long>any())).thenReturn(userSecurityQMappingList);
-//		when(iemrAdminUserService.userExitsCheck(Mockito.<String>any())).thenReturn(userList);
-//
-//		IEMRAdminController iemrAdminController = new IEMRAdminController();
-//		iemrAdminController.setIemrAdminUserService(iemrAdminUserService);
-//		ChangePasswordModel m_User = mock(ChangePasswordModel.class);
-//		when(m_User.getUserName()).thenReturn("janedoe");
-//		doNothing().when(m_User).setIsAdmin(Mockito.<Boolean>any());
-//		doNothing().when(m_User).setNewPassword(Mockito.<String>any());
-//		doNothing().when(m_User).setPassword(Mockito.<String>any());
-//		doNothing().when(m_User).setTransactionId(Mockito.<String>any());
-//		doNothing().when(m_User).setUserName(Mockito.<String>any());
-//		m_User.setIsAdmin(true);
-//		m_User.setNewPassword("iloveyou");
-//		m_User.setPassword("iloveyou");
-//		m_User.setTransactionId("42");
-//		m_User.setUserName("janedoe");
-//
-//		// Act
-//		String actualForgetPasswordResult = iemrAdminController.forgetPassword(m_User);
-//
-//		// Assert
-//		verify(m_User).getUserName();
-//		verify(m_User).setIsAdmin(Mockito.<Boolean>any());
-//		verify(m_User).setNewPassword(("iloveyou"));
-//		verify(m_User).setPassword(("iloveyou"));
-//		verify(m_User).setTransactionId(("42"));
-//		verify(m_User).setUserName(("janedoe"));
-//		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
-//		verify(iemrAdminUserService).userSecurityQuestion(Mockito.<Long>any());
-//		assertEquals(
-//				"{\"data\":{\"SecurityQuesAns\":[{\"questionId\":\"Failed with generic error\",\"question\":\"Failed with generic"
-//						+ " error\"}]},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
-//				actualForgetPasswordResult);
-//	}
-//
-//	/**
-//	 * Method under test:
-//	 * {@link IEMRAdminController#forgetPassword(ChangePasswordModel)}
-//	 */
-//	@Test
-//	void testForgetPassword6() {
-//		// Diffblue Cover was unable to create a Spring-specific test for this Spring
-//		// method.
-//
-//		// Arrange
-//		Designation designation = new Designation();
-//		designation.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		designation.setCreatedDate(mock(Timestamp.class));
-//		designation.setDeleted(true);
-//		designation.setDesignationDesc("Failed with generic error");
-//		designation.setDesignationID(1);
-//		designation.setDesignationName("Failed with generic error");
-//		designation.setFeedbackDetails(new HashSet<>());
-//		designation.setLastModDate(mock(Timestamp.class));
-//		designation.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		designation.setOutputMapper(new OutputMapper());
-//		designation.setUsers(new HashSet<>());
-//
-//		Gender m_gender = new Gender();
-//		m_gender.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		m_gender.setCreatedDate(mock(Timestamp.class));
-//		m_gender.setDeleted(true);
-//		m_gender.setGenderID(1);
-//		m_gender.setGenderName("Failed with generic error");
-//		m_gender.setI_beneficiary(new HashSet<>());
-//		m_gender.setLastModDate(mock(Timestamp.class));
-//		m_gender.setM_user(new HashSet<>());
-//		m_gender.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		m_gender.setOutputMapper(new OutputMapper());
-//
-//		MaritalStatus m_maritalstatus = new MaritalStatus();
-//		m_maritalstatus.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		m_maritalstatus.setCreatedDate(mock(Timestamp.class));
-//		m_maritalstatus.setDeleted(true);
-//		m_maritalstatus.setI_beneficiary(new HashSet<>());
-//		m_maritalstatus.setLastModDate(mock(Timestamp.class));
-//		m_maritalstatus.setM_user(new HashSet<>());
-//		m_maritalstatus.setMaritalStatusID(1);
-//		m_maritalstatus.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		m_maritalstatus.setOutputMapper(new OutputMapper());
-//		m_maritalstatus.setStatus("Failed with generic error");
-//		m_maritalstatus.setStatusDesc("Failed with generic error");
-//
-//		Status m_status = new Status();
-//		m_status.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		m_status.setCreatedDate(mock(Timestamp.class));
-//		m_status.setDeleted(true);
-//		m_status.setI_Beneficiaries(new HashSet<>());
-//		m_status.setLastModDate(mock(Timestamp.class));
-//		m_status.setM_Users(new HashSet<>());
-//		m_status.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		m_status.setOutputMapper(new OutputMapper());
-//		m_status.setProviderServiceMappings(new HashSet<>());
-//		m_status.setServiceProviders(new HashSet<>());
-//		m_status.setStatus("Failed with generic error");
-//		m_status.setStatusDesc("Failed with generic error");
-//		m_status.setStatusID(1);
-//
-//		Title m_title = new Title();
-//		m_title.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		m_title.setCreatedDate(mock(Timestamp.class));
-//		m_title.setDeleted(true);
-//		m_title.setI_beneficiary(new HashSet<>());
-//		m_title.setLastModDate(mock(Timestamp.class));
-//		m_title.setM_user(new HashSet<>());
-//		m_title.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		m_title.setOutputMapper(new OutputMapper());
-//		m_title.setTitleDesc("Dr");
-//		m_title.setTitleID(1);
-//		m_title.setTitleName("Dr");
-//
-//		User user = new User();
-//		user.setAadhaarNo("Failed with generic error");
-//		user.setAgentID("Failed with generic error");
-//		user.setAgentPassword("iloveyou");
-//		user.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		user.setCreatedDate(mock(Timestamp.class));
-//		user.setDeleted(true);
-//		user.setDesignation(designation);
-//		user.setDesignationID(1);
-//		user.setEmailID("jane.doe@example.org");
-//		user.setEmergencyContactNo("Failed with generic error");
-//		user.setEmergencyContactPerson("Failed with generic error");
-//		user.setFailedAttempt(5000);
-//		user.setFeedbackDetails(new HashSet<>());
-//		user.setFirstName("Jane");
-//		user.setGenderID(1);
-//		user.setIsSupervisor(true);
-//		user.setLastModDate(mock(Timestamp.class));
-//		user.setLastName("Doe");
-//		user.setM_UserLangMappings(new HashSet<>());
-//		user.setM_UserServiceRoleMapping(new ArrayList<>());
-//		user.setM_gender(m_gender);
-//		user.setM_maritalstatus(m_maritalstatus);
-//		user.setM_status(m_status);
-//		user.setM_title(m_title);
-//		user.setMaritalStatusID(1);
-//		user.setMiddleName("Failed with generic error");
-//		user.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		user.setNewPassword("iloveyou");
-//		user.setOutPutMapper(new OutputMapper());
-//		user.setOutboundCallRequests(new HashSet<>());
-//		user.setPassword("iloveyou");
-//		user.setQualificationID(1);
-//		user.setRoleMappings(new HashSet<>());
-//		user.setStatusID(1);
-//		user.setTitleID(1);
-//		user.setUserID(1L);
-//		user.setUserName("janedoe");
-//		user.setdOB(mock(Timestamp.class));
-//		user.setdOJ(mock(Timestamp.class));
-//		user.setpAN("Failed with generic error");
-//
-//		ArrayList<User> userList = new ArrayList<>();
-//		userList.add(user);
-//
-//		LoginSecurityQuestions m_LoginSecurityQuestions = new LoginSecurityQuestions();
-//		m_LoginSecurityQuestions.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		m_LoginSecurityQuestions.setCreatedDate(mock(Timestamp.class));
-//		m_LoginSecurityQuestions.setDeleted(true);
-//		m_LoginSecurityQuestions.setLastModDate(mock(Timestamp.class));
-//		m_LoginSecurityQuestions.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		m_LoginSecurityQuestions.setOutputMapper(new OutputMapper());
-//		m_LoginSecurityQuestions.setQuestion("Failed with generic error");
-//		m_LoginSecurityQuestions.setQuestionID(1);
-//
-//		UserSecurityQMapping userSecurityQMapping = new UserSecurityQMapping();
-//		userSecurityQMapping.setAnswers("Failed with generic error");
-//		userSecurityQMapping.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		userSecurityQMapping.setCreatedDate(mock(Timestamp.class));
-//		userSecurityQMapping.setDeleted(true);
-//		userSecurityQMapping.setLastModDate(mock(Timestamp.class));
-//		userSecurityQMapping.setM_LoginSecurityQuestions(m_LoginSecurityQuestions);
-//		userSecurityQMapping.setMobileNumber("42");
-//		userSecurityQMapping.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		userSecurityQMapping.setOutputMapper(new OutputMapper());
-//		userSecurityQMapping.setQuestionID("Failed with generic error");
-//		userSecurityQMapping.setUserID(1L);
-//		userSecurityQMapping.setUserSecurityQAID(1L);
-//
-//		LoginSecurityQuestions m_LoginSecurityQuestions2 = new LoginSecurityQuestions();
-//		m_LoginSecurityQuestions2.setCreatedBy("Failed with generic error");
-//		m_LoginSecurityQuestions2.setCreatedDate(mock(Timestamp.class));
-//		m_LoginSecurityQuestions2.setDeleted(false);
-//		m_LoginSecurityQuestions2.setLastModDate(mock(Timestamp.class));
-//		m_LoginSecurityQuestions2.setModifiedBy("Failed with generic error");
-//		m_LoginSecurityQuestions2.setOutputMapper(new OutputMapper());
-//		m_LoginSecurityQuestions2.setQuestion("FAILURE");
-//		m_LoginSecurityQuestions2.setQuestionID(2);
-//
-//		UserSecurityQMapping userSecurityQMapping2 = new UserSecurityQMapping();
-//		userSecurityQMapping2.setAnswers("FAILURE");
-//		userSecurityQMapping2.setCreatedBy("Failed with generic error");
-//		userSecurityQMapping2.setCreatedDate(mock(Timestamp.class));
-//		userSecurityQMapping2.setDeleted(false);
-//		userSecurityQMapping2.setLastModDate(mock(Timestamp.class));
-//		userSecurityQMapping2.setM_LoginSecurityQuestions(m_LoginSecurityQuestions2);
-//		userSecurityQMapping2.setMobileNumber("Failed with generic error");
-//		userSecurityQMapping2.setModifiedBy("Failed with generic error");
-//		userSecurityQMapping2.setOutputMapper(new OutputMapper());
-//		userSecurityQMapping2.setQuestionID("FAILURE");
-//		userSecurityQMapping2.setUserID(2L);
-//		userSecurityQMapping2.setUserSecurityQAID(2L);
-//
-//		ArrayList<UserSecurityQMapping> userSecurityQMappingList = new ArrayList<>();
-//		userSecurityQMappingList.add(userSecurityQMapping2);
-//		userSecurityQMappingList.add(userSecurityQMapping);
-//		IEMRAdminUserService iemrAdminUserService = mock(IEMRAdminUserService.class);
-//		when(iemrAdminUserService.userSecurityQuestion(Mockito.<Long>any())).thenReturn(userSecurityQMappingList);
-//		when(iemrAdminUserService.userExitsCheck(Mockito.<String>any())).thenReturn(userList);
-//
-//		IEMRAdminController iemrAdminController = new IEMRAdminController();
-//		iemrAdminController.setIemrAdminUserService(iemrAdminUserService);
-//		ChangePasswordModel m_User = mock(ChangePasswordModel.class);
-//		when(m_User.getUserName()).thenReturn("janedoe");
-//		doNothing().when(m_User).setIsAdmin(Mockito.<Boolean>any());
-//		doNothing().when(m_User).setNewPassword(Mockito.<String>any());
-//		doNothing().when(m_User).setPassword(Mockito.<String>any());
-//		doNothing().when(m_User).setTransactionId(Mockito.<String>any());
-//		doNothing().when(m_User).setUserName(Mockito.<String>any());
-//		m_User.setIsAdmin(true);
-//		m_User.setNewPassword("iloveyou");
-//		m_User.setPassword("iloveyou");
-//		m_User.setTransactionId("42");
-//		m_User.setUserName("janedoe");
-//
-//		// Act
-//		String actualForgetPasswordResult = iemrAdminController.forgetPassword(m_User);
-//
-//		// Assert
-//		verify(m_User).getUserName();
-//		verify(m_User).setIsAdmin(Mockito.<Boolean>any());
-//		verify(m_User).setNewPassword(("iloveyou"));
-//		verify(m_User).setPassword(("iloveyou"));
-//		verify(m_User).setTransactionId(("42"));
-//		verify(m_User).setUserName(("janedoe"));
-//		verify(iemrAdminUserService).userExitsCheck(("janedoe"));
-//		verify(iemrAdminUserService).userSecurityQuestion(Mockito.<Long>any());
-//		assertEquals(
-//				"{\"data\":{\"SecurityQuesAns\":[{\"questionId\":\"FAILURE\",\"question\":\"FAILURE\"},{\"questionId\":\"Failed with"
-//						+ " generic error\",\"question\":\"Failed with generic error\"}]},\"statusCode\":200,\"errorMessage\":\"Success\","
-//						+ "\"status\":\"Success\"}",
-//				actualForgetPasswordResult);
-//	}
-
-	/**
-	 * Method under test:
-	 * {@link IEMRAdminController#forgetPassword(ChangePasswordModel)}
-	 */
 	@Test
 	void testForgetPassword7() {
 		// Diffblue Cover was unable to create a Spring-specific test for this Spring
@@ -4140,17 +3726,6 @@ class IEMRAdminControllerTest {
 				actualForgetPasswordResult);
 	}
 
-//	@Test
-//	void testSetPassword() {
-//		fail("Not yet implemented");
-//	}
-//
-
-//	@Test
-//	void testChangePassword() {
-//		fail("Not yet implemented");
-//	}
-
 	@Test
 	void testChangePassword() throws Exception {
 		// Arrange
@@ -4178,159 +3753,6 @@ class IEMRAdminControllerTest {
 								+ " login failed\"}"));
 	}
 
-//	@Test
-//	void testChangePassword2() throws Exception {
-//		// Arrange
-//		Designation designation = new Designation();
-//		designation.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		designation.setCreatedDate(mock(Timestamp.class));
-//		designation.setDeleted(true);
-//		designation.setDesignationDesc("Failed with generic error");
-//		designation.setDesignationID(1);
-//		designation.setDesignationName("Failed with generic error");
-//		designation.setFeedbackDetails(new HashSet<>());
-//		designation.setLastModDate(mock(Timestamp.class));
-//		designation.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		 designation.setOutputMapper(new OutputMapper());
-//		designation.setUsers(new HashSet<>());
-//
-//		designation.toString();
-//
-//		Gender m_gender = new Gender();
-//		m_gender.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		m_gender.setCreatedDate(mock(Timestamp.class));
-//		m_gender.setDeleted(true);
-//		m_gender.setGenderID(1);
-//		m_gender.setGenderName("Failed with generic error");
-//		m_gender.setI_beneficiary(new HashSet<>());
-//		m_gender.setLastModDate(mock(Timestamp.class));
-//		m_gender.setM_user(new HashSet<>());
-//		m_gender.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//
-//		m_gender.toString();
-//		 m_gender.setOutputMapper(new OutputMapper());
-//
-//		MaritalStatus m_maritalstatus = new MaritalStatus();
-//		m_maritalstatus.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		m_maritalstatus.setCreatedDate(mock(Timestamp.class));
-//		m_maritalstatus.setDeleted(true);
-//		m_maritalstatus.setI_beneficiary(new HashSet<>());
-//		m_maritalstatus.setLastModDate(mock(Timestamp.class));
-//		m_maritalstatus.setM_user(new HashSet<>());
-//		m_maritalstatus.setMaritalStatusID(1);
-//		m_maritalstatus.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		 m_maritalstatus.setOutputMapper(new OutputMapper());
-//		m_maritalstatus.setStatus("Failed with generic error");
-//		m_maritalstatus.setStatusDesc("Failed with generic error");
-//
-//		m_maritalstatus.toString();
-//
-//		Status m_status = new Status();
-//		m_status.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		m_status.setCreatedDate(mock(Timestamp.class));
-//		m_status.setDeleted(true);
-//		m_status.setI_Beneficiaries(new HashSet<>());
-//		m_status.setLastModDate(mock(Timestamp.class));
-//		m_status.setM_Users(new HashSet<>());
-//		m_status.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		 m_status.setOutputMapper(new OutputMapper());
-//		m_status.setProviderServiceMappings(new HashSet<>());
-//		m_status.setServiceProviders(new HashSet<>());
-//		m_status.setStatus("Failed with generic error");
-//		m_status.setStatusDesc("Failed with generic error");
-//		m_status.setStatusID(1);
-//
-//		m_status.toString();
-//
-//		Title m_title = new Title();
-//		m_title.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		m_title.setCreatedDate(mock(Timestamp.class));
-//		m_title.setDeleted(true);
-//		m_title.setI_beneficiary(new HashSet<>());
-//		m_title.setLastModDate(mock(Timestamp.class));
-//		m_title.setM_user(new HashSet<>());
-//		m_title.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		 m_title.setOutputMapper(new OutputMapper());
-//		m_title.setTitleDesc("Dr");
-//		m_title.setTitleID(1);
-//		m_title.setTitleName("Dr");
-//
-//		m_title.toString();
-//
-//		User user = new User();
-//		user.setAadhaarNo("Failed with generic error");
-//		user.setAgentID("Failed with generic error");
-//		user.setAgentPassword("iloveyou");
-//		user.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		user.setCreatedDate(mock(Timestamp.class));
-//		user.setDeleted(true);
-//		user.setDesignation(designation);
-//		user.setDesignationID(1);
-//		user.setEmailID("jane.doe@example.org");
-//		user.setEmergencyContactNo("Failed with generic error");
-//		user.setEmergencyContactPerson("Failed with generic error");
-//		user.setFailedAttempt(5000);
-//		user.setFeedbackDetails(new HashSet<>());
-//		user.setFirstName("Jane");
-//		user.setGenderID(1);
-//		user.setIsSupervisor(true);
-//		user.setLastModDate(mock(Timestamp.class));
-//		user.setLastName("Doe");
-//		user.setM_UserLangMappings(new HashSet<>());
-//		user.setM_UserServiceRoleMapping(new ArrayList<>());
-//		user.setM_gender(m_gender);
-//		user.setM_maritalstatus(m_maritalstatus);
-//		user.setM_status(m_status);
-//		user.setM_title(m_title);
-//		user.setMaritalStatusID(1);
-//		user.setMiddleName("Failed with generic error");
-//		user.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		user.setNewPassword("iloveyou");
-//		user.setOutPutMapper(new OutputMapper());
-//		user.setOutboundCallRequests(new HashSet<>());
-//		user.setPassword("iloveyou");
-//		user.setQualificationID(1);
-//		user.setRoleMappings(new HashSet<>());
-//		user.setStatusID(1);
-//		user.setTitleID(1);
-//		user.setUserID(1L);
-//		user.setUserName("janedoe");
-//		user.setdOB(mock(Timestamp.class));
-//		user.setdOJ(mock(Timestamp.class));
-//		user.setpAN("Failed with generic error");
-//
-//		user.toString();
-//
-//		ArrayList<User> userList = new ArrayList<>();
-//		userList.add(user);
-//		when(iemrAdminUserService.userExitsCheck(Mockito.<String>any())).thenReturn(userList);
-//
-//		ChangePasswordModel changePasswordModel = new ChangePasswordModel();
-//		changePasswordModel.setIsAdmin(true);
-//		changePasswordModel.setNewPassword("iloveyou");
-//		changePasswordModel.setPassword("iloveyou");
-//		changePasswordModel.setTransactionId("42");
-//		changePasswordModel.setUserName("janedoe");
-//
-//		changePasswordModel.toString();
-//
-//		String content = (new ObjectMapper()).writeValueAsString(changePasswordModel);
-//		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/user/changePassword")
-//				.contentType(MediaType.APPLICATION_JSON).content(content);
-//
-//		// Act and Assert
-//		MockMvcBuilders.standaloneSetup(iemrAdminController).build().perform(requestBuilder)
-//				.andExpect(MockMvcResultMatchers.status().isOk())
-//				.andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-//				.andExpect(MockMvcResultMatchers.content().string(
-//						"{\"statusCode\":5002,\"errorMessage\":\"For input string: \\\"iloveyou\\\"\",\"status\":\"User login failed\"}"));
-//	}
-//
-//	@Test
-//	void testSaveUserSecurityQuesAns() {
-//		fail("Not yet implemented");
-//	}
-
 	void testSaveUserSecurityQuesAns() {
 		// Arrange
 		IEMRAdminController iemrAdminController = new IEMRAdminController();
@@ -4342,12 +3764,6 @@ class IEMRAdminControllerTest {
 						+ " failed\"}",
 				iemrAdminController.saveUserSecurityQuesAns(new ArrayList<>()));
 	}
-
-//
-//	@Test
-//	void testGetSecurityts() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void testGetSecurityts() {
@@ -4392,14 +3808,10 @@ class IEMRAdminControllerTest {
 		// Assert
 		verify(iEMRUserLoginSecurityRepository).getAllLoginSecurityQuestions();
 	}
-//
-//	@Test
-//	void testGetRolesByProviderID() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
-	void testGetRolesByProviderID() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException, JsonMappingException, JsonProcessingException {
+	void testGetRolesByProviderID() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException, JsonMappingException, JsonProcessingException {
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
 		when(iemrAdminUserService.getRolesByProviderID(Mockito.<String>any())).thenReturn("Roles By Provider ID");
@@ -4419,7 +3831,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetRolesByProviderID2() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetRolesByProviderID2() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
 		when(iemrAdminUserService.getRolesByProviderID(Mockito.<String>any())).thenReturn("Failed with generic error");
@@ -4439,7 +3852,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetRolesByProviderID3() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetRolesByProviderID3() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
 		when(iemrAdminUserService.getRolesByProviderID(Mockito.<String>any())).thenReturn("FAILURE");
@@ -4458,7 +3872,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetRolesByProviderID4() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetRolesByProviderID4() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
 		when(iemrAdminUserService.getRolesByProviderID(Mockito.<String>any()))
@@ -4478,7 +3893,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetRolesByProviderID5() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetRolesByProviderID5() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -4498,7 +3914,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetRolesByProviderID6() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetRolesByProviderID6() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 		// Diffblue Cover was unable to create a Spring-specific test for this Spring
 		// method.
 
@@ -4520,7 +3937,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetRolesByProviderID7() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetRolesByProviderID7() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 		// Diffblue Cover was unable to create a Spring-specific test for this Spring
 		// method.
 
@@ -4542,7 +3960,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetRolesByProviderID8() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetRolesByProviderID8() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -4562,7 +3981,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetRolesByProviderID9() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetRolesByProviderID9() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
 		when(iemrAdminUserService.getRolesByProviderID(Mockito.<String>any())).thenReturn("\"");
@@ -4578,7 +3998,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetRolesByProviderID10() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetRolesByProviderID10() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
 		when(iemrAdminUserService.getRolesByProviderID(Mockito.<String>any())).thenReturn("'");
@@ -4596,19 +4017,9 @@ class IEMRAdminControllerTest {
 				actualRolesByProviderID);
 	}
 
-//
-//	@Test
-//	void testGetRoleScreenMappingByProviderID() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	void testGetUsersByProviderID() {
-//		fail("Not yet implemented");
-//	}
-
 	@Test
-	void testGetUsersByProviderID() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetUsersByProviderID() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -4629,7 +4040,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetUsersByProviderID2() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetUsersByProviderID2() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -4650,7 +4062,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetUsersByProviderID3() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetUsersByProviderID3() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -4670,7 +4083,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetUsersByProviderID4() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetUsersByProviderID4() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
 		when(iemrAdminUserService.getUsersByProviderID(Mockito.<String>any()))
@@ -4690,7 +4104,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetUsersByProviderID5() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetUsersByProviderID5() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -4710,7 +4125,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetUsersByProviderID6() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetUsersByProviderID6() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -4730,7 +4146,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetUsersByProviderID7() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetUsersByProviderID7() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -4750,7 +4167,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetUsersByProviderID8() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetUsersByProviderID8() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -4770,7 +4188,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetUsersByProviderID9() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetUsersByProviderID9() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -4787,7 +4206,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetUsersByProviderID10() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetUsersByProviderID10() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -4805,12 +4225,6 @@ class IEMRAdminControllerTest {
 				"{\"data\":{\"response\":\"\\u0027\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
 				actualUsersByProviderID);
 	}
-
-//
-//	@Test
-//	void testGetUserServicePointVanDetails() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void testGetUserServicePointVanDetails() {
@@ -4846,12 +4260,6 @@ class IEMRAdminControllerTest {
 				iemrAdminController.getUserServicePointVanDetails("Coming Request"));
 	}
 
-//
-//	@Test
-//	void testGetServicepointVillages() {
-//		fail("Not yet implemented");
-//	}
-
 	@Test
 	void testGetServicepointVillages() {
 
@@ -4885,11 +4293,6 @@ class IEMRAdminControllerTest {
 				"{\"statusCode\":5001,\"errorMessage\":\"Invalid object conversion\",\"status\":\"Invalid object conversion\"}",
 				iemrAdminController.getServicepointVillages("Coming Request"));
 	}
-//
-//	@Test
-//	void testGetLocationsByProviderID() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void testGetLocationsByProviderID() throws Exception {
@@ -5111,16 +4514,6 @@ class IEMRAdminControllerTest {
 		assertEquals("{\"statusCode\":5002,\"errorMessage\":\"An error occurred\",\"status\":\"User login failed\"}",
 				actualLocationsByProviderID);
 	}
-//
-//	@Test
-//	void testUserLogout() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	void testForceLogout() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void testForceLogout() {
@@ -5283,19 +4676,9 @@ class IEMRAdminControllerTest {
 				actualForceLogoutResult);
 	}
 
-//
-//	@Test
-//	void testUserForceLogout() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	void testGetAgentByRoleID() {
-//		fail("Not yet implemented");
-//	}
-
 	@Test
-	void testGetAgentByRoleID() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetAgentByRoleID() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -5316,7 +4699,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetAgentByRoleID2() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetAgentByRoleID2() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
 		when(iemrAdminUserService.getAgentByRoleID(Mockito.<String>any())).thenReturn("Failed with generic error");
@@ -5336,7 +4720,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetAgentByRoleID3() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetAgentByRoleID3() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -5356,7 +4741,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetAgentByRoleID4() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetAgentByRoleID4() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -5376,7 +4762,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetAgentByRoleID5() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetAgentByRoleID5() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 		// Diffblue Cover was unable to create a Spring-specific test for this Spring
 		// method.
 
@@ -5398,7 +4785,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetAgentByRoleID6() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetAgentByRoleID6() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 		// Diffblue Cover was unable to create a Spring-specific test for this Spring
 		// method.
 
@@ -5420,7 +4808,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetAgentByRoleID7() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetAgentByRoleID7() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -5440,7 +4829,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetAgentByRoleID8() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetAgentByRoleID8() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -5460,7 +4850,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetAgentByRoleID9() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetAgentByRoleID9() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -5477,7 +4868,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetAgentByRoleID10() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetAgentByRoleID10() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -5497,7 +4889,8 @@ class IEMRAdminControllerTest {
 	}
 
 	@Test
-	void testGetAgentByRoleID12() throws IEMRException, com.iemr.common.utils.exception.IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetAgentByRoleID12() throws IEMRException, com.iemr.common.utils.exception.IEMRException,
+			JsonMappingException, JsonProcessingException {
 
 		// Arrange
 		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
@@ -5516,54 +4909,6 @@ class IEMRAdminControllerTest {
 				actualAgentByRoleID);
 	}
 
-//
-//	@Test
-//	void testUserAuthenticateByEncryption() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	void testGetrolewrapuptime() {
-//		fail("Not yet implemented");
-//	}
-
-//	@Test
-//	void testGetrolewrapuptime() {
-//		// Diffblue Cover was unable to create a Spring-specific test for this Spring
-//		// method.
-//
-//		// Arrange
-//		M_Role m_Role = new M_Role();
-//		m_Role.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-//		m_Role.setCreatedDate(mock(Timestamp.class));
-//		m_Role.setDeleted(true);
-//		m_Role.setIsWrapUpTime(true);
-//		m_Role.setLastModDate(mock(Timestamp.class));
-//		m_Role.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-//		m_Role.setRoleDesc("Role Desc");
-//		m_Role.setRoleID(1);
-//		m_Role.setRoleName("Role Name");
-//		m_Role.setWrapUpTime(1);
-//		IEMRAdminUserServiceImpl iemrAdminUserService = mock(IEMRAdminUserServiceImpl.class);
-//		when(iemrAdminUserService.getrolewrapuptime(Mockito.<Integer>any())).thenReturn(m_Role);
-//
-//		IEMRAdminController iemrAdminController = new IEMRAdminController();
-//		iemrAdminController.setIemrAdminUserService(iemrAdminUserService);
-//
-//		// Act
-//		String actualGetrolewrapuptimeResult = iemrAdminController.getrolewrapuptime(1);
-//
-//		// Assert
-//		verify(iemrAdminUserService).getrolewrapuptime(Mockito.<Integer>any());
-//		assertEquals(
-//				"{\"data\":{\"RoleID\":1,\"RoleName\":\"Role Name\",\"RoleDesc\":\"Role Desc\",\"Deleted\":true,\"isWrapUpTime\":true"
-//						+ ",\"WrapUpTime\":1},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}",
-//				actualGetrolewrapuptimeResult);
-//	}
-//
-//	/**
-//	 * Method under test: {@link IEMRAdminController#getrolewrapuptime(Integer)}
-//	 */
 	@Test
 	void testGetrolewrapuptime2() {
 
@@ -5611,15 +4956,5 @@ class IEMRAdminControllerTest {
 		verify(m_Role).setWrapUpTime(Mockito.<Integer>any());
 		verify(iemrAdminUserService).getrolewrapuptime(Mockito.<Integer>any());
 	}
-//
-//	@Test
-//	void testValidateSecurityQuestionAndAnswer() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	void testUserAuthenticateBhavya() {
-//		fail("Not yet implemented");
-//	}
 
 }

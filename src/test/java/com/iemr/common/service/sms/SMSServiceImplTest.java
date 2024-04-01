@@ -108,11 +108,6 @@ class SMSServiceImplTest {
 	private static Boolean publishingSMS = false;
 	private static final String SMS_GATEWAY_URL = ConfigProperties.getPropertyByName("sms-gateway-url");
 
-//	@Test
-//	void testGetSMSTemplates() {
-//		fail("Not yet implemented");
-//	}
-
 	@Test
 	void testGetSMSTemplates_smsTypeIDNull() throws Exception {
 		// Arrange
@@ -139,31 +134,6 @@ class SMSServiceImplTest {
 		// Assert
 		assertNotNull(result);
 	}
-
-//	@Test
-//	void testGetSMSTemplates_smsTypeIDNotNull() throws Exception {
-//		// Arrange
-//		SMSRequest smsRequest = new SMSRequest();
-//		smsRequest.setProviderServiceMapID(123);
-//		smsRequest.setSmsTemplateID(456);
-//
-//		SMSTemplate request = new SMSTemplate();
-//		given(smsMapper.requestToSMSTemplate(smsRequest)).willReturn(request);
-//		List<SMSTemplate> smsTemplates = Arrays.asList();
-//		given(smsTemplateRepository.getSMSTemplateByProviderServiceMapIDAndSMSTypeID(
-//				smsRequest.getProviderServiceMapID(), smsRequest.getSmsTemplateID())).willReturn(smsTemplates);
-//
-//		// Act
-//		String result = smsService.getSMSTemplates(smsRequest);
-//
-//		// Assert
-//		assertNotNull(result);
-//	}
-
-//	@Test
-//	void testUpdateSMSTemplate() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void updateSMSTemplateSuccess() throws Exception {
@@ -217,16 +187,6 @@ class SMSServiceImplTest {
 		verifyNoMoreInteractions(smsTemplateRepository); // No further interactions after update attempt
 	}
 
-//	@Test
-//	void testSaveSMSTemplate() {
-//		fail("Not yet implemented");
-//	}
-
-//	@Test
-//	void testGetSMSTypes() {
-//		fail("Not yet implemented");
-//	}
-
 	@Test
 	void getSMSTypesSuccess() throws Exception {
 		// Given
@@ -240,7 +200,8 @@ class SMSServiceImplTest {
 		expectedModels.add(new SMSTypeModel()); // Populate as necessary
 
 		when(smsMapper.smsTypeModelToSMSType(requestModel)).thenReturn(smsType);
-		when(smsTypeRepository.findSMSTypeByDeletedNotTrue(smsType.getServiceID())).thenReturn((ArrayList<SMSType>) smsTypes);
+		when(smsTypeRepository.findSMSTypeByDeletedNotTrue(smsType.getServiceID()))
+				.thenReturn((ArrayList<SMSType>) smsTypes);
 		when(smsMapper.smsTypeToSMSTypeModel(smsTypes)).thenReturn(expectedModels);
 
 		// When
@@ -258,30 +219,5 @@ class SMSServiceImplTest {
 		verify(smsTypeRepository).findSMSTypeByDeletedNotTrue(smsType.getServiceID());
 		verify(smsMapper).smsTypeToSMSTypeModel(smsTypes);
 	}
-
-//	@Test
-//	void testGetSMSParameters() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	void testSendSMS() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	void testPublishSMS() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	void testGetFullSMSTemplate() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	void testGetUptsuData() {
-//		fail("Not yet implemented");
-//	}
 
 }

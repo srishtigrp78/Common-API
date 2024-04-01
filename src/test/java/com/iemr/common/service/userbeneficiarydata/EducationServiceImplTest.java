@@ -34,12 +34,6 @@ public class EducationServiceImplTest {
 		MockitoAnnotations.openMocks(this);
 	}
 
-//	@Test
-//	void testSetEducationServiceImpl() {
-//
-//		// Arrange and Act
-//		(new EducationServiceImpl()).setEducationServiceImpl(mock(EducationRepository.class));
-//	}
 
 	@Test
 	 void testGetActiveEducations_WithValidData() {

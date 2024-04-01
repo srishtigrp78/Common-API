@@ -35,12 +35,6 @@ public class CommunityServiceImplTest {
 		MockitoAnnotations.openMocks(this);
 	}
 
-//	@Test
-//	void testSetCommunityServiceImpl() {
-//
-//		// Arrange and Act
-//		(new CommunityServiceImpl()).setCommunityServiceImpl(mock(CommunityRepository.class));
-//	}
 
 	@Test
 	 void testGetActiveCommunities_WithValidData() {

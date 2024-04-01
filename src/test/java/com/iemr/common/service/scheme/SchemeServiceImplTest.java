@@ -36,11 +36,6 @@ class SchemeServiceImplTest {
 	@Mock
 	private KMFileManagerService kmFileManagerService;
 
-//	@Test
-//	void testGetSchemeList() {
-//		fail("Not yet implemented");
-//	}
-
 	@Test
 	void testGetSchemeList() throws Exception {
 		// Given
@@ -68,11 +63,6 @@ class SchemeServiceImplTest {
 		// Add any necessary verification for getFilePath if it's called
 	}
 
-//	@Test
-//	void testGetSchemeByID() {
-//		fail("Not yet implemented");
-//	}
-
 	@Test
 	void testGetSchemeByID() throws Exception {
 		Integer schemeID = 1;
@@ -80,11 +70,6 @@ class SchemeServiceImplTest {
 		assertEquals(schemeRepository.getSchemeByID(schemeID), schemeService.getSchemeByID(schemeID));
 
 	}
-
-//	@Test
-//	void testDeletedata() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void testDeletedData() {
@@ -99,11 +84,6 @@ class SchemeServiceImplTest {
 		assertEquals("success", result);
 		verify(schemeRepository, times(1)).save(deleteData);
 	}
-
-//	@Test
-//	void testGetFilePath() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void testGetFilePath() {
@@ -128,38 +108,10 @@ class SchemeServiceImplTest {
 		String resultURI = schemeService.getFilePath(kmFileManager);
 
 		// Assert
-		
+
 		assertTrue(resultURI.contains("http://guest:guest@null"));
-		//assertEquals(expectedURI, resultURI);
+		// assertEquals(expectedURI, resultURI);
 	}
-
-//	@Test
-//	void testSave() {
-//		fail("Not yet implemented");
-//	}
-
-//	@Test
-//	void testSaveNewSchemeWithKMFileManager() throws Exception {
-//		Scheme inputScheme = new Scheme();
-//		KMFileManager kmFileManager = new KMFileManager();
-//		kmFileManager.setFileContent("Example Content");
-//		kmFileManager.setFileExtension(".txt");
-//		kmFileManager.setFileName("TestFile");
-//		inputScheme.setKmFileManager(kmFileManager);
-//
-//		when(kmFileManagerService.addKMFile(anyString())).thenReturn("[{\"KmFileManagerID\":1}]");
-//
-//		Scheme savedScheme = new Scheme();
-//		savedScheme.setKmFileManagerID(1);
-//		when(schemeRepository.save(any(Scheme.class))).thenReturn(savedScheme);
-//
-//		Scheme result = schemeService.save(inputScheme);
-//
-//		assertNotNull(result);
-//		assertEquals(1, result.getKmFileManagerID());
-//		verify(kmFileManagerService, times(1)).addKMFile(anyString());
-//		verify(schemeRepository, times(1)).save(any(Scheme.class));
-//	}
 
 	@Test
 	void testSaveSchemeWithoutKMFileManager() throws Exception {

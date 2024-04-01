@@ -46,7 +46,6 @@ class BRDIntegrationControllerTest {
 	void getDetailsFailure() {
 		// Arrange
 		String request = "invalid JSON";
-		//when(integrationService.getData(anyString(), anyString())).thenThrow(new RuntimeException("Parsing exception"));
 
 		// Act
 		String actualResponse = controller.getDetails(request);
@@ -55,8 +54,6 @@ class BRDIntegrationControllerTest {
 		assertNotNull(actualResponse);
 		assertTrue(actualResponse.contains("Unable to get BRD data"));
 
-		// No need to verify integration service call here as it should not be called
-		// due to JSON parsing error
 	}
 
 }

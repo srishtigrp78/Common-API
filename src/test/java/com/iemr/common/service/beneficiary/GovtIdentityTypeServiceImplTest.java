@@ -28,10 +28,6 @@ class GovtIdentityTypeServiceImplTest {
     @InjectMocks
     private GovtIdentityTypeServiceImpl govtIdentityTypeServiceImpl;
 
-//    @Test
-//    void testSetBeneficiaryOccupationRepository() {
-//        (new GovtIdentityTypeServiceImpl()).setBeneficiaryOccupationRepository(mock(GovtIdentityTypeRepository.class));
-//    }
 
     @Test
     void testGetActiveIDTypes()  {
@@ -45,12 +41,6 @@ class GovtIdentityTypeServiceImplTest {
 			List<GovtIdentityType> actualActiveIDTypes = govtIdentityTypeServiceImpl.getActiveIDTypes();
 			verify(govtIdentityTypeRepository).getActiveIDTypes();
 			assertEquals(2, actualActiveIDTypes.size());
-//			assertEquals(2, actualActiveIDTypes.get(0).getGovtIdentityTypeID());
-//			assertEquals("Passport", actualActiveIDTypes.get(0).getIdentityType());
-//			assertTrue(actualActiveIDTypes.get(0).getIsGovtID());
-//			assertEquals(2, actualActiveIDTypes.get(1).getGovtIdentityTypeID());
-//			assertEquals("Driver's License", actualActiveIDTypes.get(1).getIdentityType());
-//			assertTrue(actualActiveIDTypes.get(1).getIsGovtID());
 	    }
     
     @Test

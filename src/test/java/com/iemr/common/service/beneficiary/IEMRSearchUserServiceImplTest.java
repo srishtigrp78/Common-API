@@ -170,12 +170,7 @@ class IEMRSearchUserServiceImplTest {
 	private BenCompleteDetailMapper benCompleteMapper;
 	@Mock
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
-	
 
-	/**
-	 * Method under test:
-	 * {@link IEMRSearchUserServiceImpl#userExitsCheckWithId(Long, String, Boolean)}
-	 */
 	@Test
 	void testUserExitsCheckWithId() throws Exception {
 		// Arrange
@@ -192,10 +187,6 @@ class IEMRSearchUserServiceImplTest {
 		assertTrue(actualUserExitsCheckWithIdResult.isEmpty());
 	}
 
-	/**
-	 * Method under test:
-	 * {@link IEMRSearchUserServiceImpl#userExitsCheckWithId(String, String, Boolean)}
-	 */
 	@Test
 	void testUserExitsCheckWithId2() throws Exception {
 		// Arrange
@@ -212,10 +203,6 @@ class IEMRSearchUserServiceImplTest {
 		assertTrue(actualUserExitsCheckWithIdResult.isEmpty());
 	}
 
-	/**
-	 * Method under test:
-	 * {@link IEMRSearchUserServiceImpl#userExitsCheckWithHealthId_ABHAId(String, String, Boolean)}
-	 */
 	@Test
 	void testUserExitsCheckWithHealthId_ABHAId() throws Exception {
 		// Arrange
@@ -232,10 +219,6 @@ class IEMRSearchUserServiceImplTest {
 		assertTrue(actualUserExitsCheckWithHealthId_ABHAIdResult.isEmpty());
 	}
 
-	/**
-	 * Method under test:
-	 * {@link IEMRSearchUserServiceImpl#userExitsCheckWithHealthIdNo_ABHAIdNo(String, String, Boolean)}
-	 */
 	@Test
 	void testUserExitsCheckWithHealthIdNo_ABHAIdNo() throws Exception {
 		// Arrange
@@ -252,10 +235,6 @@ class IEMRSearchUserServiceImplTest {
 		assertTrue(actualUserExitsCheckWithHealthIdNo_ABHAIdNoResult.isEmpty());
 	}
 
-	/**
-	 * Method under test:
-	 * {@link IEMRSearchUserServiceImpl#userExitsCheckWithFamilyId(String, String, Boolean)}
-	 */
 	@Test
 	void testUserExitsCheckWithFamilyId() throws Exception {
 		// Arrange
@@ -271,10 +250,6 @@ class IEMRSearchUserServiceImplTest {
 		assertTrue(actualUserExitsCheckWithFamilyIdResult.isEmpty());
 	}
 
-	/**
-	 * Method under test:
-	 * {@link IEMRSearchUserServiceImpl#userExitsCheckWithGovIdentity(String, String, Boolean)}
-	 */
 	@Test
 	void testUserExitsCheckWithGovIdentity() throws Exception {
 		// Arrange
@@ -291,10 +266,6 @@ class IEMRSearchUserServiceImplTest {
 		assertTrue(actualUserExitsCheckWithGovIdentityResult.isEmpty());
 	}
 
-	/**
-	 * Method under test:
-	 * {@link IEMRSearchUserServiceImpl#findByBeneficiaryPhoneNo(BenPhoneMap, Integer, Integer, String)}
-	 */
 	@Test
 	void testFindByBeneficiaryPhoneNo() throws Exception {
 		// Arrange
@@ -310,148 +281,55 @@ class IEMRSearchUserServiceImplTest {
 		assertEquals("[]", actualFindByBeneficiaryPhoneNoResult);
 	}
 
-	/**
-	 * Method under test:
-	 * {@link IEMRSearchUserServiceImpl#findBeneficiary(BeneficiaryModel, String)}
-	 */
-//	@Test
-//	void testFindBeneficiary() throws Exception {
-//		BeneficiaryModel beneficiaryModel = new BeneficiaryModel();
-//		beneficiaryModel.setAccountNo("acc no");
-//		beneficiaryModel.setActualAge(24L);
-//		beneficiaryModel.setAge(23);
-//		beneficiaryModel.setAgeAtMarriage(28);
-//		beneficiaryModel.setAgeUnits("age units");
-//		beneficiaryModel.setBankName("bank name");
-//		beneficiaryModel.setBenAccountID(44322456L);
-//		beneficiaryModel.setBeneficiaryConsent(true);
-//		beneficiaryModel.setBeneficiaryID("123456");
-//		beneficiaryModel.setBeneficiaryRegID(123456L);
-//		beneficiaryModel.setBenImage("ben image");
-//		beneficiaryModel.setBranchName("branch name");
-//		beneficiaryModel.setChangeInAddress(false);
-//		beneficiaryModel.setChangeInAssociations(false);
-//		beneficiaryModel.setChangeInBankDetails(false);
-//		beneficiaryModel.setChangeInBenImage(false);
-//		beneficiaryModel.setChangeInOtherDetails(true);
-//		beneficiaryModel.setChangeInSelfDetails(false);
-//		BenPhoneMapModel benPhoneMapModel = new BenPhoneMapModel();
-//		benPhoneMapModel.setAlternateContactNumber("alt con no");
-//		benPhoneMapModel.setPhoneNo("8617577134");
-//		List<BenPhoneMapModel> benPhoneMaps = new ArrayList<BenPhoneMapModel>();
-//		benPhoneMaps.add(benPhoneMapModel);
-//		beneficiaryModel.setBenPhoneMaps(benPhoneMaps);
-//		beneficiaryModel.setIs1097(false);
-//		beneficiaryModel.setDOB(Timestamp.from(Instant.now()));
-//		beneficiaryModel.setHouseHoldID(123L);
-//		beneficiaryModel.setIsD2D(false);
-//		beneficiaryModel.toString();
-//			IEMRSearchUserServiceImpl iEMRSearchUserServiceImpl = new IEMRSearchUserServiceImpl();
-//		IdentitySearchDTO identitySearchDTO = new IdentitySearchDTO();
-//		identitySearchDTO.setAge(23);
-//		identitySearchDTO.setContactNumber("7654321234");
-//		identitySearchDTO.toString();
-//	    when(identityBenEditMapper.getidentitysearchModel(Mockito.any())).thenReturn(identitySearchDTO);
-//	    
-//	    BeneficiariesDTO beneficiariesDTO = new BeneficiariesDTO();
-//	    beneficiariesDTO.setAgeAtMarriage(28);
-//	    List<BeneficiariesDTO> listBen = new ArrayList<>();
-//	    listBen.add(beneficiariesDTO);
-//	    when(identityBeneficiaryService.searchBeneficiaryList(Mockito.any(), Mockito.anyString(), Mockito.anyBoolean())).thenReturn(listBen);
-//	 //   Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-//	    Gson gson = mock(Gson.class);
-//	    GsonBuilder gsonBuilderMock = Mockito.mock(GsonBuilder.class);
-//	   // when(OutputMapper.gsonWithoutExposeRestriction()).thenReturn(gson);
-//	    when(gsonBuilderMock.create()).thenReturn(gson);
-//
-//	    String result = iEMRSearchUserServiceImpl.findBeneficiary(beneficiaryModel, "Auth");
-//
-//	    assertNotNull(result); // Ensure result is not null
-//	    verify(identityBenEditMapper).getidentitysearchModel(beneficiaryModel);
-//	    
-//
-//	    verify(identityBeneficiaryService).searchBeneficiaryList(gson.toJson(identitySearchDTO), "Auth", true);
-//	}
-	
-	
-	/**
-	 * Method under test:
-	 * {@link IEMRSearchUserServiceImpl#getBeneficiaryListFromMapper(List)}
-	 */
 	@Test
 	void testGetBeneficiaryListFromMapper() {
 		// Arrange, Act and Assert
 		assertTrue(iEMRSearchUserServiceImpl.getBeneficiaryListFromMapper(new ArrayList<>()).isEmpty());
 	}
-	
-//	  @Test
-//	  void testGetBeneficiaryListFromMapper_NullElement() {
-//		  BeneficiariesDTO nullDto = mock(BeneficiariesDTO.class);
-//	    List<BeneficiariesDTO> beneficiariesDTOList = new ArrayList<>();
-//	    beneficiariesDTOList.add(nullDto);
-//	    BeneficiaryModel model = new BeneficiaryModel();
-//	    when(benCompleteMapper.benDetailForOutboundDTOToIBeneficiary(nullDto)).thenReturn(model);
-//	    when(benPhoneMapper.benPhoneMapToResponseByID(Mockito.any())).thenReturn(null);
-//	    BeneficiaryDemographicsModel demographicModel = mock(BeneficiaryDemographicsModel.class);
-//	    model.setI_bendemographics(demographicModel);
-//	    when(demographicModel.getHealthCareWorkerID()).thenReturn((short) 1);
-//	    List<BeneficiaryModel> result = iEMRSearchUserServiceImpl.getBeneficiaryListFromMapper(beneficiariesDTOList);
-//
-//	    assertTrue(result.isEmpty());
-//	    verify(benCompleteMapper, times(1)).benDetailForOutboundDTOToIBeneficiary(nullDto);
-//	    verify(benPhoneMapper, never()).benPhoneMapToResponseByID(Mockito.any());
-//
-//	  }
-	  
-	  @Test
-	  void testGetBeneficiaryListFromMapper_NonEmptyList() {
-	    BeneficiariesDTO beneficiaryDTO = mock(BeneficiariesDTO.class);
 
-	    List<BeneficiariesDTO> beneficiariesDTOList = Collections.singletonList(beneficiaryDTO);
+	@Test
+	void testGetBeneficiaryListFromMapper_NonEmptyList() {
+		BeneficiariesDTO beneficiaryDTO = mock(BeneficiariesDTO.class);
 
-	    BeneficiaryModel beneficiaryModel = new BeneficiaryModel();
-	    when(benCompleteMapper.benDetailForOutboundDTOToIBeneficiary(beneficiaryDTO)).thenReturn(beneficiaryModel);
+		List<BeneficiariesDTO> beneficiariesDTOList = Collections.singletonList(beneficiaryDTO);
 
-	    when(benPhoneMapper.benPhoneMapToResponseByID(Mockito.any())).thenReturn(null);
+		BeneficiaryModel beneficiaryModel = new BeneficiaryModel();
+		when(benCompleteMapper.benDetailForOutboundDTOToIBeneficiary(beneficiaryDTO)).thenReturn(beneficiaryModel);
 
-	    when(sexualOrientationMapper.sexualOrientationByIDToModel((Short) null)).thenReturn(null);
+		when(benPhoneMapper.benPhoneMapToResponseByID(Mockito.any())).thenReturn(null);
 
-	    when(govtIdentityTypeMapper.govtIdentityTypeModelByIDToModel(Mockito.any())).thenReturn(null);
+		when(sexualOrientationMapper.sexualOrientationByIDToModel((Short) null)).thenReturn(null);
 
-	    when(benCompleteMapper.createBenDemographicsModel(Mockito.any())).thenReturn(mock(BeneficiaryDemographicsModel.class));
+		when(govtIdentityTypeMapper.govtIdentityTypeModelByIDToModel(Mockito.any())).thenReturn(null);
 
-	    when(healthCareWorkerMapper.getModelByWorkerID(Mockito.anyShort())).thenReturn(null);
+		when(benCompleteMapper.createBenDemographicsModel(Mockito.any()))
+				.thenReturn(mock(BeneficiaryDemographicsModel.class));
 
-	    when(genderMapper.genderByIDToLoginResponse(Mockito.any())).thenReturn(null);
+		when(healthCareWorkerMapper.getModelByWorkerID(Mockito.anyShort())).thenReturn(null);
 
-	    when(maritalStatusMapper.maritalStatusByIDToResponse(Mockito.any())).thenReturn(null);
+		when(genderMapper.genderByIDToLoginResponse(Mockito.any())).thenReturn(null);
 
-	    when(titleMapper.titleByIDToResponse(Mockito.anyInt())).thenReturn(null);
+		when(maritalStatusMapper.maritalStatusByIDToResponse(Mockito.any())).thenReturn(null);
 
-	    when(beneficiaryDTO.getAbhaDetails()).thenReturn(null);
-	    
-	    BenDetailDTO beneficiaryDetails = mock(BenDetailDTO.class);
-	    when(beneficiaryDTO.getBeneficiaryDetails()).thenReturn(beneficiaryDetails);
+		when(titleMapper.titleByIDToResponse(Mockito.anyInt())).thenReturn(null);
 
+		when(beneficiaryDTO.getAbhaDetails()).thenReturn(null);
 
+		BenDetailDTO beneficiaryDetails = mock(BenDetailDTO.class);
+		when(beneficiaryDTO.getBeneficiaryDetails()).thenReturn(beneficiaryDetails);
 
-	    // Test
+		// Test
 
-	    List<BeneficiaryModel> result = iEMRSearchUserServiceImpl.getBeneficiaryListFromMapper(beneficiariesDTOList);
+		List<BeneficiaryModel> result = iEMRSearchUserServiceImpl.getBeneficiaryListFromMapper(beneficiariesDTOList);
 
+		// Verify
 
+		assertFalse(result.isEmpty());
 
-	    // Verify
+		assertEquals(1, result.size());
 
-	    assertFalse(result.isEmpty());
+		assertEquals(beneficiaryModel, result.get(0));
 
-	    assertEquals(1, result.size());
-
-	    assertEquals(beneficiaryModel, result.get(0));
-
-	  }
-
-	
-
+	}
 
 }

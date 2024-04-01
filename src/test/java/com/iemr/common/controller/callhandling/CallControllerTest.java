@@ -115,7 +115,8 @@ class CallControllerTest {
 	}
 
 	@Test
-	void testGetCallTypesV1_Exception() throws JSONException, IEMRException, JsonMappingException, JsonProcessingException {
+	void testGetCallTypesV1_Exception()
+			throws JSONException, IEMRException, JsonMappingException, JsonProcessingException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(calltypeServiceImpl.getAllCalltypesV1(request)).thenThrow(NotFoundException.class);
@@ -159,7 +160,8 @@ class CallControllerTest {
 	}
 
 	@Test
-	void testUpdateBeneficiaryIDInCall() throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
+	void testUpdateBeneficiaryIDInCall()
+			throws IEMRException, JSONException, JsonMappingException, JsonProcessingException {
 
 		OutputResponse response = new OutputResponse();
 		String isCalledEarlier = String.valueOf(false);
@@ -178,18 +180,9 @@ class CallControllerTest {
 		Assertions.assertEquals(expResp, callController.updateBeneficiaryIDInCall(request));
 	}
 
-//	@Test
-//	void testUpdateBeneficiaryIDInCall_JsonException() throws IEMRException, JSONException {
-//		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
-//
-//		when(calltypeServiceImpl.getAllCalltypesV1(request)).thenThrow(JSONException.class);
-//
-//		String response = callController.getCallTypesV1(request);
-//		assertEquals(response, callController.getCallTypesV1(request));
-//	}
-
 	@Test
-	void testUpdateBeneficiaryIDInCall_CatchBlock() throws JSONException, IEMRException, JsonMappingException, JsonProcessingException {
+	void testUpdateBeneficiaryIDInCall_CatchBlock()
+			throws JSONException, IEMRException, JsonMappingException, JsonProcessingException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 		when(beneficiaryCallService.updateBeneficiaryIDInCall(request)).thenThrow(RuntimeException.class);
 		String response = callController.updateBeneficiaryIDInCall(request);
@@ -197,15 +190,13 @@ class CallControllerTest {
 	}
 
 	@Test
-	void testUpdateBeneficiaryIDInCall_CatchBlockJson() throws JSONException, IEMRException, JsonMappingException, JsonProcessingException {
+	void testUpdateBeneficiaryIDInCall_CatchBlockJson()
+			throws JSONException, IEMRException, JsonMappingException, JsonProcessingException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 		JSONObject jsonObject = new JSONObject(request);
 		JSONObject json = Mockito.mock(JSONObject.class);
 		when(beneficiaryCallService.updateBeneficiaryIDInCall(Mockito.any())).thenReturn(123);
-		// when(beneficiaryCallService.updateBeneficiaryIDInCall(Mockito.any())).thenThrow(RuntimeException.class);
 		String response = callController.updateBeneficiaryIDInCall(request);
-		// Assertions.assertEquals(response,
-		// callController.updateBeneficiaryIDInCall(request));
 		Assertions.assertTrue(response.contains("e"));
 	}
 
@@ -474,14 +465,6 @@ class CallControllerTest {
 		Assertions.assertEquals(response, callController.getBlacklistNumbers(request));
 	}
 
-//	@Test
-//	void testUnblockBlockedNumbers() {
-//		OutputResponse response = new OutputResponse();
-//		when(beneficiaryCallService.unblockBlockedNumbers()).thenReturn(any());
-//		String expResp = callController.unblockBlockedNumbers();
-//		Assertions.assertEquals(expResp, callController.unblockBlockedNumbers());
-//	}
-
 	@Test
 	void testBlockPhoneNumber() throws IEMRException, JsonMappingException, JsonProcessingException {
 		OutputResponse response = new OutputResponse();
@@ -543,20 +526,6 @@ class CallControllerTest {
 		Assertions.assertEquals(response, callController.updateBeneficiaryCallCDIStatus(request));
 	}
 
-//	@Test
-//	void testGetCallHistoryByCallID() throws IEMRException {
-//		OutputResponse response = new OutputResponse();
-//		BeneficiaryCall beneficiaryCall = new BeneficiaryCall();
-//		beneficiaryCall.setCallID("call id");
-//		String request = beneficiaryCall.toString();
-//		List<BeneficiaryCall> beneficiaryCallList = new ArrayList<BeneficiaryCall>();
-//		beneficiaryCallList.add(beneficiaryCall);
-//		
-//		when(beneficiaryCallService.getCallHistoryByCallID(request)).thenReturn(beneficiaryCallList);
-//		response.setResponse(request.toString());
-//		Assertions.assertEquals(response.toString(), callController.getCallHistoryByCallID(request));
-//	}
-
 	@Test
 	void testGetCallHistoryByCallID_CatchBlock() throws IEMRException, JsonMappingException, JsonProcessingException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -611,20 +580,6 @@ class CallControllerTest {
 		Assertions.assertEquals(response, callController.nueisanceCallHistory(request, serverRequest));
 	}
 
-//	@Test
-//	void testBeneficiaryByCallID() throws IEMRException {
-//		OutputResponse response = new OutputResponse();
-//		HttpServletRequest serverRequest = mock(HttpServletRequest.class);
-//		CallRequestByIDModel request = new CallRequestByIDModel();
-//		request.setCallID("call id");
-//		BeneficiaryCallModel callData = new BeneficiaryCallModel();
-//		callData.setCallID("call");
-//		when(beneficiaryCallService.beneficiaryByCallID(request,
-//					serverRequest.getHeader("Authorization"))).thenReturn(callData);
-//		String expResp = callController.beneficiaryByCallID(request, serverRequest);
-//		Assertions.assertEquals(expResp, callController.beneficiaryByCallID(request, serverRequest));
-//	}
-
 	@Test
 	void testBeneficiaryByCallID_CatchBlock() throws IEMRException, Exception, JsonProcessingException {
 		String expRequest = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -636,99 +591,6 @@ class CallControllerTest {
 		String response = callController.beneficiaryByCallID(request, serverRequest);
 		Assertions.assertEquals(response, callController.beneficiaryByCallID(request, serverRequest));
 	}
-
-//	@Test
-//	void testIsAvailed() {
-//		String request = "{\"beneficiaryRegID\":\"1\", "
-//				+ "\"receivedRoleName\":\"availed service role\"}";
-//		OutputResponse response = new OutputResponse();
-//		
-//		response.setResponse(beneficiaryCallService
-//				.isAvailed(inputMapper.gson().fromJson(request, BeneficiaryCallModel.class)).toString());
-//		
-//		assertEquals(response ,callController.isAvailed(request));
-//	}
-//	
-
-//	@Test
-//	void testIsAvailed() {
-//		OutputResponse response = new OutputResponse();
-//		
-//		String request= "{\"beneficiaryRegID\":1L, "
-//				+ "\"receivedRoleName\":\"Indrani\"}";
-//		
-//		when((beneficiaryCallService
-//				.isAvailed(inputMapper.gson().fromJson(Mockito.any(), Mockito.any())))).thenReturn(true);
-//		
-//		response.setResponse(request);
-//		String exp =callController.isAvailed(request);
-//		Assertions.assertEquals(response.toString(), callController.isAvailed(request));
-
-//		BeneficiaryCallModel callData = new BeneficiaryCallModel();
-//		callData.setBeneficiaryRegID(123L);
-//		callData.setReceivedRoleName("MO");
-//	//	Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-//	//	String request = gson.toJson(callData);
-//		String request = callData.toString();
-//	//	BeneficiaryCallModel model = gson.fromJson(request, BeneficiaryCallModel.class);
-//		
-//		response.setResponse(request.toString());
-//		Assertions.assertEquals(response.toString(), callController.isAvailed(request));
-//	}
-
-//	@Test
-//	void testGetBenRequestedOutboundCall() {
-//		OutputResponse response = new OutputResponse();
-//		BeneficiaryCallModel callData = new BeneficiaryCallModel();
-//		callData.setBeneficiaryRegID(123L);
-//		callData.setCalledServiceID(321);
-//		callData.setIs1097(true);
-//		Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-//
-//
-//		String request = gson.toJson(callData);
-//		OutboundCallRequest outboundCall = new OutboundCallRequest();
-//		List<OutboundCallRequest> result = new ArrayList<OutboundCallRequest>();
-//		result.add(outboundCall);
-//		when(beneficiaryCallService
-//					.getBenRequestedOutboundCall(inputMapper.gson().fromJson(request, BeneficiaryCallModel.class))).thenReturn(result);
-//		response.setResponse(request.toString());
-//		Assertions.assertEquals(response.toString(), callController.getBenRequestedOutboundCall(request));
-//	}
-
-//	@Test
-//	void testIsAutoPreviewDialing() {
-//		fail("Not yet implemented");
-//	}
-
-//	@Test
-//	void testCheckAutoPreviewDialing() {
-//		fail("Not yet implemented");
-//	}
-
-//	@Test
-//	void testCheckAutoPreviewDialing() {
-//		String request = "{\"providerServiceMapID\":\"123\"}";
-//
-//		OutputResponse response = new OutputResponse();
-//
-//		response.setResponse(beneficiaryCallService
-//				.checkAutoPreviewDialing(inputMapper.gson().fromJson(request, ProviderServiceMapping.class))
-//				.toString());
-//
-//		assertEquals(response, callController.checkAutoPreviewDialing(request));
-//	}
-//
-//	
-//	@Test
-//	void testCheckAutoPreviewDialing_Exception() {
-//		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
-//		when(beneficiaryCallService
-//				.checkAutoPreviewDialing(inputMapper.gson().fromJson(request, ProviderServiceMapping.class)).toString())
-//				.thenThrow(NotFoundException.class);
-//		String response = callController.checkAutoPreviewDialing(request);
-//		assertEquals(response, callController.checkAutoPreviewDialing(request));
-//	}
 
 	@Test
 	void testGetFilePathCTI() throws IEMRException, JsonMappingException, JsonProcessingException {

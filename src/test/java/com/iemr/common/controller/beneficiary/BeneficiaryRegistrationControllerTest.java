@@ -131,8 +131,6 @@ class BeneficiaryRegistrationControllerTest {
 	@Test
 	void testCreateBeneficiary_Exception() throws Exception {
 		// Arrange
-		// String directoryRequest = "";
-
 		String errorMessage = "Failed to get directories";
 
 		// Act
@@ -249,21 +247,6 @@ class BeneficiaryRegistrationControllerTest {
 
 	}
 
-//	@Test
-//	void testSearchBeneficiary_Exceptiion() throws Exception {
-//		// Arrange
-//		// String directoryRequest = "";
-//
-//		String errorMessage = "Failed to get directories";
-//
-//		// Act
-//		String result = beneficiaryRegistrationController.searchBeneficiary(any(), any());
-//
-//		// Assert
-//		assertNotNull(result);
-//		assertTrue(result.contains("error"));
-//	}
-
 	@Test
 	void testGetRegistrationData() {
 		OutputResponse response = new OutputResponse();
@@ -278,10 +261,7 @@ class BeneficiaryRegistrationControllerTest {
 		List<Title> titleList = new ArrayList<Title>();
 		titleList.add(title);
 		beneficiaryRegistrationData.setM_Title(titleList);
-		//BeneficiaryEducation beneficiaryEducation = new BeneficiaryEducation();
-		//beneficiaryEducation.setDeleted(false);
 		List<BeneficiaryEducation> beneficiaryEducationList = new ArrayList<BeneficiaryEducation>();
-		//beneficiaryEducationList.add(beneficiaryEducation);
 		beneficiaryRegistrationData.setI_BeneficiaryEducation(beneficiaryEducationList);
 		States states = new States();
 		states.setDeleted(false);
@@ -308,10 +288,7 @@ class BeneficiaryRegistrationControllerTest {
 		List<Language> languageList = new ArrayList<Language>();
 		languageList.add(language);
 		beneficiaryRegistrationData.setM_language(languageList);
-	//	Directory directory = new Directory();
-		//directory.setDeleted(false);
 		List<Directory> directoryList = new ArrayList<Directory>();
-		//directoryList.add(directory);
 		beneficiaryRegistrationData.setDirectory(directoryList);
 		SexualOrientation sexualOrientation = new SexualOrientation();
 		sexualOrientation.setDeleted(false);
@@ -345,11 +322,6 @@ class BeneficiaryRegistrationControllerTest {
 
 		Assertions.assertEquals(expResp, beneficiaryRegistrationController.getRegistrationData());
 	}
-
-//	@Test
-//	void testGetRegistrationDataV1() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void testUpdateBenefciary() throws Exception {
@@ -411,7 +383,6 @@ class BeneficiaryRegistrationControllerTest {
 		benificiaryDetails.setBeneficiaryID("Ben Id");
 		Integer updateCount = 1;
 
-	//	when(registerBenificiaryService.updateCommunityorEducation(benificiaryDetails, auth)).thenReturn(updateCount);
 		String expResp = beneficiaryRegistrationController.updateBenefciaryCommunityorEducation(auth, httpRequest);
 
 		try {
@@ -448,15 +419,5 @@ class BeneficiaryRegistrationControllerTest {
 
 		Assertions.assertEquals(expResp, beneficiaryRegistrationController.getBeneficiaryIDs(request, httpRequest));
 	}
-
-//	@Test
-//	public void testSearchBeneficiaryGenericException() throws Exception {
-//		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
-//
-//		when(iemrSearchUserService.findBeneficiary(any(), request)).thenThrow(NotFoundException.class);
-//
-//		String response = beneficiaryRegistrationController.searchBeneficiary(any(), any());
-//		assertEquals(response, beneficiaryRegistrationController.searchBeneficiary(any(), any()));
-//	}
 
 }

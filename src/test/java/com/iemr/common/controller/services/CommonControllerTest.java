@@ -1,7 +1,7 @@
 package com.iemr.common.controller.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -133,7 +132,7 @@ class CommonControllerTest {
 		when(commonService.getCategories(request).toString()).thenThrow(NotFoundException.class);
 
 		String response = commonController.getcategoriesById(request);
-		assertEquals(response, commonController.getcategoriesById(request));
+		assertTrue(response.contains("Failed with null"));
 	}
 
 	@Test

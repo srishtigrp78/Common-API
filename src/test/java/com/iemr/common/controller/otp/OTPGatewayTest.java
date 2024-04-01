@@ -24,11 +24,6 @@ class OTPGatewayTest {
 	@InjectMocks
 	private OTPGateway otpGatewayservice;
 
-//	@Test
-//	void testSendOTP() {
-//		fail("Not yet implemented");
-//	}
-
 	@Test
 	void testSendOTPSuccess() throws Exception {
 		// Arrange
@@ -56,25 +51,6 @@ class OTPGatewayTest {
 		assertNotNull(result);
 		assertTrue(result.contains("failure"));
 	}
-
-//	@Test
-//	void testSendOTPException() throws Exception {
-//		// Arrange
-//		String requestJson = "{\"mobNo\":\"invalid\"}";
-//		when(otpHandler.sendOTP(any(OTPRequestParsor.class))).thenThrow(new RuntimeException("Error in sending OTP"));
-//
-//		// Act
-//		Exception exception = assertThrows(RuntimeException.class, () -> otpGatewayservice.sendOTP(requestJson));
-//
-//		// Assert
-//		assertNotNull(exception);
-//		assertEquals("Error in sending OTP", exception.getMessage());
-//	}
-
-//	@Test
-//	void testValidateOTP() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void testValidateOTPSuccess() throws Exception {
@@ -104,11 +80,6 @@ class OTPGatewayTest {
 		assertNotNull(result);
 		assertTrue(result.contains("failure"));
 	}
-
-//	@Test
-//	void testResendOTP() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void testResendOTPSuccess() throws Exception {

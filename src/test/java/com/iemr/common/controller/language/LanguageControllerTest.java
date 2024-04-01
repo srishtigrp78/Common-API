@@ -32,9 +32,9 @@ class LanguageControllerTest {
 	@Test
 	void testGetLanguageListSuccess() {
 		// Prepare mocked data
-		
-		Language language1 = new Language(1,"English", "ENG","a","b");
-		Language language2 = new Language(2,"Spanish", "SPA","a","b");
+
+		Language language1 = new Language(1, "English", "ENG", "a", "b");
+		Language language2 = new Language(2, "Spanish", "SPA", "a", "b");
 		List<Language> mockLanguageList = Arrays.asList(language1, language2);
 
 		// Mock the service's response
@@ -51,17 +51,16 @@ class LanguageControllerTest {
 		// Verify the service was called once
 		verify(languageService).getActiveLanguages();
 	}
-	
+
 	@Test
 	void getCategoriesTest_Exception() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
-		
+
 		when(languageService.getActiveLanguages().toString()).thenThrow(NotFoundException.class);
-		
+
 		String response = languageController.getLanguageList();
-		
+
 		assertTrue(response.contains("Failed with null"));
-		//assertEquals(response, languageController.getLanguageList());
 	}
 
 }

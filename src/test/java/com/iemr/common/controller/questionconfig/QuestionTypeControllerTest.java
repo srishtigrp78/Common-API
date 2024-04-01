@@ -28,17 +28,6 @@ class QuestionTypeControllerTest {
 	@Mock
 	private QuestionTypeService questionTypeService;
 
-//	@Test
-//	void testCreateQuestionType() throws IEMRException {
-//		
-//		String request = "{\"questionType\":\"A,  \"questionTypeDesc\":\"a\"}";
-//
-//		OutputResponse response = new OutputResponse();
-//
-//		response.setResponse(questionTypeService.createQuestionType(request));
-//
-//		assertEquals(response.toString(), questionTypeController.createQuestionType(request));
-//	}
 
 	@Test
 	void testCreateQuestionType() throws Exception {

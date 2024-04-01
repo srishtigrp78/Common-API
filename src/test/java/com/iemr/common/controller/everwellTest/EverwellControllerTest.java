@@ -45,9 +45,6 @@ class EverwellControllerTest {
 		actualPerformResult.andExpect(MockMvcResultMatchers.status().isNotFound());
 	}
 
-	/**
-	 * Method under test: {@link EverwellController#addSupportAction(Long, String)}
-	 */
 	@Test
 	void testAddSupportAction2() throws Exception {
 		// Arrange
@@ -67,9 +64,6 @@ class EverwellControllerTest {
 		actualPerformResult.andExpect(MockMvcResultMatchers.status().isNotFound());
 	}
 
-	/**
-	 * Method under test: {@link EverwellController#editManualDoses(Long, String)}
-	 */
 	@Test
 	void testEditManualDoses() throws Exception {
 		// Arrange
@@ -86,9 +80,6 @@ class EverwellControllerTest {
 		actualPerformResult.andExpect(MockMvcResultMatchers.status().isNotFound());
 	}
 
-	/**
-	 * Method under test: {@link EverwellController#editManualDoses(Long, String)}
-	 */
 	@Test
 	void testEditManualDoses2() throws Exception {
 		// Arrange
@@ -108,10 +99,6 @@ class EverwellControllerTest {
 		actualPerformResult.andExpect(MockMvcResultMatchers.status().isNotFound());
 	}
 
-	/**
-	 * Method under test:
-	 * {@link EverwellController#everwellLogin(LoginRequestModelEverwell)}
-	 */
 	@Test
 	void testEverwellLogin() throws Exception {
 		// Arrange

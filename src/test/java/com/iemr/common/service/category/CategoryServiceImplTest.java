@@ -30,61 +30,6 @@ class CategoryServiceImplTest {
 	@InjectMocks
 	private CategoryServiceImpl categoryService;
 
-//    @Test
-//    void testGetAllCategoriesWithFeedbackNatureID() throws Exception {
-//        // Initialize request string directly
-//        String requestWithFeedbackNatureID = "{\"feedbackNatureID\":1, \"providerServiceMapID\":2}";
-//
-//        List<CategoryDetails> expected = new ArrayList<>();
-//        expected.add(new CategoryDetails(1, "Category 1"));
-//        when(categoryRepository.getCategoriesByNatureID(anyInt(), anyInt())).thenReturn((ArrayList<CategoryDetails>) expected);
-//
-//        // When
-//        List<CategoryDetails> result = categoryService.getAllCategories(requestWithFeedbackNatureID);
-//
-//        // Then
-//        verify(categoryRepository, times(1)).getCategoriesByNatureID(anyInt(), anyInt());
-//        assertFalse(result.isEmpty());
-//        assertEquals(1, result.size());
-//        assertEquals("Category 1", result.get(0).getCategoryName());
-//    }
-//
-//    @Test
-//    void testGetAllCategoriesWithIsWellBeing() throws Exception {
-//        // Initialize request string directly
-//        String requestWithIsWellBeing = "{\"isWellBeing\":true, \"subServiceID\":3}";
-//
-//        List<CategoryDetails> expected = new ArrayList<>();
-//        expected.add(new CategoryDetails(2, "WellBeing Category"));
-//        when(categoryRepository.getAllCategories(anyInt(), anyBoolean())).thenReturn((ArrayList<CategoryDetails>) expected);
-//
-//        // When
-//        List<CategoryDetails> result = categoryService.getAllCategories(requestWithIsWellBeing);
-//
-//        // Then
-//        verify(categoryRepository, times(1)).getAllCategories(anyInt(), anyBoolean());
-//        assertFalse(result.isEmpty());
-//        assertEquals("WellBeing Category", result.get(0).getCategoryName());
-//    }
-//
-//    @Test
-//    void testGetAllCategoriesDefault() throws Exception {
-//        // Initialize request string directly
-//        String requestDefault = "{\"subServiceID\":4}";
-//
-//        List<CategoryDetails> expected = new ArrayList<>();
-//        expected.add(new CategoryDetails(3, "Default Category"));
-//        when(categoryRepository.getAllCategories(anyInt())).thenReturn((ArrayList<CategoryDetails>) expected);
-//
-//        // When
-//        List<CategoryDetails> result = categoryService.getAllCategories(requestDefault);
-//
-//        // Then
-//        verify(categoryRepository, times(1)).getAllCategories(anyInt());
-//        assertFalse(result.isEmpty());
-//        assertEquals("Default Category", result.get(0).getCategoryName());
-//    }
-
 	@Test
 	void testGetAllCategoriesReturnsCorrectData() {
 		// Setup

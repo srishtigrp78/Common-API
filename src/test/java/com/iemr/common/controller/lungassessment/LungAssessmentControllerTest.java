@@ -25,10 +25,6 @@ class LungAssessmentControllerTest {
 	@InjectMocks
 	private LungAssessmentController lungAssessmentController;
 
-//	@Test
-//	void testStartAssesment() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void testStartAssessmentSuccess() throws Exception {
@@ -47,28 +43,6 @@ class LungAssessmentControllerTest {
 		assertTrue(result.contains("Assessment started successfully"));
 	}
 
-//	@Test
-//	void testStartAssessmentFailure() throws Exception {
-//		// Arrange
-//		String requestJson = "{\"patientId\":\"67890\"}";
-//		MultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain", "Dummy content".getBytes());
-//		when(lungAssessmentService.initiateAssesment(any(String.class), any(MultipartFile.class)))
-//				.thenThrow(new RuntimeException("Failed to start assessment"));
-//
-//		// Act & Assert
-//		Exception exception = assertThrows(Exception.class,
-//				() -> lungAssessmentController.startAssesment(file, requestJson));
-//		String expectedMessage = "Failed to start assessment";
-//		String actualMessage = exception.getMessage();
-//
-//		assertNotNull(actualMessage);
-//		assertTrue(actualMessage.contains(expectedMessage));
-//	}
-
-//	@Test
-//	void testGetAssessment() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void testGetAssessmentSuccess() throws Exception {
@@ -86,10 +60,6 @@ class LungAssessmentControllerTest {
 				"The response should contain the assessment details returned by the service.");
 	}
 
-//	@Test
-//	void testGetAssessmentDetails() {
-//		fail("Not yet implemented");
-//	}
 
 	@Test
 	void getAssessmentDetailsSuccess() throws Exception {

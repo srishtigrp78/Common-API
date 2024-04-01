@@ -35,24 +35,6 @@ class LonicServiceImplTest {
 	private static final int LONIC_PAGE_SIZE = 10; // Assuming this is the value in application.properties for
 													// lonicPageSize
 
-//	@Test
-//	void testFindLonicRecordList_Success() throws Exception {
-//		LonicDescription lonicDescription = new LonicDescription();
-//		lonicDescription.setTerm("testTerm");
-//		lonicDescription.setPageNo(0);
-//
-//		List<LonicDescription> lonicDescriptions = Arrays.asList(new LonicDescription());
-//		Page<LonicDescription> lonicPage = new PageImpl<>(lonicDescriptions, PageRequest.of(0, LONIC_PAGE_SIZE),
-//				lonicDescriptions.size());
-//
-//		when(lonicRepository.findLonicRecordList(anyString(), any())).thenReturn(lonicPage);
-//
-//		String result = lonicService.findLonicRecordList(lonicDescription);
-//
-//		assertNotNull(result);
-//		assertTrue(result.contains("testTerm")); // Adjust assertion based on actual JSON structure
-//	}
-
 	@Test
 	void testFindLonicRecordList_Failure_InvalidRequest() {
 		LonicDescription lonicDescription = new LonicDescription(); // term and pageNo are null
@@ -66,10 +48,5 @@ class LonicServiceImplTest {
 
 		assertTrue(actualMessage.contains(expectedMessage));
 	}
-
-//	@Test
-//	void testFindLonicRecordList() {
-//		fail("Not yet implemented");
-//	}
 
 }

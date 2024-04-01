@@ -35,13 +35,9 @@ public class CareStreamCreateOrderControllerTest {
 
 		CreateOrderData benificiaryDetails = InputMapper.gson().fromJson(createOrder, CreateOrderData.class);
 
-		// when(inputMapper.fromJson(createOrder,
-		// CreateOrderData.class)).thenReturn(benificiaryDetails);
-
 		String response = careStreamCreateOrderController.createOrder(createOrder);
 
 		assertTrue(response.contains("Failed with Cannot assign"));
-		// assertEquals("Order successfully created", response);
 	}
 
 	@Test
@@ -52,13 +48,9 @@ public class CareStreamCreateOrderControllerTest {
 
 		CreateOrderData benificiaryDetails = InputMapper.gson().fromJson(updateOrder, CreateOrderData.class);
 
-		// when(inputMapper.fromJson(updateOrder,
-		// CreateOrderData.class)).thenReturn(benificiaryDetails);
-
 		String response = careStreamCreateOrderController.updateOrder(updateOrder);
 
 		assertTrue(response.contains("Connection timed out"));
-		// assertEquals("Receiver from server: ", response);
 	}
 
 	@Test
@@ -69,12 +61,8 @@ public class CareStreamCreateOrderControllerTest {
 
 		CreateOrderData benificiaryDetails = InputMapper.gson().fromJson(deleteOrder, CreateOrderData.class);
 
-		// when(inputMapper.fromJson(deleteOrder,
-		// CreateOrderData.class)).thenReturn(benificiaryDetails);
-
 		String response = careStreamCreateOrderController.deleteOrder(deleteOrder);
 		assertTrue(response.contains("Failed with connection issues"));
 
-		// assertEquals("Receiver from server: ", response);
 	}
 }

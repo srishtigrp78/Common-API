@@ -71,26 +71,6 @@ class FeedbackResponseServiceImplTest {
 		assertNotNull(createdRequest);
 	}
 
-//	@Test
-//	void testUpdateResponce() {
-//		fail("Not yet implemented");
-//	}
-
-//	@Test
-//	void testUpdateResponse() throws IEMRException, com.iemr.common.utils.exception.IEMRException {
-//		FeedbackResponse mockResponse = new FeedbackResponse();
-//		Gson gson = new Gson();
-//		//when(inputMapper.gson()).thenReturn(gson); // Now assuming gson() is an instance method
-//		when(feedbackResponseRepository.save(any(FeedbackResponse.class))).thenReturn(mockResponse);
-//
-//		String json = "{}"; // Simplified for demonstration
-//		String result = service.updateResponce(json);
-//
-//		assertNotNull(result);
-//	}
-
-	
-
 	@Test
 	void testGetdataById() {
 		Long id = 1L;

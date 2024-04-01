@@ -61,32 +61,6 @@ class KMFileManagerControllerTest {
 		verify(kmFileManagerService).addKMFile(anyString());
 	}
 
-//	@Test
-//	void testGetKMFileDownloadURL() {
-//		fail("Not yet implemented");
-//	}
-
-//	@Test
-//	void getKMFileDownloadURLSuccess() {
-//		// Prepare
-//		String requestJson = "{\"key\":\"value\"}"; // Your actual JSON request here
-//		KMFileManager kmFileManager = new KMFileManager(); // Assuming KMFileManager is your custom class
-//		String expectedUrl = "http://example.com/download.pdf";
-//
-//		when(inputMapper.fromJson(requestJson, KMFileManager.class)).thenReturn(kmFileManager);
-//		when(schemeServiceImpl.getFilePath(kmFileManager)).thenReturn(expectedUrl);
-//
-//		// Act
-//		String response = kmFileManagerController.getKMFileDownloadURL(requestJson);
-//
-//		// Assert
-//		assertTrue(response.contains(expectedUrl));
-//
-//		// Verify
-//		verify(inputMapper).fromJson(requestJson, KMFileManager.class);
-//		verify(schemeServiceImpl).getFilePath(kmFileManager);
-//	}
-
 	@Test
 	void getKMFileDownloadURL_Exception() throws Exception {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
@@ -105,9 +79,6 @@ class KMFileManagerControllerTest {
 
 		String response = kmFileManagerController.addFile(request);
 		assertTrue(response.contains("Failed with null"));
-		// assertEquals(response, kmFileManagerController.addFile(request));
 	}
-
-	
 
 }

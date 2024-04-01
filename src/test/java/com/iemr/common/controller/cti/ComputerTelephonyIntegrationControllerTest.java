@@ -288,7 +288,6 @@ class ComputerTelephonyIntegrationControllerTest {
 		when(ctiService.addUpdateUserData(request, remoteAddress)).thenThrow(NotFoundException.class);
 		String response = computerTelephonyIntegrationController.addUpdateUserData(request, serverRequest);
 		assertTrue(response.contains("Failed with null"));
-		//Assertions.assertEquals(response, computerTelephonyIntegrationController.addUpdateUserData(request, serverRequest));
 	}
 
 	@Test
@@ -510,7 +509,6 @@ class ComputerTelephonyIntegrationControllerTest {
 		when(ctiService.getAgentIPAddress(request, remoteAddress)).thenThrow(NotFoundException.class);
 		String response = computerTelephonyIntegrationController.getAgentIPAddress(request, serverRequest);
 		assertTrue(response.contains("Failed with null"));
-//		Assertions.assertEquals(response, computerTelephonyIntegrationController.getAgentIPAddress(request, serverRequest));
 	}
 
 	@Test

@@ -34,12 +34,6 @@ class GenderServiceImplTest {
 		MockitoAnnotations.openMocks(this);
 	}
 
-//	@Test
-//	void testSetGenderServiceImpl() {
-//		// Arrange and Act
-//		(new GenderServiceImpl()).setGenderServiceImpl(mock(GenderRepository.class));
-//	}
-
 	@Test
 	void testGetActiveGenders_ReturnsNonEmptyList() {
 		// Mocking the repository response

@@ -34,11 +34,6 @@ class MaritalStatusServiceImplTest {
 		MockitoAnnotations.openMocks(this);
 	}
 	
-//	@Test
-//	void testSetMaritalStatusServiceImpl() {
-//		// Arrange and Act
-//		(new MaritalStatusServiceImpl()).setMaritalStatusServiceImpl(mock(MaritalStatusRepository.class));
-//	}
 
 	@Test
 	void testGetActiveMaritalStatus_ReturnsNonEmptyList() {
