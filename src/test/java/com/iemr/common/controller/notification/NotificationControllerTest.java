@@ -253,7 +253,7 @@ class NotificationControllerTest {
 	}
 
 	@Test
-	void testGetSupervisorEmergencyContacts() throws IEMRException {
+	void testGetSupervisorEmergencyContacts() throws IEMRException, JsonMappingException, JsonProcessingException {
 		String request = "{}";
 		String expectedResponse = "{\"data\":{\"response\":\"any response\"},\"statusCode\":200,\"errorMessage\":\"Success\",\"status\":\"Success\"}";
 
@@ -270,7 +270,7 @@ class NotificationControllerTest {
 	}
 
 	@Test
-	void testGetSupervisorEmergencyContacts_Exception() throws IEMRException {
+	void testGetSupervisorEmergencyContacts_Exception() throws IEMRException, JsonMappingException, JsonProcessingException {
 		String request = "{\"statusCode\":5000,\"errorMessage\":\"Failed with generic error\",\"status\":\"FAILURE\"}";
 
 		when(notificationService.getSupervisorEmergencyContacts(request)).thenThrow(NotFoundException.class);
