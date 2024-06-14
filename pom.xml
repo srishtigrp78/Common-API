@@ -431,10 +431,7 @@
 					<artifactId>org.apache.xmlgraphics</artifactId>
 					<groupId>batik-all</groupId>
 				</exclusion>
-				<exclusion>
-					<groupId>org.apache.commons</groupId>
-					<artifactId>commons-compress</artifactId>
-				</exclusion>
+			
 				<exclusion>
 					<artifactId>org.bouncycastle</artifactId>
 					<groupId>bcpkix-jdk15on</groupId>
@@ -451,10 +448,7 @@
 					<artifactId>org.apache.santuario</artifactId>
 					<groupId>xmlsec</groupId>
 				</exclusion>
-				<exclusion>
-					<artifactId>org.apache.commons</artifactId>
-					<groupId>commons-compress</groupId>
-				</exclusion>
+				
 				<exclusion>
 					<artifactId>commons-io</artifactId>
 					<groupId>commons-io</groupId>

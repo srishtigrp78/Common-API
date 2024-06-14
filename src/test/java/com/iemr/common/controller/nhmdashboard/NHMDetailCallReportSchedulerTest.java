@@ -54,7 +54,7 @@ class NHMDetailCallReportSchedulerTest {
 
 		when(detailedCallReportRepo.findByCallStartTimeBetween(any(Timestamp.class), any(Timestamp.class)))
 				.thenReturn(reports);
-		when(callReportRepo.getBenCallDetailsBySessionIDAndPhone(anyString(), anyString())).thenReturn(1);
+		when(callReportRepo.getBenCallDetailsBySessionIDAndPhone(anyString(), anyString())).thenReturn(null);
 
 		// When
 		scheduler.detailedCallReport();
