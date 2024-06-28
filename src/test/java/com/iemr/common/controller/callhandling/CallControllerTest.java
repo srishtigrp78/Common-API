@@ -134,7 +134,7 @@ class CallControllerTest {
 		beneficiaryCall.setIs1097(true);
 		beneficiaryCall.setCreatedBy("bbb");
 		beneficiaryCall.setAgentID("agent id");
-		beneficiaryCall.setIsOutbound(true);
+		beneficiaryCall.setOutbound(true);
 		beneficiaryCall.setIsCalledEarlier(true);
 		beneficiaryCall.setReceivedRoleName("MO");
 		String request = beneficiaryCall.toString();

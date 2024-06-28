@@ -153,16 +153,17 @@ public class NHMDetailCallReportScheduler {
 		beneficiaryCall.setPhoneNo(detailedCallReport.getPHONE());
 		beneficiaryCall.setCalledServiceID(null);
 		beneficiaryCall.setRemarks("missed records - Failure");
+		beneficiaryCall.setIs1097(true);
 		beneficiaryCall.setReceivedRoleName(detailedCallReport.getCampaign_Name());
 		beneficiaryCall.setAgentID(String.valueOf(detailedCallReport.getAgent_ID()));
 
 		beneficiaryCall.setCallEndTime(detailedCallReport.getCallEndTime());
 		beneficiaryCall.setCallDuration(String.valueOf(detailedCallReport.getCall_Duration()));
-		if (null != detailedCallReport.getOrientation_Type()
+		if(null != detailedCallReport.getOrientation_Type()
 				&& detailedCallReport.getOrientation_Type().equalsIgnoreCase("OUTBOUND")) {
-			beneficiaryCall.setIsOutbound(true);
+			beneficiaryCall.setOutbound(true);
 		} else {
-			beneficiaryCall.setIsOutbound(false);
+			beneficiaryCall.setOutbound(false);
 		}
 		beneficiaryCall.setCallTime(detailedCallReport.getCallStartTime());
 		beneficiaryCall.setCallEndTime(detailedCallReport.getCallEndTime());

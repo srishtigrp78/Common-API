@@ -388,7 +388,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 				new Timestamp(Calendar.getInstance().getTimeInMillis()), benificiaryCall.getCallClosureType(),
 				benificiaryCall.getCallTypeID(), benificiaryCall.getDispositionStatusID(),
 				benificiaryCall.getEmergencyType(), benificiaryCall.getExternalReferral(),
-				benificiaryCall.getInstTypeId(), benificiaryCall.getInstName(), benificiaryCall.getIsOutbound());
+				benificiaryCall.getInstTypeId(), benificiaryCall.getInstName(), benificiaryCall.isOutbound());
 
 		if (benificiaryCall.getBeneficiaryRegID() != null)
 			beneficiaryCallRepository.updateBeneficiaryRegIDInCall(benificiaryCall.getBenCallID(),
@@ -441,7 +441,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 				new Timestamp(Calendar.getInstance().getTimeInMillis()), benificiaryCall.getCallClosureType(),
 				benificiaryCall.getCallTypeID(), benificiaryCall.getDispositionStatusID(),
 				benificiaryCall.getEmergencyType(), benificiaryCall.getExternalReferral(),
-				benificiaryCall.getInstTypeId(), benificiaryCall.getInstName(), benificiaryCall.getIsOutbound());
+				benificiaryCall.getInstTypeId(), benificiaryCall.getInstName(), benificiaryCall.isOutbound());
 		if (followupRequired.isFollowupRequired) {
 			OutboundCallRequest outboundCallRequest = inputMapper.gson().fromJson(request, OutboundCallRequest.class);
 			outboundCallRequestRepository.save(outboundCallRequest);
@@ -924,7 +924,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 				(callRequest.getPhoneNo() == null) ? "%%" : callRequest.getPhoneNo()));
 
 		if (callRequest.getInboundOutbound() != null) {
-			callRequest.setIsOutbound(callRequest.getInboundOutbound().equalsIgnoreCase("outbound") ? true : false);
+			callRequest.setOutbound(callRequest.getInboundOutbound().equalsIgnoreCase("outbound") ? true : false);
 			predicates.add(criteriaBuilder.equal(root.get("isOutbound"),
 					(callRequest.getInboundOutbound().equalsIgnoreCase("outbound") ? true : false)));
 		}
@@ -1068,7 +1068,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 		}
 
 		if (callRequest.getInboundOutbound() != null) {
-			callRequest.setIsOutbound(callRequest.getInboundOutbound().equalsIgnoreCase("outbound") ? true : false);
+			callRequest.setOutbound(callRequest.getInboundOutbound().equalsIgnoreCase("outbound") ? true : false);
 			predicates.add(criteriaBuilder.equal(entityRoot.get("isOutbound"),
 					(callRequest.getInboundOutbound().equalsIgnoreCase("outbound") ? true : false)));
 		}
@@ -1128,7 +1128,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 				(callRequest.getPhoneNo() == null) ? "%%" : callRequest.getPhoneNo()));
 
 		if (callRequest.getInboundOutbound() != null) {
-			callRequest.setIsOutbound(callRequest.getInboundOutbound().equalsIgnoreCase("outbound") ? true : false);
+			callRequest.setOutbound(callRequest.getInboundOutbound().equalsIgnoreCase("outbound") ? true : false);
 			predicates.add(criteriaBuilder.equal(entityRoot.get("isOutbound"),
 					(callRequest.getInboundOutbound().equalsIgnoreCase("outbound") ? true : false)));
 		}
@@ -1192,7 +1192,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 		}
 
 		if (callRequest.getInboundOutbound() != null) {
-			callRequest.setIsOutbound(callRequest.getInboundOutbound().equalsIgnoreCase("outbound") ? true : false);
+			callRequest.setOutbound(callRequest.getInboundOutbound().equalsIgnoreCase("outbound") ? true : false);
 			predicates.add(criteriaBuilder.equal(root.get("isOutbound"),
 					(callRequest.getInboundOutbound().equalsIgnoreCase("outbound") ? true : false)));
 		}
