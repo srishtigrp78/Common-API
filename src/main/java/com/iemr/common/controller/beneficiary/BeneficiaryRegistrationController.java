@@ -21,8 +21,11 @@
 */
 package com.iemr.common.controller.beneficiary;
 
+import java.lang.reflect.Field;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Map;
+import java.util.Set;
 
 import javax.ws.rs.core.MediaType;
 
@@ -38,14 +41,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.iemr.common.data.beneficiary.BenPhoneMap;
 import com.iemr.common.data.beneficiary.BeneficiaryRegistrationData;
 import com.iemr.common.data.directory.Directory;
-import com.iemr.common.data.users.UserServiceRoleMapping;
 import com.iemr.common.model.beneficiary.BeneficiaryModel;
 import com.iemr.common.service.beneficiary.BenRelationshipTypeService;
 import com.iemr.common.service.beneficiary.BeneficiaryOccupationService;
@@ -210,11 +217,56 @@ public class BeneficiaryRegistrationController {
 		return response.toString();
 	}
 
+	@Operation(summary = "Create a new beneficiary for customization")
+	@CrossOrigin()
+	@RequestMapping(value = "/createBeneficiary", method = RequestMethod.POST, produces = "application/json", consumes = "application/json", headers = "Authorization")
+	public String createBeneficiary(@RequestBody String request, HttpServletRequest httpRequest)
+			throws JsonMappingException, JsonProcessingException {
+		OutputResponse response = new OutputResponse();
+		ObjectMapper objectMapper = new ObjectMapper();
+		JsonElement json = JsonParser.parseString(request);
+		String otherFields = checkExtraFields(json);
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		BeneficiaryModel beneficiaryModel = objectMapper.readValue(request, BeneficiaryModel.class);
+		beneficiaryModel.setOtherFields(otherFields);
+
+		logger.info("Create beneficiary request for customization " + beneficiaryModel);
+		try {
+
+			response.setResponse(registerBenificiaryService.save(beneficiaryModel, httpRequest));
+		} catch (Exception e) {
+			logger.error("create beneficiary failed with error " + e.getMessage(), e);
+			response.setError(e);
+		}
+
+		logger.info("create beneficiary response for customization " + response.toString());
+		return response.toString();
+	}
+
+	private String checkExtraFields(JsonElement json) {
+		String identityJson = new Gson().toJson(json);
+		JsonObject identityJsonObject = new Gson().fromJson(identityJson, JsonObject.class);
+		JsonObject otherFieldsJson = new JsonObject();
+		Set<String> beneficiaryFieldNames = new HashSet<>();
+		for (Field field : BeneficiaryModel.class.getDeclaredFields()) {
+			beneficiaryFieldNames.add(field.getName());
+		}
+		for (Map.Entry<String, JsonElement> entry : identityJsonObject.entrySet()) {
+			String fieldName = entry.getKey();
+
+			// Check if the field is not present in either class
+			if (!beneficiaryFieldNames.contains(fieldName)) {
+				otherFieldsJson.add(fieldName, entry.getValue());
+			}
+		}
+		return otherFieldsJson.toString();
+	}
+
 	@CrossOrigin()
 	@Operation(summary = "Provide the list of beneficiaries based on beneficiary id")
 	@RequestMapping(value = "/searchUserByID", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String searchUserByID(
-			@Param(value ="{\"beneficiaryRegID\":\"Long\", \"beneficiaryID\":\"Long\", \"HealthID\":\"String\", \"HealthIDNo\":\"String\"} ") @RequestBody String request,
+			@Param(value = "{\"beneficiaryRegID\":\"Long\", \"beneficiaryID\":\"Long\", \"HealthID\":\"String\", \"HealthIDNo\":\"String\"} ") @RequestBody String request,
 			HttpServletRequest httpRequest) {
 		OutputResponse response = new OutputResponse();
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -222,9 +274,7 @@ public class BeneficiaryRegistrationController {
 		String auth = httpRequest.getHeader(AUTHORIZATION);
 		logger.info("Search user by ID request " + request);
 		try {
-			Gson gson = new GsonBuilder()
-			        .excludeFieldsWithoutExposeAnnotation()
-			        .create();
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 			BeneficiaryModel benificiaryDetails = gson.fromJson(request, BeneficiaryModel.class);
 			logger.debug(benificiaryDetails.toString());
 			List<BeneficiaryModel> iBeneficiary = null;
@@ -240,17 +290,17 @@ public class BeneficiaryRegistrationController {
 			} else if (benificiaryDetails.getHealthIDNumber() != null) {
 				iBeneficiary = iemrSearchUserService.userExitsCheckWithHealthIdNo_ABHAIdNo(
 						benificiaryDetails.getHealthIDNumber(), auth, benificiaryDetails.getIs1097());
-				// search by family id
 			} else if (benificiaryDetails.getFamilyId() != null) {
 				iBeneficiary = iemrSearchUserService.userExitsCheckWithFamilyId(benificiaryDetails.getFamilyId(), auth,
 						benificiaryDetails.getIs1097());
-				// search by identity
 			} else if (benificiaryDetails.getIdentity() != null) {
 				iBeneficiary = iemrSearchUserService.userExitsCheckWithGovIdentity(benificiaryDetails.getIdentity(),
 						auth, benificiaryDetails.getIs1097());
 			}
-
-			response.setResponse(OutputMapper.gson().toJson(iBeneficiary));
+			setBeneficiaryGender(iBeneficiary);
+			ObjectMapper mapper = new ObjectMapper();
+			String result = mapper.writeValueAsString(iBeneficiary);
+			response.setResponse(result);
 			logger.info("Search user by ID response size "
 					+ (iBeneficiary != null ? iBeneficiary.size() : "No Beneficiary Found"));
 		} catch (Exception e) {
@@ -264,7 +314,7 @@ public class BeneficiaryRegistrationController {
 	@CrossOrigin()
 	@RequestMapping(value = "/searchUserByPhone", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String searchUserByPhone(
-			@Param(value ="{\"phoneNo\":\"String\",\"pageNo\":\"Integer\",\"rowsPerPage\":\"Integer\"}") @RequestBody String request,
+			@Param(value = "{\"phoneNo\":\"String\",\"pageNo\":\"Integer\",\"rowsPerPage\":\"Integer\"}") @RequestBody String request,
 			HttpServletRequest httpRequest) {
 		OutputResponse response = new OutputResponse();
 		String auth = httpRequest.getHeader(AUTHORIZATION);
@@ -274,11 +324,11 @@ public class BeneficiaryRegistrationController {
 			BenPhoneMap benPhoneMap = OutputMapper.gson().fromJson(request, BenPhoneMap.class);
 			int pageNumber = requestObj.has("pageNo") ? (requestObj.getInt("pageNo") - 1) : 0;
 			int rows = requestObj.has("rowsPerPage") ? requestObj.getInt("rowsPerPage") : 1000;
-			if(requestObj.has("is1097") && requestObj.getBoolean("is1097")==true) {
+			if (requestObj.has("is1097") && requestObj.getBoolean("is1097") == true) {
 				benPhoneMap.setIs1097(true);
 			}
-			
-			logger.info("beneficiary request:" + benPhoneMap);
+
+			logger.info("benef iciary request:" + benPhoneMap);
 			response.setResponse(
 					iemrSearchUserService.findByBeneficiaryPhoneNo(benPhoneMap, pageNumber, rows, auth).toString());
 		} catch (JSONException e) {
@@ -296,7 +346,7 @@ public class BeneficiaryRegistrationController {
 	@Operation(summary = "Provide the list of beneficiaries based on search criteria")
 	@RequestMapping(value = "/searchBeneficiary", method = RequestMethod.POST, headers = "Authorization")
 	public String searchBeneficiary(
-			@Param(value ="{\"firstName\":\"String\",\"lastName\":\"String\",\"genderID\":\"Integer\",\"beneficiaryID\":\"String\","
+			@Param(value = "{\"firstName\":\"String\",\"lastName\":\"String\",\"genderID\":\"Integer\",\"beneficiaryID\":\"String\","
 					+ "\"i_bendemographics\":{\"stateID\":\"Integer\",\"districtID\":\"Integer\",\"districtBranchID\":\"Integer\"}}") @RequestBody BeneficiaryModel request,
 			HttpServletRequest httpRequest) {
 		logger.info("searchBeneficiary request " + request);
@@ -350,7 +400,7 @@ public class BeneficiaryRegistrationController {
 	@Operation(summary = "Provide all common data V1 list needed for beneficiary registration")
 	@RequestMapping(value = "/getRegistrationDataV1", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String getRegistrationDataV1(
-			@Param(value ="{\"providerServiceMapID\":\"Integer\"}") @RequestBody String request) {
+			@Param(value = "{\"providerServiceMapID\":\"Integer\"}") @RequestBody String request) {
 		OutputResponse response = new OutputResponse();
 		logger.info("Received get user registration data request");
 		try {
@@ -385,7 +435,7 @@ public class BeneficiaryRegistrationController {
 	@Operation(summary = "Update beneficiary details")
 	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String updateBenefciary(
-			@Param(value ="{\"beneficiaryRegID\":\"Long\",\"firstName\":\"String\",\"lastName\":\"String\","
+			@Param(value = "{\"beneficiaryRegID\":\"Long\",\"firstName\":\"String\",\"lastName\":\"String\","
 					+ "\"dOB\":\"Timestamp\",\"ageUnits\":\"String\",\"fatherName\":\"String\",\"spouseName\":\"String\","
 					+ "\"govtIdentityNo\":\"String\",\"govtIdentityTypeID\":\"Integer\",\"emergencyRegistration\":\"Boolean\","
 					+ "\"createdBy\":\"String\",\"titleId\":\"Short\",\"statusID\":\"Short\",\"registeredServiceID\":\"Short\","
@@ -408,8 +458,42 @@ public class BeneficiaryRegistrationController {
 			updateCount = registerBenificiaryService.updateBenificiary(benificiaryDetails, auth);
 			if (updateCount > 0) {
 				List<BeneficiaryModel> userExitsCheckWithId = iemrSearchUserService.userExitsCheckWithId(
-						benificiaryDetails.getBeneficiaryRegID(), auth,
-						benificiaryDetails.getIs1097());
+						benificiaryDetails.getBeneficiaryRegID(), auth, benificiaryDetails.getIs1097());
+				BeneficiaryModel beneficiaryModel = userExitsCheckWithId.get(0);
+				JSONObject responseObj = new JSONObject(beneficiaryModel);
+				responseObj.put("updateCount", updateCount);
+				response.setResponse(responseObj.toString());
+			}
+		} catch (JSONException e) {
+			logger.error("Update beneficiary failed with error " + e.getMessage(), e);
+			response.setError(e);
+		} catch (Exception e) {
+			logger.error("Update beneficiary failed with error " + e.getMessage(), e);
+			response.setError(e);
+		}
+		logger.info("update beneficiary response " + response.toString());
+		return response.toString();
+	}
+
+	@CrossOrigin()
+	@Operation(summary = "Update beneficiary details")
+	@RequestMapping(value = "/updateBenefciaryDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
+	public String updateBenefciaryDetails(@RequestBody String benificiaryRequest, HttpServletRequest httpRequest) {
+		OutputResponse response = new OutputResponse();
+		String auth = httpRequest.getHeader(AUTHORIZATION);
+		Integer updateCount = 0;
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+			JsonElement json = JsonParser.parseString(benificiaryRequest);
+			String otherFields = checkExtraFields(json);
+			objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+			BeneficiaryModel benificiaryDetails = objectMapper.readValue(benificiaryRequest, BeneficiaryModel.class);
+			benificiaryDetails.setOtherFields(otherFields);
+			updateCount = registerBenificiaryService.updateBenificiary(benificiaryDetails, auth);
+			if (updateCount > 0) {
+				List<BeneficiaryModel> userExitsCheckWithId = iemrSearchUserService.userExitsCheckWithId(
+						benificiaryDetails.getBeneficiaryRegID(), auth, benificiaryDetails.getIs1097());
 				BeneficiaryModel beneficiaryModel = userExitsCheckWithId.get(0);
 				JSONObject responseObj = new JSONObject(beneficiaryModel);
 				responseObj.put("updateCount", updateCount);
@@ -429,7 +513,7 @@ public class BeneficiaryRegistrationController {
 	@CrossOrigin()
 	@Operation(summary = "Fetch beneficiary details by phone no")
 	@RequestMapping(value = "/getBeneficiariesByPhoneNo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
-	public String getBeneficiariesByPhone(@Param(value ="{\"phoneNo\":\"String\"}") @RequestBody String request,
+	public String getBeneficiariesByPhone(@Param(value = "{\"phoneNo\":\"String\"}") @RequestBody String request,
 			HttpServletRequest httpRequest) {
 		OutputResponse response = new OutputResponse();
 		String auth = httpRequest.getHeader(AUTHORIZATION);
@@ -450,7 +534,7 @@ public class BeneficiaryRegistrationController {
 	@Operation(summary = "Update beneficiary community or education")
 	@RequestMapping(value = "/updateCommunityorEducation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON, headers = "Authorization")
 	public String updateBenefciaryCommunityorEducation(
-			@Param(value ="{\"beneficiaryRegID\":\"Long\",\"i_bendemographics\":{\"communityID\":\"Integer\","
+			@Param(value = "{\"beneficiaryRegID\":\"Long\",\"i_bendemographics\":{\"communityID\":\"Integer\","
 					+ "\"educationID\":\"Integer\"}}") @RequestBody String benificiaryRequest,
 			HttpServletRequest httpRequest) {
 		OutputResponse response = new OutputResponse();
@@ -458,13 +542,11 @@ public class BeneficiaryRegistrationController {
 		String auth = httpRequest.getHeader(AUTHORIZATION);
 		Integer updateCount = 0;
 		try {
-			BeneficiaryModel benificiaryDetails = objectMapper.readValue(benificiaryRequest,
-					BeneficiaryModel.class);
+			BeneficiaryModel benificiaryDetails = objectMapper.readValue(benificiaryRequest, BeneficiaryModel.class);
 			updateCount = registerBenificiaryService.updateCommunityorEducation(benificiaryDetails, auth);
 			if (updateCount > 0) {
 				List<BeneficiaryModel> userExitsCheckWithId = iemrSearchUserService.userExitsCheckWithId(
-						benificiaryDetails.getBeneficiaryRegID(), auth,
-						benificiaryDetails.getIs1097());
+						benificiaryDetails.getBeneficiaryRegID(), auth, benificiaryDetails.getIs1097());
 				JSONArray updatedUserData = new JSONArray(userExitsCheckWithId);
 				JSONObject responseObj = new JSONObject(updatedUserData.getJSONObject(0).toString());
 				responseObj.put("updateCount", updateCount);
@@ -499,4 +581,11 @@ public class BeneficiaryRegistrationController {
 		return response.toString();
 	}
 
+	private void setBeneficiaryGender(List<BeneficiaryModel> iBeneficiary) {
+		for (BeneficiaryModel beneficiaryModel : iBeneficiary) {
+			if (null != beneficiaryModel.getM_gender() && beneficiaryModel.getM_gender().getGenderName() != null)
+				beneficiaryModel.setGenderName(beneficiaryModel.getM_gender().getGenderName());
+		}
+
+	}
 }
