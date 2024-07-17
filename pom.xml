@@ -664,17 +664,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-            <groupId>org.wildfly.plugins</groupId>
-            <artifactId>wildfly-maven-plugin</artifactId>
-            <version>5.0.0.Final</version> 
-            <configuration>
-                <hostname>${wildfly.hostname}</hostname>
-                <port>${wildfly.management.port}</port>
-                <username>${wildfly.username}</username>
-                <password>${wildfly.password}</password>
-            </configuration>
-      </plugin>
 		</plugins>
 	</build>
 	<reporting>
