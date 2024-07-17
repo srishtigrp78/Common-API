@@ -238,6 +238,7 @@ public class CustomizationServiceImpl implements CustomizationService {
 						sectionProjectMappingDTO.getServiceProviderId());
 				for (SectionProjectMapping sectionProjectMapping : mappedSectionsInProject) {
 					sectionIds.add(sectionProjectMapping.getSectionId());
+					sectionProjectMapping.setDeleted(true);
 				}
 				List<SectionProjectMapping> sectionProjectMappingList = new ArrayList<>();
 				for (SectionProjectMapping mapping : sectionProjectMappingDTO.getSections()) {
