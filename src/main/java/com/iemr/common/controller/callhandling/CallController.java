@@ -123,7 +123,7 @@ public class CallController {
 					+ "\"is1097\":\"Boolean - to indicate call is from 1097\", "
 					+ "\"createdBy\":\"String - Call received agen username\","
 					+ "\"agentID\":\"String - call received agent ID \","
-					+ "\"isOutbound\":\"Boolean - true if call is outbound\"," + "\"isCalledEarlier\":\"Boolean\","
+					+ "\"isOutbound\":\"boolean - true if call is outbound\"," + "\"isCalledEarlier\":\"Boolean\","
 					+ "\"receivedRoleName\":\"String - Optional. User role name\"}") @RequestBody String request,
 			HttpServletRequest fromRequest) {
 		OutputResponse response = new OutputResponse();

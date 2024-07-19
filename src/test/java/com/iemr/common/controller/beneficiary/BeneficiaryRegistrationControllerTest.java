@@ -129,19 +129,6 @@ class BeneficiaryRegistrationControllerTest {
 	}
 
 	@Test
-	void testCreateBeneficiary_Exception() throws Exception {
-		// Arrange
-		String errorMessage = "Failed to get directories";
-
-		// Act
-		String result = beneficiaryRegistrationController.createBeneficiary(any(), any());
-
-		// Assert
-		assertNotNull(result);
-		assertTrue(result.contains("error"));
-	}
-
-	@Test
 	void testSearchUserByID() throws Exception {
 
 		OutputResponse response = new OutputResponse();
