@@ -209,7 +209,7 @@ public class CustomizationServiceImpl implements CustomizationService {
 						if (sb.length() >= 1)
 							sectionAndFieldsMapping.setOption(sb.substring(0, sb.length() - 1));
 					}
-					if (ObjectUtils.isEmpty(byFieldName) || byFieldName.size() == 0)// Added by Ravi
+					if (!ObjectUtils.isEmpty(byFieldName) || byFieldName.size() > 0)// Added by Ravi
 						sectionAndFieldsMappingList.add(sectionAndFieldsMapping);
 
 				}

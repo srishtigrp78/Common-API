@@ -113,6 +113,10 @@ public class V_CustomizationDataFields {
 	@Expose
 	private String allowText;
 	
+	@Column(name = "IsEditable")
+	@Expose
+	private Boolean isEditable;
+	
 	@Column
 	@Expose
 	private String fieldTitle;

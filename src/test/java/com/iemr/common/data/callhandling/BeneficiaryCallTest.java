@@ -166,8 +166,8 @@ class BeneficiaryCallTest {
     @Test
     void testIsOutboundGetterAndSetter() {
         final Boolean isOutbound = false;
-        beneficiaryCallUnderTest.setOutbound(isOutbound);
-        assertThat(beneficiaryCallUnderTest.isOutbound()).isFalse();
+        beneficiaryCallUnderTest.setIsOutbound(isOutbound);
+        assertThat(beneficiaryCallUnderTest.getIsOutbound()).isFalse();
     }
 
     @Test
