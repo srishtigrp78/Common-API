@@ -120,7 +120,7 @@ public class BeneficiaryCall {
 
 	@Expose
 	@Column(name = "IsOutbound")
-	private boolean isOutbound;
+	private Boolean isOutbound;
 
 	@Expose
 	@Column(name = "IsCalledEarlier")

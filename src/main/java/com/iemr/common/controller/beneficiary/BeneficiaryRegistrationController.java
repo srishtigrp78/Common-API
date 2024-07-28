@@ -259,6 +259,9 @@ public class BeneficiaryRegistrationController {
 				otherFieldsJson.add(fieldName, entry.getValue());
 			}
 		}
+		if (identityJsonObject.has("createdDate")) {
+			otherFieldsJson.add("createdDate", identityJsonObject.get("createdDate"));
+		}
 		return otherFieldsJson.toString();
 	}
 

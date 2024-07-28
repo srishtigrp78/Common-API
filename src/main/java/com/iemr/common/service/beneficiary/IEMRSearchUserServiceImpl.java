@@ -24,22 +24,19 @@ package com.iemr.common.service.beneficiary;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.iemr.common.data.beneficiary.BenDemographics;
 import com.iemr.common.data.beneficiary.BenPhoneMap;
 import com.iemr.common.data.beneficiary.Beneficiary;
@@ -170,6 +167,9 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 				is1097);
 
 		beneficiaryList = getBeneficiaryListFromMapper(listBen);
+		for (BeneficiaryModel beneficiaryModel : beneficiaryList) {
+			addCreatedDateToOtherFields(beneficiaryModel);
+		}
 		return beneficiaryList;
 	}
 
@@ -182,9 +182,33 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 		// search patient by ben id, call Identity API
 		List<BeneficiariesDTO> listBen = identityBeneficiaryService.getBeneficiaryListByBenID(beneficiaryID, auth,
 				is1097);
-		
+
 		beneficiaryList = getBeneficiaryListFromMapper(listBen);
+		for (BeneficiaryModel beneficiaryModel : beneficiaryList) {
+			addCreatedDateToOtherFields(beneficiaryModel);
+		}
 		return beneficiaryList;
+	}
+
+	private void addCreatedDateToOtherFields(BeneficiaryModel beneficiaryModel) {
+		if (beneficiaryModel.getCreatedDate() != null) {
+			ObjectMapper objectMapper = new ObjectMapper();
+			try {
+				// Parse the existing otherFields JSON string into a JsonNode
+				JsonNode otherFieldsNode = objectMapper.readTree(beneficiaryModel.getOtherFields());
+
+				// Convert createdDate to a string
+				String createdDateString = beneficiaryModel.getCreatedDate().toString(); 
+
+				// Add createdDate to the JSON node
+				((ObjectNode) otherFieldsNode).put("createdDate", createdDateString);
+
+				// Convert the JsonNode back to a string and set it in the model
+				beneficiaryModel.setOtherFields(objectMapper.writeValueAsString(otherFieldsNode));
+			} catch (Exception e) {
+				logger.error("Error processing otherFields JSON: " + e.getMessage(), e);
+			}
+		}
 	}
 
 	// search patient by healthid / ABHA ID
@@ -198,6 +222,9 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 				auth, is1097);
 
 		beneficiaryList = getBeneficiaryListFromMapper(listBen);
+		for (BeneficiaryModel beneficiaryModel : beneficiaryList) {
+			addCreatedDateToOtherFields(beneficiaryModel);
+		}
 		return beneficiaryList;
 	}
 
@@ -212,6 +239,9 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 				auth, is1097);
 
 		beneficiaryList = getBeneficiaryListFromMapper(listBen);
+		for (BeneficiaryModel beneficiaryModel : beneficiaryList) {
+			addCreatedDateToOtherFields(beneficiaryModel);
+		}
 		return beneficiaryList;
 	}
 
@@ -252,6 +282,9 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 				auth, benPhoneMap.getIs1097());
 
 		beneficiaryList = getBeneficiaryListFromMapper(listBen);
+		for (BeneficiaryModel beneficiaryModel : beneficiaryList) {
+			addCreatedDateToOtherFields(beneficiaryModel);
+		}
 		setBeneficiaryGender(beneficiaryList);
 		logger.info("Serach user by phone no response size "
 				+ (beneficiaryList != null ? beneficiaryList.size() : "No Beneficiary Found"));
@@ -342,7 +375,7 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 		});
 
 		beneficiaryList.removeIf(Objects::isNull);
-		//Collections.sort(beneficiaryList);
+		// Collections.sort(beneficiaryList);
 		return beneficiaryList;
 	}
 
