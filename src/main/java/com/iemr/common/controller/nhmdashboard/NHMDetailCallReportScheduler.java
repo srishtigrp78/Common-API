@@ -161,9 +161,9 @@ public class NHMDetailCallReportScheduler {
 		beneficiaryCall.setCallDuration(String.valueOf(detailedCallReport.getCall_Duration()));
 		if(null != detailedCallReport.getOrientation_Type()
 				&& detailedCallReport.getOrientation_Type().equalsIgnoreCase("OUTBOUND")) {
-			beneficiaryCall.setOutbound(true);
+			beneficiaryCall.setIsOutbound(true);
 		} else {
-			beneficiaryCall.setOutbound(false);
+			beneficiaryCall.setIsOutbound(false);
 		}
 		beneficiaryCall.setCallTime(detailedCallReport.getCallStartTime());
 		beneficiaryCall.setCallEndTime(detailedCallReport.getCallEndTime());

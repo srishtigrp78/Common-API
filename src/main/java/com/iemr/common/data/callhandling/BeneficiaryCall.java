@@ -41,6 +41,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.Data;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "t_bencall")
 @Data
@@ -119,7 +120,7 @@ public class BeneficiaryCall {
 
 	@Expose
 	@Column(name = "IsOutbound")
-	private boolean isOutbound;
+	private Boolean isOutbound;
 
 	@Expose
 	@Column(name = "IsCalledEarlier")
