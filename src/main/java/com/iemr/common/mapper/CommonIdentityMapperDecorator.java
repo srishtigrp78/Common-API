@@ -116,7 +116,7 @@ public abstract class CommonIdentityMapperDecorator implements CommonIdentityMap
 		Integer occupationID = beneficiary.getI_bendemographics().getOccupationID();
 		if (occupationID != null) {
 			commonIdentityDTO.setOccupationId(occupationID);
-			commonIdentityDTO.setOccupation(occupationMapper.occupationToModelByID(occupationID).getOccupationType());
+			commonIdentityDTO.setOccupationName(occupationMapper.occupationToModelByID(occupationID).getOccupationType());
 		}
 		Integer communityID = beneficiary.getI_bendemographics().getCommunityID();
 		if (communityID != null) {
@@ -173,6 +173,8 @@ public abstract class CommonIdentityMapperDecorator implements CommonIdentityMap
 		}
 		commonIdentityDTO.setMaritalStatus(beneficiary.getMaritalStatusName());
 		commonIdentityDTO.setGender(beneficiary.getGenderName());
+		if(beneficiary.getI_bendemographics() != null && beneficiary.getI_bendemographics().getOccupationName() != null)
+			commonIdentityDTO.setOccupationName(beneficiary.getI_bendemographics().getOccupationName());
 		Integer preferredLangID = beneficiary.getI_bendemographics().getPreferredLangID();
 		if (preferredLangID != null) {
 			commonIdentityDTO.setPreferredLanguageId(preferredLangID);

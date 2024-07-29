@@ -211,7 +211,7 @@ public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 	@Expose
 	private Integer occupationId;
 	@Expose
-	private String occupation;
+	private String occupationName;
 	@Expose
 	private String incomeStatus;
 	@Expose

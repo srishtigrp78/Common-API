@@ -176,7 +176,7 @@ public abstract class IdentityBenEditMapperDecorator implements IdentityBenEditM
 		Integer occupationID = beneficiary.getI_bendemographics().getOccupationID();
 		if (occupationID != null) {
 			identityEditDTO.setOccupationId(occupationID);
-			identityEditDTO.setOccupation(occupationMapper.occupationToModelByID(occupationID).getOccupationType());
+			identityEditDTO.setOccupationName(occupationMapper.occupationToModelByID(occupationID).getOccupationType());
 		}
 		Integer communityID = beneficiary.getI_bendemographics().getCommunityID();
 		if (communityID != null) {
@@ -244,6 +244,10 @@ public abstract class IdentityBenEditMapperDecorator implements IdentityBenEditM
 			identityEditDTO.setMonthlyFamilyIncome(beneficiary.getI_bendemographics().getMonthlyFamilyIncome());
 		if(beneficiary.getOtherFields() != null)
 			identityEditDTO.setOtherFields(beneficiary.getOtherFields());
+		if(beneficiary.getMaritalStatusName() != null)
+			identityEditDTO.setMaritalStatus(beneficiary.getMaritalStatusName());
+		if(beneficiary.getI_bendemographics() != null && beneficiary.getI_bendemographics().getOccupationName() != null)
+			identityEditDTO.setOccupationName(beneficiary.getI_bendemographics().getOccupationName());
 		return identityEditDTO;
 	}
 
