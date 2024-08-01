@@ -351,6 +351,9 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 		benDetailForOutboundDTOList.forEach(beneficiaryModel -> {
 
 			BeneficiaryModel beneficiary = benCompleteMapper.benDetailForOutboundDTOToIBeneficiary(beneficiaryModel);
+			if (beneficiary.getAge() == 0) {
+				beneficiary.setAge(beneficiary.getActualAge());
+			}
 			beneficiary.setBenPhoneMaps(benPhoneMapper.benPhoneMapToResponseByID(beneficiaryModel));
 			beneficiary.setSexualOrientation(
 					sexualOrientationMapper.sexualOrientationByIDToModel(beneficiary.getSexualOrientationID()));
