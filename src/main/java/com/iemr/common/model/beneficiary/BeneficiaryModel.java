@@ -307,13 +307,13 @@ public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 
 			Period period = Period.between(localeDateMyDob, localeDateCurrent);
 			if (localeDateMyDob.equals(localeDateCurrent)) {
-				beneficiaryAgeUnit = "day";
+				beneficiaryAgeUnit = "Day";
 			} else if (period.getYears() > 0) {
-				beneficiaryAgeUnit = "year" + (period.getYears() > 1 ? "s" : "");
+				beneficiaryAgeUnit = "Year" + (period.getYears() > 1 ? "s" : "");
 			} else if (period.getMonths() > 0) {
-				beneficiaryAgeUnit = "month" + (period.getMonths() > 1 ? "s" : "");
+				beneficiaryAgeUnit = "Month" + (period.getMonths() > 1 ? "s" : "");
 			} else if (period.getDays() > 0) {
-				beneficiaryAgeUnit = "day" + (period.getDays() > 1 ? "s" : "");
+				beneficiaryAgeUnit = "Day" + (period.getDays() > 1 ? "s" : "");
 			}
 		}
 		return beneficiaryAgeUnit;
