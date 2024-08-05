@@ -218,9 +218,25 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 		// result list
 		List<BeneficiaryModel> beneficiaryList = new ArrayList<BeneficiaryModel>();
 		// search patient by ben id, call Identity API
-		List<BeneficiariesDTO> listBen = identityBeneficiaryService.getBeneficiaryListByHealthID_ABHAAddress(healthID,
-				auth, is1097);
-
+		List<BeneficiariesDTO> listBen = null;
+		if(healthID.contains("@")) {
+			listBen = identityBeneficiaryService.getBeneficiaryListByHealthID_ABHAAddress(healthID,
+					auth, is1097);
+		}else {
+			if(healthID.length()==17) {
+				listBen = identityBeneficiaryService.getBeneficiaryListByHealthIDNo_ABHAIDNo(healthID,
+						auth, is1097);
+			}else {
+				StringBuilder stringBuilder = new StringBuilder();
+				stringBuilder.append(healthID.substring(0, 2)).append("-");
+				stringBuilder.append(healthID.substring(2, 6)).append("-");
+				stringBuilder.append(healthID.substring(6, 10)).append("-");
+				stringBuilder.append(healthID.substring(10));
+				String formattedHealthID = stringBuilder.toString();
+				listBen = identityBeneficiaryService.getBeneficiaryListByHealthIDNo_ABHAIDNo(formattedHealthID,
+						auth, is1097);
+			}
+		}
 		beneficiaryList = getBeneficiaryListFromMapper(listBen);
 		for (BeneficiaryModel beneficiaryModel : beneficiaryList) {
 			addCreatedDateToOtherFields(beneficiaryModel);
