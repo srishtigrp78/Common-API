@@ -223,7 +223,7 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 			listBen = identityBeneficiaryService.getBeneficiaryListByHealthID_ABHAAddress(healthID,
 					auth, is1097);
 		}else {
-			if(healthID.length()==16) {
+			if(healthID.length()==17) {
 				listBen = identityBeneficiaryService.getBeneficiaryListByHealthIDNo_ABHAIDNo(healthID,
 						auth, is1097);
 			}else {
@@ -233,7 +233,7 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 				stringBuilder.append(healthID.substring(6, 10)).append("-");
 				stringBuilder.append(healthID.substring(10));
 				String formattedHealthID = stringBuilder.toString();
-				listBen = identityBeneficiaryService.getBeneficiaryListByHealthID_ABHAAddress(formattedHealthID,
+				listBen = identityBeneficiaryService.getBeneficiaryListByHealthIDNo_ABHAIDNo(formattedHealthID,
 						auth, is1097);
 			}
 		}
