@@ -42,7 +42,8 @@ import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Data
-public class Beneficiary {
+public class Beneficiary 
+{
 	private static final int START_YEAR_1970 = 1970;
 
 	private Long beneficiaryRegID;
@@ -179,7 +180,7 @@ public class Beneficiary {
 
 	/**
 	 * @param beneficiaryRegID
-	 *                         the beneficiaryRegID to set
+	 *            the beneficiaryRegID to set
 	 */
 	// public void setBeneficiaryRegID(Long beneficiaryRegID)
 	// {
@@ -196,7 +197,7 @@ public class Beneficiary {
 
 	/**
 	 * @param i_bendemographics
-	 *                          the i_bendemographics to set
+	 *            the i_bendemographics to set
 	 */
 	// public void setI_bendemographics(BenDemographics i_bendemographics)
 	// {
@@ -213,7 +214,7 @@ public class Beneficiary {
 
 	/**
 	 * @param t_benmedhistory
-	 *                        the t_benmedhistory to set
+	 *            the t_benmedhistory to set
 	 */
 	// public void setT_benmedhistory(List<BenMedHistory> t_benmedhistory)
 	// {
@@ -230,7 +231,7 @@ public class Beneficiary {
 
 	/**
 	 * @param beneficiaryID
-	 *                      the beneficiaryID to set
+	 *            the beneficiaryID to set
 	 */
 	// public void setBeneficiaryID(String beneficiaryID)
 	// {
@@ -247,7 +248,7 @@ public class Beneficiary {
 
 	/**
 	 * @param titleId
-	 *                the titleId to set
+	 *            the titleId to set
 	 */
 	// public void setTitleId(Integer titleId)
 	// {
@@ -264,7 +265,7 @@ public class Beneficiary {
 
 	/**
 	 * @param m_title
-	 *                the m_title to set
+	 *            the m_title to set
 	 */
 	// public void setM_title(Title m_title)
 	// {
@@ -281,7 +282,7 @@ public class Beneficiary {
 
 	/**
 	 * @param firstName
-	 *                  the firstName to set
+	 *            the firstName to set
 	 */
 	// public void setFirstName(String firstName)
 	// {
@@ -298,7 +299,7 @@ public class Beneficiary {
 
 	/**
 	 * @param middleName
-	 *                   the middleName to set
+	 *            the middleName to set
 	 */
 	// public void setMiddleName(String middleName)
 	// {
@@ -315,7 +316,7 @@ public class Beneficiary {
 
 	/**
 	 * @param lastName
-	 *                 the lastName to set
+	 *            the lastName to set
 	 */
 	// public void setLastName(String lastName)
 	// {
@@ -332,7 +333,7 @@ public class Beneficiary {
 
 	/**
 	 * @param statusID
-	 *                 the statusID to set
+	 *            the statusID to set
 	 */
 	// public void setStatusID(Integer statusID)
 	// {
@@ -715,7 +716,8 @@ public class Beneficiary {
 	// }
 
 	public Beneficiary(Long BeneficiaryRegID, String BeneficiaryID, String FirstName, String MiddleName,
-			String LastName, Integer GenderID, String GenderName, Timestamp DOB) {
+			String LastName, Integer GenderID, String GenderName, Timestamp DOB) 
+			{
 		this.beneficiaryRegID = BeneficiaryRegID;
 		this.beneficiaryID = BeneficiaryID;
 		this.firstName = FirstName;
@@ -729,7 +731,8 @@ public class Beneficiary {
 	}
 
 	public Beneficiary(Long BeneficiaryRegID, String BeneficiaryID, String FirstName, String MiddleName,
-			String LastName, Integer GenderID, String GenderName, Timestamp DOB, BenDemographics demographics) {
+			String LastName, Integer GenderID, String GenderName, Timestamp DOB, BenDemographics demographics) 
+			{
 		this.beneficiaryRegID = BeneficiaryRegID;
 		this.beneficiaryID = BeneficiaryID;
 		this.firstName = FirstName;
@@ -737,7 +740,8 @@ public class Beneficiary {
 		this.lastName = LastName;
 		this.m_gender = new Gender().getGender(GenderID, GenderName);
 		this.dOB = DOB;
-		if (DOB != null) {
+		if (DOB != null) 
+		{
 			this.age = Integer
 					.parseInt(formatYear.format(new Date(Calendar.getInstance().getTime().getTime() - DOB.getTime())))
 					- START_YEAR_1970;
@@ -747,7 +751,8 @@ public class Beneficiary {
 
 	public Beneficiary(Long BeneficiaryRegID, String BeneficiaryID, String FirstName, String MiddleName,
 			String LastName, Integer GenderID, String GenderName, Timestamp DOB, BenDemographics demographics,
-			List<BenPhoneMap> phoneMap) {
+			List<BenPhoneMap> phoneMap) 
+			{
 		this.beneficiaryRegID = BeneficiaryRegID;
 		this.beneficiaryID = BeneficiaryID;
 		this.firstName = FirstName;
@@ -755,7 +760,8 @@ public class Beneficiary {
 		this.lastName = LastName;
 		this.m_gender = new Gender().getGender(GenderID, GenderName);
 		this.dOB = DOB;
-		if (DOB != null) {
+		if (DOB != null) 
+		{
 			this.age = Integer
 					.parseInt(formatYear.format(new Date(Calendar.getInstance().getTime().getTime() - DOB.getTime())))
 					- START_YEAR_1970;
@@ -792,7 +798,8 @@ public class Beneficiary {
 		this.genderID = m_gender.getGenderID();
 		this.dOB = DOB;
 
-		if (DOB != null) {
+		if (DOB != null) 
+		{
 			this.age = Integer
 					.parseInt(formatYear.format(new Date(Calendar.getInstance().getTime().getTime() - DOB.getTime())))
 					- START_YEAR_1970;
@@ -804,14 +811,14 @@ public class Beneficiary {
 			/* BenDemographics i_bendemographics, */Title m_title, Status m_status,
 			MaritalStatus m_maritalstatus, SexualOrientation sexualOrientation, String fatherName, String spouseName,
 			/*
-			 * String phoneNo, Short phoneTypeID, String altPhoneNo, Short altPhoneTypeID,
-			 * Long parentBenRegID, Short
+			 * String phoneNo, Short phoneTypeID, String altPhoneNo, Short altPhoneTypeID, Long parentBenRegID, Short
 			 * beneficiaryTypeID,
 			 */
 			List<BenPhoneMap> benphonemaps, String govtIdentityNo, Integer govtIdentityTypeID,
 			Integer registeredServiceID, Boolean deleted, Integer titleId, Integer statusID, Integer genderID,
 			Integer maritalStatusID, Integer sexualOrientationId, String isHIVPos, String placeOfWork, String remarks,
-			String sourceOfInformation) {
+			String sourceOfInformation) 
+			{
 		this.beneficiaryRegID = BeneficiaryRegID;
 		this.beneficiaryID = BeneficiaryID;
 		this.firstName = FirstName;
@@ -822,7 +829,8 @@ public class Beneficiary {
 		// this.genderID = m_gender.getGenderID();
 		this.dOB = DOB;
 
-		if (DOB != null) {
+		if (DOB != null) 
+		{
 			this.age = Integer
 					.parseInt(formatYear.format(new Date(Calendar.getInstance().getTime().getTime() - DOB.getTime())))
 					- START_YEAR_1970;
@@ -864,7 +872,8 @@ public class Beneficiary {
 		this.sourceOfInformation = sourceOfInformation;
 	}
 
-	public Beneficiary() {
+	public Beneficiary() 
+	{
 
 	}
 
