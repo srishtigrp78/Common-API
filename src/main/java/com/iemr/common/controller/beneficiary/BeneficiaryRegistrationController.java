@@ -188,7 +188,8 @@ public class BeneficiaryRegistrationController {
 					+ "\"healthCareWorkerID\":\"Short\",\"communityID\":\"Integer\",\"districtID\":\"Integer\",\"stateID\":\"Integer\","
 					+ "\"pinCode\":\"String\",\"blockID\":\"Integer\",\"districtBranchID\":\"Integer\",\"createdBy\":\"String\","
 					+ "\"addressLine1\":\"String\"},\"benPhoneMaps\":{\"parentBenRegID\":\"Long\",\"phoneNo\":\"String\","
-					+ "\"phoneTypeID\":\"Integer\",\"benRelationshipID\":\"Integer\",\"deleted\":\"Boolean\",\"createdBy\":\"String\"}}") @RequestBody BeneficiaryModel beneficiaryModel,
+					+ "\"phoneTypeID\":\"Integer\",\"benRelationshipID\":\"Integer\",\"deleted\":\"Boolean\",\"createdBy\":\"String\"},"
+					+ "\"faceEmbedding\":[\"Float\"]}") @RequestBody BeneficiaryModel beneficiaryModel,
 			HttpServletRequest httpRequest) {
 		OutputResponse response = new OutputResponse();
 
