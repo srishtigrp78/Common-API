@@ -248,6 +248,11 @@ public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 
 	// END OF new column added for data sync
 
+	// new column added for face recognitiom
+	@Expose
+	private List<Float> faceEmbedding;
+	// END OF new column added for face recognitiom
+
 	// ABHA address
 	List<AbhaAddressDTO> abhaDetails;
 
