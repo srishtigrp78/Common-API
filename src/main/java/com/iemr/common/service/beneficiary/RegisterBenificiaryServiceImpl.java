@@ -143,7 +143,6 @@ public class RegisterBenificiaryServiceImpl implements RegisterBenificiaryServic
 		CommonIdentityDTO identityDTO = identityMapper.beneficiaryModelCommonIdentityDTO(beneficiaryModel);
 		// identityDTO.setOtherFields(beneficiaryModel.getOtherFields());
 		identityDTO.setFaceEmbedding(beneficiaryModel.getFaceEmbedding());
-
 		identityDTO.setEmergencyRegistration(beneficiaryModel.isEmergencyRegistration());
 		identityDTO
 				.setBenFamilyDTOs(identityMapper.benPhoneMapListToBenFamilyDTOList(beneficiaryModel.getBenPhoneMaps()));
