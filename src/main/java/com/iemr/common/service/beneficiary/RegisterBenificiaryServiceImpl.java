@@ -30,7 +30,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -121,7 +120,7 @@ public class RegisterBenificiaryServiceImpl implements RegisterBenificiaryServic
 					benificiaryDetails.getCreatedBy()));
 		}
 		identityEditDTO.setDob(benificiaryDetails.getDOB());
-	//	identityEditDTO.setOtherFields(benificiaryDetails.getOtherFields());
+		// identityEditDTO.setOtherFields(benificiaryDetails.getOtherFields());
 		// String jsoninput=new Gson().toJson(identityEditDTO);
 		updatedRows = identityBeneficiaryService.editIdentityEditDTO(identityEditDTO, auth,
 				benificiaryDetails.getIs1097());
@@ -139,15 +138,16 @@ public class RegisterBenificiaryServiceImpl implements RegisterBenificiaryServic
 	@Override
 	public String save(BeneficiaryModel beneficiaryModel, HttpServletRequest servletRequest) throws Exception {
 
-//		logger.info("benificiaryDetails: " + beneficiaryModel);
+		// logger.info("benificiaryDetails: " + beneficiaryModel);
 
 		CommonIdentityDTO identityDTO = identityMapper.beneficiaryModelCommonIdentityDTO(beneficiaryModel);
-	//	identityDTO.setOtherFields(beneficiaryModel.getOtherFields());
+		// identityDTO.setOtherFields(beneficiaryModel.getOtherFields());
+		identityDTO.setFaceEmbedding(beneficiaryModel.getFaceEmbedding());
 		identityDTO.setEmergencyRegistration(beneficiaryModel.isEmergencyRegistration());
 		identityDTO
 				.setBenFamilyDTOs(identityMapper.benPhoneMapListToBenFamilyDTOList(beneficiaryModel.getBenPhoneMaps()));
-		String request = new Gson().toJson(identityDTO);		
-		
+		String request = new Gson().toJson(identityDTO);
+
 		if (beneficiaryModel.getIs1097() == null)
 			beneficiaryModel.setIs1097(false);
 
@@ -168,9 +168,8 @@ public class RegisterBenificiaryServiceImpl implements RegisterBenificiaryServic
 				return response.toString();
 			}
 		}
-		return OutputMapper.gson().toJson(beneficiary);	
+		return OutputMapper.gson().toJson(beneficiary);
 	}
-	
 
 	@Override
 	public Integer updateCommunityorEducation(BeneficiaryModel benificiaryDetails, String auth) throws IEMRException {
