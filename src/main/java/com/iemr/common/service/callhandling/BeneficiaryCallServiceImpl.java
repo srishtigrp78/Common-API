@@ -1196,6 +1196,7 @@ public class BeneficiaryCallServiceImpl implements BeneficiaryCallService {
 			predicates.add(criteriaBuilder.equal(root.get("isOutbound"),
 					(callRequest.getInboundOutbound().equalsIgnoreCase("outbound") ? true : false)));
 		}
+		
 		if (callRequest.getBenCallIDs() == null) {
 			predicates.add(criteriaBuilder.between(root.get("createdDate"), filterStartDate, filterEndDate));
 		} else {

@@ -99,7 +99,7 @@ public class IdentityEditDTO {
 	private Integer educationId;
 	private String incomeStatus;
 	private Integer incomeStatusId;
-	private String occupation;
+	private String occupationName;
 	private Integer occupationId;
 	private String religion;
 	private Integer religionId;
@@ -166,4 +166,6 @@ public class IdentityEditDTO {
 
 	// END OF new column added for data sync
 	private boolean emergencyRegistration;
+	private String otherFields;
+//	private Object otherFields;
 }

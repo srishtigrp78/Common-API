@@ -71,7 +71,7 @@ public class CommonIdentityDTO {
 	private Integer maritalStatusId;
 	private String middleName;
 	private Integer occupationId;
-	private String occupation;
+	private String occupationName;
 	private Integer phcId;
 	private Integer parkingPlaceId;
 	private String placeOfWork;
@@ -89,6 +89,7 @@ public class CommonIdentityDTO {
 	private String title;
 	private Integer zoneId;
 	private String monthlyFamilyIncome;
+	private List<Float> faceEmbedding;
 
 	// address
 	private Address currentAddress;
@@ -149,6 +150,9 @@ public class CommonIdentityDTO {
 
 	@Expose
 	private Boolean beneficiaryConsent;
+	private String otherFields;
+
+	// private Object otherFields;
 
 	public void setDobFromAge(Integer age) {
 		if (dob == null && age != null) {

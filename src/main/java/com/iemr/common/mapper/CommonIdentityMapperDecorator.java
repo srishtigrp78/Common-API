@@ -116,7 +116,7 @@ public abstract class CommonIdentityMapperDecorator implements CommonIdentityMap
 		Integer occupationID = beneficiary.getI_bendemographics().getOccupationID();
 		if (occupationID != null) {
 			commonIdentityDTO.setOccupationId(occupationID);
-			commonIdentityDTO.setOccupation(occupationMapper.occupationToModelByID(occupationID).getOccupationType());
+			commonIdentityDTO.setOccupationName(occupationMapper.occupationToModelByID(occupationID).getOccupationType());
 		}
 		Integer communityID = beneficiary.getI_bendemographics().getCommunityID();
 		if (communityID != null) {
@@ -171,6 +171,10 @@ public abstract class CommonIdentityMapperDecorator implements CommonIdentityMap
 			commonIdentityDTO.setMaritalStatus(
 					maritalStatusMapper.maritalStatusByIDToResponse(maritalStatusID.intValue()).getStatus());
 		}
+		commonIdentityDTO.setMaritalStatus(beneficiary.getMaritalStatusName());
+		commonIdentityDTO.setGender(beneficiary.getGenderName());
+		if(beneficiary.getI_bendemographics() != null && beneficiary.getI_bendemographics().getOccupationName() != null)
+			commonIdentityDTO.setOccupationName(beneficiary.getI_bendemographics().getOccupationName());
 		Integer preferredLangID = beneficiary.getI_bendemographics().getPreferredLangID();
 		if (preferredLangID != null) {
 			commonIdentityDTO.setPreferredLanguageId(preferredLangID);
@@ -185,10 +189,13 @@ public abstract class CommonIdentityMapperDecorator implements CommonIdentityMap
 		commonIdentityDTO.setParkingPlaceId(beneficiary.getParkingPlaceID());
 
 		commonIdentityDTO.setBeneficiaryConsent(beneficiary.getBeneficiaryConsent());
-		if(beneficiary.getI_bendemographics() != null && beneficiary.getI_bendemographics().getMonthlyFamilyIncome() != null) {
+		if (beneficiary.getI_bendemographics() != null
+				&& beneficiary.getI_bendemographics().getMonthlyFamilyIncome() != null) {
 			commonIdentityDTO.setMonthlyFamilyIncome(beneficiary.getI_bendemographics().getMonthlyFamilyIncome());
 		}
-		
+		if (beneficiary.getOtherFields() != null) {
+			commonIdentityDTO.setOtherFields(beneficiary.getOtherFields());
+		}
 		// End
 		return commonIdentityDTO;
 	}

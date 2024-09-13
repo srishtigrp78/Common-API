@@ -70,11 +70,14 @@ public class BeneficiariesDTO {
 	private Long benAccountID;
 	private Long benImageID;
 	private Integer occupationId;
-	private String occupation;
+	private String occupationName;
 	private String incomeStatus;
 	private BigInteger religionId;
 	private String religion;
 	private String monthlyFamilyIncome;
+	private String otherFields;
+	private String genderName;
+	private String maritalStatusName;
 
 	// End Outreach
 

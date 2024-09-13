@@ -41,6 +41,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.Data;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "t_bencall")
 @Data

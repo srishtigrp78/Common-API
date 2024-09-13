@@ -31,8 +31,11 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.iemr.common.model.user.TitleModel;
 import com.iemr.common.model.userbeneficiary.BeneficiaryIdentityModel;
@@ -162,6 +165,7 @@ public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 	@Expose
 	private String createdBy;
 	@Expose
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 	private Timestamp createdDate;
 	@Expose
 	private String modifiedBy;
@@ -207,7 +211,7 @@ public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 	@Expose
 	private Integer occupationId;
 	@Expose
-	private String occupation;
+	private String occupationName;
 	@Expose
 	private String incomeStatus;
 	@Expose
@@ -218,7 +222,7 @@ public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 	private Integer providerServiceMapID;
 
 	@Expose
-	private Long actualAge;
+	private Integer actualAge;
 	@Expose
 	private String ageUnits;
 
@@ -243,6 +247,11 @@ public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 	private Boolean isD2D;
 
 	// END OF new column added for data sync
+
+	// new column added for face recognitiom
+	@Expose
+	private List<Float> faceEmbedding;
+	// END OF new column added for face recognitiom
 
 	// ABHA address
 	List<AbhaAddressDTO> abhaDetails;
@@ -274,6 +283,9 @@ public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 	
 	@Expose
 	private Boolean passToNurse = false;
+	private String otherFields;
+	
+//	private Object otherFields;
 
 	public static Timestamp getTimestampData(Timestamp timestamp) {
 		return timestamp;
@@ -300,42 +312,66 @@ public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 
 			Period period = Period.between(localeDateMyDob, localeDateCurrent);
 			if (localeDateMyDob.equals(localeDateCurrent)) {
-				beneficiaryAgeUnit = "day";
+				beneficiaryAgeUnit = "Day";
 			} else if (period.getYears() > 0) {
-				beneficiaryAgeUnit = "year" + (period.getYears() > 1 ? "s" : "");
+				beneficiaryAgeUnit = "Year" + (period.getYears() > 1 ? "s" : "");
 			} else if (period.getMonths() > 0) {
-				beneficiaryAgeUnit = "month" + (period.getMonths() > 1 ? "s" : "");
+				beneficiaryAgeUnit = "Month" + (period.getMonths() > 1 ? "s" : "");
 			} else if (period.getDays() > 0) {
-				beneficiaryAgeUnit = "day" + (period.getDays() > 1 ? "s" : "");
+				beneficiaryAgeUnit = "Day" + (period.getDays() > 1 ? "s" : "");
 			}
 		}
 		return beneficiaryAgeUnit;
 	}
 
-	public static Long actualAge(Timestamp dob) {
-		Long beneficiaryAge = null;
-		Date current = new Date();
-		if (dob != null) {
+//	public static Long actualAge(Timestamp dob) {
+//		Long beneficiaryAge = null;
+//		Date current = new Date();
+//		if (dob != null) {
+//
+//			ZoneId defaultZoneId = ZoneId.systemDefault();
+//			Instant instant1 = dob.toInstant();
+//			LocalDate localeDateMyDob = instant1.atZone(defaultZoneId).toLocalDate();
+//			Instant instant2 = current.toInstant();
+//			LocalDate localeDateCurrent = instant2.atZone(defaultZoneId).toLocalDate();
+//
+//			Period period = Period.between(localeDateMyDob, localeDateCurrent);
+//			if (localeDateMyDob.equals(localeDateCurrent)) {
+//				beneficiaryAge = 1L;
+//			} else if (period.getYears() > 0) {
+//				beneficiaryAge = (long) period.getYears();
+//			} else if (period.getMonths() > 0) {
+//				beneficiaryAge = (long) period.getMonths();
+//			} else if (period.getDays() > 0) {
+//				beneficiaryAge = (long) period.getDays();
+//			}
+//
+//		}
+//		return beneficiaryAge;
+//	}
+	
+	public static Integer actualAge(Timestamp dob) {
+	    Integer beneficiaryAge = null;
+	    Date current = new Date();
+	    if (dob != null) {
+	        ZoneId defaultZoneId = ZoneId.systemDefault();
+	        Instant instant1 = dob.toInstant();
+	        LocalDate localeDateMyDob = instant1.atZone(defaultZoneId).toLocalDate();
+	        Instant instant2 = current.toInstant();
+	        LocalDate localeDateCurrent = instant2.atZone(defaultZoneId).toLocalDate();
 
-			ZoneId defaultZoneId = ZoneId.systemDefault();
-			Instant instant1 = dob.toInstant();
-			LocalDate localeDateMyDob = instant1.atZone(defaultZoneId).toLocalDate();
-			Instant instant2 = current.toInstant();
-			LocalDate localeDateCurrent = instant2.atZone(defaultZoneId).toLocalDate();
-
-			Period period = Period.between(localeDateMyDob, localeDateCurrent);
-			if (localeDateMyDob.equals(localeDateCurrent)) {
-				beneficiaryAge = 1L;
-			} else if (period.getYears() > 0) {
-				beneficiaryAge = (long) period.getYears();
-			} else if (period.getMonths() > 0) {
-				beneficiaryAge = (long) period.getMonths();
-			} else if (period.getDays() > 0) {
-				beneficiaryAge = (long) period.getDays();
-			}
-
-		}
-		return beneficiaryAge;
+	        Period period = Period.between(localeDateMyDob, localeDateCurrent);
+	        if (localeDateMyDob.equals(localeDateCurrent)) {
+	            beneficiaryAge = 1;
+	        } else if (period.getYears() > 0) {
+	            beneficiaryAge = period.getYears();
+	        } else if (period.getMonths() > 0) {
+	            beneficiaryAge = period.getMonths();
+	        } else if (period.getDays() > 0) {
+	            beneficiaryAge = period.getDays();
+	        }
+	    }
+	    return beneficiaryAge;
 	}
 
 //Age Calculation-Old

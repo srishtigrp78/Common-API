@@ -42,7 +42,7 @@ import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Data
-public class Beneficiary
+public class Beneficiary 
 {
 	private static final int START_YEAR_1970 = 1970;
 
@@ -70,6 +70,8 @@ public class Beneficiary
 	private Integer titleId;
 
 	private String titleName;
+
+	private List<Float> faceEmbedding;
 
 	@JsonIgnore
 
@@ -714,8 +716,8 @@ public class Beneficiary
 	// }
 
 	public Beneficiary(Long BeneficiaryRegID, String BeneficiaryID, String FirstName, String MiddleName,
-			String LastName, Integer GenderID, String GenderName, Timestamp DOB)
-	{
+			String LastName, Integer GenderID, String GenderName, Timestamp DOB) 
+			{
 		this.beneficiaryRegID = BeneficiaryRegID;
 		this.beneficiaryID = BeneficiaryID;
 		this.firstName = FirstName;
@@ -729,8 +731,8 @@ public class Beneficiary
 	}
 
 	public Beneficiary(Long BeneficiaryRegID, String BeneficiaryID, String FirstName, String MiddleName,
-			String LastName, Integer GenderID, String GenderName, Timestamp DOB, BenDemographics demographics)
-	{
+			String LastName, Integer GenderID, String GenderName, Timestamp DOB, BenDemographics demographics) 
+			{
 		this.beneficiaryRegID = BeneficiaryRegID;
 		this.beneficiaryID = BeneficiaryID;
 		this.firstName = FirstName;
@@ -738,7 +740,7 @@ public class Beneficiary
 		this.lastName = LastName;
 		this.m_gender = new Gender().getGender(GenderID, GenderName);
 		this.dOB = DOB;
-		if (DOB != null)
+		if (DOB != null) 
 		{
 			this.age = Integer
 					.parseInt(formatYear.format(new Date(Calendar.getInstance().getTime().getTime() - DOB.getTime())))
@@ -749,8 +751,8 @@ public class Beneficiary
 
 	public Beneficiary(Long BeneficiaryRegID, String BeneficiaryID, String FirstName, String MiddleName,
 			String LastName, Integer GenderID, String GenderName, Timestamp DOB, BenDemographics demographics,
-			List<BenPhoneMap> phoneMap)
-	{
+			List<BenPhoneMap> phoneMap) 
+			{
 		this.beneficiaryRegID = BeneficiaryRegID;
 		this.beneficiaryID = BeneficiaryID;
 		this.firstName = FirstName;
@@ -758,7 +760,7 @@ public class Beneficiary
 		this.lastName = LastName;
 		this.m_gender = new Gender().getGender(GenderID, GenderName);
 		this.dOB = DOB;
-		if (DOB != null)
+		if (DOB != null) 
 		{
 			this.age = Integer
 					.parseInt(formatYear.format(new Date(Calendar.getInstance().getTime().getTime() - DOB.getTime())))
@@ -769,8 +771,24 @@ public class Beneficiary
 	}
 
 	public Beneficiary(Long BeneficiaryRegID, String BeneficiaryID, String FirstName, String MiddleName,
-			String LastName, Gender m_gender, Timestamp DOB)
-	{
+			String LastName, Gender m_gender, Timestamp DOB, List<Float> faceEmbedding) {
+		this.beneficiaryRegID = BeneficiaryRegID;
+		this.beneficiaryID = BeneficiaryID;
+		this.firstName = FirstName;
+		this.middleName = MiddleName;
+		this.lastName = LastName;
+		this.m_gender = m_gender;
+		this.dOB = DOB;
+		if (DOB != null) {
+			this.age = Integer
+					.parseInt(formatYear.format(new Date(Calendar.getInstance().getTime().getTime() - DOB.getTime())))
+					- START_YEAR_1970;
+		}
+		this.faceEmbedding = faceEmbedding;
+	}
+
+	public Beneficiary(Long BeneficiaryRegID, String BeneficiaryID, String FirstName, String MiddleName,
+			String LastName, Gender m_gender, Timestamp DOB) {
 		this.beneficiaryRegID = BeneficiaryRegID;
 		this.beneficiaryID = BeneficiaryID;
 		this.firstName = FirstName;
@@ -780,7 +798,7 @@ public class Beneficiary
 		this.genderID = m_gender.getGenderID();
 		this.dOB = DOB;
 
-		if (DOB != null)
+		if (DOB != null) 
 		{
 			this.age = Integer
 					.parseInt(formatYear.format(new Date(Calendar.getInstance().getTime().getTime() - DOB.getTime())))
@@ -799,8 +817,8 @@ public class Beneficiary
 			List<BenPhoneMap> benphonemaps, String govtIdentityNo, Integer govtIdentityTypeID,
 			Integer registeredServiceID, Boolean deleted, Integer titleId, Integer statusID, Integer genderID,
 			Integer maritalStatusID, Integer sexualOrientationId, String isHIVPos, String placeOfWork, String remarks,
-			String sourceOfInformation)
-	{
+			String sourceOfInformation) 
+			{
 		this.beneficiaryRegID = BeneficiaryRegID;
 		this.beneficiaryID = BeneficiaryID;
 		this.firstName = FirstName;
@@ -811,7 +829,7 @@ public class Beneficiary
 		// this.genderID = m_gender.getGenderID();
 		this.dOB = DOB;
 
-		if (DOB != null)
+		if (DOB != null) 
 		{
 			this.age = Integer
 					.parseInt(formatYear.format(new Date(Calendar.getInstance().getTime().getTime() - DOB.getTime())))
@@ -854,7 +872,7 @@ public class Beneficiary
 		this.sourceOfInformation = sourceOfInformation;
 	}
 
-	public Beneficiary()
+	public Beneficiary() 
 	{
 
 	}

@@ -24,8 +24,6 @@ package com.iemr.common.service.beneficiary;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,6 +32,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.iemr.common.data.beneficiary.BenDemographics;
@@ -166,6 +167,9 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 				is1097);
 
 		beneficiaryList = getBeneficiaryListFromMapper(listBen);
+		for (BeneficiaryModel beneficiaryModel : beneficiaryList) {
+			addCreatedDateToOtherFields(beneficiaryModel);
+		}
 		return beneficiaryList;
 	}
 
@@ -180,7 +184,31 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 				is1097);
 
 		beneficiaryList = getBeneficiaryListFromMapper(listBen);
+		for (BeneficiaryModel beneficiaryModel : beneficiaryList) {
+			addCreatedDateToOtherFields(beneficiaryModel);
+		}
 		return beneficiaryList;
+	}
+
+	private void addCreatedDateToOtherFields(BeneficiaryModel beneficiaryModel) {
+		if (beneficiaryModel.getCreatedDate() != null) {
+			ObjectMapper objectMapper = new ObjectMapper();
+			try {
+				// Parse the existing otherFields JSON string into a JsonNode
+				JsonNode otherFieldsNode = objectMapper.readTree(beneficiaryModel.getOtherFields());
+
+				// Convert createdDate to a string
+				String createdDateString = beneficiaryModel.getCreatedDate().toString(); 
+
+				// Add createdDate to the JSON node
+				((ObjectNode) otherFieldsNode).put("createdDate", createdDateString);
+
+				// Convert the JsonNode back to a string and set it in the model
+				beneficiaryModel.setOtherFields(objectMapper.writeValueAsString(otherFieldsNode));
+			} catch (Exception e) {
+				logger.error("Error processing otherFields JSON: " + e.getMessage(), e);
+			}
+		}
 	}
 
 	// search patient by healthid / ABHA ID
@@ -190,24 +218,51 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 		// result list
 		List<BeneficiaryModel> beneficiaryList = new ArrayList<BeneficiaryModel>();
 		// search patient by ben id, call Identity API
-		List<BeneficiariesDTO> listBen = identityBeneficiaryService.getBeneficiaryListByHealthID_ABHAAddress(healthID,
-				auth, is1097);
-
+		List<BeneficiariesDTO> listBen = null;
+		if(healthID.contains("@")) {
+			listBen = identityBeneficiaryService.getBeneficiaryListByHealthID_ABHAAddress(healthID,
+					auth, is1097);
+		}else {
+			String healthIdNumber = getHealthId(healthID);
+			listBen = identityBeneficiaryService.getBeneficiaryListByHealthIDNo_ABHAIDNo(healthIdNumber, auth, is1097);
+		}
 		beneficiaryList = getBeneficiaryListFromMapper(listBen);
+		for (BeneficiaryModel beneficiaryModel : beneficiaryList) {
+			addCreatedDateToOtherFields(beneficiaryModel);
+		}
 		return beneficiaryList;
 	}
-
+	private String getHealthId(String healthID) {
+		String healthIdNumber = null;
+		if (null != healthID) {
+			if (healthID.length() == 17) {
+				healthIdNumber = healthID;
+			} else {
+				StringBuilder stringBuilder = new StringBuilder();
+				stringBuilder.append(healthID.substring(0, 2)).append("-");
+				stringBuilder.append(healthID.substring(2, 6)).append("-");
+				stringBuilder.append(healthID.substring(6, 10)).append("-");
+				stringBuilder.append(healthID.substring(10));
+				String formattedHealthID = stringBuilder.toString();
+				healthIdNumber = formattedHealthID;
+			}
+		}
+		return healthIdNumber;
+	}
 	// search patient by healthidNo / ABHA Id No
 	@Override
 	public List<BeneficiaryModel> userExitsCheckWithHealthIdNo_ABHAIdNo(String healthIDNo, String auth, Boolean is1097)
 			throws Exception {
 		// result list
 		List<BeneficiaryModel> beneficiaryList = new ArrayList<BeneficiaryModel>();
-		// search patient by ben id, call Identity API
-		List<BeneficiariesDTO> listBen = identityBeneficiaryService.getBeneficiaryListByHealthIDNo_ABHAIDNo(healthIDNo,
+		String healthId = getHealthId(healthIDNo);
+		List<BeneficiariesDTO> listBen = identityBeneficiaryService.getBeneficiaryListByHealthIDNo_ABHAIDNo(healthId,
 				auth, is1097);
 
 		beneficiaryList = getBeneficiaryListFromMapper(listBen);
+		for (BeneficiaryModel beneficiaryModel : beneficiaryList) {
+			addCreatedDateToOtherFields(beneficiaryModel);
+		}
 		return beneficiaryList;
 	}
 
@@ -248,9 +303,23 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 				auth, benPhoneMap.getIs1097());
 
 		beneficiaryList = getBeneficiaryListFromMapper(listBen);
+		for (BeneficiaryModel beneficiaryModel : beneficiaryList) {
+			addCreatedDateToOtherFields(beneficiaryModel);
+		}
+		setBeneficiaryGender(beneficiaryList);
 		logger.info("Serach user by phone no response size "
 				+ (beneficiaryList != null ? beneficiaryList.size() : "No Beneficiary Found"));
-		return OutputMapper.gson().toJson(beneficiaryList);
+		ObjectMapper mapper = new ObjectMapper();
+		String result = mapper.writeValueAsString(beneficiaryList);
+		return result;
+	}
+
+	private void setBeneficiaryGender(List<BeneficiaryModel> iBeneficiary) {
+		for (BeneficiaryModel beneficiaryModel : iBeneficiary) {
+			if (null != beneficiaryModel.getM_gender() && beneficiaryModel.getM_gender().getGenderName() != null)
+				beneficiaryModel.setGenderName(beneficiaryModel.getM_gender().getGenderName());
+		}
+
 	}
 
 	// Advance search
@@ -278,12 +347,12 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 			BigInteger numBig = new BigInteger(i_beneficiary.getBeneficiaryID());
 			identitySearchDTO.setBeneficiaryId(numBig);
 		}
-		
-		if(i_beneficiary.getIs1097() != null && i_beneficiary.getIs1097() == true) {
-            i_beneficiary.setIs1097(true);
-        }else {
-            i_beneficiary.setIs1097(false);
-        }
+
+		if (i_beneficiary.getIs1097() != null && i_beneficiary.getIs1097() == true) {
+			i_beneficiary.setIs1097(true);
+		} else {
+			i_beneficiary.setIs1097(false);
+		}
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		List<BeneficiariesDTO> listBen = identityBeneficiaryService
@@ -303,11 +372,15 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 		benDetailForOutboundDTOList.forEach(beneficiaryModel -> {
 
 			BeneficiaryModel beneficiary = benCompleteMapper.benDetailForOutboundDTOToIBeneficiary(beneficiaryModel);
+			if (beneficiary.getAge() == 0) {
+				beneficiary.setAge(beneficiary.getActualAge());
+			}
 			beneficiary.setBenPhoneMaps(benPhoneMapper.benPhoneMapToResponseByID(beneficiaryModel));
 			beneficiary.setSexualOrientation(
 					sexualOrientationMapper.sexualOrientationByIDToModel(beneficiary.getSexualOrientationID()));
 			beneficiary.setGovtIdentityType(
 					govtIdentityTypeMapper.govtIdentityTypeModelByIDToModel(beneficiary.getGovtIdentityTypeID()));
+
 			beneficiary.setI_bendemographics(benCompleteMapper.createBenDemographicsModel(beneficiaryModel));
 			beneficiary.getI_bendemographics().setHealthCareWorkerType(healthCareWorkerMapper
 					.getModelByWorkerID(beneficiary.getI_bendemographics().getHealthCareWorkerID()));
@@ -326,7 +399,7 @@ public class IEMRSearchUserServiceImpl implements IEMRSearchUserService {
 		});
 
 		beneficiaryList.removeIf(Objects::isNull);
-		//Collections.sort(beneficiaryList);
+		// Collections.sort(beneficiaryList);
 		return beneficiaryList;
 	}
 
