@@ -72,6 +72,8 @@ public class Beneficiary
 
 	private String titleName;
 
+	private List<Float> faceEmbedding;
+
 	@JsonIgnore
 
 	private Title m_title;
@@ -770,6 +772,23 @@ public class Beneficiary
 	}
 
 	public Beneficiary(Long BeneficiaryRegID, String BeneficiaryID, String FirstName, String MiddleName,
+			String LastName, Gender m_gender, Timestamp DOB, List<Float> faceEmbedding) {
+		this.beneficiaryRegID = BeneficiaryRegID;
+		this.beneficiaryID = BeneficiaryID;
+		this.firstName = FirstName;
+		this.middleName = MiddleName;
+		this.lastName = LastName;
+		this.m_gender = m_gender;
+		this.dOB = DOB;
+		if (DOB != null) {
+			this.age = Integer
+					.parseInt(formatYear.format(new Date(Calendar.getInstance().getTime().getTime() - DOB.getTime())))
+					- START_YEAR_1970;
+		}
+		this.faceEmbedding = faceEmbedding;
+	}
+
+	public Beneficiary(Long BeneficiaryRegID, String BeneficiaryID, String FirstName, String MiddleName,
 			String LastName, Gender m_gender, Timestamp DOB)
 	{
 		this.beneficiaryRegID = BeneficiaryRegID;
@@ -903,3 +922,4 @@ public class Beneficiary
 	// }
 
 }
+

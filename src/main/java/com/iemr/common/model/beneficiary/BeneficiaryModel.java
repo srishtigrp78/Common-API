@@ -242,6 +242,10 @@ public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 	private Boolean isD2D;
 
 	// END OF new column added for data sync
+	// new column added for face recognition
+	@Expose
+	private List<Float> faceEmbedding;
+	// END OF new column added for face recognition
 
 	// ABHA address
 	List<AbhaAddressDTO> abhaDetails;
@@ -376,3 +380,4 @@ public class BeneficiaryModel implements Comparable<BeneficiaryModel> {
 		return this.beneficiaryRegID.compareTo(ben.beneficiaryRegID);
 	}
 }
+
