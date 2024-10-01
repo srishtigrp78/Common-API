@@ -176,6 +176,7 @@ public class CustomizationServiceImpl implements CustomizationService {
 	@Override
 	public String saveSectionAndFields(SectionFieldsMappingDTO sectionFieldsMappingDTO, String Authorization)
 			throws Exception {
+		Map<String, Object> responseMap = new HashMap<>();
 		try {
 
 			if (sectionFieldsMappingDTO != null && sectionFieldsMappingDTO.getFields() != null
@@ -209,22 +210,22 @@ public class CustomizationServiceImpl implements CustomizationService {
 						if (sb.length() >= 1)
 							sectionAndFieldsMapping.setOption(sb.substring(0, sb.length() - 1));
 					}
-					if (!ObjectUtils.isEmpty(byFieldName) || byFieldName.size() > 0)// Added by Ravi
+					if (ObjectUtils.isEmpty(byFieldName))
 						sectionAndFieldsMappingList.add(sectionAndFieldsMapping);
 
 				}
-				if (!ObjectUtils.isEmpty(sectionAndFieldsMappingList) && sectionAndFieldsMappingList.size() > 0)// Added
-																												// by
-																												// Ravi
+				if (!ObjectUtils.isEmpty(sectionAndFieldsMappingList) && !sectionAndFieldsMappingList.isEmpty()) {
 					sectionAndFieldsMappingRepo.saveAll(sectionAndFieldsMappingList);
+					responseMap.put("response", "section and fields mapping done successfully");
+				}else {
+					throw new IllegalArgumentException("Invalid request: Field name already exists");
+				}
 			} else
-				throw new IllegalArgumentException("Invalid request: please pass valid request");
-			Map<String, Object> responseMap = new HashMap<>();
-			responseMap.put("response", "section and fields mapping done successfully");
-			return new Gson().toJson(responseMap);
+				throw new IllegalArgumentException("Invalid request: Please pass valid request");
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
+		return new Gson().toJson(responseMap);
 	}
 
 	@Override
