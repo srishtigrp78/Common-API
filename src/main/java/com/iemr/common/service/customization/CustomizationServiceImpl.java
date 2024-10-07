@@ -185,7 +185,7 @@ public class CustomizationServiceImpl implements CustomizationService {
 				List<SectionAndFieldsMapping> sectionAndFieldsMappingList = new ArrayList<>();
 				for (SectionAndFieldsMapping sectionFieldsMapping : sectionFieldsMappingDTO.getFields()) {
 					List<SectionAndFieldsMapping> byFieldName = sectionAndFieldsMappingRepo
-							.getByFieldName(sectionFieldsMapping.getFieldName());
+							.getByFieldName(sectionFieldsMapping.getFieldName(),sectionFieldsMapping.getServiceProviderId());
 					sectionAndFieldsMapping = new SectionAndFieldsMapping();
 					sectionAndFieldsMapping.setSectionId(sectionFieldsMappingDTO.getSectionId());
 					sectionAndFieldsMapping.setCreatedBy(sectionFieldsMappingDTO.getCreatedBy());
