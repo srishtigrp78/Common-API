@@ -36,6 +36,7 @@ jobs:
         
     - name: Upload WAR file as artifact
       uses: actions/upload-artifact@v3
+
       with:
         name: Common-API
         path: target/commonapi-v1.0.war
