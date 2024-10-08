@@ -54,6 +54,7 @@ import com.iemr.common.data.common.DocFileManager;
 public class KMFileManagerController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 	private KMFileManagerService kmFileManagerService;
+	private CommonServiceImpl commonServiceImpl;
 
 	@Autowired
 	public void setKmFileManagerService(KMFileManagerService kmFileManagerService) {
@@ -63,8 +64,13 @@ public class KMFileManagerController {
 	@Autowired
 	private SchemeServiceImpl schemeServiceImpl;
 	
-	@Autowired
-	private CommonServiceImpl commonServiceImpl;
+	
+	 @Autowired
+	    public KMFileManagerController(CommonServiceImpl commonServiceImpl) {
+	        this.commonServiceImpl = commonServiceImpl;
+	        
+	    }
+	
 	
 	@CrossOrigin()
 	@Operation(summary = "Save beneficairy documents locally")
@@ -80,7 +86,7 @@ public class KMFileManagerController {
 			if (s != null)
 				response.setResponse(s);
 		} catch (Exception e) {
-			logger.error("Error while saving files : " + e);
+			logger.error("Error while saving files : {}" , e);
 			response.setError(5000, "Error while saving files : " + e);
 		}
 
