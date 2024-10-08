@@ -22,13 +22,13 @@ public class AESEncryptionDecryption {
 	private  Logger logger = LoggerFactory.getLogger(AESEncryptionDecryption.class);
 	private static SecretKeySpec secretKey;
 	private  byte[] key;
-	final String secret = "amrith$%2022@&*piramal@@swasthya!#";
+	static final String secret = "amrith$%2022@&*piramal@@swasthya!#";
 
 	public  void setKey(String myKey) {
 		MessageDigest sha = null;
 		try {
 			key = myKey.getBytes("UTF-8");
-			sha = MessageDigest.getInstance("SHA-1");
+			sha = MessageDigest.getInstance("SHA-512");
 			key = sha.digest(key);
 			key = Arrays.copyOf(key, 16);
 			secretKey = new SecretKeySpec(key, "AES");
@@ -47,7 +47,7 @@ public class AESEncryptionDecryption {
 			cipher.init(Cipher.ENCRYPT_MODE, secretKey);
 			encryptedString= Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt.getBytes("UTF-8")));
 		} catch (Exception e) {
-			logger.error("Error while encrypting: "+e.toString());
+			logger.error("Error while encrypting: {}", e.toString());
 			throw new Exception("Error while encrypting: "+e.toString());
 		}
 		return encryptedString;

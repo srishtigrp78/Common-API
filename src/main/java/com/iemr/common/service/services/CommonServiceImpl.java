@@ -62,6 +62,9 @@ public class CommonServiceImpl implements CommonService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 	
+	private static final String filePath = "filePath";  
+
+	
 	/**
 	 * Designation repository
 	 */
@@ -69,6 +72,7 @@ public class CommonServiceImpl implements CommonService {
 	private CategoryRepository categoryRepository;
 	private SubCategoryRepository subCategoryRepository;
 	private KMFileManagerRepository kmFileManagerRepository;
+	private AESEncryptionDecryption aESEncryptionDecryption;
 
 	private InputMapper inputMapper = new InputMapper();
 
@@ -103,7 +107,10 @@ public class CommonServiceImpl implements CommonService {
 	}
 	
 	@Autowired
-	private AESEncryptionDecryption aESEncryptionDecryption;
+	public CommonServiceImpl(AESEncryptionDecryption aESEncryptionDecryption) {
+		this.aESEncryptionDecryption = aESEncryptionDecryption;
+	}
+	
 
 	@Value("${fileBasePath}")
 	private String fileBasePath;
@@ -258,7 +265,7 @@ public class CommonServiceImpl implements CommonService {
 			String currDate) throws IOException {
 		ArrayList<Map<String, String>> responseList = new ArrayList<>();
 		Map<String, String> responseMap;
-		FileOutputStream FOS = null;
+		FileOutputStream fileOutput = null;
 		try
 		{
 		
@@ -275,25 +282,23 @@ public class CommonServiceImpl implements CommonService {
 						.replace("\"", "").replace("'", ""));
 
 				Long currTimestamp = System.currentTimeMillis();
-				FOS = new FileOutputStream(
+				fileOutput = new FileOutputStream(
 						basePath + "/" + currDate + "/" + currTimestamp + dFM.getFileName());
 
-				FOS.write(Base64.getDecoder().decode(dFM.getFileContent()));
+				fileOutput.write(Base64.getDecoder().decode(dFM.getFileContent()));
 
 				responseMap.put("fileName", dFM.getFileName());
-				responseMap.put("filePath", basePath + "/" + currDate + "/" + currTimestamp + dFM.getFileName());
-//						+ System.currentTimeMillis() + dFM.getFileExtension());
-//				returnOBJ[i] = basePath + "/" + currDate + "/" + dFM.getFileName() + System.currentTimeMillis()
-//						+ dFM.getFileExtension();
+				responseMap.put(filePath, basePath + "/" + currDate + "/" + currTimestamp + dFM.getFileName());
 
-				FOS.flush();
+
+				fileOutput.flush();
 				
 				
 				responseList.add(responseMap);
 			}
 			
-			if(FOS!=null)
-    			FOS.close();
+			if(fileOutput!=null)
+    			fileOutput.close();
 		}
 		}
 		catch(Exception e)
@@ -302,8 +307,8 @@ public class CommonServiceImpl implements CommonService {
     	}
     	finally
     	{
-    		if(FOS!=null)
-    			FOS.close();
+    		if(fileOutput!=null)
+    			fileOutput.close();
     	}
 		return responseList;
 		
@@ -314,15 +319,14 @@ public class CommonServiceImpl implements CommonService {
 		@Override
 		public String saveFiles(List<DocFileManager> docFileManagerList) throws Exception {
 			ArrayList<Map<String, String>> responseList = new ArrayList<>();
-			// this will come from property file
-			// String basePath = "C:/apps/Neeraj/mmuDoc";
+
 			String basePath = fileBasePath;
 
 			String currDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 
-			if (docFileManagerList.size() > 0) {
+			if (!docFileManagerList.isEmpty()) {
 				basePath += docFileManagerList.get(0).getVanID();
-				File file = new File(basePath + "/" + currDate);
+				File file = new File(basePath + File.separator + currDate);
 
 				if (file.isDirectory()) {
 					responseList = createFile(docFileManagerList, basePath, currDate);
@@ -340,8 +344,8 @@ public class CommonServiceImpl implements CommonService {
 			 *
 			 */
 					for (Map<String, String> obj : responseList) {
-						String encryptedFilePath = aESEncryptionDecryption.encrypt(obj.get("filePath"));
-						obj.put("filePath",encryptedFilePath);
+						String encryptedFilePath = aESEncryptionDecryption.encrypt(obj.get(filePath));
+						obj.put(filePath,encryptedFilePath);
 					}
 					return new Gson().toJson(responseList);
 				}
