@@ -23,7 +23,7 @@ public interface SectionAndFieldsMappingRepo extends CrudRepository<SectionAndFi
 	@Query("SELECT sfm FROM SectionAndFieldsMapping sfm WHERE sfm.id = :id")
 	SectionAndFieldsMapping getById(@Param("id") Integer id);
 
-	@Query("SELECT sfm FROM SectionAndFieldsMapping sfm WHERE sfm.fieldName = :fieldName")
-	List<SectionAndFieldsMapping> getByFieldName(@Param("fieldName") String fieldName);
+	@Query("SELECT sfm FROM SectionAndFieldsMapping sfm WHERE sfm.fieldName = :fieldName and sfm.serviceProviderId = :serviceProviderId")
+	List<SectionAndFieldsMapping> getByFieldName(@Param("fieldName") String fieldName,@Param("serviceProviderId") Integer serviceProviderId);
 	
 }
