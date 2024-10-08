@@ -64,7 +64,6 @@ public class CommonServiceImpl implements CommonService {
 	
 	private static final String filePath = "filePath";  
 
-	
 	/**
 	 * Designation repository
 	 */
