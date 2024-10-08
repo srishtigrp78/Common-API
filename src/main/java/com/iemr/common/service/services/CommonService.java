@@ -21,6 +21,7 @@
 */
 package com.iemr.common.service.services;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -29,6 +30,7 @@ import com.iemr.common.data.category.CategoryDetails;
 import com.iemr.common.data.category.SubCategoryDetails;
 import com.iemr.common.data.service.SubService;
 import com.iemr.common.utils.exception.IEMRException;
+import com.iemr.common.data.common.DocFileManager;
 
 public interface CommonService
 {
@@ -45,5 +47,7 @@ public interface CommonService
 	public List<SubCategoryDetails> getSubCategoryFiles(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 	
 	public List<SubCategoryDetails> getSubCategoryFilesWithURL(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
+
+	public String saveFiles(List<DocFileManager> docFileManagerList) throws IOException, Exception;
 
 }

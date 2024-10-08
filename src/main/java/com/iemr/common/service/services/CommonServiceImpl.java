@@ -21,15 +21,29 @@
 */
 package com.iemr.common.service.services;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.iemr.common.data.category.CategoryDetails;
 import com.iemr.common.data.category.SubCategoryDetails;
 import com.iemr.common.data.service.SubService;
@@ -40,10 +54,14 @@ import com.iemr.common.repository.services.ServiceTypeRepository;
 import com.iemr.common.utils.config.ConfigProperties;
 import com.iemr.common.utils.exception.IEMRException;
 import com.iemr.common.utils.mapper.InputMapper;
+import com.iemr.common.utils.AESEncryption.AESEncryptionDecryption;
+import com.iemr.common.data.common.DocFileManager;
 
 @Service
 public class CommonServiceImpl implements CommonService {
 
+	private Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
+	
 	/**
 	 * Designation repository
 	 */
@@ -83,7 +101,12 @@ public class CommonServiceImpl implements CommonService {
 	public void setKmFileManagerRepository(KMFileManagerRepository kmFileManagerRepository) {
 		this.kmFileManagerRepository = kmFileManagerRepository;
 	}
+	
+	@Autowired
+	private AESEncryptionDecryption aESEncryptionDecryption;
 
+	@Value("${fileBasePath}")
+	private String fileBasePath;
 	
 	@Override
 	public Iterable<CategoryDetails> getCategories() {
@@ -230,5 +253,98 @@ public class CommonServiceImpl implements CommonService {
 		}
 		return subServices;
 	}
+	
+	private ArrayList<Map<String, String>> createFile(List<DocFileManager> docFileManagerList, String basePath,
+			String currDate) throws IOException {
+		ArrayList<Map<String, String>> responseList = new ArrayList<>();
+		Map<String, String> responseMap;
+		FileOutputStream FOS = null;
+		try
+		{
+		
+		
+		for (DocFileManager dFM : docFileManagerList) {
+			if (dFM.getFileName() != null && dFM.getFileExtension() != null) {
+				responseMap = new HashMap<>();
+				dFM.setFileName(dFM.getFileName().replace("`", "").replace("'", "").replace("$", "").replace("\\", "")
+						.replace("/", "").replace("~", "").replace("`", "").replace("!", "").replace("@", "")
+						.replace("#", "").replace("$", "").replace("%", "").replace("^", "").replace("&", "")
+						.replace("*", "").replace("(", "").replace(")", "").replace("{", "").replace("}", "")
+						.replace("[", "").replace("]", "").replace("|", "").replace("\\", "").replace(":", "")
+						.replace(";", "").replace("-", "").replace("_", "").replace("+", "").replace("=", "")
+						.replace("\"", "").replace("'", ""));
 
+				Long currTimestamp = System.currentTimeMillis();
+				FOS = new FileOutputStream(
+						basePath + "/" + currDate + "/" + currTimestamp + dFM.getFileName());
+
+				FOS.write(Base64.getDecoder().decode(dFM.getFileContent()));
+
+				responseMap.put("fileName", dFM.getFileName());
+				responseMap.put("filePath", basePath + "/" + currDate + "/" + currTimestamp + dFM.getFileName());
+//						+ System.currentTimeMillis() + dFM.getFileExtension());
+//				returnOBJ[i] = basePath + "/" + currDate + "/" + dFM.getFileName() + System.currentTimeMillis()
+//						+ dFM.getFileExtension();
+
+				FOS.flush();
+				
+				
+				responseList.add(responseMap);
+			}
+			
+			if(FOS!=null)
+    			FOS.close();
+		}
+		}
+		catch(Exception e)
+    	{
+    		logger.error(e.getMessage());
+    	}
+    	finally
+    	{
+    		if(FOS!=null)
+    			FOS.close();
+    	}
+		return responseList;
+		
+	}
+
+
+	// files upload/save start
+		@Override
+		public String saveFiles(List<DocFileManager> docFileManagerList) throws Exception {
+			ArrayList<Map<String, String>> responseList = new ArrayList<>();
+			// this will come from property file
+			// String basePath = "C:/apps/Neeraj/mmuDoc";
+			String basePath = fileBasePath;
+
+			String currDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+
+			if (docFileManagerList.size() > 0) {
+				basePath += docFileManagerList.get(0).getVanID();
+				File file = new File(basePath + "/" + currDate);
+
+				if (file.isDirectory()) {
+					responseList = createFile(docFileManagerList, basePath, currDate);
+				} else {
+					// create a new directory
+					Files.createDirectories(Paths.get(basePath + "/" + currDate));
+					responseList = createFile(docFileManagerList, basePath, currDate);
+				}
+			}
+			/*
+			 *
+			 *
+			 AN40085822 - Internal path disclosure -encryption
+			 *
+			 *
+			 */
+					for (Map<String, String> obj : responseList) {
+						String encryptedFilePath = aESEncryptionDecryption.encrypt(obj.get("filePath"));
+						obj.put("filePath",encryptedFilePath);
+					}
+					return new Gson().toJson(responseList);
+				}
+
+	
 }

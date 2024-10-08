@@ -21,12 +21,16 @@
 */
 package com.iemr.common.controller.kmfilemanager;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.ws.rs.core.MediaType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,13 +38,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.iemr.common.data.kmfilemanager.KMFileManager;
 import com.iemr.common.mapper.utils.InputMapper;
+
 import com.iemr.common.service.kmfilemanager.KMFileManagerService;
 import com.iemr.common.service.scheme.SchemeServiceImpl;
+import com.iemr.common.service.services.CommonServiceImpl;
 import com.iemr.common.utils.response.OutputResponse;
 
 import io.lettuce.core.dynamic.annotation.Param;
 import io.swagger.v3.oas.annotations.Operation;
-
+import com.iemr.common.data.common.DocFileManager;
 
 
 @RequestMapping({ "/kmfilemanager" })
@@ -56,6 +62,32 @@ public class KMFileManagerController {
 
 	@Autowired
 	private SchemeServiceImpl schemeServiceImpl;
+	
+	@Autowired
+	private CommonServiceImpl commonServiceImpl;
+	
+	@CrossOrigin()
+	@Operation(summary = "Save beneficairy documents locally")
+	@PostMapping(value = { "/saveFiles" }, consumes = "application/json", produces = "application/json")
+	public String saveFiles(@RequestBody String request) {
+		OutputResponse response = new OutputResponse();
+
+		try {
+			DocFileManager[] docFileManager = InputMapper.getInstance().fromJson(request, DocFileManager[].class);
+
+			List<DocFileManager> docFileManagerList = Arrays.asList(docFileManager);
+			String s = commonServiceImpl.saveFiles(docFileManagerList);
+			if (s != null)
+				response.setResponse(s);
+		} catch (Exception e) {
+			logger.error("Error while saving files : " + e);
+			response.setError(5000, "Error while saving files : " + e);
+		}
+
+		return response.toString();
+	}
+
+	
 
 	@CrossOrigin
 	@Operation(summary = "Add file")
