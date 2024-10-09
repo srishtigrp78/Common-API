@@ -1,4 +1,4 @@
-package com.iemr.common.utils.aesEncryption;
+package com.iemr.common.utils.aesencryption;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -13,7 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.iemr.common.utils.aesEncryption.AESEncryptionDecryption;
+import com.iemr.common.encryption.exception.DecryptionException;
+import com.iemr.common.encryption.exception.EncryptionException;
+import com.iemr.common.utils.aesencryption.AESEncryptionDecryption;
 
 
 @Component
@@ -38,7 +40,7 @@ public class AESEncryptionDecryption {
 	}
 
 
-	public  String encrypt(String strToEncrypt) throws Exception {
+	public  String encrypt(String strToEncrypt) throws EncryptionException {
 		 String encryptedString=null;
 		try {
 			if (secretKey == null)
@@ -48,13 +50,13 @@ public class AESEncryptionDecryption {
 			encryptedString= Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt.getBytes("UTF-8")));
 		} catch (Exception e) {
 			logger.error("Error while encrypting: {}", e.toString());
-			throw new Exception("Error while encrypting: "+e.toString());
+			throw new EncryptionException("Error while encrypting: "+e.toString(), e);
 		}
 		return encryptedString;
 	}
 
 
-	public  String decrypt(String strToDecrypt) throws Exception {
+	public  String decrypt(String strToDecrypt) throws DecryptionException {
 		 String decryptedString=null;
 		try {
 			if (secretKey == null)
@@ -63,8 +65,8 @@ public class AESEncryptionDecryption {
 			cipher.init(Cipher.DECRYPT_MODE, secretKey);
 			decryptedString= new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt)));
 		} catch (Exception e) {
-			logger.error("Error while decrypting: {0}",e.toString());
-			throw new Exception("Error while decrypting: "+e.toString());
+			logger.error("Error while decrypting: {}",e.toString());
+			throw new DecryptionException("Error while decrypting: "+e.toString(), e);
 		}
 		return decryptedString;
 	}
