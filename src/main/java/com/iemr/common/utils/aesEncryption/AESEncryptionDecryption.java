@@ -1,4 +1,4 @@
-package com.iemr.common.utils.AesEncryption;
+package com.iemr.common.utils.aesEncryption;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.iemr.common.utils.AesEncryption.AESEncryptionDecryption;
+import com.iemr.common.utils.aesEncryption.AESEncryptionDecryption;
 
 
 @Component

@@ -51,7 +51,7 @@ import com.iemr.common.repository.category.CategoryRepository;
 import com.iemr.common.repository.category.SubCategoryRepository;
 import com.iemr.common.repository.kmfilemanager.KMFileManagerRepository;
 import com.iemr.common.repository.services.ServiceTypeRepository;
-import com.iemr.common.utils.AesEncryption.AESEncryptionDecryption;
+import com.iemr.common.utils.aesEncryption.AESEncryptionDecryption;
 import com.iemr.common.utils.config.ConfigProperties;
 import com.iemr.common.utils.exception.IEMRException;
 import com.iemr.common.utils.mapper.InputMapper;
