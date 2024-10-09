@@ -324,7 +324,11 @@ public class CommonServiceImpl implements CommonService {
 			String currDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 
 			if (!docFileManagerList.isEmpty()) {
-				basePath += docFileManagerList.get(0).getVanID();
+				Integer vanId = docFileManagerList.get(0).getVanID();
+				if (vanId == null) {
+					throw new IllegalArgumentException("VanId cannot be null or empty");
+				}
+				basePath += vanId;
 				File file = new File(basePath + File.separator + currDate);
 
 				if (file.isDirectory()) {
