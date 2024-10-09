@@ -86,7 +86,7 @@ public class KMFileManagerController {
 			if (s != null)
 				response.setResponse(s);
 		} catch (Exception e) {
-			logger.error("Error while saving files : {}" , e);
+			logger.error("Error while saving files : {0}" , e);
 			response.setError(5000, "Error while saving files : " + e);
 		}
 

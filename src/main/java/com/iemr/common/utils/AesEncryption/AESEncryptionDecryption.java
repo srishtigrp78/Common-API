@@ -1,4 +1,4 @@
-package com.iemr.common.utils.AESEncryption;
+package com.iemr.common.utils.AesEncryption;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -13,18 +13,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.iemr.common.utils.AESEncryption.AESEncryptionDecryption;
+import com.iemr.common.utils.AesEncryption.AESEncryptionDecryption;
 
 
 @Component
 public class AESEncryptionDecryption {
 
-	private  Logger logger = LoggerFactory.getLogger(AESEncryptionDecryption.class);
+	private static  Logger logger = LoggerFactory.getLogger(AESEncryptionDecryption.class);
 	private static SecretKeySpec secretKey;
-	private  byte[] key;
-	static final String secret = "amrith$%2022@&*piramal@@swasthya!#";
+	private static  byte[] key;
+	static final String SECRET = "amrith$%2022@&*piramal@@swasthya!#";
 
-	public  void setKey(String myKey) {
+	public static void setKey(String myKey) {
 		MessageDigest sha = null;
 		try {
 			key = myKey.getBytes("UTF-8");
@@ -42,7 +42,7 @@ public class AESEncryptionDecryption {
 		 String encryptedString=null;
 		try {
 			if (secretKey == null)
-			     setKey(secret);
+			     setKey(SECRET);
 			Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
 			cipher.init(Cipher.ENCRYPT_MODE, secretKey);
 			encryptedString= Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt.getBytes("UTF-8")));
@@ -58,12 +58,12 @@ public class AESEncryptionDecryption {
 		 String decryptedString=null;
 		try {
 			if (secretKey == null)
-				setKey(secret);
+				setKey(SECRET);
 			Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
 			cipher.init(Cipher.DECRYPT_MODE, secretKey);
 			decryptedString= new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt)));
 		} catch (Exception e) {
-			logger.error("Error while decrypting: "+e.toString());
+			logger.error("Error while decrypting: {0}",e.toString());
 			throw new Exception("Error while decrypting: "+e.toString());
 		}
 		return decryptedString;

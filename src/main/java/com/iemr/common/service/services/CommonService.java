@@ -48,6 +48,6 @@ public interface CommonService
 	
 	public List<SubCategoryDetails> getSubCategoryFilesWithURL(String request) throws IEMRException, JsonMappingException, JsonProcessingException;
 
-	public String saveFiles(List<DocFileManager> docFileManagerList) throws Exception;
+	public String saveFiles(List<DocFileManager> docFileManagerList) throws IOException, Exception;
 
 }

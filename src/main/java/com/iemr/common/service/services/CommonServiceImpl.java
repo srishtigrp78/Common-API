@@ -51,10 +51,10 @@ import com.iemr.common.repository.category.CategoryRepository;
 import com.iemr.common.repository.category.SubCategoryRepository;
 import com.iemr.common.repository.kmfilemanager.KMFileManagerRepository;
 import com.iemr.common.repository.services.ServiceTypeRepository;
+import com.iemr.common.utils.AesEncryption.AESEncryptionDecryption;
 import com.iemr.common.utils.config.ConfigProperties;
 import com.iemr.common.utils.exception.IEMRException;
 import com.iemr.common.utils.mapper.InputMapper;
-import com.iemr.common.utils.AESEncryption.AESEncryptionDecryption;
 import com.iemr.common.data.common.DocFileManager;
 
 @Service
@@ -62,7 +62,7 @@ public class CommonServiceImpl implements CommonService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 	
-	private static final String filePath = "filePath";  
+	private static final String FILE_PATH = "filePath";  
 
 	/**
 	 * Designation repository
@@ -287,7 +287,7 @@ public class CommonServiceImpl implements CommonService {
 				fileOutput.write(Base64.getDecoder().decode(dFM.getFileContent()));
 
 				responseMap.put("fileName", dFM.getFileName());
-				responseMap.put(filePath, basePath + "/" + currDate + "/" + currTimestamp + dFM.getFileName());
+				responseMap.put(FILE_PATH, basePath + "/" + currDate + "/" + currTimestamp + dFM.getFileName());
 
 
 				fileOutput.flush();
@@ -316,7 +316,7 @@ public class CommonServiceImpl implements CommonService {
 
 	// files upload/save start
 		@Override
-		public String saveFiles(List<DocFileManager> docFileManagerList) throws Exception {
+		public String saveFiles(List<DocFileManager> docFileManagerList) throws IOException, Exception {
 			ArrayList<Map<String, String>> responseList = new ArrayList<>();
 
 			String basePath = fileBasePath;
@@ -343,8 +343,8 @@ public class CommonServiceImpl implements CommonService {
 			 *
 			 */
 					for (Map<String, String> obj : responseList) {
-						String encryptedFilePath = aESEncryptionDecryption.encrypt(obj.get(filePath));
-						obj.put(filePath,encryptedFilePath);
+						String encryptedFilePath = aESEncryptionDecryption.encrypt(obj.get(FILE_PATH));
+						obj.put(FILE_PATH,encryptedFilePath);
 					}
 					return new Gson().toJson(responseList);
 				}
