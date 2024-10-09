@@ -54,6 +54,8 @@ import com.iemr.common.data.common.DocFileManager;
 public class KMFileManagerController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 	private KMFileManagerService kmFileManagerService;
+	
+	
 	private CommonServiceImpl commonServiceImpl;
 
 	@Autowired
@@ -65,7 +67,7 @@ public class KMFileManagerController {
 	private SchemeServiceImpl schemeServiceImpl;
 	
 	
-	 @Autowired
+	 
 	    public KMFileManagerController(CommonServiceImpl commonServiceImpl) {
 	        this.commonServiceImpl = commonServiceImpl;
 	        

@@ -32,6 +32,7 @@ import com.iemr.common.data.service.SubService;
 import com.iemr.common.utils.exception.IEMRException;
 import com.iemr.common.data.common.DocFileManager;
 
+
 public interface CommonService
 {
 	public Iterable<CategoryDetails> getCategories();
