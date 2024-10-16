@@ -29,13 +29,13 @@ public class AESEncryptionDecryption {
 
 	private byte[] key;
 
-	private final String secret = "amrith$%2022@&*piramal@@swasthya!#";
+	private static final String secret = "amrith$%2022@&*piramal@@swasthya!#";
 
 	private static final int IV_SIZE = 12;
 
 	private static final int TAG_SIZE = 128;
 
-	private final String UTF_8 = "UTF-8";
+	private static final String UTF_8 = "UTF-8";
  
 	public void setKey(String myKey) {
 
