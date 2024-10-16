@@ -23,13 +23,13 @@ import com.iemr.common.utils.aesencryption.AESEncryptionDecryption;
 public class AESEncryptionDecryption {
 
 	
-	private Logger logger = LoggerFactory.getLogger(AESEncryptionDecryption.class);
+	private static Logger logger = LoggerFactory.getLogger(AESEncryptionDecryption.class);
 
 	private static SecretKeySpec secretKey;
 
-	private byte[] key;
+	private static byte[] key;
 
-	private static final String secret = "amrith$%2022@&*piramal@@swasthya!#";
+	private static final String SECRET = "amrith$%2022@&*piramal@@swasthya!#";
 
 	private static final int IV_SIZE = 12;
 
@@ -37,7 +37,7 @@ public class AESEncryptionDecryption {
 
 	private static final String UTF_8 = "UTF-8";
  
-	public void setKey(String myKey) {
+	public static void setKey(String myKey) {
 
 		try {
 
@@ -63,7 +63,7 @@ public class AESEncryptionDecryption {
 
 		if (secretKey == null)
 
-			setKey(secret);
+			setKey(SECRET);
 
 		Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
  
@@ -93,7 +93,7 @@ public class AESEncryptionDecryption {
 
 		if (secretKey == null)
 
-			setKey(secret);
+			setKey(SECRET);
  
 		byte[] encryptedIvAndText = Base64.getDecoder().decode(strToDecrypt);
 
